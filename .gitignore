@@ -82,7 +82,7 @@ data/processed/*
 data/external/*
 
 # exclude models from source control by default
-models/
+models/*
 
 # gitkeep files
 !.gitkeep
