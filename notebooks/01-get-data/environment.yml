@@ -1,0 +1,18 @@
+name: get-data
+dependencies:
+  - python=3.10
+  - pip==23.0.1
+  - pip:
+    - Jinja2==3.1.2
+    - pyarrow==11.0.0
+    - pandas==2.0.0
+    - pydata-google-auth==1.7.0
+    - google-auth==2.17.1
+    - google-auth-oauthlib==1.0.0
+    - google-cloud-bigquery==3.9.0
+    - google-cloud-bigquery-storage==2.19.1
+    - pandas-gbq==0.19.1
+  - conda==4.3.16
+  - conda:
+    - nb_black==1.0.7
+    - ipykernel==6.22.0

@@ -1,0 +1,107 @@
+version: '3.9' # version of compose format
+
+services:
+  get-data:
+    container_name: get-data
+    build:
+      context: ./notebooks/01-get-data
+      dockerfile: Dockerfile
+    restart: 'no'
+    ports:
+      - 8888:8888
+    env_file: ${HOME}/Downloads/.env
+    environment:
+      NB_UID: 1000
+      NB_GID: 1000
+    volumes:
+      - ./notebooks/01-get-data/notebooks:/home/jovyan/notebooks
+      - ./src:/home/jovyan/src
+      - ./data:/home/jovyan/data
+
+  eda:
+    container_name: eda
+    build:
+      context: ./notebooks/02-eda
+      dockerfile: Dockerfile
+    restart: 'no'
+    ports:
+      - 8889:8888
+    env_file: ${HOME}/Downloads/.env
+    environment:
+      NB_UID: 1000
+      NB_GID: 1000
+    volumes:
+      - ./notebooks/02-eda/notebooks:/home/jovyan/notebooks
+      - ./src:/home/jovyan/src
+      - ./data:/home/jovyan/data
+
+  transform:
+    container_name: transform
+    build:
+      context: ./notebooks/03-transform
+      dockerfile: Dockerfile
+    restart: 'no'
+    ports:
+      - 8890:8888
+    env_file: ${HOME}/Downloads/.env
+    environment:
+      NB_UID: 1000
+      NB_GID: 1000
+    volumes:
+      - ./notebooks/03-transform/notebooks:/home/jovyan/notebooks
+      - ./src:/home/jovyan/src
+      - ./data:/home/jovyan/data
+
+  development:
+    container_name: development
+    build:
+      context: ./notebooks/04-development
+      dockerfile: Dockerfile
+    restart: 'no'
+    ports:
+      - 8891:8888
+    env_file: ${HOME}/Downloads/.env
+    environment:
+      NB_UID: 1000
+      NB_GID: 1000
+    volumes:
+      - ./notebooks/04-development/notebooks:/home/jovyan/notebooks
+      - ./src:/home/jovyan/src
+      - ./data:/home/jovyan/data
+      - ./models:/home/jovyan/models
+
+  post-process:
+    container_name: post-process
+    build:
+      context: ./notebooks/05-post-process
+      dockerfile: Dockerfile
+    restart: 'no'
+    ports:
+      - 8892:8888
+    env_file: ${HOME}/Downloads/.env
+    environment:
+      NB_UID: 1000
+      NB_GID: 1000
+    volumes:
+      - ./notebooks/05-post-process/notebooks:/home/jovyan/notebooks
+      - ./src:/home/jovyan/src
+      - ./data:/home/jovyan/data
+      - ./models:/home/jovyan/models
+
+  create-audience:
+    container_name: create-audience
+    build:
+      context: ./notebooks/06-create-audience
+      dockerfile: Dockerfile
+    restart: 'no'
+    ports:
+      - 8893:8888
+    env_file: ${HOME}/Downloads/.env
+    environment:
+      NB_UID: 1000
+      NB_GID: 1000
+    volumes:
+      - ./notebooks/06-create-audience/notebooks:/home/jovyan/notebooks
+      - ./src:/home/jovyan/src
+      - ./data:/home/jovyan/data
+      - ./models:/home/jovyan/models

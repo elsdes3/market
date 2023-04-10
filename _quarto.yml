@@ -1,0 +1,68 @@
+project:
+  type: website
+  preview:
+    port: 4200
+    browser: true
+  render:
+    - "*.qmd"
+    - references/scoping/*.qmd
+    - "notebooks/*/notebooks/*_dummy.ipynb"
+  output-dir: _site
+
+website:
+  page-navigation: true
+  reader-mode: false
+  back-to-top-navigation: true
+  repo-url: https://github.com/elsdes3/market
+  repo-actions: [edit, issue]
+  title: "Machine Learning Project"
+
+  navbar:
+    background: primary
+    search: false
+
+  page-footer:
+    left: ""
+    right: ""
+
+  sidebar:
+    logo: "images/lorip_square.jpg"
+    pinned: true
+    align: center
+    style: "docked"
+    search: true
+    collapse-level: 1
+    contents:
+      - href: index.qmd
+        text: Welcome
+      - href: notebooks/01-get-data/notebooks/01_get_data_dummy.ipynb
+        text: Get Data
+      - href: notebooks/06-create-audience/notebooks/07_create_audience_dummy.ipynb
+        text: Create Audience
+
+format:
+  html:
+    grid:
+      sidebar-width: 150px
+      margin-width: 300px
+      body-width: 1100px
+      gutter-width: 1.5em
+    page-layout: full
+    smooth-scroll: true
+    theme:
+      light: [cosmo, theme.scss] # from https://github.com/sta210-s22/website/blob/main/_quarto.yml
+    code-copy: true
+    code-overflow: wrap
+    code-fold: true
+    toc: true
+    toc-expand: 3
+    toc-title: On this page
+    toc-location: right
+    toc-fold: true
+    link-external-icon: false
+    link-external-newwindow: true
+    link-external-filter: '^(?:http:|https:)\/\/www\.quarto\.org\/custom'
+
+filters:
+  - include-files.lua
+  - quarto
