@@ -3,7 +3,7 @@ title: "Machine Learning for Propensity Modeling"
 subtitle: "Leveraging data science to explore the feasability of implementing a marketing use-case with e-commerce tracking data"
 ---
 
-## Welcome to the Project
+## Welcome
 E-Commerce is important since it allows a business to reach customers across a larger footprint than a group of physical (brick-and-mortar) stores. Visitors to an e-commerce store can make a purchase at an time, in any location and in their choice of currency. The ability to attract such a diverse customer base is the main [value of e-commerce to a business](https://www.linkedin.com/pulse/top-6-reasons-why-e-commerce-so-important-your-business-?trk=organization-update-content_share-article). While website traffic is a highly-tracked metric by e-commerce businesses, their hard work and efforts to attract visitors to their site should not go to waste. It is [customers that every e-commerce site owner needs to sustain their business](https://www.linkedin.com/pulse/visitors-customerswhich-one-do-you-want-cody-jensen).
 
 ## Problem with Visitors to an E-Commerce Store

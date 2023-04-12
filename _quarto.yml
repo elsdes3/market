@@ -36,7 +36,7 @@ website:
     contents:
       - href: index.qmd
         text: Welcome
-      - href: scope.qmd
+      - href: references/scoping/Scope.qmd
         text: Scope
       - href: notebooks/01-get-data/notebooks/01_get_data.ipynb
         text: Get Data
