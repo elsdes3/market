@@ -1,4 +1,4 @@
-name: Quarto Publish
+name: Render and Publish
 
 on:
   workflow_dispatch:
@@ -16,13 +16,6 @@ jobs:
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
-
-      # - name: Install Python and Dependencies
-      #   uses: actions/setup-python@v4
-      #   with:
-      #     python-version: '3.10'
-      #     cache: 'pip'
-      # - run: pip install jupyter==1.0.0
 
       # - name: Render and Publish
       #   uses: quarto-dev/quarto-actions/publish@v2

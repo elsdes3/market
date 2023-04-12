@@ -6,7 +6,8 @@ project:
   render:
     - "*.qmd"
     - references/scoping/*.qmd
-    - "notebooks/*/notebooks/*_dummy.ipynb"
+    - "notebooks/*/notebooks/*.ipynb"
+    - "!notebooks/*/notebooks/*_dummy.ipynb"
   output-dir: _site
 
 website:
@@ -35,10 +36,14 @@ website:
     contents:
       - href: index.qmd
         text: Welcome
-      - href: notebooks/01-get-data/notebooks/01_get_data_dummy.ipynb
+      - href: notebooks/01-get-data/notebooks/01_get_data.ipynb
         text: Get Data
-      - href: notebooks/06-create-audience/notebooks/07_create_audience_dummy.ipynb
-        text: Create Audience
+      - href: notebooks/02-prepare/notebooks/02_prepare.ipynb
+        text: Prepare Data
+      - href: notebooks/03-eda/notebooks/02_eda.ipynb
+        text: Explore Data
+      # - href: notebooks/06-create-audience/notebooks/07_create_audience.ipynb
+      #   text: Create Audience
 
 format:
   html:

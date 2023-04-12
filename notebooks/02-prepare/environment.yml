@@ -1,11 +1,9 @@
-name: eda
+name: prepare
 dependencies:
   - python=3.10
   - pip==23.0.1
   - pip:
     - Jinja2==3.1.2
-    - matplotlib==3.7.1
-    - seaborn==0.12.2
     - pyarrow==11.0.0
     - pandas==2.0.0
     - pydata-google-auth==1.7.0

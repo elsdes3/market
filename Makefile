@@ -19,6 +19,12 @@ get-data:
 	@docker compose up get-data --detach
 .PHONY: get-data
 
+## Run prepare service
+prepare:
+	@echo "+ $@"
+	@docker compose up prepare --detach
+.PHONY: prepare
+
 ## Run eda service
 eda:
 	@echo "+ $@"
@@ -54,6 +60,12 @@ get-data-logs:
 	@echo "+ $@"
 	@./utils.sh "get-data"
 .PHONY: get-data-logs
+
+## Get logs for prepare service
+prepare-logs:
+	@echo "+ $@"
+	@./utils.sh "prepare"
+.PHONY: prepare-logs
 
 ## Get logs for eda service
 eda-logs:
@@ -102,6 +114,12 @@ reset-get-data:
 	@echo "+ $@"
 	@./utils.sh "reset-get-data"
 .PHONY: reset-get-data
+
+## Reset prepare service
+reset-prepare:
+	@echo "+ $@"
+	@./utils.sh "reset-prepare"
+.PHONY: reset-prepare
 
 ## Reset eda service
 reset-eda:

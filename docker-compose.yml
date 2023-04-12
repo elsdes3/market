@@ -15,13 +15,12 @@ services:
       NB_GID: 1000
     volumes:
       - ./notebooks/01-get-data/notebooks:/home/jovyan/notebooks
-      - ./src:/home/jovyan/src
       - ./data:/home/jovyan/data
 
-  eda:
-    container_name: eda
+  prepare:
+    container_name: prepare
     build:
-      context: ./notebooks/02-eda
+      context: ./notebooks/02-prepare
       dockerfile: Dockerfile
     restart: 'no'
     ports:
@@ -31,14 +30,13 @@ services:
       NB_UID: 1000
       NB_GID: 1000
     volumes:
-      - ./notebooks/02-eda/notebooks:/home/jovyan/notebooks
-      - ./src:/home/jovyan/src
+      - ./notebooks/02-prepare/notebooks:/home/jovyan/notebooks
       - ./data:/home/jovyan/data
 
-  transform:
-    container_name: transform
+  eda:
+    container_name: eda
     build:
-      context: ./notebooks/03-transform
+      context: ./notebooks/03-eda
       dockerfile: Dockerfile
     restart: 'no'
     ports:
@@ -48,14 +46,13 @@ services:
       NB_UID: 1000
       NB_GID: 1000
     volumes:
-      - ./notebooks/03-transform/notebooks:/home/jovyan/notebooks
-      - ./src:/home/jovyan/src
+      - ./notebooks/03-eda/notebooks:/home/jovyan/notebooks
       - ./data:/home/jovyan/data
 
-  development:
-    container_name: development
+  transform:
+    container_name: transform
     build:
-      context: ./notebooks/04-development
+      context: ./notebooks/04-transform
       dockerfile: Dockerfile
     restart: 'no'
     ports:
@@ -65,15 +62,14 @@ services:
       NB_UID: 1000
       NB_GID: 1000
     volumes:
-      - ./notebooks/04-development/notebooks:/home/jovyan/notebooks
+      - ./notebooks/04-transform/notebooks:/home/jovyan/notebooks
       - ./src:/home/jovyan/src
       - ./data:/home/jovyan/data
-      - ./models:/home/jovyan/models
 
-  post-process:
-    container_name: post-process
+  development:
+    container_name: development
     build:
-      context: ./notebooks/05-post-process
+      context: ./notebooks/05-development
       dockerfile: Dockerfile
     restart: 'no'
     ports:
@@ -83,15 +79,15 @@ services:
       NB_UID: 1000
       NB_GID: 1000
     volumes:
-      - ./notebooks/05-post-process/notebooks:/home/jovyan/notebooks
+      - ./notebooks/05-development/notebooks:/home/jovyan/notebooks
       - ./src:/home/jovyan/src
       - ./data:/home/jovyan/data
       - ./models:/home/jovyan/models
 
-  create-audience:
-    container_name: create-audience
+  post-process:
+    container_name: post-process
     build:
-      context: ./notebooks/06-create-audience
+      context: ./notebooks/06-post-process
       dockerfile: Dockerfile
     restart: 'no'
     ports:
@@ -101,7 +97,25 @@ services:
       NB_UID: 1000
       NB_GID: 1000
     volumes:
-      - ./notebooks/06-create-audience/notebooks:/home/jovyan/notebooks
+      - ./notebooks/06-post-process/notebooks:/home/jovyan/notebooks
+      - ./src:/home/jovyan/src
+      - ./data:/home/jovyan/data
+      - ./models:/home/jovyan/models
+
+  create-audience:
+    container_name: create-audience
+    build:
+      context: ./notebooks/07-create-audience
+      dockerfile: Dockerfile
+    restart: 'no'
+    ports:
+      - 8894:8888
+    env_file: ${HOME}/Downloads/.env
+    environment:
+      NB_UID: 1000
+      NB_GID: 1000
+    volumes:
+      - ./notebooks/07-create-audience/notebooks:/home/jovyan/notebooks
       - ./src:/home/jovyan/src
       - ./data:/home/jovyan/data
       - ./models:/home/jovyan/models
