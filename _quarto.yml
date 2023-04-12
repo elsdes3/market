@@ -13,7 +13,7 @@ project:
 website:
   page-navigation: true
   reader-mode: false
-  # back-to-top-navigation: true
+  back-to-top-navigation: true
   repo-url: https://github.com/elsdes3/market
   repo-actions: [edit, issue]
   title: "Machine Learning Project"
