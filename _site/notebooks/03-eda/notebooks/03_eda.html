@@ -63,6 +63,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
+<link href="../../../notebooks/04-transform/notebooks/04_transform.html" rel="next">
 <link href="../../../notebooks/02-prepare/notebooks/02_prepare.html" rel="prev">
 <script src="../../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../../site_libs/quarto-html/popper.min.js"></script>
@@ -174,6 +175,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../../notebooks/03-eda/notebooks/03_eda.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Explore Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/04-transform/notebooks/04_transform.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transform Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/07-create-audience/notebooks/07_create_audience.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Create Audience</span></a>
   </div>
 </li>
     </ul>
@@ -291,6 +304,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>train data start date</li>
 <li>train data end date</li>
 <li>test data end date</li>
+<li>list of categorical features to be used</li>
+<li>dictionary of columns to be frequency-encoded and minimum frequency thresholds to be used
+<ul>
+<li>thresholds are 5% or 10%, based on our findings from the data preparation step7. list of categorical features to be used</li>
+</ul></li>
+<li>dictionary of columns to be frequency-encoded and minimum frequency thresholds to be used
+<ul>
+<li>thresholds are 5% or 10%, based on our findings from the data preparation step</li>
+</ul></li>
 </ol>
 <div class="cell" data-tags="[&quot;parameters&quot;]" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>train_start_date <span class="op">=</span> <span class="st">"20160901"</span></span>
@@ -426,13 +448,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> set_datatypes(df: pd.DataFrame, dtypes: Dict) <span class="op">-&gt;</span> pd.DataFrame:</span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Set DataFrame datatypes using dictionary."""</span></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Set datatypes in a DataFrame using a dictionary."""</span></span>
 <span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.astype(dtypes)</span>
 <span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span>
 <span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> drop_duplicates(df: pd.DataFrame, subset: List[<span class="bu">str</span>]) <span class="op">-&gt;</span> pd.DataFrame:</span>
-<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Drop duplicates."""</span></span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Drop duplicates based on a list of columns in a DataFrame."""</span></span>
 <span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.drop_duplicates(subset<span class="op">=</span>subset, keep<span class="op">=</span><span class="st">"first"</span>)</span>
 <span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span>
 <span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a></span>
@@ -516,7 +538,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-126"><a href="#cb9-126" aria-hidden="true" tabindex="-1"></a>    annot_kws: Union[Dict[<span class="bu">str</span>, <span class="bu">int</span>], <span class="bu">bool</span>] <span class="op">=</span> <span class="va">False</span>,</span>
 <span id="cb9-127"><a href="#cb9-127" aria-hidden="true" tabindex="-1"></a>    fig_size: Tuple[<span class="bu">int</span>] <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">12</span>),</span>
 <span id="cb9-128"><a href="#cb9-128" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb9-129"><a href="#cb9-129" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""."""</span></span>
+<span id="cb9-129"><a href="#cb9-129" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Plot a 2D heatmap using seaborn."""</span></span>
 <span id="cb9-130"><a href="#cb9-130" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>fig_size)</span>
 <span id="cb9-131"><a href="#cb9-131" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> sns.heatmap(</span>
 <span id="cb9-132"><a href="#cb9-132" aria-hidden="true" tabindex="-1"></a>        data,</span>
@@ -5217,6 +5239,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../../notebooks/04-transform/notebooks/04_transform.html" class="pagination-link">
+        <span class="nav-page-text">Transform Data</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
