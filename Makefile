@@ -163,6 +163,12 @@ quarto-render:
 	@quarto render
 .PHONY: quarto-render
 
+## Run Quarto publish to github pages
+quarto-publish:
+	@echo "+ $@"
+	@quarto publish gh-pages
+.PHONY: quarto-publish
+
 #################################################################################
 # PROJECT RULES                                                                 #
 #################################################################################
