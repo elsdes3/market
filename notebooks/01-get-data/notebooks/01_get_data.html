@@ -17,7 +17,7 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
@@ -123,7 +123,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../notebooks/01-get-data/notebooks/01_get_data.html">Get Data</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -145,34 +145,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
-    <div class="sidebar-menu-container">
+    <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
-  <div class="sidebar-item-container">
+  <div class="sidebar-item-container"> 
   <a href="../../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container">
+  <div class="sidebar-item-container"> 
   <a href="../../../references/Scope.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Scope</span></a>
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container">
+  <div class="sidebar-item-container"> 
   <a href="../../../notebooks/01-get-data/notebooks/01_get_data.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Get Data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container">
+  <div class="sidebar-item-container"> 
   <a href="../../../notebooks/02-prepare/notebooks/02_prepare.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Prepare Data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container">
+  <div class="sidebar-item-container"> 
   <a href="../../../notebooks/03-eda/notebooks/03_eda.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Explore Data</span></a>
   </div>
@@ -185,7 +185,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="3">
     <h2 id="toc-title">On this page</h2>
-
+   
   <ul>
   <li><a href="#about" id="toc-about" class="nav-link active" data-scroll-target="#about">About</a>
   <ul class="collapse">
@@ -210,11 +210,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div class="quarto-title-meta">
 
-
-
-
+    
+  
+    
   </div>
-
+  
 
 </header>
 
@@ -556,21 +556,21 @@ Query returned 15 rows
 &lt;class 'pandas.core.frame.DataFrame'&gt;
 RangeIndex: 15 entries, 0 to 14
 Data columns (total 13 columns):
- #   Column           Non-Null Count  Dtype
----  ------           --------------  -----
- 0   fullvisitorid    15 non-null     object
- 1   date             15 non-null     object
- 2   datetime_ymd     15 non-null     dbdate
+ #   Column           Non-Null Count  Dtype         
+---  ------           --------------  -----         
+ 0   fullvisitorid    15 non-null     object        
+ 1   date             15 non-null     object        
+ 2   datetime_ymd     15 non-null     dbdate        
  3   visitStartTime   15 non-null     datetime64[ns]
- 4   visitNumber      15 non-null     Int64
- 5   source           15 non-null     object
- 6   medium           15 non-null     object
- 7   channelGrouping  15 non-null     object
- 8   device_category  15 non-null     object
- 9   os               15 non-null     object
- 10  action_type      15 non-null     string
- 11  transactions     0 non-null      Int64
- 12  newVisits        7 non-null      Int64
+ 4   visitNumber      15 non-null     Int64         
+ 5   source           15 non-null     object        
+ 6   medium           15 non-null     object        
+ 7   channelGrouping  15 non-null     object        
+ 8   device_category  15 non-null     object        
+ 9   os               15 non-null     object        
+ 10  action_type      15 non-null     string        
+ 11  transactions     0 non-null      Int64         
+ 12  newVisits        7 non-null      Int64         
 dtypes: Int64(3), datetime64[ns](1), dbdate(1), object(7), string(1)
 memory usage: 1.7+ KB</code></pre>
 </div>
@@ -880,7 +880,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       toggleBodyColorMode(bsSheetEl);
     }
   }
-  toggleBodyColorPrimary();
+  toggleBodyColorPrimary();  
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -890,7 +890,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {
+      if (clz.startsWith('code-annotation-')) {                     
         return true;
       }
     }
@@ -921,11 +921,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
       button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button,
-        { trigger: "manual",
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
           customClass: "code-copy-button-tooltip",
           offset: [0, -8]});
-      tooltip.show();
+      tooltip.show();    
     }
     setTimeout(function() {
       if (tooltip) {
@@ -955,7 +955,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       theme: 'quarto',
       placement: 'bottom-start'
     };
-    window.tippy(el, config);
+    window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
   for (var i=0; i<noterefs.length; i++) {
@@ -1000,7 +1000,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             height = bottom - top;
           }
           if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it
+            // cook up a div (if necessary) and position it 
             let div = window.document.getElementById("code-annotation-line-highlight");
             if (div === null) {
               div = window.document.createElement("div");
@@ -1112,7 +1112,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   <div class="nav-page nav-page-previous">
       <a href="../../../references/Scope.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Scope</span>
-      </a>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../../../notebooks/02-prepare/notebooks/02_prepare.html" class="pagination-link">

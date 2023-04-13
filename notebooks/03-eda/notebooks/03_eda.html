@@ -17,7 +17,7 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
@@ -122,7 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../notebooks/03-eda/notebooks/03_eda.html">Explore Data</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -144,34 +144,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
-    <div class="sidebar-menu-container">
+    <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
-  <div class="sidebar-item-container">
+  <div class="sidebar-item-container"> 
   <a href="../../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container">
+  <div class="sidebar-item-container"> 
   <a href="../../../references/Scope.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Scope</span></a>
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container">
+  <div class="sidebar-item-container"> 
   <a href="../../../notebooks/01-get-data/notebooks/01_get_data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Get Data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container">
+  <div class="sidebar-item-container"> 
   <a href="../../../notebooks/02-prepare/notebooks/02_prepare.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Prepare Data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container">
+  <div class="sidebar-item-container"> 
   <a href="../../../notebooks/03-eda/notebooks/03_eda.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Explore Data</span></a>
   </div>
@@ -184,13 +184,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="3">
     <h2 id="toc-title">On this page</h2>
-
+   
   <ul>
   <li><a href="#about" id="toc-about" class="nav-link active" data-scroll-target="#about">About</a>
   <ul class="collapse">
   <li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives">Objectives</a></li>
   <li><a href="#discussion-of-study-period-for-this-project" id="toc-discussion-of-study-period-for-this-project" class="nav-link" data-scroll-target="#discussion-of-study-period-for-this-project">Discussion of Study Period for This Project</a></li>
   <li><a href="#data-selection-for-eda" id="toc-data-selection-for-eda" class="nav-link" data-scroll-target="#data-selection-for-eda">Data Selection for EDA</a></li>
+  <li><a href="#business-questions-for-eda" id="toc-business-questions-for-eda" class="nav-link" data-scroll-target="#business-questions-for-eda">Business Questions for EDA</a></li>
   </ul></li>
   <li><a href="#user-inputs" id="toc-user-inputs" class="nav-link" data-scroll-target="#user-inputs">User Inputs</a></li>
   <li><a href="#get-and-prepare-data" id="toc-get-and-prepare-data" class="nav-link" data-scroll-target="#get-and-prepare-data">Get and Prepare Data</a></li>
@@ -215,11 +216,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div class="quarto-title-meta">
 
-
-
-
+    
+  
+    
   </div>
-
+  
 
 </header>
 
@@ -263,6 +264,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="data-selection-for-eda" class="level3">
 <h3 class="anchored" data-anchor-id="data-selection-for-eda">Data Selection for EDA</h3>
 <p>With the above in mind, EDA in this step will cover the training data.</p>
+</section>
+<section id="business-questions-for-eda" class="level3">
+<h3 class="anchored" data-anchor-id="business-questions-for-eda">Business Questions for EDA</h3>
+<p>We will explore this dataset by answering the following (non-exhaustive) set of business-relevant questions</p>
+<ol type="1">
+<li>For <a href="https://www.megalytic.com/blog/understanding-google-analytics-channels">high-level channel</a>, and the <a href="https://www.propellernet.co.uk/what-is-the-difference-between-source-medium-in-google-analytics/">more fine-graned traffic source and traffic medium</a>, get the correlation between the numerical attributes of visits and total visit revenue. Across all of these groupings of sources of web traffic arriving at the merchandise store, comment on the strongest and weakest correlations to revenue.</li>
+<li>Which channels were responsible for the most first-visitors with a purchase on their return visit? Show this comparison on a chart by channel.</li>
+<li>Is there any one web-browser that return purchasers used on their first visit?</li>
+<li>Do visitors who make a purchase on their return visit to the store have a preference for the type of device they are using (desktop, mobile, etc.)?</li>
+<li>Which traffic sources were responsible for the most return purchasers on weekdays and weekends?</li>
+<li>Show the fraction of visitors who did make a purchase on their return visit to the merchandise store by month and day of the month.</li>
+<li>Show the fraction of visitors who made a purchase on their return visit to the merchandise store by month and day of the week.</li>
+<li>Show the breakdown of total revenue earned by visitors who are return purchasers and those that are not return purchasers.</li>
+</ol>
 </section>
 </section>
 <section id="user-inputs" class="level2">
@@ -683,7 +698,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-147"><a href="#cb10-147" aria-hidden="true" tabindex="-1"></a>    display(df.head())</span>
 <span id="cb10-148"><a href="#cb10-148" aria-hidden="true" tabindex="-1"></a>    display(df.tail())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Query execution start time = 2023-04-12 17:32:38.628...done at 2023-04-12 17:32:57.947 (19.318 seconds).
+<pre><code>Query execution start time = 2023-04-12 22:16:47.745...done at 2023-04-12 22:17:06.333 (18.589 seconds).
 Query returned 92,859 rows</code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -1276,6 +1291,21 @@ Query returned 92,859 rows</code></pre>
                  variables=['os', 'channelGrouping', 'medium'])</pre></div></div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox"><label for="sk-estimator-id-6" class="sk-toggleable__label sk-toggleable__label-arrow">remainder</label><div class="sk-toggleable__content"><pre></pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox"><label for="sk-estimator-id-7" class="sk-toggleable__label sk-toggleable__label-arrow">passthrough</label><div class="sk-toggleable__content"><pre>passthrough</pre></div></div></div></div></div></div></div></div></div></div></div></div>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled" title="Notes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>The datatype of the categorical columns is set as <code>pd.CategoricalDtype()</code> in the datatypes dictionary <code>dtypes_dict</code> earlier. This was set as <code>pd.StringDtype()</code> during the data preparation step. Here, this change is necessary since the <code>RareLabelEncoder()</code> transformer expects to see these categrical columns appear as categories and not just as strings.</li>
+</ol>
+</div>
+</div>
 <p>Apply the custom data transformation pipeline to prepare the training data split for EDA</p>
 <div class="cell" data-tags="[]" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> pipe_trans.fit(df)</span>
@@ -1291,7 +1321,7 @@ Query returned 92,859 rows</code></pre>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    pd.DataFrame.from_records(</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>        [</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>            {</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                <span class="st">"column"</span>: c.replace(<span class="st">"_grouped"</span>, <span class="st">""</span>),</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                <span class="st">"column"</span>: c,</span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>                <span class="st">"column_grouped"</span>: c,</span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>                <span class="st">"num_unique_values_after_grouping"</span>: df[c].nunique(),</span>
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>            }</span>
@@ -1941,13 +1971,13 @@ Notes
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>For the categorical columns, both the raw and frequency grouped versions are present. The versions with frequency grouping contain the suffix <code>_grouped</code> in their column names.</li>
+<li>For the categorical columns, only the frequency-encoded versions are present in the prepared data.</li>
 </ol>
 </div>
 </div>
-<p><strong>Question 7. For <a href="https://www.megalytic.com/blog/understanding-google-analytics-channels">high-level channel</a>, and the <a href="https://www.propellernet.co.uk/what-is-the-difference-between-source-medium-in-google-analytics/">more fine-graned traffic source and traffic medium</a>, get the correlation between the numerical attributes of visits and total visit revenue. Across all of these groupings of sources of web traffic arriving at the merchandise store, comment on the strongest and weakest correlations to revenue.</strong></p>
-<p>At the time of the first visit, we only know whether the visitor will make a purchase during a return (or future) visit to the merchandise store. But, we do not know the visit revenue that was earned during that future visit. So, we will assume that this question is referring to visit revenue earned during the first visit since the columns (including <code>totals.transact_revenue</code>) are only retrieved for visitors’ first visits.</p>
-<p>Due to the high cardinality of channel and traffic source, this will be done for the grouped version of these two columns. The following helper function will <a href="https://stackoverflow.com/a/74492236/4057186">get this correlation</a> and will be re-used for both columns</p>
+<p><strong>Question 1. For high-level channel, and the more fine-graned traffic source and traffic medium, get the correlation between the numerical attributes of visits and total visit revenue. Across all of these groupings of sources of web traffic arriving at the merchandise store, comment on the strongest and weakest correlations to revenue.</strong></p>
+<p>At the time of the first visit, we know whether the visitor will make a purchase during a return (or future) visit to the merchandise store. This is in the <code>made_purchase_on_future_visit</code> column. But, we have not extracted the visit revenue that was earned during that future visit, since we have only extracted its outcome. So, we will assume that this question is referring to visit revenue earned during the first visit since the columns (including <code>totals.transact_revenue</code>) are only retrieved for visitors’ first visits.</p>
+<p>Due to the high cardinality of channel and traffic source, this question will be answered for the grouped version of these columns. The following helper function will <a href="https://stackoverflow.com/a/74492236/4057186">get this correlation</a> and will be re-used for all three traffic-related columns</p>
 <div class="cell" data-tags="[]" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_revenue_corr_by_attribute(</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    df: pd.DataFrame, categorical_col: <span class="bu">str</span>, numerical_cols: List[<span class="bu">str</span>]</span>
@@ -2028,7 +2058,8 @@ Notes
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>The correlations to revenue are first shown by the channel. Channel is a high-level grouping of the source of visitor traffic reaching a website. The default channel groupings used in Google Analytics tracking data are available <a href="https://support.google.com/analytics/answer/3297892?hl=en">here</a>. These correlations are shown below</p>
+<p>The correlations to revenue are first shown by the channel. Channel is a high-level grouping of the source of visitor traffic reaching a website. The default channel groupings used in Google Analytics tracking data are available <a href="https://support.google.com/analytics/answer/3297892?hl=en">here</a>. We will assume that the default-level groupings are being tracked by the Google merchandise store’s analytics tracking implementation.</p>
+<p>These correlations for channels are shown below</p>
 <div class="cell" data-tags="[]" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>high_corr_categories <span class="op">=</span> [<span class="st">"Direct"</span>, <span class="st">"Referral"</span>]</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>df_corr_chn <span class="op">=</span> get_revenue_corr_by_attribute(</span>
@@ -2266,12 +2297,12 @@ Observations
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>For the high-level channel groupings of (visitor) traffic source, direct and referral-based traffic are responsible for the highest correlation to revenue earned during the first visit by visitors who returned to make a purchase during a later (future) visit (see the <code>corr_to_1st_visit_revenue_if_return_purchase</code> column). Combined, these two sources account for approximately 40% of all web traffic (first-time visitors) that reached the merchandise store’s site.</li>
-<li>Among all the selected numerical attributes of first-time visitors visits to the store, the time spent on the site by first-time visitors reaching the store through referrals, and who later returned to make a purchase, (see <code>first_visit_attribute = time_on_site</code>) is most strongly correlated to visit revenue earned.</li>
+<li>For the high-level channel groupings of (visitor) traffic source, direct and referral-based traffic are responsible for the highest correlation to revenue earned during the first visit by return purchasers (see the <code>corr_to_1st_visit_revenue_if_return_purchase</code> column). Combined, these two sources account for approximately 40% of all web traffic (first-time visitors) to the merchandise store’s site.</li>
+<li>Among all the selected numerical attributes of first-time visitors’ visits to the store, the time spent on the site by first-time visitors reaching the store through referrals, and who later returned to make a purchase, (see <code>first_visit_attribute = time_on_site</code>) is most strongly correlated to visit revenue earned.</li>
 </ol>
 </div>
 </div>
-<p>The correlations are similarly now shown by the more fine-grained traffic source column</p>
+<p>The correlations are now similarly shown by the more fine-grained traffic source column</p>
 <div class="cell" data-tags="[]" data-execution_count="23">
 <details>
 <summary>Code</summary>
@@ -2541,7 +2572,7 @@ Notes
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li><a href="https://support.google.com/analytics/answer/1033173?hl=en&amp;ref_topic=6010089">Traffic source</a> is the domain through which visitors reach the store’s website (<a href="https://www.wholewhale.com/tips/source-vs-medium-google-analytics/">link</a>).</li>
-<li>Direct traffic source indicates a visitor entered the url of the store into the search bar on a browser (<a href="https://www.megalytic.com/blog/understanding-direct-traffic-in-google-analytics">link</a>).</li>
+<li>Direct traffic source indicates a visitor entered the url of the store into the search bar on a browser and so <em>directly</em> accessed the store’s site (<a href="https://www.megalytic.com/blog/understanding-direct-traffic-in-google-analytics">link</a>).</li>
 </ol>
 </div>
 </div>
@@ -2562,7 +2593,7 @@ Observations
 <li><code>other</code> (less frequent)</li>
 </ul>
 traffic sources have a stronger correlation to revenue.</li>
-<li>A Google search (<code>source_grouped = grouped</code>) during the first visit consistently has the weakest correlation to revenue earned during that visit for all numerical columns.</li>
+<li>A Google search (through the Google search engine, or <code>source = google</code>) during the first visit consistently has the weakest correlation to revenue earned during that visit for all numerical columns.</li>
 <li>Correlations to revenue are stronger at this more granular level (by traffic source) than by the high-level channel groupings. For example, compare correlations in <code>corr_to_1st_visit_revenue_if_return_purchase</code> for <code>first_visit_attribute = hits</code> in <code>df_corr_chn</code> to the same in <code>df_corr_source</code>.</li>
 </ol>
 </div>
@@ -2810,7 +2841,13 @@ Notes
 <ol type="1">
 <li>Traffic medium reflects the type of traffic source that reaches the store’s website (<a href="https://www.wholewhale.com/tips/source-vs-medium-google-analytics/">link</a>).</li>
 <li>Traffic medium is a more higher-level grouping of visitor traffic than traffic source.</li>
-<li><code>(none)</code> refers to traffic that originates from sources which tracking information is not available. Some reasons for this occurrence include a visitor directly entering the url into a browser, visitor clicking a browser bookmark, visitor clicks a link in a PDF document, etc. (see <a href="https://odd.dog/blog/how-to-determine-what-google-analytics-directnone-traffic-is-from/">1</a>, <a href="https://www.datadrivenu.com/direct-none-traffic-source-google-analytics/">2</a>).</li>
+<li><code>(none)</code> refers to traffic that originates from sources which tracking information is not available. Some reasons (<a href="https://odd.dog/blog/how-to-determine-what-google-analytics-directnone-traffic-is-from/">1</a>, <a href="https://www.datadrivenu.com/direct-none-traffic-source-google-analytics/">2</a>) for this occurrence include a
+<ul>
+<li>visitor directly entering the url into a browser</li>
+<li>visitor clicking a browser bookmark</li>
+<li>visitor clicks a link in a PDF document</li>
+<li>etc.</li>
+</ul></li>
 </ol>
 </div>
 </div>
@@ -2843,11 +2880,15 @@ Overall Observations for Correlations to Revenue Based on Groupings by Traffic
 <ol type="1">
 <li>Revenue earned during a first visit to the merchandise store is most strongly correlated to numerical attributes of the first visit for referral-based or direct/unknown traffic sources.</li>
 <li>Attributes of visitors reaching the site through a Google search have the weakest correlation to first-visit revenue earned.</li>
-<li>hits and pageviews are correlated to eachother. These two attributes are also correlated to product detail views, although this is weaker than the correlation between hits and pageviews.</li>
+<li>hits and pageviews are correlated to eachother. These two attributes are also correlated to product detail views, although this is weaker than the correlation between hits and pageviews. We can see the inter-correlation between these three columns from the similar
+<ul>
+<li>values in the respective <code>DataFrames</code> (<code>df_corr_chn</code>, <code>df_corr_source</code> and <code>df_corr_medium</code>)</li>
+<li>bar relative heights in the charts</li>
+</ul></li>
 </ol>
 </div>
 </div>
-<p><strong>Question 8. Which channels were responsible for the most first-visitors with a purchase on their return visit? Repeat for those used by first-time visitors who did not make a purchase on a future visit. Show this comparison on a chart by channel.</strong></p>
+<p><strong>Question 2. Which channels were responsible for the most first-time visitors with a purchase on their return visit? Show this comparison on a chart by channel.</strong></p>
 <div class="cell" data-tags="[]" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df_agg_by_channel <span class="op">=</span> (</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># groupby and count fullvisitorid</span></span>
@@ -3002,12 +3043,12 @@ Observations
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>Organic Search (Google search engine) and direct arrivals are the two dominant sources of first-time visitors to the site who do not make a purchase on a return visit.</li>
-<li>By comparison, when visitors who do make a purchase on their return visit reach the site, they are reaching the store through referrals (eg. NYTimes.com, etc.) or by directly entering the URL directly into their browser search bar. Organic search accounts for a much relatively smaller fraction of such return purchasers.</li>
+<li>(From the table <code>df_agg_by_channel</code>) Organic Search (Google search engine) and direct arrivals are the two dominant sources of first-time visitors to the site who do not make a purchase on a return visit.</li>
+<li>(From the chart) By comparison, when visitors who do make a purchase on their return visit reach the site, they are reaching the store through referrals (eg. NYTimes.com, etc.) or by directly entering the URL directly into their browser search bar. Organic search accounts for a relatively smaller fraction of such return purchasers.</li>
 </ol>
 </div>
 </div>
-<p><strong>Question 9. Is there any one web-browser that is getting more visitors to make a purchase on their return visit?</strong></p>
+<p><strong>Question 3. Is there any one web-browser that return purchasers used on their first visit?</strong></p>
 <div class="cell" data-tags="[]" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>df_agg_by_browser <span class="op">=</span> (</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># groupby and count fullvisitorid</span></span>
@@ -3145,11 +3186,12 @@ Observations
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>Google Chrome is the dominant browser used by first-time visitors who return to make a future purchase. There are more first-time visitors that access the store using Safari that don’t make a purchase on their return visit.</li>
+<li>Google Chrome is the dominant browser used during the first visit by visitors who return to make a future purchase.</li>
+<li>There are more first-time visitors that access the store using Safari using that visit who don’t make a purchase on their return visit, but even in this case Chrome is more frequently used.</li>
 </ol>
 </div>
 </div>
-<p><strong>Question 10. Do visitors who make a purchase on their return visit to the store have a preference for the type of device they are using (desktop, mobile, etc.)?</strong></p>
+<p><strong>Question 4. Do visitors who make a purchase on their return visit to the store have a preference for the type of device (desktop, mobile, etc.) they are using during their first visit?</strong></p>
 <div class="cell" data-tags="[]" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>df_agg_by_device <span class="op">=</span> (</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># groupby and count fullvisitorid</span></span>
@@ -3287,7 +3329,7 @@ Notes
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>This dataset was from 2016-2017. As use of mobile phones grown since then, these numbers may have changed towards increases use of mobile devices (even if desktop remains the dominant type of device being currently used).</li>
+<li>This dataset was from 2016-2017. As use of mobile phones grown since then, these numbers may have changed in favor of increased use of mobile devices (even if desktop remains the dominant type of device being currently used).</li>
 </ol>
 </div>
 </div>
@@ -3302,11 +3344,11 @@ Observations
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>Visitors mostly use their mobile phones for their initial visit and such visitors don’t make a return purchase. For those that do return to make a future purchase, they are overwhelmingly doing so by accessing the store’s website from their desktop computers.</li>
+<li>There are relatively more visitors whow use their mobile phones for their initial visit and who don’t make a return purchase than those that do return to make a purchase. Nonetheless, regardless of whether a future purchase is made, first-time visitors are overwhelmingly accessing the store’s website from their desktops.</li>
 </ol>
 </div>
 </div>
-<p><strong>Question 11. Which traffic sources were responsible for the most return purchasers on weekdays and weekends.</strong></p>
+<p><strong>Question 5. Which traffic sources were responsible for the most return purchasers on weekdays and weekends?</strong></p>
 <p>The following columns will be used for the questions involving <code>datetime</code> attributes</p>
 <ol type="1">
 <li><code>fullvisitorid</code></li>
@@ -3823,11 +3865,11 @@ Observations
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>Direct channels and referrals were the found earlier to be the dominant channels used by return purchasers (<code>made_purchase_on_future_visit = True</code>). So it is not surprising that this more granular column (traffic source) indicates the same two sources are the dominant ones bringing return purchasers to the site on weekedays and weekends in the top subplot. Among referrals, Gmail is the dominant referral source bringing return purchasers to the store.</li>
+<li>Direct channels and referrals were the found earlier to be the dominant channels used by return purchasers (<code>made_purchase_on_future_visit = True</code>). So it is not surprising that the same two sources are the dominant ones bringing return purchasers to the site on weekedays and weekends in the top subplot. Among referrals, Gmail is the dominant referral source bringing return purchasers to the store.</li>
 </ol>
 </div>
 </div>
-<p><strong>Question 12. Show the fraction of visitors who did make a purchase on their return visit to the merchandise store by month and day of the month.</strong></p>
+<p><strong>Question 6. Show the fraction of visitors who did make a purchase on their return visit to the merchandise store by month and day of the month.</strong></p>
 <div class="cell" data-tags="[]" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>df_agg <span class="op">=</span> df.groupby([<span class="st">"month"</span>, <span class="st">"day_of_month"</span>], as_index<span class="op">=</span><span class="va">False</span>).agg(</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"made_purchase_on_future_visit"</span>: [<span class="st">"sum"</span>], <span class="st">"fullvisitorid"</span>: <span class="st">"count"</span>}</span>
@@ -4275,7 +4317,7 @@ Observations
 </ol>
 </div>
 </div>
-<p><strong>Question 13. Show the fraction of visitors who made a purchase on their return visit to the merchandise store by month and day of the week. Compare this to the fraction of channels used by these visitors.</strong></p>
+<p><strong>Question 7. Show the fraction of visitors who made a purchase on their return visit to the merchandise store by month and day of the week.</strong></p>
 <p>Aggregate to get number of</p>
 <ul>
 <li>visitors</li>
@@ -4552,17 +4594,17 @@ Observations
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">15</td>
-<td>11</td>
-<td>1</td>
-<td>2430</td>
-<td>166</td>
+<td data-quarto-table-cell-role="th">7</td>
+<td>9</td>
+<td>7</td>
+<td>1609</td>
+<td>23</td>
 <td>4</td>
 <td>4</td>
 <td>8</td>
-<td>2596</td>
+<td>1632</td>
 <td>50.0</td>
-<td>6.394453</td>
+<td>1.409314</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">22</td>
@@ -4578,43 +4620,43 @@ Observations
 <td>4.149982</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">24</td>
-<td>12</td>
-<td>3</td>
-<td>4056</td>
-<td>227</td>
+<td data-quarto-table-cell-role="th">15</td>
+<td>11</td>
+<td>1</td>
+<td>2430</td>
+<td>166</td>
 <td>4</td>
 <td>4</td>
 <td>8</td>
-<td>4283</td>
+<td>2596</td>
 <td>50.0</td>
-<td>5.300023</td>
+<td>6.394453</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">16</td>
+<td data-quarto-table-cell-role="th">18</td>
 <td>11</td>
-<td>2</td>
-<td>3861</td>
-<td>324</td>
+<td>4</td>
+<td>4004</td>
+<td>281</td>
 <td>4</td>
 <td>4</td>
 <td>8</td>
-<td>4185</td>
+<td>4285</td>
 <td>50.0</td>
-<td>7.741935</td>
+<td>6.557760</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>1</td>
-<td>1</td>
-<td>38</td>
-<td>1</td>
+<td data-quarto-table-cell-role="th">4</td>
+<td>9</td>
 <td>4</td>
-<td>1</td>
-<td>5</td>
-<td>39</td>
-<td>20.0</td>
-<td>2.564103</td>
+<td>2910</td>
+<td>93</td>
+<td>4</td>
+<td>4</td>
+<td>8</td>
+<td>3003</td>
+<td>50.0</td>
+<td>3.096903</td>
 </tr>
 </tbody>
 </table>
@@ -4798,7 +4840,66 @@ Observations
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>The pool of visitors who are return purchasers shows week evidence of following the structure of the work week. The fraction of return purchasers dropped on weekends (Saturday and Sunday) compared to weekedays.</li>
+<li>The pool of visitors who are return purchasers shows weak evidence of following the structure of the work week since the fraction of return purchasers dropped on weekends (Saturday and Sunday) compared to weekedays.</li>
+</ol>
+</div>
+</div>
+<p><strong>Question 8. Show the breakdown of total revenue earned by visitors who are return purchasers and those that are not return purchasers.</strong></p>
+<div class="cell" data-tags="[]" data-execution_count="48">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>df.groupby([<span class="st">"made_purchase_on_future_visit"</span>])[</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"transact_revenue"</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>].<span class="bu">sum</span>().reset_index().assign(</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    total_first_visit_revenue<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">"transact_revenue"</span>].<span class="bu">sum</span>()</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>).assign(</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>    frac_transact_revenue<span class="op">=</span><span class="kw">lambda</span> df: <span class="dv">100</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span> df[<span class="st">"transact_revenue"</span>]</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">/</span> df[<span class="st">"total_first_visit_revenue"</span>]</span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>).query(</span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"made_purchase_on_future_visit == True"</span></span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="48">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">made_purchase_on_future_visit</th>
+<th data-quarto-table-cell-role="th">transact_revenue</th>
+<th data-quarto-table-cell-role="th">total_first_visit_revenue</th>
+<th data-quarto-table-cell-role="th">frac_transact_revenue</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1</td>
+<td>True</td>
+<td>89350.15625</td>
+<td>484412.15625</td>
+<td>18.44507</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Observations">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Observations
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Return purchasers account for nearly 20% of total revenue earned during the first visit.</li>
 </ol>
 </div>
 </div>
@@ -4812,10 +4913,20 @@ Observations
 <li>10% of all visitors to the store added a product to their shopping cart during their first visit</li>
 <li>4% of all first-time visitors to the store made a purchase on a return visit</li>
 </ul></li>
-<li>Direct traffic and referrals account for approximately 40% of all return purchasers and are responsible for the highest correlation to revenue earned during the first visit by visitors who returned to make a purchase during a return (future) visit.</li>
-<li>At the traffic source level, gmail and the combined <code>other</code> (less frequently used) traffic sources show the highest correlation to revenue. Direct sources ranks third.</li>
-<li>Correlations are stronger at the source level (more granular) than at the channel or traffic medium level (both of which are high-level groupings of traffic sources). Some of the columns namely hits, pageviews and products with detail views are correlated to eachother. One or more of these features should be excluded during ML development.</li>
-<li>Google Chrome is the dominant browser used by first-time visitors who return to make a future purchase.</li>
+<li>Correlations between numerical attributes of visitors’ first visits and revenue earned during the first visit
+<ul>
+<li>grouping traffic by channel
+<ul>
+<li>direct traffic and referrals account for approximately 40% of all return purchasers and are responsible for the highest correlation to revenue earned during the first visit by visitors who returned to make a purchase during a return (future) visit.</li>
+</ul></li>
+<li>grouping visitor traffic by source
+<ul>
+<li>gmail and the combined <code>other</code> (less frequently used) traffic sources show the highest correlation to revenue. Direct sources ranks third.</li>
+<li>correlations are stronger at the source level (more granular) than at the channel or traffic medium level (both of which are higher-level groupings of traffic sources)</li>
+<li>some of the columns namely hits, pageviews and products with detail views are correlated to eachother, so one or more of these features should be excluded during ML development</li>
+</ul></li>
+</ul></li>
+<li>Google Chrome is the dominant browser used during the first visit of visitors who return to make a future purchase.</li>
 <li>For those visitors that do return and make a future purchase, they are predominantly doing so by accessing the store’s site from a desktop computer.</li>
 <li>By traffic source, direct channels and referrals are the dominant sources bringing return purchasers to the site on both weekedays and weekends.</li>
 <li>Return purchasers peaked during November 2016 before dropping in December.</li>
@@ -4871,7 +4982,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       toggleBodyColorMode(bsSheetEl);
     }
   }
-  toggleBodyColorPrimary();
+  toggleBodyColorPrimary();  
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -4881,7 +4992,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {
+      if (clz.startsWith('code-annotation-')) {                     
         return true;
       }
     }
@@ -4912,11 +5023,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
       button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button,
-        { trigger: "manual",
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
           customClass: "code-copy-button-tooltip",
           offset: [0, -8]});
-      tooltip.show();
+      tooltip.show();    
     }
     setTimeout(function() {
       if (tooltip) {
@@ -4946,7 +5057,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       theme: 'quarto',
       placement: 'bottom-start'
     };
-    window.tippy(el, config);
+    window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
   for (var i=0; i<noterefs.length; i++) {
@@ -4991,7 +5102,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             height = bottom - top;
           }
           if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it
+            // cook up a div (if necessary) and position it 
             let div = window.document.getElementById("code-annotation-line-highlight");
             if (div === null) {
               div = window.document.createElement("div");
@@ -5103,7 +5214,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   <div class="nav-page nav-page-previous">
       <a href="../../../notebooks/02-prepare/notebooks/02_prepare.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Prepare Data</span>
-      </a>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
   </div>
