@@ -311,11 +311,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="user-inputs" class="level2">
 <h2 class="anchored" data-anchor-id="user-inputs">User Inputs</h2>
+<p>Get relative path to project root directory</p>
 <div class="cell" data-tags="[]" data-execution_count="3">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>PROJ_ROOT_DIR <span class="op">=</span> os.path.join(os.pardir)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>Define the following</p>
 <ol type="1">
@@ -562,7 +560,16 @@ dtypes: Float32(1), bool(1), boolean(1), string(1)
 memory usage: 375.1 KB</code></pre>
 </div>
 </div>
-<p><strong>Notes</strong></p>
+<div class="callout callout-style-default callout-note callout-titled" title="Notes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ol type="1">
 <li>The <code>fullvisitorid</code> column is the ID of each visitor who
 <ul>
@@ -578,6 +585,8 @@ memory usage: 375.1 KB</code></pre>
 <li>not used in ML</li>
 </ul></li>
 </ol>
+</div>
+</div>
 </section>
 <section id="process-data" class="level2">
 <h2 class="anchored" data-anchor-id="process-data">Process Data</h2>
@@ -598,16 +607,12 @@ memory usage: 375.1 KB</code></pre>
 <li>assign a row number to each observation (i.e.&nbsp;to each row or visitor) in this unseen data</li>
 </ol>
 <div class="cell" data-tags="[]" data-execution_count="11">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> (</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    df</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    .sort_values(by<span class="op">=</span><span class="st">"score"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    .assign(row_number<span class="op">=</span><span class="kw">lambda</span> df: <span class="bu">range</span>(<span class="bu">len</span>(df)))</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> (</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    df</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    .sort_values(by<span class="op">=</span><span class="st">"score"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    .assign(row_number<span class="op">=</span><span class="kw">lambda</span> df: <span class="bu">range</span>(<span class="bu">len</span>(df)))</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>CPU times: user 3.09 ms, sys: 2.87 ms, total: 5.96 ms
 Wall time: 5.35 ms</code></pre>
@@ -851,72 +856,68 @@ and store the results in
 </ol>
 <p>This approach is shown below</p>
 <div class="cell" data-tags="[]" data-execution_count="13">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> []</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k, group_size <span class="kw">in</span> <span class="bu">enumerate</span>(min_control_group_sizes):</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    df_audience <span class="op">=</span> df.query(<span class="ss">f"audience_group == </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    audience_array <span class="op">=</span> df_audience[<span class="st">'fullvisitorid'</span>].to_numpy()</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1. get control </span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng(<span class="dv">88</span>)</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    control_group_visitors <span class="op">=</span> rng.choice(audience_array, group_size, replace<span class="op">=</span><span class="va">False</span>).tolist()</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2. get all remaining visitors</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    other_array <span class="op">=</span> <span class="bu">list</span>(<span class="bu">set</span>(audience_array) <span class="op">-</span> <span class="bu">set</span>(control_group_visitors))</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3. get test group visitors by randomly sampling from remaining visitors</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    test_group_visitors <span class="op">=</span> rng.choice(other_array, group_size, replace<span class="op">=</span><span class="va">False</span>).tolist()</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 4. get combined control and test cohorts of visitors</span></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    combined_cohort_visitors <span class="op">=</span> control_group_visitors <span class="op">+</span> test_group_visitors</span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get all excluded visitors (not part of test or control cohort)</span></span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    excluded_visitors <span class="op">=</span> <span class="bu">list</span>(<span class="bu">set</span>(audience_array) <span class="op">-</span> <span class="bu">set</span>(combined_cohort_visitors))</span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># # get audience scores</span></span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># audience_scores = df_audience.query(</span></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    <span class="co">#     "fullvisitorid.isin(@combined_cohort_visitors)"</span></span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># )['score'].to_numpy()</span></span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(</span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"audience=</span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>mapper_dict_audience[k]<span class="sc">}</span><span class="ss">, "</span></span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"size=</span><span class="sc">{</span><span class="bu">len</span>(audience_array)<span class="sc">:,}</span><span class="ss">, "</span>,</span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"excluded=</span><span class="sc">{</span><span class="bu">len</span>(other_array)<span class="sc">:,}</span><span class="ss">, "</span></span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"wanted=</span><span class="sc">{</span>group_size<span class="sc">:,}</span><span class="ss">, "</span></span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"control=</span><span class="sc">{</span><span class="bu">len</span>(control_group_visitors)<span class="sc">:,}</span><span class="ss">, "</span></span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"test=</span><span class="sc">{</span><span class="bu">len</span>(test_group_visitors)<span class="sc">:,}</span><span class="ss">"</span></span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 5. get extract attributes for each cohort per audience group</span></span>
-<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>    df_test <span class="op">=</span> (</span>
-<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>        df_audience.drop(columns<span class="op">=</span>[<span class="st">'row_number'</span>])</span>
-<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>        .query(<span class="st">"fullvisitorid.isin(@test_group_visitors)"</span>)</span>
-<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>        .assign(audience_group<span class="op">=</span>k)</span>
-<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>        .assign(cohort<span class="op">=</span><span class="st">'Test'</span>)</span>
-<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>    df_control <span class="op">=</span> (</span>
-<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>        df_audience.drop(columns<span class="op">=</span>[<span class="st">'row_number'</span>])</span>
-<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>        .query(<span class="st">"fullvisitorid.isin(@control_group_visitors)"</span>)</span>
-<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>        .assign(audience_group<span class="op">=</span>k)</span>
-<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>        .assign(cohort<span class="op">=</span><span class="st">'Control'</span>)</span>
-<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>    df_excluded <span class="op">=</span> (</span>
-<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>        df_audience.drop(columns<span class="op">=</span>[<span class="st">'row_number'</span>])</span>
-<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>        .query(<span class="st">"fullvisitorid.isin(@excluded_visitors)"</span>)</span>
-<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>        .assign(audience_group<span class="op">=</span>k)</span>
-<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>        .assign(cohort<span class="op">=</span><span class="va">None</span>)</span>
-<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>    df_coh <span class="op">=</span> pd.concat([df_control, df_test, df_excluded], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>    groups.append(df_coh)</span>
-<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a>df_test_audience_groups <span class="op">=</span> (</span>
-<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>    pd.concat(groups, ignore_index<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>    .assign(audience_group<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">'audience_group'</span>].<span class="bu">map</span>(mapper_dict_audience))</span>
-<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>    .astype({<span class="st">'audience_group'</span>: pd.StringDtype(), <span class="st">'cohort'</span>: pd.StringDtype()})</span>
-<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a>display(df_test_audience_groups.head())</span>
-<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a>display(df_test_audience_groups.head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> []</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k, group_size <span class="kw">in</span> <span class="bu">enumerate</span>(min_control_group_sizes):</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    df_audience <span class="op">=</span> df.query(<span class="ss">f"audience_group == </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    audience_array <span class="op">=</span> df_audience[<span class="st">'fullvisitorid'</span>].to_numpy()</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1. get control </span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng(<span class="dv">88</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    control_group_visitors <span class="op">=</span> rng.choice(audience_array, group_size, replace<span class="op">=</span><span class="va">False</span>).tolist()</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2. get all remaining visitors</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    other_array <span class="op">=</span> <span class="bu">list</span>(<span class="bu">set</span>(audience_array) <span class="op">-</span> <span class="bu">set</span>(control_group_visitors))</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3. get test group visitors by randomly sampling from remaining visitors</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    test_group_visitors <span class="op">=</span> rng.choice(other_array, group_size, replace<span class="op">=</span><span class="va">False</span>).tolist()</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 4. get combined control and test cohorts of visitors</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    combined_cohort_visitors <span class="op">=</span> control_group_visitors <span class="op">+</span> test_group_visitors</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get all excluded visitors (not part of test or control cohort)</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    excluded_visitors <span class="op">=</span> <span class="bu">list</span>(<span class="bu">set</span>(audience_array) <span class="op">-</span> <span class="bu">set</span>(combined_cohort_visitors))</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># # get audience scores</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># audience_scores = df_audience.query(</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">#     "fullvisitorid.isin(@combined_cohort_visitors)"</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># )['score'].to_numpy()</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"audience=</span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>mapper_dict_audience[k]<span class="sc">}</span><span class="ss">, "</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"size=</span><span class="sc">{</span><span class="bu">len</span>(audience_array)<span class="sc">:,}</span><span class="ss">, "</span>,</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"excluded=</span><span class="sc">{</span><span class="bu">len</span>(other_array)<span class="sc">:,}</span><span class="ss">, "</span></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"wanted=</span><span class="sc">{</span>group_size<span class="sc">:,}</span><span class="ss">, "</span></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"control=</span><span class="sc">{</span><span class="bu">len</span>(control_group_visitors)<span class="sc">:,}</span><span class="ss">, "</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"test=</span><span class="sc">{</span><span class="bu">len</span>(test_group_visitors)<span class="sc">:,}</span><span class="ss">"</span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 5. get extract attributes for each cohort per audience group</span></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>    df_test <span class="op">=</span> (</span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>        df_audience.drop(columns<span class="op">=</span>[<span class="st">'row_number'</span>])</span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>        .query(<span class="st">"fullvisitorid.isin(@test_group_visitors)"</span>)</span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>        .assign(audience_group<span class="op">=</span>k)</span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>        .assign(cohort<span class="op">=</span><span class="st">'Test'</span>)</span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>    df_control <span class="op">=</span> (</span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>        df_audience.drop(columns<span class="op">=</span>[<span class="st">'row_number'</span>])</span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>        .query(<span class="st">"fullvisitorid.isin(@control_group_visitors)"</span>)</span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>        .assign(audience_group<span class="op">=</span>k)</span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>        .assign(cohort<span class="op">=</span><span class="st">'Control'</span>)</span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>    df_excluded <span class="op">=</span> (</span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>        df_audience.drop(columns<span class="op">=</span>[<span class="st">'row_number'</span>])</span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>        .query(<span class="st">"fullvisitorid.isin(@excluded_visitors)"</span>)</span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>        .assign(audience_group<span class="op">=</span>k)</span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>        .assign(cohort<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>    df_coh <span class="op">=</span> pd.concat([df_control, df_test, df_excluded], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>    groups.append(df_coh)</span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>df_test_audience_groups <span class="op">=</span> (</span>
+<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a>    pd.concat(groups, ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>    .assign(audience_group<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">'audience_group'</span>].<span class="bu">map</span>(mapper_dict_audience))</span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>    .astype({<span class="st">'audience_group'</span>: pd.StringDtype(), <span class="st">'cohort'</span>: pd.StringDtype()})</span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>display(df_test_audience_groups.head())</span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a>display(df_test_audience_groups.head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>audience=0: High, size=8,000,  excluded=7,000, wanted=1,000, control=1,000, test=1,000
 audience=1: Medium, size=8,000,  excluded=6,000, wanted=2,000, control=2,000, test=2,000
@@ -1186,10 +1187,21 @@ Wall time: 65.6 ms</code></pre>
 </div>
 </div>
 </div>
-<p><strong>Observations</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Observations">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Observations
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ol type="1">
 <li>With the exception of outliers in the <em>High</em> propensity audience group, we see good agreement in the statistics for the probabilities per Test-Control cohort within the same audience group.</li>
 </ol>
+</div>
+</div>
 </section>
 </section>
 <section id="export-to-disk" class="level2">
@@ -1255,7 +1267,21 @@ Wall time: 65.6 ms</code></pre>
 </div>
 </div>
 </div>
-<p><strong>Notes</strong> 1. The <code>cohort</code> has missing values for visitors who were not assigned to either the test or control groups. This is expected.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Notes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>The <code>cohort</code> has missing values for visitors who were not assigned to either the test or control groups. This is expected.</li>
+</ol>
+</div>
+</div>
 <p>Save to disk</p>
 <div class="cell" data-tags="[]" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>audience_cohorts_fpath <span class="op">=</span> os.path.join(</span>
