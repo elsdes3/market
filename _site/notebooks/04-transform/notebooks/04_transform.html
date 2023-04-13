@@ -217,8 +217,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#create-validation-data" id="toc-create-validation-data" class="nav-link" data-scroll-target="#create-validation-data">Create Validation Data</a></li>
   <li><a href="#create-test-data" id="toc-create-test-data" class="nav-link" data-scroll-target="#create-test-data">Create Test Data</a></li>
   </ul></li>
-  <li><a href="#discussion-of-duplicates" id="toc-discussion-of-duplicates" class="nav-link" data-scroll-target="#discussion-of-duplicates">Discussion of Duplicates</a></li>
+  <li><a href="#discussion-of-duplicates-during-data-preparation" id="toc-discussion-of-duplicates-during-data-preparation" class="nav-link" data-scroll-target="#discussion-of-duplicates-during-data-preparation">Discussion of Duplicates During Data Preparation</a></li>
   <li><a href="#export-to-disk" id="toc-export-to-disk" class="nav-link" data-scroll-target="#export-to-disk">Export to Disk</a></li>
+  <li><a href="#etl-workflow-to-transform-data" id="toc-etl-workflow-to-transform-data" class="nav-link" data-scroll-target="#etl-workflow-to-transform-data">ETL Workflow to Transform Data</a></li>
   <li><a href="#summary-of-tasks-performed" id="toc-summary-of-tasks-performed" class="nav-link" data-scroll-target="#summary-of-tasks-performed">Summary of Tasks Performed</a></li>
   <li><a href="#summary-of-assumptions" id="toc-summary-of-assumptions" class="nav-link" data-scroll-target="#summary-of-assumptions">Summary of Assumptions</a></li>
   <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a></li>
@@ -246,6 +247,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
+<p>Import Python modules</p>
 <div class="cell" data-tags="[]" data-execution_count="2">
 <details>
 <summary>Code</summary>
@@ -253,7 +255,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> functools <span class="im">import</span> <span class="bu">reduce</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> glob <span class="im">import</span> glob</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Dict, List</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Dict, List, Union</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -477,27 +479,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"10_pct"</span>: [<span class="st">"os"</span>, <span class="st">"channelGrouping"</span>, <span class="st">"medium"</span>],</span>
 <span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Get path to <code>data/intermediate</code> in which the transformed data splits (training, validation and test) produced by this step will be exported</p>
-<div class="cell" data-tags="[]" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>intermediate_data_dir <span class="op">=</span> os.path.join(PROJ_ROOT_DIR, <span class="st">"data"</span>, <span class="st">"intermediate"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Get path to <code>data/processed</code> in which the transformed data splits (training, validation and test) produced by this step will be exported</p>
+<div class="cell" data-tags="[]" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>processed_data_dir <span class="op">=</span> os.path.join(PROJ_ROOT_DIR, <span class="st">"data"</span>, <span class="st">"processed"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Retrieve credentials for <code>bigquery</code> client</p>
-<div class="cell" data-tags="[]" data-execution_count="5">
+<div class="cell" data-tags="[]" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Google Cloud PROJECT ID</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>gcp_project_id <span class="op">=</span> os.environ[<span class="st">"GCP_PROJECT_ID"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Get filepath to Google Cloud Service Account JSON key</p>
-<div class="cell" data-tags="[]" data-execution_count="6">
+<div class="cell" data-tags="[]" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>raw_data_dir <span class="op">=</span> os.path.join(PROJ_ROOT_DIR, <span class="st">"data"</span>, <span class="st">"raw"</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>gcp_creds_fpath <span class="op">=</span> glob(os.path.join(raw_data_dir, <span class="st">"*.json"</span>))[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Authenticate <code>bigquery</code> client and get dictionary with credentials</p>
-<div class="cell" data-tags="[]" data-execution_count="7">
+<div class="cell" data-tags="[]" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gcp_credentials <span class="op">=</span> service_account.Credentials.from_service_account_file(gcp_creds_fpath)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>gcp_auth_dict <span class="op">=</span> <span class="bu">dict</span>(gcp_project_id<span class="op">=</span>gcp_project_id, gcp_creds<span class="op">=</span>gcp_credentials)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Create a mapping between action type integer and label, in order to get meaningful names from the <code>action_type</code> column</p>
-<div class="cell" data-tags="[]" data-execution_count="8">
+<div class="cell" data-tags="[]" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>mapper <span class="op">=</span> {</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>: <span class="st">"Click through of product lists"</span>,</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>: <span class="st">"Product detail views"</span>,</span>
@@ -511,7 +513,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Define a dictionary to change datatypes of prepared data (this was originally developed in the data preparation step)</p>
-<div class="cell" data-tags="[]" data-execution_count="9">
+<div class="cell" data-tags="[]" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dtypes_dict <span class="op">=</span> {</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"fullvisitorid"</span>: pd.StringDtype(),</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"visitId"</span>: pd.StringDtype(),</span>
@@ -549,7 +551,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>set column datatypes of a <code>pandas.DataFrame</code></li>
 <li>drop duplicates based on a list of columns in a <code>pandas.DataFrame</code></li>
 </ol>
-<div class="cell" data-tags="[]" data-execution_count="10">
+<div class="cell" data-tags="[]" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run_sql_query(</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    query: <span class="bu">str</span>,</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    gcp_project_id: <span class="bu">str</span>,</span>
@@ -602,7 +604,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="get-data" class="level2">
 <h2 class="anchored" data-anchor-id="get-data">Get Data</h2>
 <p>Define the same custom data transformation pipeline to handle the categorical columns that was developed in the data preparation step and used in the EDA step</p>
-<div class="cell" data-tags="[]" data-execution_count="11">
+<div class="cell" data-tags="[]" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>encoder_05 <span class="op">=</span> RareLabelEncoder(</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    tol<span class="op">=</span><span class="fl">0.05</span>,</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    n_categories<span class="op">=</span><span class="dv">2</span>,</span>
@@ -624,7 +626,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>pipe_trans <span class="op">=</span> Pipeline(steps<span class="op">=</span>[(<span class="st">"preprocessor"</span>, preprocessor)])</span>
 <span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>pipe_trans</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="12">
 <style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[('preprocessor',
                  ColumnTransformer(remainder='passthrough',
                                    transformers=[('cat',
@@ -697,7 +699,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 </ol>
 <p>The function is defined below</p>
-<div class="cell" data-tags="[]" data-execution_count="12">
+<div class="cell" data-tags="[]" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_sql_query(</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    split_start_date: <span class="bu">str</span>,</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    split_end_date: <span class="bu">str</span>,</span>
@@ -852,7 +854,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>drop duplicates by <code>fullvisitorid</code></li>
 <li>perform frequency-encoding on categorical features to reduce cardinality</li>
 </ol>
-<div class="cell" data-tags="[]" data-execution_count="13">
+<div class="cell" data-tags="[]" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load data from BigQuery dataset, set datatypes and drop duplicates</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> get_sql_query(train_start_date, train_end_date, train_start_date, test_end_date)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>df_train <span class="op">=</span> (</span>
@@ -883,7 +885,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>    display(df_train.head())</span>
 <span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>    display(df_train.tail())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Query execution start time = 2023-04-13 01:50:42.947...done at 2023-04-13 01:51:02.278 (19.332 seconds).
+<pre><code>Query execution start time = 2023-04-13 14:26:10.949...done at 2023-04-13 14:26:28.892 (17.943 seconds).
 Query returned 92,859 rows
 Got 92,551 rows and 29 columns after dropping duplicates
 Got 92,551 rows and 29 columns after frequency-encoding categorical features</code></pre>
@@ -1310,15 +1312,15 @@ Notes
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>Visits versus Sessions (<a href="https://www.blyp.ai/a/question-hub/google-analytics/sessions-vs-visits-are-they-the-same-in-google-analytics">1</a>, <a href="https://databox.com/sessions-users-pageviews-in-google-analytics#head2">2</a>)
+<li>Google Analytics uses visits and sessions interchangeably (<a href="https://www.blyp.ai/a/question-hub/google-analytics/sessions-vs-visits-are-they-the-same-in-google-analytics">1</a>, <a href="https://databox.com/sessions-users-pageviews-in-google-analytics#head2">2</a>)
 <ul>
-<li><strong>VISIT:</strong> A visit identifies a user reaching the marketplace website
+<li>a visit identifies a user reaching the marketplace website
 <ul>
-<li>A visitor can have multiple visits since they can visit the marketplace website multiple times</li>
+<li>a visitor can have multiple visits since they can visit the marketplace website multiple times</li>
 </ul></li>
-<li><strong>SESSION:</strong> A session captures a visitor’s interactions on the site during a visit
+<li>a session captures a visitor’s interactions on the site during a visit
 <ul>
-<li>A session begins at the start of the visit and ends after 30 minutes of inactivity by the visitor</li>
+<li>a session begins at the start of the visit and ends after 30 minutes of inactivity by the visitor</li>
 </ul></li>
 </ul></li>
 <li>Each row here corresponds to a single action performed by a single visitor during a visit.</li>
@@ -1329,12 +1331,12 @@ Notes
 <li>the ML model will be trained on features of the same visitor’s <em>first</em> visit</li>
 <li>this is a <a href="https://docs.aws.amazon.com/whitepapers/latest/time-series-forecasting-principles-with-amazon-forecast/step-2-prepare-data.html#concepts-of-featurization-and-related-time-series">forward-looking</a> label (<code>y</code>)</li>
 </ul></li>
-<li>We had to select <code>totals.newVisits = 1</code> since we only wanted ML features from the first visit. We can’t use features from the return visit since we want to predict the outcome of the return visit <em>ahead of that visit</em> occuring. Earlier, we selected visitors who made a purchase on a future visit. For these visitors, the ML features (<code>X</code>) will be extracted from these visitors’ first visit only. We cannot extract features from the return visit, since <strong>the ML model is being trained before a future visit has occurred and so the features associated with the return visit are not known at the time of ML training.</strong></li>
+<li>We had to select <code>totals.newVisits = 1</code> since we only wanted ML features from the first visit. We can’t use features from the return visit since we want to predict the outcome of the return visit <em>before of that visit has occurred</em>. Earlier, we selected visitors who made a purchase on a future visit. So, for these visitors, the ML features (<code>X</code>) will be extracted from these visitors’ first visit only.**</li>
 </ol>
 </div>
 </div>
 <p>Below is the class imbalance in the ML labels (<code>y_train</code>) from the training data and the number of unique values in all categorical columns</p>
-<div class="cell" data-tags="[]" data-execution_count="14">
+<div class="cell" data-tags="[]" data-execution_count="15">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>display(</span>
@@ -1344,27 +1346,29 @@ Notes
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        .value_counts(normalize<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        .rename(<span class="st">"fraction"</span>)</span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>        .to_frame()</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    ).merge(</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        df_train[<span class="st">"made_purchase_on_future_visit"</span>]</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        .value_counts()</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>        .rename(<span class="st">"number"</span>)</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>        .to_frame(),</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>        how<span class="op">=</span><span class="st">"left"</span>,</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        left_index<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>        right_index<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    ).reset_index()</span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>display(</span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    pd.DataFrame.from_records(</span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>        [</span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>            {</span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>                <span class="st">"column"</span>: c,</span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>                <span class="st">"num_unique_values"</span>: df_train[c].nunique(),</span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>            }</span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> c <span class="kw">in</span> categorical_columns</span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>        ]</span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    .merge(</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        df_train[<span class="st">"made_purchase_on_future_visit"</span>]</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>        .value_counts()</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>        .rename(<span class="st">"number"</span>)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>        .to_frame(),</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        how<span class="op">=</span><span class="st">"left"</span>,</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>        left_index<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>        right_index<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    .reset_index()</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>display(</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>    pd.DataFrame.from_records(</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>        [</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>            {</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>                <span class="st">"column"</span>: c,</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>                <span class="st">"num_unique_values"</span>: df_train[c].nunique(),</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>            }</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> c <span class="kw">in</span> categorical_columns</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -1374,23 +1378,21 @@ Notes
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">made_purchase_on_future_visit</th>
 <th data-quarto-table-cell-role="th">fraction</th>
 <th data-quarto-table-cell-role="th">number</th>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">made_purchase_on_future_visit</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">False</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>False</td>
 <td>95.407937</td>
 <td>88301</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">True</td>
+<td data-quarto-table-cell-role="th">1</td>
+<td>True</td>
 <td>4.592063</td>
 <td>4250</td>
 </tr>
@@ -1494,12 +1496,14 @@ Other approaches to handle the class imbalance are
 </div>
 </div>
 <p>Show a count of missing values in all the columns</p>
-<div class="cell" data-tags="[]" data-execution_count="15">
+<div class="cell" data-tags="[]" data-execution_count="16">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df_train.isna().<span class="bu">sum</span>().rename(<span class="st">"missing"</span>).reset_index().rename(columns<span class="op">=</span>{<span class="st">"index"</span>: <span class="st">"column"</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df_train.isna().<span class="bu">sum</span>().rename(<span class="st">"missing"</span>).reset_index().rename(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>{<span class="st">"index"</span>: <span class="st">"column"</span>}</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display" data-execution_count="16">
 <div>
 
 
@@ -1507,7 +1511,7 @@ Other approaches to handle the class imbalance are
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">index</th>
+<th data-quarto-table-cell-role="th">column</th>
 <th data-quarto-table-cell-role="th">missing</th>
 </tr>
 </thead>
@@ -1724,7 +1728,7 @@ would indicate zeros. Zeros were already present in the raw data so there were n
 <li>a single hit is registered</li>
 <li>(predominantly) a single page gets viewed</li>
 </ol>
-<div class="cell" data-tags="[]" data-execution_count="16">
+<div class="cell" data-tags="[]" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># time on site versus bounces</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>display(</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    (</span>
@@ -1857,7 +1861,7 @@ would indicate zeros. Zeros were already present in the raw data so there were n
 <li>single page view</li>
 <li>single hit</li>
 </ul>
-<div class="cell" data-tags="[]" data-execution_count="17">
+<div class="cell" data-tags="[]" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bounce</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>display(</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    (</span>
@@ -1997,7 +2001,7 @@ would indicate zeros. Zeros were already present in the raw data so there were n
 <li>single page view</li>
 <li>zero time on site</li>
 </ul>
-<div class="cell" data-tags="[]" data-execution_count="18">
+<div class="cell" data-tags="[]" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># hits versus bounces</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>display(</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    (</span>
@@ -2146,7 +2150,7 @@ Observations
 <li><code>train_end_date</code> to <code>val_end_date</code></li>
 </ol>
 <p>in the <code>first_visit_attributes</code> CTE in order to capture the validation data and categorical features are encoded using the custom pipeline that was trained using the training data</p>
-<div class="cell" data-tags="[]" data-execution_count="19">
+<div class="cell" data-tags="[]" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load data from BigQuery dataset, set datatypes and drop duplicates</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> get_sql_query(val_start_date, val_end_date, train_start_date, test_end_date)</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>df_val <span class="op">=</span> (</span>
@@ -2173,7 +2177,7 @@ Observations
 <span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>    display(df_val.head())</span>
 <span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>    display(df_val.tail())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Query execution start time = 2023-04-13 01:51:03.193...done at 2023-04-13 01:51:08.400 (5.207 seconds).
+<pre><code>Query execution start time = 2023-04-13 14:26:29.787...done at 2023-04-13 14:26:34.751 (4.964 seconds).
 Query returned 21,208 rows
 Got 21,177 rows  and 29 columnsafter dropping duplicates
 Got 21,177 rows and 29 columns after frequency-encoding categorical features</code></pre>
@@ -2600,9 +2604,10 @@ Notes
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li><p>Earlier, it was mentioned that <code>totals.newVisits = 1</code> gives the first visit while <code>totals.newVisits = NULL</code> gives the future visit. In the training data, the first visit was picked up using this filter condition as a SQL filter. This allowed features from the first visit to be extracted. The label was whether the visitor made a purchase during their return visit. Here, the validation data uses the same approach. Per the business use-case, we want to predict new visitor’s propensity of making a purchase during their return visit. The ML model will be trained using training data which only captures the first visit and <strong>this first visit occurs during the months covered by the training data only</strong>. The model will be validated using validation data that similarly covers the first visit that <strong>occurs during the months covered by the validation data only</strong>. The label of the validation data is analogous to that from the training data in that it indicates whether these new visitors (in the validation data split) made a purchase during a future visit.</p>
-<p>The visitors in the training data do not need to be the same as those in the validation (or testing) data splits. Visitor ID will not be used as a feature during training, validation or evaluation (test data). Only the attributes of their first visit will be used since we are not interested in training a ML model for specific visitors who are identified by their ID.</p>
+<li><p>Earlier, it was mentioned that <code>totals.newVisits = 1</code> gives the first visit while <code>totals.newVisits = NULL</code> gives the future visit. In the training data, the first visit was picked up using this filter condition as a SQL filter. This allowed features from the first visit to be extracted. The label was whether the visitor made a purchase during their return visit. Here, the validation data uses the same approach. Per the business use-case, we want to predict new visitor’s propensity of making a purchase during their return (or future) visit.</p>
+<p>The ML model will be trained using training data which only captures the first visit and this first visit occurs during the months covered by the training data only. The model will be validated using validation data that similarly covers the first visit that occurs during the months covered by the validation data only. The label of the validation data is analogous to that from the training data in that it indicates whether these new visitors (in the validation data split) made a purchase during a future visit.</p>
 <p>With this in mind, similar to the training data, we can get that first visit of visitors in the validation data using <code>totals.newVisits = 1</code> in the validation data SQL query above. For this reason, we will not use <code>totals.newVisits = NULL</code> in the SQL query to build the validation or test data splits.</p></li>
+<li><p>The visitors in the training data do not need to be the same as those in the validation (or testing) data splits. Visitor ID will not be used as a feature during training, validation or evaluation (test data). Only the attributes of their first visit will be used since we are not interested in training a ML model for specific visitors who are identified by their ID.</p></li>
 </ol>
 </div>
 </div>
@@ -2610,7 +2615,7 @@ Notes
 <section id="create-test-data" class="level3">
 <h3 class="anchored" data-anchor-id="create-test-data">Create Test Data</h3>
 <p>Finally, the test data split is created using a similar approach to the validation data split (only the dates in the <code>first_visit_attributes</code> CTE are changed in order to capture the test data)</p>
-<div class="cell" data-tags="[]" data-execution_count="20">
+<div class="cell" data-tags="[]" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load data from BigQuery dataset, set datatypes and drop duplicates</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> get_sql_query(test_start_date, test_end_date, train_start_date, test_end_date)</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>df_test <span class="op">=</span> (</span>
@@ -2637,7 +2642,7 @@ Notes
 <span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>    display(df_test.head())</span>
 <span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>    display(df_test.tail())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Query execution start time = 2023-04-13 01:51:08.583...done at 2023-04-13 01:51:13.680 (5.098 seconds).
+<pre><code>Query execution start time = 2023-04-13 14:26:34.940...done at 2023-04-13 14:26:39.755 (4.815 seconds).
 Query returned 20,180 rows
 Got 20,164 rows  and 29 columnsafter dropping duplicates
 Got 20,164 rows and 29 columns after frequency-encoding categorical features</code></pre>
@@ -3055,8 +3060,8 @@ Got 20,164 rows and 29 columns after frequency-encoding categorical features</co
 </div>
 </section>
 </section>
-<section id="discussion-of-duplicates" class="level2">
-<h2 class="anchored" data-anchor-id="discussion-of-duplicates">Discussion of Duplicates</h2>
+<section id="discussion-of-duplicates-during-data-preparation" class="level2">
+<h2 class="anchored" data-anchor-id="discussion-of-duplicates-during-data-preparation">Discussion of Duplicates During Data Preparation</h2>
 <ol type="1">
 <li><p>By splitting data for ML, at the time of training the ML model, we are assuming that we don’t yet have the validation or testing data during ML model development so we would not know if duplicates are or are not present in those data splits.</p>
 <p>If such a model is performant enough to be deployed to production, the same will apply to out-of-sample (unseen) visitors’ visit data. The features that would be needed in production are the same as those that would be needed during ML development. So, when we do access the out-of-sample data in production, we again would want only the first visit per visitor so that (as was done during ML development) we can predict their propensity to make a purchase during a future visit. In order to accomplish this, when we were to get access to the unseen data in production, we could easily</p>
@@ -3076,7 +3081,7 @@ Got 20,164 rows and 29 columns after frequency-encoding categorical features</co
 <section id="export-to-disk" class="level2">
 <h2 class="anchored" data-anchor-id="export-to-disk">Export to Disk</h2>
 <p>Show datatypes for all data splits</p>
-<div class="cell" data-tags="[]" data-execution_count="21">
+<div class="cell" data-tags="[]" data-execution_count="22">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>dfs <span class="op">=</span> []</span>
@@ -3091,7 +3096,7 @@ Got 20,164 rows and 29 columns after frequency-encoding categorical features</co
 <span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>df_dtypes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="21">
+<div class="cell-output cell-output-display" data-execution_count="22">
 <div>
 
 
@@ -3316,7 +3321,7 @@ Got 20,164 rows and 29 columns after frequency-encoding categorical features</co
 </div>
 </div>
 <p>Show info for <code>DataFrame</code> with training data</p>
-<div class="cell" data-tags="[]" data-execution_count="22">
+<div class="cell" data-tags="[]" data-execution_count="23">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>df_train.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -3361,7 +3366,7 @@ memory usage: 7.2 MB</code></pre>
 </div>
 </div>
 <p>Show info for <code>DataFrame</code> with validation data</p>
-<div class="cell" data-tags="[]" data-execution_count="23">
+<div class="cell" data-tags="[]" data-execution_count="24">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>df_val.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -3406,7 +3411,7 @@ memory usage: 1.7 MB</code></pre>
 </div>
 </div>
 <p>Show info for <code>DataFrame</code> with test data</p>
-<div class="cell" data-tags="[]" data-execution_count="24">
+<div class="cell" data-tags="[]" data-execution_count="25">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>df_test.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -3451,31 +3456,339 @@ memory usage: 1.6 MB</code></pre>
 </div>
 </div>
 <p>The training data is now exported to disk</p>
-<div class="cell" data-tags="[]" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>fpath_train <span class="op">=</span> os.path.join(intermediate_data_dir, <span class="st">"train_intermediate.parquet.gzip"</span>)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># df_train.to_parquet(fpath_train, index=False, compression='gzip', engine='pyarrow')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 6 µs, sys: 1 µs, total: 7 µs
-Wall time: 10.7 µs</code></pre>
-</div>
+<div class="cell" data-tags="[]" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>fpath_train <span class="op">=</span> os.path.join(processed_data_dir, <span class="st">"train_processed.parquet.gzip"</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>df_train.to_parquet(fpath_train, index<span class="op">=</span><span class="va">False</span>, compression<span class="op">=</span><span class="st">'gzip'</span>, engine<span class="op">=</span><span class="st">'pyarrow'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The validation data is now exported to disk</p>
-<div class="cell" data-tags="[]" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>fpath_val <span class="op">=</span> os.path.join(intermediate_data_dir, <span class="st">"val_intermediate.parquet.gzip"</span>)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co"># df_val.to_parquet(fpath_val, index=False, compression='gzip', engine='pyarrow')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 25 µs, sys: 0 ns, total: 25 µs
-Wall time: 36.5 µs</code></pre>
-</div>
+<div class="cell" data-tags="[]" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>fpath_val <span class="op">=</span> os.path.join(processed_data_dir, <span class="st">"val_processed.parquet.gzip"</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>df_val.to_parquet(fpath_val, index<span class="op">=</span><span class="va">False</span>, compression<span class="op">=</span><span class="st">'gzip'</span>, engine<span class="op">=</span><span class="st">'pyarrow'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The testing data is now exported to disk</p>
-<div class="cell" data-tags="[]" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>fpath_test <span class="op">=</span> os.path.join(intermediate_data_dir, <span class="st">"test_intermediate.parquet.gzip"</span>)</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co"># df_test.to_parquet(fpath_test, index=False, compression='gzip', engine='pyarrow')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 19 µs, sys: 6 µs, total: 25 µs
-Wall time: 37 µs</code></pre>
+<div class="cell" data-tags="[]" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>fpath_test <span class="op">=</span> os.path.join(processed_data_dir, <span class="st">"test_processed.parquet.gzip"</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>df_test.to_parquet(fpath_test, index<span class="op">=</span><span class="va">False</span>, compression<span class="op">=</span><span class="st">'gzip'</span>, engine<span class="op">=</span><span class="st">'pyarrow'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="etl-workflow-to-transform-data" class="level2">
+<h2 class="anchored" data-anchor-id="etl-workflow-to-transform-data">ETL Workflow to Transform Data</h2>
+<p>We will now define an ETL workflow to perform the end-to-end transformation using Python functions that use <code>scikit-learn.Pipeline</code> and <code>pandas.pipe</code>. Such a workflow can be quickly re-used during ML development without needing to re-run all the Python code in this data transformation step and will allow the ability to change</p>
+<ol type="1">
+<li>start and end dates of raw data
+<ul>
+<li>this could be useful to add more training data if the ML model is not capturing variability in unseen data</li>
+</ul></li>
+<li>thresholds used when frequency-encoding categorical features
+<ul>
+<li>this could be useful to increase or decrease the cardinality of categorical features
+<ul>
+<li>increasing cardinality might help improve the predictive power of such features</li>
+<li>decreasing cardinality might help improve (reduce) ML model training duration and explainability</li>
+</ul></li>
+</ul></li>
+</ol>
+<p>The ETL workflow will accept the following parameters</p>
+<ol type="1">
+<li>start and end date for each data split</li>
+<li>dictionary with frequency encoding thresholds and categorical columns to which these thresholds must be applied
+<ul>
+<li>currently these thresholds are set to 5% and 10% based on the data preparation step</li>
+</ul></li>
+<li>columns to use when dropping duplicates
+<ul>
+<li>currently a single column <code>fullvisitorid</code> is used to drop duplicates, based on the data preparation step</li>
+</ul></li>
+<li>feature datatypes
+<ul>
+<li>these are neeed before and after encoding categorical features</li>
+</ul></li>
+<li>path to folder in which to save transformed data
+<ul>
+<li>this is a path to a folder on the local disk where this analysis is being run</li>
+</ul></li>
+</ol>
+<p>The following components are defined below</p>
+<ol type="1">
+<li>helper functions to
+<ul>
+<li>create <code>scikit-learn</code> data transformation pipeline</li>
+<li>clean data</li>
+</ul></li>
+<li>workflow functions to
+<ul>
+<li>extract raw data from Google BigQuery</li>
+<li>transform raw data using <code>scikit-learn</code> data transformation pipeline</li>
+<li>load transformed data into file in <code>data/processed</code></li>
+</ul></li>
+</ol>
+<p>Helper functions</p>
+<div class="cell" data-tags="[]" data-execution_count="29">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_data_transformation_pipeline(cols_to_group: Dict[<span class="bu">str</span>, List[<span class="bu">str</span>]]) <span class="op">-&gt;</span> Pipeline:</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Create sklearn pipeline to transform cleaned data."""</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># define frequency-encoders for categorical columns that will require</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># a minimum frequency for categories</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    categorical_transformer <span class="op">=</span> Pipeline(</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>        steps<span class="op">=</span>[</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>            (</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>                <span class="ss">f"enc_</span><span class="sc">{</span>(k.split(<span class="st">'_'</span>)[<span class="dv">0</span>])<span class="sc">.</span>zfill(<span class="dv">2</span>)<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>                RareLabelEncoder(</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>                    tol<span class="op">=</span><span class="bu">int</span>(k.split(<span class="st">"_"</span>)[<span class="dv">0</span>]) <span class="op">/</span> <span class="dv">100</span>,</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>                    n_categories<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>                    variables<span class="op">=</span>v,</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>                    replace_with<span class="op">=</span><span class="st">"other"</span>,</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>                ),</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> k, v <span class="kw">in</span> cols_to_group.items()</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>    preprocessor <span class="op">=</span> ColumnTransformer(</span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>        transformers<span class="op">=</span>[(<span class="st">"cat"</span>, categorical_transformer, categorical_columns)],</span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>        remainder<span class="op">=</span><span class="st">"passthrough"</span>,</span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create overall data transformation pipeline</span></span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>    pipe <span class="op">=</span> Pipeline(steps<span class="op">=</span>[(<span class="st">"preprocessor"</span>, preprocessor)])</span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pipe</span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> clean_data(</span>
+<span id="cb34-30"><a href="#cb34-30" aria-hidden="true" tabindex="-1"></a>    df: pd.DataFrame, datatypes_dict: Dict, subset: List[<span class="bu">str</span>]</span>
+<span id="cb34-31"><a href="#cb34-31" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> pd.DataFrame:</span>
+<span id="cb34-32"><a href="#cb34-32" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Perform data cleaning."""</span></span>
+<span id="cb34-33"><a href="#cb34-33" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> (</span>
+<span id="cb34-34"><a href="#cb34-34" aria-hidden="true" tabindex="-1"></a>        <span class="co"># set column datatypes</span></span>
+<span id="cb34-35"><a href="#cb34-35" aria-hidden="true" tabindex="-1"></a>        df.pipe(set_datatypes, dtypes<span class="op">=</span>datatypes_dict)</span>
+<span id="cb34-36"><a href="#cb34-36" aria-hidden="true" tabindex="-1"></a>        <span class="co"># drop duplicates</span></span>
+<span id="cb34-37"><a href="#cb34-37" aria-hidden="true" tabindex="-1"></a>        .pipe(drop_duplicates, subset<span class="op">=</span>subset)</span>
+<span id="cb34-38"><a href="#cb34-38" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb34-39"><a href="#cb34-39" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(</span>
+<span id="cb34-40"><a href="#cb34-40" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Got </span><span class="sc">{</span><span class="bu">len</span>(df)<span class="sc">:,}</span><span class="ss"> rows and </span><span class="sc">{</span>df<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">:,}</span><span class="ss"> columns "</span> <span class="st">"after dropping duplicates"</span></span>
+<span id="cb34-41"><a href="#cb34-41" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb34-42"><a href="#cb34-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Workflow functions</p>
+<div class="cell" data-tags="[]" data-execution_count="30">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_data(</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    split_start_date: <span class="bu">str</span>,</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    split_end_date: <span class="bu">str</span>,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    train_start_date: <span class="bu">str</span>,</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    test_end_date: <span class="bu">str</span>,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> pd.DataFrame:</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Retrieve data from Google BigQuery dataset."""</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    query <span class="op">=</span> get_sql_query(</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>        split_start_date, split_end_date, train_start_date, test_end_date</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> run_sql_query(query, <span class="op">**</span>gcp_auth_dict, show_df<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> transform_data(</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>    df: pd.DataFrame,</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>    categorical_columns: List[<span class="bu">str</span>],</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>    datatypes_dict: Dict,</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>    pipe: Union[Pipeline, <span class="va">None</span>] <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> List[Union[pd.DataFrame, Pipeline]]:</span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Transform features in data."""</span></span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># clean data</span></span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.pipe(clean_data, datatypes_dict<span class="op">=</span>datatypes_dict, subset<span class="op">=</span>[<span class="st">"fullvisitorid"</span>])</span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get a list of the non-categorical columns</span></span>
+<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a>    non_categorical_columns <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">list</span>(df) <span class="cf">if</span> c <span class="kw">not</span> <span class="kw">in</span> categorical_columns]</span>
+<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># train a data transformation pipeline to perform frequency-encoding on</span></span>
+<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># categorical features in data</span></span>
+<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># - this is needed for training data split only</span></span>
+<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> pipe:</span>
+<span id="cb35-32"><a href="#cb35-32" aria-hidden="true" tabindex="-1"></a>        _ <span class="op">=</span> pipe_trans.fit(df)</span>
+<span id="cb35-33"><a href="#cb35-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-34"><a href="#cb35-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Apply a trained data transformation pipeline to perform frequency-encoding on</span></span>
+<span id="cb35-35"><a href="#cb35-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># categorical features in data</span></span>
+<span id="cb35-36"><a href="#cb35-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># - this is needed for training, validation and test data splits</span></span>
+<span id="cb35-37"><a href="#cb35-37" aria-hidden="true" tabindex="-1"></a>    cols_transformed <span class="op">=</span> categorical_columns <span class="op">+</span> non_categorical_columns</span>
+<span id="cb35-38"><a href="#cb35-38" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.DataFrame(pipe_trans.transform(df), columns<span class="op">=</span>cols_transformed)[</span>
+<span id="cb35-39"><a href="#cb35-39" aria-hidden="true" tabindex="-1"></a>        non_categorical_columns <span class="op">+</span> categorical_columns</span>
+<span id="cb35-40"><a href="#cb35-40" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb35-41"><a href="#cb35-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-42"><a href="#cb35-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># set datatypes after data transformation</span></span>
+<span id="cb35-43"><a href="#cb35-43" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.pipe(set_datatypes, dtypes<span class="op">=</span>datatypes_dict)</span>
+<span id="cb35-44"><a href="#cb35-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-45"><a href="#cb35-45" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(</span>
+<span id="cb35-46"><a href="#cb35-46" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Got </span><span class="sc">{</span><span class="bu">len</span>(df)<span class="sc">:,}</span><span class="ss"> rows and </span><span class="sc">{</span>df<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">:,}</span><span class="ss"> columns after "</span></span>
+<span id="cb35-47"><a href="#cb35-47" aria-hidden="true" tabindex="-1"></a>        <span class="st">"frequency-encoding categorical features"</span></span>
+<span id="cb35-48"><a href="#cb35-48" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb35-49"><a href="#cb35-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [df, pipe]</span>
+<span id="cb35-50"><a href="#cb35-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-51"><a href="#cb35-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-52"><a href="#cb35-52" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_data(</span>
+<span id="cb35-53"><a href="#cb35-53" aria-hidden="true" tabindex="-1"></a>    df: pd.DataFrame, processed_data_dir: <span class="bu">str</span>, split_type: <span class="bu">str</span> <span class="op">=</span> <span class="st">"train"</span></span>
+<span id="cb35-54"><a href="#cb35-54" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb35-55"><a href="#cb35-55" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Save data to file on local disk."""</span></span>
+<span id="cb35-56"><a href="#cb35-56" aria-hidden="true" tabindex="-1"></a>    fpath <span class="op">=</span> os.path.join(processed_data_dir, <span class="ss">f"</span><span class="sc">{</span>split_type<span class="sc">}</span><span class="ss">_processed.parquet.gzip"</span>)</span>
+<span id="cb35-57"><a href="#cb35-57" aria-hidden="true" tabindex="-1"></a>    df.to_parquet(fpath, index<span class="op">=</span><span class="va">False</span>, compression<span class="op">=</span><span class="st">"gzip"</span>, engine<span class="op">=</span><span class="st">"pyarrow"</span>)</span>
+<span id="cb35-58"><a href="#cb35-58" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Exported data to </span><span class="sc">{</span>fpath<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Notes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>These workflow functions also depend on the following helper functions (defined earlier in this step)</p>
+<ol type="1">
+<li><code>set_datatypes()</code></li>
+<li><code>drop_duplicates()</code></li>
+<li><code>get_sql_query()</code></li>
+<li><code>run_sql_query()</code></li>
+</ol>
+<p>If such a workflow is to be used in future steps in the analysis (eg. ML development), then both the</p>
+<ol type="1">
+<li>workflow functions</li>
+<li>helper functions</li>
+</ol>
+<p>must be defined in that step.</p>
+</div>
+</div>
+<p>We’ll now demonstrate how this ETL workflow to retrieve and transform data gives the identical output to transformed data using the non-ETL (manual) workflow described earlier in this step.</p>
+<p>First, define data transformation pipeline</p>
+<div class="cell" data-tags="[]" data-execution_count="31">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>pipe <span class="op">=</span> make_data_transformation_pipeline(cols_to_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Next, run ETL workflow to create training data and train the data transformation pipeline</p>
+<div class="cell" data-tags="[]" data-execution_count="32">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>df_train_v2, pipe_trained <span class="op">=</span> extract_data(</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    train_start_date,</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    train_end_date,</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    train_start_date,</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    test_end_date,</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>).pipe(</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    transform_data,</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    categorical_columns<span class="op">=</span>categorical_columns,</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    datatypes_dict<span class="op">=</span>dtypes_dict,</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>    pipe<span class="op">=</span>pipe,</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>df_train_v2.pipe(load_data, processed_data_dir, <span class="st">"train"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Query execution start time = 2023-04-13 14:26:40.071...done at 2023-04-13 14:26:58.420 (18.350 seconds).
+Query returned 92,859 rows
+Got 92,551 rows and 29 columns after dropping duplicates
+Got 92,551 rows and 29 columns after frequency-encoding categorical features
+Exported data to ../data/processed/train_processed.parquet.gzip</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Notes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Here, we also collect the trained data transformation pipeline. This can be directly used to transform validation and test data splits without re-training.</p>
+</div>
+</div>
+<p>Next, run ETL workflow to create validation data, with the transformation pipeline that was trained using the training data</p>
+<div class="cell" data-tags="[]" data-execution_count="33">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>df_val_v2, _ <span class="op">=</span> extract_data(</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    val_start_date,</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    val_end_date,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    train_start_date,</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    test_end_date,</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>).pipe(</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    transform_data,</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>    categorical_columns<span class="op">=</span>categorical_columns,</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>    datatypes_dict<span class="op">=</span>dtypes_dict,</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>    pipe<span class="op">=</span>pipe_trained,</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>df_val_v2.pipe(load_data, processed_data_dir, <span class="st">"val"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Query execution start time = 2023-04-13 14:26:59.461...done at 2023-04-13 14:27:05.038 (5.577 seconds).
+Query returned 21,208 rows
+Got 21,177 rows and 29 columns after dropping duplicates
+Got 21,177 rows and 29 columns after frequency-encoding categorical features
+Exported data to ../data/processed/val_processed.parquet.gzip</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Notes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Here, we do not need to collect the data transformation pipeline since it was already trained using the training data.</p>
+</div>
+</div>
+<p>Finally, run the ETL workflow to create test data, with the transformation pipeline that was trained using the training data</p>
+<div class="cell" data-tags="[]" data-execution_count="34">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>df_test_v2, _ <span class="op">=</span> extract_data(</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    test_start_date,</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    test_end_date,</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    train_start_date,</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    test_end_date,</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>).pipe(</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    transform_data,</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    categorical_columns<span class="op">=</span>categorical_columns,</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>    datatypes_dict<span class="op">=</span>dtypes_dict,</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>    pipe<span class="op">=</span>pipe_trained,</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>df_test_v2.pipe(load_data, processed_data_dir, <span class="st">"test"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Query execution start time = 2023-04-13 14:27:05.326...done at 2023-04-13 14:27:10.388 (5.062 seconds).
+Query returned 20,180 rows
+Got 20,164 rows and 29 columns after dropping duplicates
+Got 20,164 rows and 29 columns after frequency-encoding categorical features
+Exported data to ../data/processed/test_processed.parquet.gzip</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Notes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Again, we do not need to collect the data transformation pipeline since it was already trained using the training data.</p>
+</div>
+</div>
+<p>Verify that the manual and ETL approaches give the identical output for training, validation and test data splits after data transformation</p>
+<div class="cell" data-tags="[]" data-execution_count="35">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> df_train.equals(df_train_v2)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> df_val.equals(df_val_v2)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> df_test.equals(df_test_v2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 <section id="summary-of-tasks-performed" class="level2">
@@ -3495,12 +3808,12 @@ Wall time: 37 µs</code></pre>
 <li><code>visitNumber</code></li>
 <li><code>visitStartTime</code></li>
 </ul>
-columns and it was verified that no duplicated visits exist within each grouping of these columns.</li>
+columns.</li>
 </ul></li>
 <li>Data Splits
 <ul>
 <li>the data was split by month of the year</li>
-<li>new visitors in the training data, who returned to the Google Merchandise Store during the period of months covering the training data, do <strong>not</strong> need to also be in the validation or test data splits
+<li>new visitors in the training data, who returned to the Google Merchandise Store during the period of months covering the training data, do not need to also be in the validation or test data splits
 <ul>
 <li>this is not a problem since the current project’s business use-case is targeting new visitors and not the same/existing visitors</li>
 </ul></li>
@@ -3513,30 +3826,27 @@ columns and it was verified that no duplicated visits exist within each grouping
 <li>intuition about factors that would be predictive of a new visitor’s propensity (probability) of making a purchase on a future visit to the store</li>
 </ul></li>
 <li>It might be best to start by training a ML model with one of the General Features (<code>time_on_site</code>, <code>hits</code>, <code>pageviews</code>) and only add more if necessary to improve performance</li>
-<li>(not done here) other features for the first visit that intuitively might be useful at predicing the propensity of a purchase on a return visit include
-<ul>
-<li>get the hour of the first and/or last action per visit, using <code>MIN(hits.hour)</code> or <code>MAX(hits.hour)</code></li>
-<li>get the last interaction per visit, using <code>hits.isInteraction</code> (<a href="https://stackoverflow.com/questions/71012593/how-can-i-get-the-last-element-of-an-array-sql-bigquery">1</a>)</li>
-<li>determine whether a checkout step is specified with the last hit per visit <code>hits.eCommerceAction.step</code></li>
-<li><code>hits.social</code></li>
-<li><code>hits.social.socialNetwork</code></li>
-<li><code>hits.social.socialInteractionAction</code></li>
-<li><code>hits.product</code></li>
-<li><code>hits.product.productBrand</code></li>
-<li><code>hits.type</code></li>
-<li><code>hits.transaction</code></li>
-<li><code>socialEngagementType</code></li>
-<li><code>datetime</code> attributes for <code>visitStartTime</code></li>
-</ul></li>
 </ul></li>
 <li>Feature Processing
 <ul>
-<li>approaches to process features were discussed based on frequencies observed in the training data
+<li>approaches to process features were adopted based on frequencies observed in the training data during the EDA step
 <ul>
-<li>categorical features will be bucketed, with infrequent categories (less than 5% frequency) grouped together</li>
-<li><code>bounces</code> is a binary column and should be treated as a categorical ML feature</li>
-<li>undersampling, no changes or SMOTE are candidates for handling class imbalance</li>
+<li>categorical features were bucketed</li>
 </ul></li>
+<li>based on analysis in the current step
+<ul>
+<li><code>bounces</code> was shown i a binary column and should be treated as a categorical ML feature</li>
+<li>candidates for handling class imbalance during ML training are
+<ul>
+<li>undersampling</li>
+<li>no changes</li>
+<li>SMOTE</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>Defined ETL workflow
+<ul>
+<li>this supports quickly changing parameters of the data transformation pipeline in each data split during future steps</li>
 </ul></li>
 </ol>
 </section>
