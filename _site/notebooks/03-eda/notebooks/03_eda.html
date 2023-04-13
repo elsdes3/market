@@ -698,7 +698,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-147"><a href="#cb10-147" aria-hidden="true" tabindex="-1"></a>    display(df.head())</span>
 <span id="cb10-148"><a href="#cb10-148" aria-hidden="true" tabindex="-1"></a>    display(df.tail())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Query execution start time = 2023-04-12 22:03:46.760...done at 2023-04-12 22:04:09.120 (22.360 seconds).
+<pre><code>Query execution start time = 2023-04-12 22:16:47.745...done at 2023-04-12 22:17:06.333 (18.589 seconds).
 Query returned 92,859 rows</code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -1978,7 +1978,7 @@ Notes
 <p><strong>Question 1. For high-level channel, and the more fine-graned traffic source and traffic medium, get the correlation between the numerical attributes of visits and total visit revenue. Across all of these groupings of sources of web traffic arriving at the merchandise store, comment on the strongest and weakest correlations to revenue.</strong></p>
 <p>At the time of the first visit, we know whether the visitor will make a purchase during a return (or future) visit to the merchandise store. This is in the <code>made_purchase_on_future_visit</code> column. But, we have not extracted the visit revenue that was earned during that future visit, since we have only extracted its outcome. So, we will assume that this question is referring to visit revenue earned during the first visit since the columns (including <code>totals.transact_revenue</code>) are only retrieved for visitors’ first visits.</p>
 <p>Due to the high cardinality of channel and traffic source, this question will be answered for the grouped version of these columns. The following helper function will <a href="https://stackoverflow.com/a/74492236/4057186">get this correlation</a> and will be re-used for all three traffic-related columns</p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_revenue_corr_by_attribute(</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    df: pd.DataFrame, categorical_col: <span class="bu">str</span>, numerical_cols: List[<span class="bu">str</span>]</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> pd.DataFrame:</span>
@@ -2046,7 +2046,7 @@ Notes
 <li><code>product_detail_views</code></li>
 <li><code>time_on_site</code></li>
 </ol>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="20">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>numerical_cols <span class="op">=</span> [</span>
@@ -2060,15 +2060,217 @@ Notes
 </div>
 <p>The correlations to revenue are first shown by the channel. Channel is a high-level grouping of the source of visitor traffic reaching a website. The default channel groupings used in Google Analytics tracking data are available <a href="https://support.google.com/analytics/answer/3297892?hl=en">here</a>. We will assume that the default-level groupings are being tracked by the Google merchandise store’s analytics tracking implementation.</p>
 <p>These correlations for channels are shown below</p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>high_corr_categories <span class="op">=</span> [<span class="st">"Direct"</span>, <span class="st">"Referral"</span>]</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>df_corr_chn <span class="op">=</span> get_revenue_corr_by_attribute(</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    df, <span class="st">"channelGrouping"</span>, numerical_cols</span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>).assign(is_direct_referral<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">"channelGrouping"</span>].isin(high_corr_categories))</span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>df_corr_chn</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">first_visit_attribute</th>
+<th data-quarto-table-cell-role="th">channelGrouping</th>
+<th data-quarto-table-cell-role="th">corr_to_1st_visit_revenue_if_no_return_purchase</th>
+<th data-quarto-table-cell-role="th">corr_to_1st_visit_revenue_if_return_purchase</th>
+<th data-quarto-table-cell-role="th">proportion</th>
+<th data-quarto-table-cell-role="th">is_direct_referral</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1</td>
+<td>added_to_cart</td>
+<td>Organic Search</td>
+<td>0.458317</td>
+<td>0.176038</td>
+<td>0.416851</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0</td>
+<td>added_to_cart</td>
+<td>Direct</td>
+<td>0.286862</td>
+<td>0.354988</td>
+<td>0.232726</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3</td>
+<td>added_to_cart</td>
+<td>other</td>
+<td>0.234132</td>
+<td>0.311722</td>
+<td>0.175838</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2</td>
+<td>added_to_cart</td>
+<td>Referral</td>
+<td>0.195023</td>
+<td>0.362088</td>
+<td>0.174585</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">5</td>
+<td>hits</td>
+<td>Organic Search</td>
+<td>0.435311</td>
+<td>0.117423</td>
+<td>0.416851</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">4</td>
+<td>hits</td>
+<td>Direct</td>
+<td>0.204795</td>
+<td>0.362308</td>
+<td>0.232726</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">7</td>
+<td>hits</td>
+<td>other</td>
+<td>0.231565</td>
+<td>-0.065063</td>
+<td>0.175838</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">6</td>
+<td>hits</td>
+<td>Referral</td>
+<td>0.054949</td>
+<td>0.440263</td>
+<td>0.174585</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">9</td>
+<td>pageviews</td>
+<td>Organic Search</td>
+<td>0.429002</td>
+<td>0.124916</td>
+<td>0.416851</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">8</td>
+<td>pageviews</td>
+<td>Direct</td>
+<td>0.197580</td>
+<td>0.367974</td>
+<td>0.232726</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">11</td>
+<td>pageviews</td>
+<td>other</td>
+<td>0.198325</td>
+<td>-0.099826</td>
+<td>0.175838</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">10</td>
+<td>pageviews</td>
+<td>Referral</td>
+<td>0.043460</td>
+<td>0.437380</td>
+<td>0.174585</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">13</td>
+<td>product_detail_views</td>
+<td>Organic Search</td>
+<td>0.406578</td>
+<td>0.078438</td>
+<td>0.416851</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">12</td>
+<td>product_detail_views</td>
+<td>Direct</td>
+<td>0.213971</td>
+<td>0.317490</td>
+<td>0.232726</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">15</td>
+<td>product_detail_views</td>
+<td>other</td>
+<td>0.304971</td>
+<td>0.022729</td>
+<td>0.175838</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">14</td>
+<td>product_detail_views</td>
+<td>Referral</td>
+<td>0.071299</td>
+<td>0.411491</td>
+<td>0.174585</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">17</td>
+<td>time_on_site</td>
+<td>Organic Search</td>
+<td>0.291891</td>
+<td>-0.107737</td>
+<td>0.416851</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">16</td>
+<td>time_on_site</td>
+<td>Direct</td>
+<td>0.100362</td>
+<td>0.175132</td>
+<td>0.232726</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">19</td>
+<td>time_on_site</td>
+<td>other</td>
+<td>0.101952</td>
+<td>-0.322572</td>
+<td>0.175838</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">18</td>
+<td>time_on_site</td>
+<td>Referral</td>
+<td>0.030607</td>
+<td>0.524343</td>
+<td>0.174585</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p>A plot of these correlations to revenue is shown below for return purchasers (<code>corr_to_1st_visit_revenue_if_return_purchase</code>)</p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>plot_faceted_grouped_bar_chart(</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df_corr_chn,</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    xvar<span class="op">=</span><span class="st">"channelGrouping"</span>,</span>
@@ -2080,6 +2282,9 @@ Notes
 <span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    bar_order<span class="op">=</span>[<span class="st">"Organic Search"</span>, <span class="st">"Direct"</span>, <span class="st">"other"</span>, <span class="st">"Referral"</span>],</span>
 <span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    high_corr_categories<span class="op">=</span>high_corr_categories,</span>
 <span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="03_eda_files/figure-html/cell-23-output-1.png" class="img-fluid"></p>
+</div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Observations">
 <div class="callout-header d-flex align-content-center">
@@ -2098,7 +2303,7 @@ Observations
 </div>
 </div>
 <p>The correlations are now similarly shown by the more fine-grained traffic source column</p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="23">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>high_corr_categories <span class="op">=</span> [<span class="st">"other"</span>, <span class="st">"mall.googleplex.com"</span>]</span>
@@ -2107,6 +2312,253 @@ Observations
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>df_corr_source</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">first_visit_attribute</th>
+<th data-quarto-table-cell-role="th">source</th>
+<th data-quarto-table-cell-role="th">corr_to_1st_visit_revenue_if_no_return_purchase</th>
+<th data-quarto-table-cell-role="th">corr_to_1st_visit_revenue_if_return_purchase</th>
+<th data-quarto-table-cell-role="th">proportion</th>
+<th data-quarto-table-cell-role="th">is_other_gmail</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1</td>
+<td>added_to_cart</td>
+<td>google</td>
+<td>0.420159</td>
+<td>0.210653</td>
+<td>0.469773</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0</td>
+<td>added_to_cart</td>
+<td>(direct)</td>
+<td>0.286862</td>
+<td>0.354988</td>
+<td>0.232726</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>added_to_cart</td>
+<td>mall.googleplex.com</td>
+<td>0.328478</td>
+<td>0.476184</td>
+<td>0.127238</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">4</td>
+<td>added_to_cart</td>
+<td>youtube.com</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0.086666</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3</td>
+<td>added_to_cart</td>
+<td>other</td>
+<td>0.105265</td>
+<td>0.486743</td>
+<td>0.083597</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">6</td>
+<td>hits</td>
+<td>google</td>
+<td>0.395540</td>
+<td>0.027843</td>
+<td>0.469773</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">5</td>
+<td>hits</td>
+<td>(direct)</td>
+<td>0.204795</td>
+<td>0.362308</td>
+<td>0.232726</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>hits</td>
+<td>mall.googleplex.com</td>
+<td>0.182408</td>
+<td>0.679037</td>
+<td>0.127238</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">9</td>
+<td>hits</td>
+<td>youtube.com</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0.086666</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">8</td>
+<td>hits</td>
+<td>other</td>
+<td>0.112838</td>
+<td>0.470637</td>
+<td>0.083597</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">11</td>
+<td>pageviews</td>
+<td>google</td>
+<td>0.384886</td>
+<td>0.018214</td>
+<td>0.469773</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">10</td>
+<td>pageviews</td>
+<td>(direct)</td>
+<td>0.197580</td>
+<td>0.367974</td>
+<td>0.232726</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12</td>
+<td>pageviews</td>
+<td>mall.googleplex.com</td>
+<td>0.168901</td>
+<td>0.669607</td>
+<td>0.127238</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">14</td>
+<td>pageviews</td>
+<td>youtube.com</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0.086666</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">13</td>
+<td>pageviews</td>
+<td>other</td>
+<td>0.112363</td>
+<td>0.465942</td>
+<td>0.083597</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">16</td>
+<td>product_detail_views</td>
+<td>google</td>
+<td>0.387493</td>
+<td>0.043626</td>
+<td>0.469773</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">15</td>
+<td>product_detail_views</td>
+<td>(direct)</td>
+<td>0.213971</td>
+<td>0.317490</td>
+<td>0.232726</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17</td>
+<td>product_detail_views</td>
+<td>mall.googleplex.com</td>
+<td>0.169731</td>
+<td>0.630595</td>
+<td>0.127238</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">19</td>
+<td>product_detail_views</td>
+<td>youtube.com</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0.086666</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">18</td>
+<td>product_detail_views</td>
+<td>other</td>
+<td>0.200577</td>
+<td>0.472184</td>
+<td>0.083597</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">21</td>
+<td>time_on_site</td>
+<td>google</td>
+<td>0.248570</td>
+<td>-0.205277</td>
+<td>0.469773</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">20</td>
+<td>time_on_site</td>
+<td>(direct)</td>
+<td>0.100362</td>
+<td>0.175132</td>
+<td>0.232726</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">22</td>
+<td>time_on_site</td>
+<td>mall.googleplex.com</td>
+<td>0.064139</td>
+<td>0.636119</td>
+<td>0.127238</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">24</td>
+<td>time_on_site</td>
+<td>youtube.com</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0.086666</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">23</td>
+<td>time_on_site</td>
+<td>other</td>
+<td>0.131011</td>
+<td>0.556708</td>
+<td>0.083597</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Notes">
 <div class="callout-header d-flex align-content-center">
@@ -2147,7 +2599,7 @@ traffic sources have a stronger correlation to revenue.</li>
 </div>
 </div>
 <p>This is finally repeated using the same helper function for the traffic medium column</p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="24">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>high_corr_categories <span class="op">=</span> [<span class="st">"referral"</span>, <span class="st">"(none)"</span>]</span>
@@ -2156,9 +2608,211 @@ traffic sources have a stronger correlation to revenue.</li>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>df_corr_medium</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">first_visit_attribute</th>
+<th data-quarto-table-cell-role="th">medium</th>
+<th data-quarto-table-cell-role="th">corr_to_1st_visit_revenue_if_no_return_purchase</th>
+<th data-quarto-table-cell-role="th">corr_to_1st_visit_revenue_if_return_purchase</th>
+<th data-quarto-table-cell-role="th">proportion</th>
+<th data-quarto-table-cell-role="th">is_none_referral</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1</td>
+<td>added_to_cart</td>
+<td>organic</td>
+<td>0.458317</td>
+<td>0.176038</td>
+<td>0.416851</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>added_to_cart</td>
+<td>referral</td>
+<td>0.193514</td>
+<td>0.361836</td>
+<td>0.271029</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>added_to_cart</td>
+<td>(none)</td>
+<td>0.286862</td>
+<td>0.354988</td>
+<td>0.232726</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2</td>
+<td>added_to_cart</td>
+<td>other</td>
+<td>0.262166</td>
+<td>0.315144</td>
+<td>0.079394</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">5</td>
+<td>hits</td>
+<td>organic</td>
+<td>0.435311</td>
+<td>0.117423</td>
+<td>0.416851</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>hits</td>
+<td>referral</td>
+<td>0.055521</td>
+<td>0.439544</td>
+<td>0.271029</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>hits</td>
+<td>(none)</td>
+<td>0.204795</td>
+<td>0.362308</td>
+<td>0.232726</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">6</td>
+<td>hits</td>
+<td>other</td>
+<td>0.261931</td>
+<td>-0.064471</td>
+<td>0.079394</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">9</td>
+<td>pageviews</td>
+<td>organic</td>
+<td>0.429002</td>
+<td>0.124916</td>
+<td>0.416851</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>pageviews</td>
+<td>referral</td>
+<td>0.044005</td>
+<td>0.436655</td>
+<td>0.271029</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>pageviews</td>
+<td>(none)</td>
+<td>0.197580</td>
+<td>0.367974</td>
+<td>0.232726</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">10</td>
+<td>pageviews</td>
+<td>other</td>
+<td>0.228142</td>
+<td>-0.099564</td>
+<td>0.079394</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">13</td>
+<td>product_detail_views</td>
+<td>organic</td>
+<td>0.406578</td>
+<td>0.078438</td>
+<td>0.416851</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>product_detail_views</td>
+<td>referral</td>
+<td>0.073262</td>
+<td>0.411055</td>
+<td>0.271029</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12</td>
+<td>product_detail_views</td>
+<td>(none)</td>
+<td>0.213971</td>
+<td>0.317490</td>
+<td>0.232726</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">14</td>
+<td>product_detail_views</td>
+<td>other</td>
+<td>0.324045</td>
+<td>0.024184</td>
+<td>0.079394</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">17</td>
+<td>time_on_site</td>
+<td>organic</td>
+<td>0.291891</td>
+<td>-0.107737</td>
+<td>0.416851</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19</td>
+<td>time_on_site</td>
+<td>referral</td>
+<td>0.035605</td>
+<td>0.524371</td>
+<td>0.271029</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td>time_on_site</td>
+<td>(none)</td>
+<td>0.100362</td>
+<td>0.175132</td>
+<td>0.232726</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">18</td>
+<td>time_on_site</td>
+<td>other</td>
+<td>0.063565</td>
+<td>-0.322501</td>
+<td>0.079394</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p>A plot of these correlations to revenue is shown below for return purchasers (<code>corr_to_1st_visit_revenue_if_return_purchase</code>)</p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>plot_faceted_grouped_bar_chart(</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df_corr_medium,</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    xvar<span class="op">=</span><span class="st">"medium"</span>,</span>
@@ -2170,6 +2824,9 @@ traffic sources have a stronger correlation to revenue.</li>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    bar_order<span class="op">=</span>[<span class="st">"organic"</span>, <span class="st">"referral"</span>, <span class="st">"(none)"</span>, <span class="st">"other"</span>],</span>
 <span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    high_corr_categories<span class="op">=</span>high_corr_categories,</span>
 <span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="03_eda_files/figure-html/cell-26-output-1.png" class="img-fluid"></p>
+</div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Notes">
 <div class="callout-header d-flex align-content-center">
@@ -2232,7 +2889,7 @@ Overall Observations for Correlations to Revenue Based on Groupings by Traffic
 </div>
 </div>
 <p><strong>Question 2. Which channels were responsible for the most first-time visitors with a purchase on their return visit? Show this comparison on a chart by channel.</strong></p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df_agg_by_channel <span class="op">=</span> (</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># groupby and count fullvisitorid</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    df.groupby([<span class="st">"made_purchase_on_future_visit"</span>, <span class="st">"channelGrouping"</span>], as_index<span class="op">=</span><span class="va">False</span>)[</span>
@@ -2255,9 +2912,94 @@ Overall Observations for Correlations to Revenue Based on Groupings by Traffic
 <span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>    .sort_values(by<span class="op">=</span>[<span class="st">"made_purchase_on_future_visit"</span>, <span class="st">"num_visitors"</span>], ascending<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>df_agg_by_channel</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">made_purchase_on_future_visit</th>
+<th data-quarto-table-cell-role="th">channelGrouping</th>
+<th data-quarto-table-cell-role="th">num_visitors</th>
+<th data-quarto-table-cell-role="th">total_visitors</th>
+<th data-quarto-table-cell-role="th">frac_visitors</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>True</td>
+<td>Referral</td>
+<td>1841</td>
+<td>4250</td>
+<td>43.317647</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">4</td>
+<td>True</td>
+<td>Direct</td>
+<td>1642</td>
+<td>4250</td>
+<td>38.635294</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">5</td>
+<td>True</td>
+<td>Organic Search</td>
+<td>579</td>
+<td>4250</td>
+<td>13.623529</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>True</td>
+<td>other</td>
+<td>188</td>
+<td>4250</td>
+<td>4.423529</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1</td>
+<td>False</td>
+<td>Organic Search</td>
+<td>38001</td>
+<td>88301</td>
+<td>43.035753</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0</td>
+<td>False</td>
+<td>Direct</td>
+<td>19897</td>
+<td>88301</td>
+<td>22.533154</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3</td>
+<td>False</td>
+<td>other</td>
+<td>16086</td>
+<td>88301</td>
+<td>18.217234</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2</td>
+<td>False</td>
+<td>Referral</td>
+<td>14317</td>
+<td>88301</td>
+<td>16.213859</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p>A plot showing the fraction of return purchasers by channel (<code>frac_visitors</code>) is shown below</p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="dv">4</span>))</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>grid <span class="op">=</span> plt.GridSpec(<span class="dv">1</span>, <span class="dv">1</span>)</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> fig.add_subplot(grid[<span class="dv">0</span>, <span class="dv">0</span>])</span>
@@ -2286,6 +3028,9 @@ Overall Observations for Correlations to Revenue Based on Groupings by Traffic
 <span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>        fontsize<span class="op">=</span><span class="dv">11</span>,</span>
 <span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> customize_splines(ax, <span class="va">None</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="03_eda_files/figure-html/cell-28-output-1.png" class="img-fluid"></p>
+</div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Observations">
 <div class="callout-header d-flex align-content-center">
@@ -2304,7 +3049,7 @@ Observations
 </div>
 </div>
 <p><strong>Question 3. Is there any one web-browser that return purchasers used on their first visit?</strong></p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>df_agg_by_browser <span class="op">=</span> (</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># groupby and count fullvisitorid</span></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    df.groupby([<span class="st">"made_purchase_on_future_visit"</span>, <span class="st">"browser"</span>], as_index<span class="op">=</span><span class="va">False</span>)[</span>
@@ -2327,9 +3072,78 @@ Observations
 <span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>    .sort_values(by<span class="op">=</span>[<span class="st">"made_purchase_on_future_visit"</span>, <span class="st">"num_visitors"</span>], ascending<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>df_agg_by_browser</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">made_purchase_on_future_visit</th>
+<th data-quarto-table-cell-role="th">browser</th>
+<th data-quarto-table-cell-role="th">num_visitors</th>
+<th data-quarto-table-cell-role="th">total_visitors</th>
+<th data-quarto-table-cell-role="th">frac_visitors</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3</td>
+<td>True</td>
+<td>Chrome</td>
+<td>4102</td>
+<td>4250</td>
+<td>96.517647</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">4</td>
+<td>True</td>
+<td>Safari</td>
+<td>95</td>
+<td>4250</td>
+<td>2.235294</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">5</td>
+<td>True</td>
+<td>other</td>
+<td>53</td>
+<td>4250</td>
+<td>1.247059</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0</td>
+<td>False</td>
+<td>Chrome</td>
+<td>64899</td>
+<td>88301</td>
+<td>73.497469</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1</td>
+<td>False</td>
+<td>Safari</td>
+<td>15199</td>
+<td>88301</td>
+<td>17.212716</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2</td>
+<td>False</td>
+<td>other</td>
+<td>8203</td>
+<td>88301</td>
+<td>9.289816</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p>A plot showing the fraction of return purchasers by web browser (<code>frac_visitors</code>) is shown below</p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>grid <span class="op">=</span> plt.GridSpec(<span class="dv">2</span>, <span class="dv">1</span>, hspace<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> fig.add_subplot(grid[<span class="dv">0</span>, <span class="dv">0</span>])</span>
@@ -2357,6 +3171,9 @@ Observations
 <span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>        )</span>
 <span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>        ax.set_xticklabels([])</span>
 <span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> customize_splines(ax, <span class="va">None</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="03_eda_files/figure-html/cell-30-output-1.png" class="img-fluid"></p>
+</div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Observations">
 <div class="callout-header d-flex align-content-center">
@@ -2375,7 +3192,7 @@ Observations
 </div>
 </div>
 <p><strong>Question 4. Do visitors who make a purchase on their return visit to the store have a preference for the type of device (desktop, mobile, etc.) they are using during their first visit?</strong></p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>df_agg_by_device <span class="op">=</span> (</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># groupby and count fullvisitorid</span></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    df.groupby([<span class="st">"made_purchase_on_future_visit"</span>, <span class="st">"deviceCategory"</span>], as_index<span class="op">=</span><span class="va">False</span>)[</span>
@@ -2398,9 +3215,78 @@ Observations
 <span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>    .sort_values(by<span class="op">=</span>[<span class="st">"made_purchase_on_future_visit"</span>, <span class="st">"num_visitors"</span>], ascending<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>df_agg_by_device</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="30">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">made_purchase_on_future_visit</th>
+<th data-quarto-table-cell-role="th">deviceCategory</th>
+<th data-quarto-table-cell-role="th">num_visitors</th>
+<th data-quarto-table-cell-role="th">total_visitors</th>
+<th data-quarto-table-cell-role="th">frac_visitors</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3</td>
+<td>True</td>
+<td>desktop</td>
+<td>4091</td>
+<td>4250</td>
+<td>96.258824</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">4</td>
+<td>True</td>
+<td>mobile</td>
+<td>131</td>
+<td>4250</td>
+<td>3.082353</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">5</td>
+<td>True</td>
+<td>tablet</td>
+<td>28</td>
+<td>4250</td>
+<td>0.658824</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0</td>
+<td>False</td>
+<td>desktop</td>
+<td>63264</td>
+<td>88301</td>
+<td>71.645848</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1</td>
+<td>False</td>
+<td>mobile</td>
+<td>21659</td>
+<td>88301</td>
+<td>24.528601</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2</td>
+<td>False</td>
+<td>tablet</td>
+<td>3378</td>
+<td>88301</td>
+<td>3.825551</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p>A plot showing the fraction of return purchasers by type of computing device (<code>frac_visitors</code>) is shown below</p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>grid <span class="op">=</span> plt.GridSpec(<span class="dv">2</span>, <span class="dv">1</span>, hspace<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> fig.add_subplot(grid[<span class="dv">0</span>, <span class="dv">0</span>])</span>
@@ -2428,6 +3314,9 @@ Observations
 <span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>        )</span>
 <span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>        ax.set_xticklabels([])</span>
 <span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> customize_splines(ax, <span class="va">None</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="03_eda_files/figure-html/cell-32-output-1.png" class="img-fluid"></p>
+</div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Notes">
 <div class="callout-header d-flex align-content-center">
@@ -2470,7 +3359,7 @@ Observations
 <li><code>source</code> (traffic source after grouping)</li>
 <li><code>made_purchase_on_future_visit</code> (ML label column, <code>y</code>)</li>
 </ol>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="32">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>datetime_label_cols <span class="op">=</span> [</span>
@@ -2485,19 +3374,92 @@ Observations
 </details>
 </div>
 <p>Show the <code>fullvisitorid</code>, <code>datetime</code> and ML label (<code>y</code>) columns from the prepared data</p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="33">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df[datetime_label_cols].head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">fullvisitorid</th>
+<th data-quarto-table-cell-role="th">month</th>
+<th data-quarto-table-cell-role="th">day_of_month</th>
+<th data-quarto-table-cell-role="th">day_of_week</th>
+<th data-quarto-table-cell-role="th">hour</th>
+<th data-quarto-table-cell-role="th">source</th>
+<th data-quarto-table-cell-role="th">made_purchase_on_future_visit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>483329569933708956</td>
+<td>10</td>
+<td>25</td>
+<td>3</td>
+<td>19</td>
+<td>google</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>9534112552538425546</td>
+<td>10</td>
+<td>16</td>
+<td>1</td>
+<td>22</td>
+<td>youtube.com</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>4648924122067625674</td>
+<td>10</td>
+<td>8</td>
+<td>7</td>
+<td>16</td>
+<td>youtube.com</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2743152869399749836</td>
+<td>12</td>
+<td>8</td>
+<td>5</td>
+<td>15</td>
+<td>google</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>1565213706199847638</td>
+<td>9</td>
+<td>29</td>
+<td>5</td>
+<td>14</td>
+<td>google</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p>Definie mapping dictionaries to change month and day of week from integers to strings (month name and day name)</p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>month_mapper <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">12</span> <span class="op">+</span> <span class="dv">1</span>), month_name[<span class="dv">1</span>:]))</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>day_mapper <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span> <span class="op">+</span> <span class="dv">1</span>), [day_name[<span class="op">-</span><span class="dv">1</span>]] <span class="op">+</span> day_name[:<span class="op">-</span><span class="dv">1</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Apply these mapping dictionaries to the prepared data to get new columns with the <code>_name</code> suffix and append a column to indicate if the day of the week is a weekday or weekend</p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>df_datetime <span class="op">=</span> (</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># map month to month name</span></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    df.assign(month_name<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">"month"</span>].<span class="bu">map</span>(month_mapper))</span>
@@ -2511,6 +3473,97 @@ Observations
 <span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> [<span class="st">"month_name"</span>, <span class="st">"is_weekend"</span>, <span class="st">"day_name"</span>]</span>
 <span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> [datetime_label_cols[<span class="op">-</span><span class="dv">1</span>]]</span>
 <span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>].head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="35">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">fullvisitorid</th>
+<th data-quarto-table-cell-role="th">month</th>
+<th data-quarto-table-cell-role="th">day_of_month</th>
+<th data-quarto-table-cell-role="th">day_of_week</th>
+<th data-quarto-table-cell-role="th">hour</th>
+<th data-quarto-table-cell-role="th">source</th>
+<th data-quarto-table-cell-role="th">month_name</th>
+<th data-quarto-table-cell-role="th">is_weekend</th>
+<th data-quarto-table-cell-role="th">day_name</th>
+<th data-quarto-table-cell-role="th">made_purchase_on_future_visit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>483329569933708956</td>
+<td>10</td>
+<td>25</td>
+<td>3</td>
+<td>19</td>
+<td>google</td>
+<td>October</td>
+<td>False</td>
+<td>Tuesday</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>9534112552538425546</td>
+<td>10</td>
+<td>16</td>
+<td>1</td>
+<td>22</td>
+<td>youtube.com</td>
+<td>October</td>
+<td>True</td>
+<td>Sunday</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>4648924122067625674</td>
+<td>10</td>
+<td>8</td>
+<td>7</td>
+<td>16</td>
+<td>youtube.com</td>
+<td>October</td>
+<td>True</td>
+<td>Saturday</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2743152869399749836</td>
+<td>12</td>
+<td>8</td>
+<td>5</td>
+<td>15</td>
+<td>google</td>
+<td>December</td>
+<td>False</td>
+<td>Thursday</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>1565213706199847638</td>
+<td>9</td>
+<td>29</td>
+<td>5</td>
+<td>14</td>
+<td>google</td>
+<td>September</td>
+<td>False</td>
+<td>Thursday</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p>Perform the <code>GROUP BY</code> over</p>
 <ol type="1">
@@ -2519,7 +3572,7 @@ Observations
 <li>whether return purchase was made</li>
 </ol>
 <p>and get fraction of visitors</p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>df_datetime_agg_source <span class="op">=</span> (</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># groupby and count fullvisitorid</span></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    df_datetime.groupby(</span>
@@ -2542,9 +3595,211 @@ Observations
 <span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a>    .assign(frac_visitors<span class="op">=</span><span class="kw">lambda</span> df: <span class="dv">100</span> <span class="op">*</span> df[<span class="st">"num_visitors"</span>] <span class="op">/</span> df[<span class="st">"total_visitors"</span>])</span>
 <span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a>df_datetime_agg_source</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="36">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">source</th>
+<th data-quarto-table-cell-role="th">is_weekend</th>
+<th data-quarto-table-cell-role="th">made_purchase_on_future_visit</th>
+<th data-quarto-table-cell-role="th">num_visitors</th>
+<th data-quarto-table-cell-role="th">total_visitors</th>
+<th data-quarto-table-cell-role="th">frac_visitors</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>(direct)</td>
+<td>False</td>
+<td>False</td>
+<td>16220</td>
+<td>88301</td>
+<td>18.368988</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>(direct)</td>
+<td>True</td>
+<td>False</td>
+<td>3677</td>
+<td>88301</td>
+<td>4.164166</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>google</td>
+<td>False</td>
+<td>False</td>
+<td>32439</td>
+<td>88301</td>
+<td>36.736843</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>google</td>
+<td>True</td>
+<td>False</td>
+<td>10344</td>
+<td>88301</td>
+<td>11.714477</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>mall.googleplex.com</td>
+<td>False</td>
+<td>False</td>
+<td>9349</td>
+<td>88301</td>
+<td>10.587649</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>mall.googleplex.com</td>
+<td>True</td>
+<td>False</td>
+<td>1149</td>
+<td>88301</td>
+<td>1.301231</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>other</td>
+<td>False</td>
+<td>False</td>
+<td>5947</td>
+<td>88301</td>
+<td>6.734918</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>other</td>
+<td>True</td>
+<td>False</td>
+<td>1158</td>
+<td>88301</td>
+<td>1.311423</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>youtube.com</td>
+<td>False</td>
+<td>False</td>
+<td>5883</td>
+<td>88301</td>
+<td>6.662439</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>youtube.com</td>
+<td>True</td>
+<td>False</td>
+<td>2135</td>
+<td>88301</td>
+<td>2.417866</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>(direct)</td>
+<td>False</td>
+<td>True</td>
+<td>1343</td>
+<td>4250</td>
+<td>31.600000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>(direct)</td>
+<td>True</td>
+<td>True</td>
+<td>299</td>
+<td>4250</td>
+<td>7.035294</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12</td>
+<td>google</td>
+<td>False</td>
+<td>True</td>
+<td>561</td>
+<td>4250</td>
+<td>13.200000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13</td>
+<td>google</td>
+<td>True</td>
+<td>True</td>
+<td>134</td>
+<td>4250</td>
+<td>3.152941</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">14</td>
+<td>mall.googleplex.com</td>
+<td>False</td>
+<td>True</td>
+<td>1123</td>
+<td>4250</td>
+<td>26.423529</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>mall.googleplex.com</td>
+<td>True</td>
+<td>True</td>
+<td>155</td>
+<td>4250</td>
+<td>3.647059</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td>other</td>
+<td>False</td>
+<td>True</td>
+<td>513</td>
+<td>4250</td>
+<td>12.070588</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17</td>
+<td>other</td>
+<td>True</td>
+<td>True</td>
+<td>119</td>
+<td>4250</td>
+<td>2.800000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>youtube.com</td>
+<td>False</td>
+<td>True</td>
+<td>2</td>
+<td>4250</td>
+<td>0.047059</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19</td>
+<td>youtube.com</td>
+<td>True</td>
+<td>True</td>
+<td>1</td>
+<td>4250</td>
+<td>0.023529</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p>A heatmap is shown below for return purchasers (<code>frac_visitors</code>) and similarly for visitors who did not make a purchase on a return visit</p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>grid <span class="op">=</span> plt.GridSpec(<span class="dv">2</span>, <span class="dv">1</span>, hspace<span class="op">=</span><span class="fl">0.3</span>)</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> fig.add_subplot(grid[<span class="dv">0</span>, <span class="dv">0</span>])</span>
@@ -2595,6 +3850,9 @@ Observations
 <span id="cb37-48"><a href="#cb37-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> c:</span>
 <span id="cb37-49"><a href="#cb37-49" aria-hidden="true" tabindex="-1"></a>        ax.set_xticklabels([])</span>
 <span id="cb37-50"><a href="#cb37-50" aria-hidden="true" tabindex="-1"></a>    ax.tick_params(size<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="03_eda_files/figure-html/cell-38-output-1.png" class="img-fluid"></p>
+</div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Observations">
 <div class="callout-header d-flex align-content-center">
@@ -2612,7 +3870,7 @@ Observations
 </div>
 </div>
 <p><strong>Question 6. Show the fraction of visitors who did make a purchase on their return visit to the merchandise store by month and day of the month.</strong></p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>df_agg <span class="op">=</span> df.groupby([<span class="st">"month"</span>, <span class="st">"day_of_month"</span>], as_index<span class="op">=</span><span class="va">False</span>).agg(</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"made_purchase_on_future_visit"</span>: [<span class="st">"sum"</span>], <span class="st">"fullvisitorid"</span>: <span class="st">"count"</span>}</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>)</span>
@@ -2629,9 +3887,131 @@ Observations
 <span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>display(df_agg.head())</span>
 <span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>display(df_agg.tail())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">month</th>
+<th data-quarto-table-cell-role="th">day_of_month</th>
+<th data-quarto-table-cell-role="th">return_purchasers</th>
+<th data-quarto-table-cell-role="th">return_visitors</th>
+<th data-quarto-table-cell-role="th">frac_return_purchasers</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>39</td>
+<td>2.564103</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>9</td>
+<td>1</td>
+<td>18</td>
+<td>643</td>
+<td>2.799378</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>9</td>
+<td>2</td>
+<td>17</td>
+<td>647</td>
+<td>2.627512</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>9</td>
+<td>3</td>
+<td>5</td>
+<td>408</td>
+<td>1.22549</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>9</td>
+<td>4</td>
+<td>6</td>
+<td>350</td>
+<td>1.714286</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">month</th>
+<th data-quarto-table-cell-role="th">day_of_month</th>
+<th data-quarto-table-cell-role="th">return_purchasers</th>
+<th data-quarto-table-cell-role="th">return_visitors</th>
+<th data-quarto-table-cell-role="th">frac_return_purchasers</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">118</td>
+<td>12</td>
+<td>27</td>
+<td>34</td>
+<td>665</td>
+<td>5.112782</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">119</td>
+<td>12</td>
+<td>28</td>
+<td>30</td>
+<td>577</td>
+<td>5.199307</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">120</td>
+<td>12</td>
+<td>29</td>
+<td>22</td>
+<td>588</td>
+<td>3.741497</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">121</td>
+<td>12</td>
+<td>30</td>
+<td>13</td>
+<td>436</td>
+<td>2.981651</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">122</td>
+<td>12</td>
+<td>31</td>
+<td>15</td>
+<td>439</td>
+<td>3.416856</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p>Reshape into untidy data for heatmap</p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> (</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    df_agg.query(<span class="st">"month &gt;= 9"</span>)</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    .assign(month_name<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">"month"</span>].<span class="bu">map</span>(month_mapper))</span>
@@ -2639,9 +4019,278 @@ Observations
 <span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    .astype(<span class="bu">float</span>)[month_name[<span class="dv">1</span>:][<span class="op">-</span><span class="dv">4</span>:]]</span>
 <span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>data.reset_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="39">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">month_name</th>
+<th data-quarto-table-cell-role="th">day_of_month</th>
+<th data-quarto-table-cell-role="th">September</th>
+<th data-quarto-table-cell-role="th">October</th>
+<th data-quarto-table-cell-role="th">November</th>
+<th data-quarto-table-cell-role="th">December</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>2.799378</td>
+<td>2.094241</td>
+<td>6.130790</td>
+<td>5.904059</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2</td>
+<td>2.627512</td>
+<td>1.670644</td>
+<td>5.576679</td>
+<td>5.989305</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3</td>
+<td>1.225490</td>
+<td>4.066265</td>
+<td>6.161137</td>
+<td>3.909774</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>4</td>
+<td>1.714286</td>
+<td>2.702703</td>
+<td>5.153203</td>
+<td>5.652174</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>5</td>
+<td>2.444444</td>
+<td>3.389831</td>
+<td>5.772812</td>
+<td>7.899306</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>6</td>
+<td>1.834862</td>
+<td>2.423469</td>
+<td>6.654676</td>
+<td>6.147541</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>7</td>
+<td>2.624672</td>
+<td>2.497027</td>
+<td>8.690013</td>
+<td>6.353861</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>8</td>
+<td>2.627737</td>
+<td>1.720841</td>
+<td>4.913295</td>
+<td>5.579399</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>9</td>
+<td>3.285714</td>
+<td>1.691729</td>
+<td>6.239737</td>
+<td>5.838041</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>10</td>
+<td>2.127660</td>
+<td>4.490291</td>
+<td>6.200528</td>
+<td>4.596273</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>11</td>
+<td>1.162791</td>
+<td>2.731591</td>
+<td>8.401084</td>
+<td>5.465839</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>12</td>
+<td>3.047896</td>
+<td>4.694836</td>
+<td>3.433476</td>
+<td>6.115108</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12</td>
+<td>13</td>
+<td>3.511450</td>
+<td>3.967328</td>
+<td>5.835010</td>
+<td>6.141079</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13</td>
+<td>14</td>
+<td>3.096774</td>
+<td>4.551724</td>
+<td>5.581948</td>
+<td>4.728546</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">14</td>
+<td>15</td>
+<td>2.980473</td>
+<td>0.751880</td>
+<td>6.207675</td>
+<td>4.850746</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>16</td>
+<td>2.785146</td>
+<td>2.003643</td>
+<td>5.672970</td>
+<td>4.486626</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td>17</td>
+<td>0.982801</td>
+<td>4.216074</td>
+<td>7.978723</td>
+<td>4.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17</td>
+<td>18</td>
+<td>3.359173</td>
+<td>3.726708</td>
+<td>6.483791</td>
+<td>2.739726</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>19</td>
+<td>4.676754</td>
+<td>2.557201</td>
+<td>6.428571</td>
+<td>4.984177</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19</td>
+<td>20</td>
+<td>3.983516</td>
+<td>2.230483</td>
+<td>6.158358</td>
+<td>3.688181</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">20</td>
+<td>21</td>
+<td>3.648649</td>
+<td>2.580645</td>
+<td>6.652587</td>
+<td>3.598691</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">21</td>
+<td>22</td>
+<td>2.435065</td>
+<td>1.841621</td>
+<td>6.773399</td>
+<td>4.477612</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">22</td>
+<td>23</td>
+<td>2.184874</td>
+<td>1.949318</td>
+<td>8.421053</td>
+<td>2.935780</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">23</td>
+<td>24</td>
+<td>1.269036</td>
+<td>2.709069</td>
+<td>6.306306</td>
+<td>3.448276</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">24</td>
+<td>25</td>
+<td>1.363636</td>
+<td>3.057758</td>
+<td>6.560847</td>
+<td>2.004454</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">25</td>
+<td>26</td>
+<td>4.781997</td>
+<td>5.309735</td>
+<td>8.108108</td>
+<td>3.983229</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">26</td>
+<td>27</td>
+<td>3.030303</td>
+<td>4.171633</td>
+<td>6.736353</td>
+<td>5.112782</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">27</td>
+<td>28</td>
+<td>3.030303</td>
+<td>4.801097</td>
+<td>9.046154</td>
+<td>5.199307</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">28</td>
+<td>29</td>
+<td>1.894452</td>
+<td>3.861004</td>
+<td>8.056171</td>
+<td>3.741497</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">29</td>
+<td>30</td>
+<td>2.297090</td>
+<td>2.977233</td>
+<td>6.707855</td>
+<td>2.981651</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">30</td>
+<td>31</td>
+<td>NaN</td>
+<td>5.781866</td>
+<td>NaN</td>
+<td>3.416856</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p>Show heatmap</p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="40">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>show_heatmap(</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    data,</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Day of Month"</span>,</span>
@@ -2649,6 +4298,9 @@ Observations
 <span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"pad"</span>: <span class="fl">0.01</span>},</span>
 <span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    fig_size<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">12</span>),</span>
 <span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="03_eda_files/figure-html/cell-41-output-1.png" class="img-fluid"></p>
+</div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Observations">
 <div class="callout-header d-flex align-content-center">
@@ -2672,7 +4324,7 @@ Observations
 <li>channels</li>
 </ul>
 <p>used by visitors who did and did not make purchase on a return visit</p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="41">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>df_agg <span class="op">=</span> df.groupby(</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"month"</span>, <span class="st">"day_of_week"</span>, <span class="st">"made_purchase_on_future_visit"</span>], as_index<span class="op">=</span><span class="va">False</span></span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>).agg({<span class="st">"fullvisitorid"</span>: <span class="st">"count"</span>, <span class="st">"channelGrouping"</span>: <span class="st">"nunique"</span>})</span>
@@ -2680,9 +4332,70 @@ Observations
 <span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>{<span class="st">"channelGrouping"</span>: <span class="st">"num_channels"</span>, <span class="st">"fullvisitorid"</span>: <span class="st">"return_visitors"</span>}</span>
 <span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>df_agg.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="41">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">month</th>
+<th data-quarto-table-cell-role="th">day_of_week</th>
+<th data-quarto-table-cell-role="th">made_purchase_on_future_visit</th>
+<th data-quarto-table-cell-role="th">return_visitors</th>
+<th data-quarto-table-cell-role="th">num_channels</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>1</td>
+<td>False</td>
+<td>38</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>1</td>
+<td>1</td>
+<td>True</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>9</td>
+<td>1</td>
+<td>False</td>
+<td>1577</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>9</td>
+<td>1</td>
+<td>True</td>
+<td>30</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>9</td>
+<td>2</td>
+<td>False</td>
+<td>2477</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p>Pivot the data so that the number of visitors who did and did not make a return purchase are shown as separate columns (repeat for number of channels used by visitors who did and did not make a return purchase)</p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="42">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>df_agg_untidy <span class="op">=</span> df_agg.pivot(</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span>[<span class="st">"month"</span>, <span class="st">"day_of_week"</span>],</span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>[<span class="st">"made_purchase_on_future_visit"</span>],</span>
@@ -2693,9 +4406,76 @@ Observations
 <span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> c_list <span class="kw">in</span> df_agg_untidy.columns.to_flat_index()</span>
 <span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>]</span>
 <span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>df_agg_untidy.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="42">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">month</th>
+<th data-quarto-table-cell-role="th">day_of_week</th>
+<th data-quarto-table-cell-role="th">return_visitors_False</th>
+<th data-quarto-table-cell-role="th">return_visitors_True</th>
+<th data-quarto-table-cell-role="th">num_channels_False</th>
+<th data-quarto-table-cell-role="th">num_channels_True</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>1</td>
+<td>38</td>
+<td>1</td>
+<td>4</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>9</td>
+<td>1</td>
+<td>1577</td>
+<td>30</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>9</td>
+<td>2</td>
+<td>2477</td>
+<td>100</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>9</td>
+<td>3</td>
+<td>2645</td>
+<td>85</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>9</td>
+<td>4</td>
+<td>2910</td>
+<td>93</td>
+<td>4</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p>Get total number of visitors and channels</p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="43">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>df_agg_untidy[<span class="st">"num_channels"</span>] <span class="op">=</span> (</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    df_agg_untidy[<span class="st">"num_channels_False"</span>] <span class="op">+</span> df_agg_untidy[<span class="st">"num_channels_True"</span>]</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>)</span>
@@ -2703,9 +4483,88 @@ Observations
 <span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    df_agg_untidy[<span class="st">"return_visitors_False"</span>] <span class="op">+</span> df_agg_untidy[<span class="st">"return_visitors_True"</span>]</span>
 <span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>df_agg_untidy.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="43">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">month</th>
+<th data-quarto-table-cell-role="th">day_of_week</th>
+<th data-quarto-table-cell-role="th">return_visitors_False</th>
+<th data-quarto-table-cell-role="th">return_visitors_True</th>
+<th data-quarto-table-cell-role="th">num_channels_False</th>
+<th data-quarto-table-cell-role="th">num_channels_True</th>
+<th data-quarto-table-cell-role="th">num_channels</th>
+<th data-quarto-table-cell-role="th">return_visitors</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>1</td>
+<td>38</td>
+<td>1</td>
+<td>4</td>
+<td>1</td>
+<td>5</td>
+<td>39</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>9</td>
+<td>1</td>
+<td>1577</td>
+<td>30</td>
+<td>4</td>
+<td>4</td>
+<td>8</td>
+<td>1607</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>9</td>
+<td>2</td>
+<td>2477</td>
+<td>100</td>
+<td>4</td>
+<td>4</td>
+<td>8</td>
+<td>2577</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>9</td>
+<td>3</td>
+<td>2645</td>
+<td>85</td>
+<td>4</td>
+<td>4</td>
+<td>8</td>
+<td>2730</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>9</td>
+<td>4</td>
+<td>2910</td>
+<td>93</td>
+<td>4</td>
+<td>4</td>
+<td>8</td>
+<td>3003</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p>Convert number of visitors and channels into fractions of visitors and channels</p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="44">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>df_agg_untidy[<span class="st">"frac_channels_used_by_return_purchasers"</span>] <span class="op">=</span> <span class="dv">100</span> <span class="op">*</span> (</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    df_agg_untidy[<span class="st">"num_channels_True"</span>] <span class="op">/</span> df_agg_untidy[<span class="st">"num_channels"</span>]</span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>)</span>
@@ -2713,17 +4572,163 @@ Observations
 <span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    df_agg_untidy[<span class="st">"return_visitors_True"</span>] <span class="op">/</span> df_agg_untidy[<span class="st">"return_visitors"</span>]</span>
 <span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>df_agg_untidy.sample(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="44">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">month</th>
+<th data-quarto-table-cell-role="th">day_of_week</th>
+<th data-quarto-table-cell-role="th">return_visitors_False</th>
+<th data-quarto-table-cell-role="th">return_visitors_True</th>
+<th data-quarto-table-cell-role="th">num_channels_False</th>
+<th data-quarto-table-cell-role="th">num_channels_True</th>
+<th data-quarto-table-cell-role="th">num_channels</th>
+<th data-quarto-table-cell-role="th">return_visitors</th>
+<th data-quarto-table-cell-role="th">frac_channels_used_by_return_purchasers</th>
+<th data-quarto-table-cell-role="th">frac_return_purchasers</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">7</td>
+<td>9</td>
+<td>7</td>
+<td>1609</td>
+<td>23</td>
+<td>4</td>
+<td>4</td>
+<td>8</td>
+<td>1632</td>
+<td>50.0</td>
+<td>1.409314</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">22</td>
+<td>12</td>
+<td>1</td>
+<td>2633</td>
+<td>114</td>
+<td>4</td>
+<td>4</td>
+<td>8</td>
+<td>2747</td>
+<td>50.0</td>
+<td>4.149982</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">15</td>
+<td>11</td>
+<td>1</td>
+<td>2430</td>
+<td>166</td>
+<td>4</td>
+<td>4</td>
+<td>8</td>
+<td>2596</td>
+<td>50.0</td>
+<td>6.394453</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">18</td>
+<td>11</td>
+<td>4</td>
+<td>4004</td>
+<td>281</td>
+<td>4</td>
+<td>4</td>
+<td>8</td>
+<td>4285</td>
+<td>50.0</td>
+<td>6.557760</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>9</td>
+<td>4</td>
+<td>2910</td>
+<td>93</td>
+<td>4</td>
+<td>4</td>
+<td>8</td>
+<td>3003</td>
+<td>50.0</td>
+<td>3.096903</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p>Melt data to get back to <code>GROUP BY</code> format, and only keep columns with fractions (drop columns with numbers)</p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="45">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>df_agg_tidy <span class="op">=</span> df_agg_untidy.melt(</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    id_vars<span class="op">=</span>[<span class="st">"month"</span>, <span class="st">"day_of_week"</span>],</span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    value_vars<span class="op">=</span>[<span class="st">"frac_channels_used_by_return_purchasers"</span>, <span class="st">"frac_return_purchasers"</span>],</span>
 <span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>df_agg_tidy.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="45">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">month</th>
+<th data-quarto-table-cell-role="th">day_of_week</th>
+<th data-quarto-table-cell-role="th">variable</th>
+<th data-quarto-table-cell-role="th">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>1</td>
+<td>frac_channels_used_by_return_purchasers</td>
+<td>20.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>9</td>
+<td>1</td>
+<td>frac_channels_used_by_return_purchasers</td>
+<td>50.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>9</td>
+<td>2</td>
+<td>frac_channels_used_by_return_purchasers</td>
+<td>50.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>9</td>
+<td>3</td>
+<td>frac_channels_used_by_return_purchasers</td>
+<td>50.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>9</td>
+<td>4</td>
+<td>frac_channels_used_by_return_purchasers</td>
+<td>50.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p>Reshape into untidy data for heatmap</p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="46">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> (</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    df_agg_tidy.query(<span class="st">"month &gt;= 9"</span>)</span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    .query(<span class="st">"variable == 'frac_return_purchasers'"</span>)</span>
@@ -2733,9 +4738,85 @@ Observations
 <span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>    .loc[<span class="bu">list</span>(day_name)][month_name[<span class="dv">1</span>:][<span class="op">-</span><span class="dv">4</span>:]]</span>
 <span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="46">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">month_name</th>
+<th data-quarto-table-cell-role="th">September</th>
+<th data-quarto-table-cell-role="th">October</th>
+<th data-quarto-table-cell-role="th">November</th>
+<th data-quarto-table-cell-role="th">December</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">day_name</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Monday</td>
+<td>3.880481</td>
+<td>4.226082</td>
+<td>7.741935</td>
+<td>6.023815</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Tuesday</td>
+<td>3.113553</td>
+<td>3.009504</td>
+<td>6.656243</td>
+<td>5.300023</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Wednesday</td>
+<td>3.096903</td>
+<td>4.055525</td>
+<td>6.557760</td>
+<td>4.974037</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Thursday</td>
+<td>2.571116</td>
+<td>3.224825</td>
+<td>6.718891</td>
+<td>5.071080</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Friday</td>
+<td>2.657510</td>
+<td>3.602058</td>
+<td>6.650016</td>
+<td>4.810249</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Saturday</td>
+<td>1.409314</td>
+<td>2.041633</td>
+<td>6.209292</td>
+<td>3.981043</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Sunday</td>
+<td>1.866833</td>
+<td>2.089783</td>
+<td>6.394453</td>
+<td>4.149982</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p>Show heatmap</p>
-<div class="cell" data-tags="[]">
+<div class="cell" data-tags="[]" data-execution_count="47">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>show_heatmap(</span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>    data,</span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">None</span>,</span>
@@ -2744,6 +4825,9 @@ Observations
 <span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>    annot_kws<span class="op">=</span>{<span class="st">"size"</span>: <span class="dv">14</span>},</span>
 <span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>    fig_size<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">4</span>),</span>
 <span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="03_eda_files/figure-html/cell-48-output-1.png" class="img-fluid"></p>
+</div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Observations">
 <div class="callout-header d-flex align-content-center">
@@ -2761,7 +4845,7 @@ Observations
 </div>
 </div>
 <p><strong>Question 8. Show the breakdown of total revenue earned by visitors who are return purchasers and those that are not return purchasers.</strong></p>
-<div class="cell" data-tags="[]" data-execution_count="27">
+<div class="cell" data-tags="[]" data-execution_count="48">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>df.groupby([<span class="st">"made_purchase_on_future_visit"</span>])[</span>
@@ -2776,7 +4860,7 @@ Observations
 <span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"made_purchase_on_future_visit == True"</span></span>
 <span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="27">
+<div class="cell-output cell-output-display" data-execution_count="48">
 <div>
 
 
