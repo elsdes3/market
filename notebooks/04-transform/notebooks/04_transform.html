@@ -3524,8 +3524,6 @@ memory usage: 1.6 MB</code></pre>
 </ol>
 <p>Helper functions</p>
 <div class="cell" data-tags="[]" data-execution_count="29">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_data_transformation_pipeline(cols_to_group: Dict[<span class="bu">str</span>, List[<span class="bu">str</span>]]) <span class="op">-&gt;</span> Pipeline:</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Create sklearn pipeline to transform cleaned data."""</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># define frequency-encoders for categorical columns that will require</span></span>
@@ -3568,12 +3566,9 @@ memory usage: 1.6 MB</code></pre>
 <span id="cb34-40"><a href="#cb34-40" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Got </span><span class="sc">{</span><span class="bu">len</span>(df)<span class="sc">:,}</span><span class="ss"> rows and </span><span class="sc">{</span>df<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">:,}</span><span class="ss"> columns "</span> <span class="st">"after dropping duplicates"</span></span>
 <span id="cb34-41"><a href="#cb34-41" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb34-42"><a href="#cb34-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>Workflow functions</p>
 <div class="cell" data-tags="[]" data-execution_count="30">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_data(</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    split_start_date: <span class="bu">str</span>,</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    split_end_date: <span class="bu">str</span>,</span>
@@ -3632,7 +3627,6 @@ memory usage: 1.6 MB</code></pre>
 <span id="cb35-56"><a href="#cb35-56" aria-hidden="true" tabindex="-1"></a>    fpath <span class="op">=</span> os.path.join(processed_data_dir, <span class="ss">f"</span><span class="sc">{</span>split_type<span class="sc">}</span><span class="ss">_processed.parquet.gzip"</span>)</span>
 <span id="cb35-57"><a href="#cb35-57" aria-hidden="true" tabindex="-1"></a>    df.to_parquet(fpath, index<span class="op">=</span><span class="va">False</span>, compression<span class="op">=</span><span class="st">"gzip"</span>, engine<span class="op">=</span><span class="st">"pyarrow"</span>)</span>
 <span id="cb35-58"><a href="#cb35-58" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Exported data to </span><span class="sc">{</span>fpath<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Notes">
 <div class="callout-header d-flex align-content-center">
@@ -3662,15 +3656,10 @@ Notes
 <p>We’ll now demonstrate how this ETL workflow to retrieve and transform data gives the identical output to transformed data using the non-ETL (manual) workflow described earlier in this step.</p>
 <p>First, define data transformation pipeline</p>
 <div class="cell" data-tags="[]" data-execution_count="31">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>pipe <span class="op">=</span> make_data_transformation_pipeline(cols_to_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>Next, run ETL workflow to create training data and train the data transformation pipeline</p>
 <div class="cell" data-tags="[]" data-execution_count="32">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>df_train_v2, pipe_trained <span class="op">=</span> extract_data(</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    train_start_date,</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    train_end_date,</span>
@@ -3683,7 +3672,6 @@ Notes
 <span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>    pipe<span class="op">=</span>pipe,</span>
 <span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>df_train_v2.pipe(load_data, processed_data_dir, <span class="st">"train"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Query execution start time = 2023-04-13 14:26:40.071...done at 2023-04-13 14:26:58.420 (18.350 seconds).
 Query returned 92,859 rows
@@ -3707,8 +3695,6 @@ Notes
 </div>
 <p>Next, run ETL workflow to create validation data, with the transformation pipeline that was trained using the training data</p>
 <div class="cell" data-tags="[]" data-execution_count="33">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>df_val_v2, _ <span class="op">=</span> extract_data(</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    val_start_date,</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    val_end_date,</span>
@@ -3721,7 +3707,6 @@ Notes
 <span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>    pipe<span class="op">=</span>pipe_trained,</span>
 <span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>df_val_v2.pipe(load_data, processed_data_dir, <span class="st">"val"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Query execution start time = 2023-04-13 14:26:59.461...done at 2023-04-13 14:27:05.038 (5.577 seconds).
 Query returned 21,208 rows
@@ -3745,8 +3730,6 @@ Notes
 </div>
 <p>Finally, run the ETL workflow to create test data, with the transformation pipeline that was trained using the training data</p>
 <div class="cell" data-tags="[]" data-execution_count="34">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>df_test_v2, _ <span class="op">=</span> extract_data(</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    test_start_date,</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    test_end_date,</span>
@@ -3759,7 +3742,6 @@ Notes
 <span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>    pipe<span class="op">=</span>pipe_trained,</span>
 <span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>df_test_v2.pipe(load_data, processed_data_dir, <span class="st">"test"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Query execution start time = 2023-04-13 14:27:05.326...done at 2023-04-13 14:27:10.388 (5.062 seconds).
 Query returned 20,180 rows
@@ -3783,12 +3765,9 @@ Notes
 </div>
 <p>Verify that the manual and ETL approaches give the identical output for training, validation and test data splits after data transformation</p>
 <div class="cell" data-tags="[]" data-execution_count="35">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> df_train.equals(df_train_v2)</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> df_val.equals(df_val_v2)</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> df_test.equals(df_test_v2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 <section id="summary-of-tasks-performed" class="level2">
