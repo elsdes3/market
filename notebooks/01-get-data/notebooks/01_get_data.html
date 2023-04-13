@@ -239,14 +239,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> glob <span class="im">import</span> glob</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> google.oauth2 <span class="im">import</span> service_account</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pytz</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> google.oauth2 <span class="im">import</span> service_account</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <section id="about" class="level2">
 <h2 class="anchored" data-anchor-id="about">About</h2>
 <section id="objective" class="level3">
 <h3 class="anchored" data-anchor-id="objective">Objective</h3>
-<p>To start analysis for this project, we will retrieve visitor session data from a small sample of the Google Merchandise Store on the Google Marketplace between the summer of August 1, 2016 and August 1, 2017.</p>
+<p>To start analysis for this project, we will first retrieve visitor session data from a small sample of the Google Merchandise Store between the summer of August 1, 2016 and August 1, 2017.</p>
 </section>
 <section id="data" class="level3">
 <h3 class="anchored" data-anchor-id="data">Data</h3>
@@ -290,8 +291,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Define a Python helper function to execute a SQL query using Google BigQuery</p>
 <div class="cell" data-tags="[]" data-execution_count="9">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run_sql_query(</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    query: <span class="bu">str</span>,</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    gcp_project_id: <span class="bu">str</span>,</span>
@@ -301,9 +300,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    show_df: <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span>,</span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> pd.DataFrame:</span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Run query on BigQuery and return results as pandas.DataFrame."""</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    start_time <span class="op">=</span> datetime.now()</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    start_time_str <span class="op">=</span> start_time.strftime(<span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st"> %H:%M:%S"</span>)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Query execution start time = </span><span class="sc">{</span>start_time_str<span class="sc">}</span><span class="ss">..."</span>, end<span class="op">=</span><span class="st">""</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    start_time <span class="op">=</span> datetime.now(pytz.timezone(<span class="st">"US/Eastern"</span>))</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    start_time_str <span class="op">=</span> start_time.strftime(<span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st"> %H:%M:%S.</span><span class="sc">%f</span><span class="st">"</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Query execution start time = </span><span class="sc">{</span>start_time_str[:<span class="op">-</span><span class="dv">3</span>]<span class="sc">}</span><span class="ss">..."</span>, end<span class="op">=</span><span class="st">""</span>)</span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.read_gbq(</span>
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        query,</span>
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        project_id<span class="op">=</span>gcp_project_id,</span>
@@ -313,11 +312,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        configuration<span class="op">=</span>{<span class="st">"query"</span>: {<span class="st">"useQueryCache"</span>: <span class="va">True</span>}},</span>
 <span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># use_bqstorage_api=True,</span></span>
 <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    end_time <span class="op">=</span> datetime.now()</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    end_time_str <span class="op">=</span> end_time.strftime(<span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st"> %H:%M:%S"</span>)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    end_time <span class="op">=</span> datetime.now(pytz.timezone(<span class="st">"US/Eastern"</span>))</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    end_time_str <span class="op">=</span> end_time.strftime(<span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st"> %H:%M:%S.</span><span class="sc">%f</span><span class="st">"</span>)</span>
 <span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    duration <span class="op">=</span> end_time <span class="op">-</span> start_time</span>
 <span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    duration <span class="op">=</span> duration.seconds <span class="op">+</span> (duration.microseconds <span class="op">/</span> <span class="dv">1_000_000</span>)</span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"done at </span><span class="sc">{</span>end_time_str<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span>duration<span class="sc">:.3f}</span><span class="ss"> seconds)."</span>)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"done at </span><span class="sc">{</span>end_time_str[:<span class="op">-</span><span class="dv">3</span>]<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span>duration<span class="sc">:.3f}</span><span class="ss"> seconds)."</span>)</span>
 <span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Query returned </span><span class="sc">{</span><span class="bu">len</span>(df)<span class="sc">:,}</span><span class="ss"> rows"</span>)</span>
 <span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> show_df:</span>
 <span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> pd.option_context(<span class="st">"display.max_columns"</span>, <span class="va">None</span>):</span>
@@ -327,7 +326,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> show_info:</span>
 <span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>        df.info()</span>
 <span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 <section id="get-data" class="level2">
@@ -348,7 +346,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> run_sql_query(query, <span class="op">**</span>gcp_auth_dict, show_df<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Query execution start time = 2023-04-10 05:17:23...done at 2023-04-10 05:17:24 (1.398 seconds).
+<pre><code>Query execution start time = 2023-04-13 16:50:18.755...done at 2023-04-13 16:50:20.428 (1.673 seconds).
 Query returned 15 rows</code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -493,7 +491,16 @@ Query returned 15 rows</code></pre>
 </div>
 </div>
 </div>
-<p><strong>Notes</strong></p>
+<div class="callout callout-style-default callout-note callout-titled" title="Notes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ol type="1">
 <li>There are eight flattened columns and six nested columns in the <code>web_analytics</code> table.</li>
 <li>The flattened columns are briefly explained below
@@ -509,7 +516,18 @@ Query returned 15 rows</code></pre>
 <li><code>hits</code> <a href="https://paradoxmarketing.io/capabilities/knowledge-management/insights/which-kind-of-hits-does-google-analytics-track-what-to-know/">tracks execution of Google analytics tracking code</a> embedded in the store’s website (this happends when a user performs an interaction with the store webpage)</li>
 </ul></li>
 </ol>
-<p><strong>Observations</strong></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Observations">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Observations
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ol type="1">
 <li>While features for machine learning can be extracted from all the nested and flattened columns, the usefulness of these features is based on our understanding of the data. Only the features that can be
 <ul>
@@ -523,6 +541,8 @@ should be extracted for use in ML. The following nested features should be intui
 <li><code>totals</code></li>
 </ul></li>
 </ol>
+</div>
+</div>
 <p>A simple <code>SELECT</code> is used to show a subset of the columns for the first 15 visits between November 1, 2016 and November 2, 2016</p>
 <div class="cell" data-tags="[]" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
@@ -532,39 +552,41 @@ should be extracted for use in ML. The following nested features should be intui
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="st">               -- convert date to datetime in year-month-date format</span></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="st">               PARSE_DATE('%Y%m</span><span class="sc">%d</span><span class="st">', DATE) AS datetime_ymd,</span></span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="st">               -- visit start time and number</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="st">               DATETIME(</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="st">                   TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)),</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="st">                   "America/New_York"</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="st">               ) AS visitStartTime,</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="st">               visitNumber,</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="st">               -- source of the traffic from which the session was initiated</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="st">               trafficSource.source,</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="st">               -- medium of the traffic from which the session was initiated</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="st">               trafficSource.medium,</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="st">               -- referring channel connected to session</span></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="st">               channelGrouping,</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="st">               -- user's type of device</span></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="st">               device.deviceCategory AS device_category,</span></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="st">               -- user's operating system</span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="st">               device.operatingSystem AS os,</span></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="st">               -- referring page for visits that ended in a transaction</span></span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="st">               CAST(h.eCommerceAction.action_type AS INT64) AS action_type,</span></span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="st">               -- transactions</span></span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="st">               totals.transactions,</span></span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="st">               -- return visits to the merchandise store</span></span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="st">               totals.newVisits AS newVisits</span></span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="st">        FROM `data-to-insights.ecommerce.web_analytics`,</span></span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="st">        UNNEST(hits) AS h</span></span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="st">        WHERE date BETWEEN '20161101' AND '20161102'</span></span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="st">        LIMIT 15</span></span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="st">        """</span></span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> run_sql_query(query, <span class="op">**</span>gcp_auth_dict, show_df<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"action_type"</span>] <span class="op">=</span> df[<span class="st">"action_type"</span>].<span class="bu">map</span>(mapper).astype(pd.StringDtype())</span>
-<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>display(df)</span>
-<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>df.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="st">               DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Pacific') AS visitStartTime,</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="st">               visitNumber,</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="st">               -- source of the traffic from which the session was initiated</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="st">               trafficSource.source,</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="st">               -- medium of the traffic from which the session was initiated</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="st">               trafficSource.medium,</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="st">               -- referring channel connected to session</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="st">               channelGrouping,</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="st">               -- user's type of device</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="st">               device.deviceCategory AS device_category,</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="st">               -- user's operating system</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="st">               device.operatingSystem AS os,</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="st">               -- referring page for visits that ended in a transaction</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="st">               CAST(h.eCommerceAction.action_type AS INT64) AS action_type,</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="st">               -- transactions</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="st">               totals.transactions,</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="st">               -- return visits to the merchandise store</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="st">               totals.newVisits AS newVisits</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="st">        FROM `data-to-insights.ecommerce.web_analytics`,</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="st">        UNNEST(hits) AS h</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="st">        WHERE date BETWEEN '20161101' AND '20161102'</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="st">        LIMIT 15</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="st">        """</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> run_sql_query(query, <span class="op">**</span>gcp_auth_dict, show_df<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"action_type"</span>] <span class="op">=</span> df[<span class="st">"action_type"</span>].<span class="bu">map</span>(mapper).astype(pd.StringDtype())</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"Datetimes: </span><span class="sc">{</span>df[<span class="st">'visitStartTime'</span>]<span class="sc">.</span><span class="bu">min</span>()<span class="sc">.</span>strftime(<span class="st">'%Y-%m-</span><span class="sc">%d</span><span class="st"> %H:%M:%S'</span>)<span class="sc">}</span><span class="ss"> - "</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>df[<span class="st">'visitStartTime'</span>]<span class="sc">.</span><span class="bu">max</span>()<span class="sc">.</span>strftime(<span class="st">'%Y-%m-</span><span class="sc">%d</span><span class="st"> %H:%M:%S'</span>)<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>display(df)</span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>df.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Query execution start time = 2023-04-10 05:17:24...done at 2023-04-10 05:17:26 (1.149 seconds).
+<pre><code>Query execution start time = 2023-04-13 16:50:20.458...done at 2023-04-13 16:50:21.646 (1.188 seconds).
 Query returned 15 rows
+Datetimes: 2016-11-01 16:26:08 - 2016-11-02 12:58:15
 &lt;class 'pandas.core.frame.DataFrame'&gt;
 RangeIndex: 15 entries, 0 to 14
 Data columns (total 13 columns):
@@ -582,7 +604,7 @@ Data columns (total 13 columns):
  9   os               15 non-null     object        
  10  action_type      15 non-null     string        
  11  transactions     0 non-null      Int64         
- 12  newVisits        7 non-null      Int64         
+ 12  newVisits        10 non-null     Int64         
 dtypes: Int64(3), datetime64[ns](1), dbdate(1), object(7), string(1)
 memory usage: 1.7+ KB</code></pre>
 </div>
@@ -612,11 +634,11 @@ memory usage: 1.7+ KB</code></pre>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>151591047911499240</td>
-<td>20161101</td>
-<td>2016-11-01</td>
-<td>2016-11-01 16:40:03</td>
-<td>10</td>
+<td>7563857575439343066</td>
+<td>20161102</td>
+<td>2016-11-02</td>
+<td>2016-11-02 12:58:15</td>
+<td>1</td>
 <td>google</td>
 <td>organic</td>
 <td>Organic Search</td>
@@ -624,15 +646,15 @@ memory usage: 1.7+ KB</code></pre>
 <td>Windows</td>
 <td>Unknown</td>
 <td>&lt;NA&gt;</td>
-<td>&lt;NA&gt;</td>
+<td>1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>151591047911499240</td>
-<td>20161101</td>
-<td>2016-11-01</td>
-<td>2016-11-01 16:40:03</td>
-<td>10</td>
+<td>7563857575439343066</td>
+<td>20161102</td>
+<td>2016-11-02</td>
+<td>2016-11-02 12:58:15</td>
+<td>1</td>
 <td>google</td>
 <td>organic</td>
 <td>Organic Search</td>
@@ -640,15 +662,15 @@ memory usage: 1.7+ KB</code></pre>
 <td>Windows</td>
 <td>Unknown</td>
 <td>&lt;NA&gt;</td>
-<td>&lt;NA&gt;</td>
+<td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>151591047911499240</td>
-<td>20161101</td>
-<td>2016-11-01</td>
-<td>2016-11-01 16:40:03</td>
-<td>10</td>
+<td>7563857575439343066</td>
+<td>20161102</td>
+<td>2016-11-02</td>
+<td>2016-11-02 12:58:15</td>
+<td>1</td>
 <td>google</td>
 <td>organic</td>
 <td>Organic Search</td>
@@ -656,15 +678,15 @@ memory usage: 1.7+ KB</code></pre>
 <td>Windows</td>
 <td>Unknown</td>
 <td>&lt;NA&gt;</td>
-<td>&lt;NA&gt;</td>
+<td>1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>151591047911499240</td>
-<td>20161101</td>
-<td>2016-11-01</td>
-<td>2016-11-01 16:40:03</td>
-<td>10</td>
+<td>7563857575439343066</td>
+<td>20161102</td>
+<td>2016-11-02</td>
+<td>2016-11-02 12:58:15</td>
+<td>1</td>
 <td>google</td>
 <td>organic</td>
 <td>Organic Search</td>
@@ -672,15 +694,15 @@ memory usage: 1.7+ KB</code></pre>
 <td>Windows</td>
 <td>Unknown</td>
 <td>&lt;NA&gt;</td>
-<td>&lt;NA&gt;</td>
+<td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>151591047911499240</td>
-<td>20161101</td>
-<td>2016-11-01</td>
-<td>2016-11-01 16:40:03</td>
-<td>10</td>
+<td>7563857575439343066</td>
+<td>20161102</td>
+<td>2016-11-02</td>
+<td>2016-11-02 12:58:15</td>
+<td>1</td>
 <td>google</td>
 <td>organic</td>
 <td>Organic Search</td>
@@ -688,15 +710,15 @@ memory usage: 1.7+ KB</code></pre>
 <td>Windows</td>
 <td>Unknown</td>
 <td>&lt;NA&gt;</td>
-<td>&lt;NA&gt;</td>
+<td>1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">5</td>
-<td>151591047911499240</td>
-<td>20161101</td>
-<td>2016-11-01</td>
-<td>2016-11-01 16:40:03</td>
-<td>10</td>
+<td>7563857575439343066</td>
+<td>20161102</td>
+<td>2016-11-02</td>
+<td>2016-11-02 12:58:15</td>
+<td>1</td>
 <td>google</td>
 <td>organic</td>
 <td>Organic Search</td>
@@ -704,15 +726,15 @@ memory usage: 1.7+ KB</code></pre>
 <td>Windows</td>
 <td>Unknown</td>
 <td>&lt;NA&gt;</td>
-<td>&lt;NA&gt;</td>
+<td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">6</td>
-<td>151591047911499240</td>
-<td>20161101</td>
-<td>2016-11-01</td>
-<td>2016-11-01 16:40:03</td>
-<td>10</td>
+<td>7563857575439343066</td>
+<td>20161102</td>
+<td>2016-11-02</td>
+<td>2016-11-02 12:58:15</td>
+<td>1</td>
 <td>google</td>
 <td>organic</td>
 <td>Organic Search</td>
@@ -720,94 +742,94 @@ memory usage: 1.7+ KB</code></pre>
 <td>Windows</td>
 <td>Unknown</td>
 <td>&lt;NA&gt;</td>
-<td>&lt;NA&gt;</td>
+<td>1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">7</td>
-<td>151591047911499240</td>
+<td>0719274696629877759</td>
 <td>20161101</td>
 <td>2016-11-01</td>
-<td>2016-11-01 16:40:03</td>
-<td>10</td>
+<td>2016-11-01 16:26:08</td>
+<td>2</td>
 <td>google</td>
 <td>organic</td>
 <td>Organic Search</td>
 <td>desktop</td>
-<td>Windows</td>
+<td>Macintosh</td>
 <td>Unknown</td>
 <td>&lt;NA&gt;</td>
 <td>&lt;NA&gt;</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">8</td>
-<td>9346510850147042542</td>
-<td>20161102</td>
-<td>2016-11-02</td>
-<td>2016-11-02 13:37:44</td>
-<td>1</td>
+<td>0719274696629877759</td>
+<td>20161101</td>
+<td>2016-11-01</td>
+<td>2016-11-01 16:26:08</td>
+<td>2</td>
 <td>google</td>
 <td>organic</td>
 <td>Organic Search</td>
 <td>desktop</td>
-<td>Windows</td>
+<td>Macintosh</td>
 <td>Unknown</td>
 <td>&lt;NA&gt;</td>
-<td>1</td>
+<td>&lt;NA&gt;</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">9</td>
-<td>9346510850147042542</td>
-<td>20161102</td>
-<td>2016-11-02</td>
-<td>2016-11-02 13:37:44</td>
-<td>1</td>
+<td>0719274696629877759</td>
+<td>20161101</td>
+<td>2016-11-01</td>
+<td>2016-11-01 16:26:08</td>
+<td>2</td>
 <td>google</td>
 <td>organic</td>
 <td>Organic Search</td>
 <td>desktop</td>
-<td>Windows</td>
+<td>Macintosh</td>
 <td>Unknown</td>
 <td>&lt;NA&gt;</td>
-<td>1</td>
+<td>&lt;NA&gt;</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">10</td>
-<td>9346510850147042542</td>
-<td>20161102</td>
-<td>2016-11-02</td>
-<td>2016-11-02 13:37:44</td>
-<td>1</td>
+<td>0719274696629877759</td>
+<td>20161101</td>
+<td>2016-11-01</td>
+<td>2016-11-01 16:26:08</td>
+<td>2</td>
 <td>google</td>
 <td>organic</td>
 <td>Organic Search</td>
 <td>desktop</td>
-<td>Windows</td>
+<td>Macintosh</td>
 <td>Unknown</td>
 <td>&lt;NA&gt;</td>
-<td>1</td>
+<td>&lt;NA&gt;</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">11</td>
-<td>9346510850147042542</td>
-<td>20161102</td>
-<td>2016-11-02</td>
-<td>2016-11-02 13:37:44</td>
-<td>1</td>
+<td>0719274696629877759</td>
+<td>20161101</td>
+<td>2016-11-01</td>
+<td>2016-11-01 16:26:08</td>
+<td>2</td>
 <td>google</td>
 <td>organic</td>
 <td>Organic Search</td>
 <td>desktop</td>
-<td>Windows</td>
+<td>Macintosh</td>
 <td>Unknown</td>
 <td>&lt;NA&gt;</td>
-<td>1</td>
+<td>&lt;NA&gt;</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">12</td>
-<td>9346510850147042542</td>
+<td>4480038936311138124</td>
 <td>20161102</td>
 <td>2016-11-02</td>
-<td>2016-11-02 13:37:44</td>
+<td>2016-11-02 12:45:33</td>
 <td>1</td>
 <td>google</td>
 <td>organic</td>
@@ -820,10 +842,10 @@ memory usage: 1.7+ KB</code></pre>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">13</td>
-<td>9346510850147042542</td>
+<td>4480038936311138124</td>
 <td>20161102</td>
 <td>2016-11-02</td>
-<td>2016-11-02 13:37:44</td>
+<td>2016-11-02 12:45:33</td>
 <td>1</td>
 <td>google</td>
 <td>organic</td>
@@ -836,10 +858,10 @@ memory usage: 1.7+ KB</code></pre>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">14</td>
-<td>9346510850147042542</td>
+<td>4480038936311138124</td>
 <td>20161102</td>
 <td>2016-11-02</td>
-<td>2016-11-02 13:37:44</td>
+<td>2016-11-02 12:45:33</td>
 <td>1</td>
 <td>google</td>
 <td>organic</td>
@@ -856,18 +878,29 @@ memory usage: 1.7+ KB</code></pre>
 </div>
 </div>
 </div>
-<p><strong>Notes</strong></p>
+<div class="callout callout-style-default callout-note callout-titled" title="Notes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ol type="1">
 <li>For the <code>datetime_ymd</code> column, <a href="https://cloud.google.com/python/docs/reference/bigquery/latest/upgrading#changes-to-data-types-when-reading-a-pandas-dataframe"><code>dbdate</code> is the expected BigQuery SQL datatype</a>.</li>
 <li>The columns shown here are a subset of all the columns available in the table.</li>
 <li><code>UNNEST</code> has to be used <a href="https://cloud.google.com/bigquery/docs/reference/standard-sql/arrays">to flatten arrays (nested columns, such as <code>hits</code>)</a> (explode them into separate rows), which is similar to <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.explode.html"><code>pandas.DataFrame.explode()</code></a>.</li>
 <li><code>BigQuery</code> uses query output caching, so subsequent runs of the same query SQL will return results in a shorter period of time than the previous run. See limitations <a href="https://cloud.google.com/bigquery/docs/cached-results#limitations">here</a>.</li>
+<li>The timezone in the <code>DATETIME()</code> function was arbitrarily <a href="https://stackoverflow.com/a/56869441/4057186">set to be</a> <em>US/Pacific</em>. This means we are assuming our local timezone is <em>US/Pacific</em>. This will be kept consistent throughout this project.</li>
 </ol>
+</div>
+</div>
 </section>
 <section id="next-step" class="level2">
 <h2 class="anchored" data-anchor-id="next-step">Next Step</h2>
 <p>The next step in the analysis workflow will involve exploring the visits data.</p>
-<hr>
 
 
 </section>
