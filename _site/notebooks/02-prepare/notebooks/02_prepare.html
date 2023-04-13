@@ -324,9 +324,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Define a Python helper function to execute a SQL query using Google BigQuery</p>
-<div class="cell" data-tags="[]" data-execution_count="9">
-<details>
-<summary>Code</summary>
+<div class="cell" data-tags="[]" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run_sql_query(</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    query: <span class="bu">str</span>,</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    gcp_project_id: <span class="bu">str</span>,</span>
@@ -362,7 +360,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> show_info:</span>
 <span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>        df.info()</span>
 <span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 <section id="data-preparation" class="level2">
@@ -372,7 +369,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Question 1. Get visitors with a purchase on a future visit to the Marketplace.</strong></p>
 <p>To get these visitors, a similar approach to that from the get-data step will be used. In that step, two criteria were used to identify a purchase on a future visit, namely <code>total.transactions &gt; 0</code> and <code>totals.newVisits IS NULL</code>. Those will be used here as well.</p>
 <p>A query with these filters is executed below</p>
-<div class="cell" data-tags="[]" data-execution_count="10">
+<div class="cell" data-tags="[]" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f"""</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT fullvisitorid,</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ss">               IF(COUNTIF(totals.transactions &gt; 0 AND totals.newVisits IS NULL) &gt; 0, True, False) AS made_purchase_on_future_visit,</span></span>
@@ -414,7 +411,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>    .rename(columns<span class="op">=</span>{<span class="st">"index"</span>: <span class="st">"made_return_purchase"</span>})</span>
 <span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Query execution start time = 2023-04-12 11:40:28.222...done at 2023-04-12 11:40:33.195 (4.973 seconds).
+<pre><code>Query execution start time = 2023-04-13 17:03:04.444...done at 2023-04-13 17:03:17.048 (12.604 seconds).
 Query returned 137,727 rows</code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -531,7 +528,7 @@ Observations
 <li>promotions clicked</li>
 </ul></li>
 </ol>
-<div class="cell" data-tags="[]" data-execution_count="11">
+<div class="cell" data-tags="[]" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f"""</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        WITH</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        -- Step 1. get visitors with a purchase on a future visit</span></span>
@@ -547,18 +544,18 @@ Observations
 <span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="ss">        first_visit_attributes AS (</span></span>
 <span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="ss">            SELECT -- =========== GEOSPATIAL AND TEMPORAL ATTRIBUTES OF VISIT ===========</span></span>
 <span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="ss">                   geoNetwork.country,</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="ss">                   EXTRACT(QUARTER FROM DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Eastern')) AS quarter,</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="ss">                   EXTRACT(MONTH FROM DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Eastern')) AS month,</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="ss">                   EXTRACT(DAY FROM DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Eastern')) AS day_of_month,</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="ss">                   EXTRACT(DAYOFWEEK FROM DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Eastern')) AS day_of_week,</span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="ss">                   EXTRACT(HOUR FROM DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Eastern')) AS hour,</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="ss">                   EXTRACT(MINUTE FROM DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Eastern')) AS minute,</span></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="ss">                   EXTRACT(SECOND FROM DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Eastern')) AS second,</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="ss">                   EXTRACT(QUARTER FROM DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Pacific')) AS quarter,</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="ss">                   EXTRACT(MONTH FROM DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Pacific')) AS month,</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="ss">                   EXTRACT(DAY FROM DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Pacific')) AS day_of_month,</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="ss">                   EXTRACT(DAYOFWEEK FROM DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Pacific')) AS day_of_week,</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="ss">                   EXTRACT(HOUR FROM DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Pacific')) AS hour,</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="ss">                   EXTRACT(MINUTE FROM DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Pacific')) AS minute,</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="ss">                   EXTRACT(SECOND FROM DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Pacific')) AS second,</span></span>
 <span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="ss">                   -- =========== VISIT AND VISITOR METADATA ===========</span></span>
 <span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="ss">                   fullvisitorid,</span></span>
 <span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="ss">                   visitId,</span></span>
 <span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="ss">                   visitNumber,</span></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="ss">                   DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Eastern') AS visitStartTime,</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="ss">                   DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Pacific') AS visitStartTime,</span></span>
 <span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="ss">                   -- =========== SOURCE OF SITE TRAFFIC ===========</span></span>
 <span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="ss">                   -- source of the traffic from which the visit was initiated</span></span>
 <span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="ss">                   trafficSource.source,</span></span>
@@ -677,7 +674,7 @@ Observations
 <span id="cb11-143"><a href="#cb11-143" aria-hidden="true" tabindex="-1"></a>    display(df.head())</span>
 <span id="cb11-144"><a href="#cb11-144" aria-hidden="true" tabindex="-1"></a>    display(df.tail())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Query execution start time = 2023-04-12 11:40:33.218...done at 2023-04-12 11:40:50.480 (17.262 seconds).
+<pre><code>Query execution start time = 2023-04-13 17:03:44.045...done at 2023-04-13 17:04:06.815 (22.770 seconds).
 Query returned 92,859 rows</code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -724,22 +721,22 @@ Query returned 92,859 rows</code></pre>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>483329569933708956</td>
-<td>1477437687</td>
+<td>8163735676529750721</td>
+<td>1481176805</td>
 <td>1</td>
-<td>2016-10-25 19:21:27</td>
+<td>2016-12-07 22:00:05</td>
 <td>United States</td>
 <td>4</td>
-<td>10</td>
-<td>25</td>
-<td>3</td>
-<td>19</td>
-<td>21</td>
-<td>27</td>
+<td>12</td>
+<td>7</td>
+<td>4</td>
+<td>22</td>
+<td>0</td>
+<td>5</td>
 <td>google</td>
-<td>organic</td>
-<td>Organic Search</td>
-<td>6</td>
+<td>cpc</td>
+<td>Paid Search</td>
+<td>5</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
@@ -747,9 +744,9 @@ Query returned 92,859 rows</code></pre>
 <td>0</td>
 <td>0</td>
 <td>0</td>
-<td>6</td>
+<td>5</td>
 <td>NaN</td>
-<td>602</td>
+<td>109</td>
 <td>Chrome</td>
 <td>Windows</td>
 <td>desktop</td>
@@ -758,33 +755,33 @@ Query returned 92,859 rows</code></pre>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>9534112552538425546</td>
-<td>1476671570</td>
+<td>0897634596694862660</td>
+<td>1475199828</td>
 <td>1</td>
-<td>2016-10-16 22:32:50</td>
+<td>2016-09-29 18:43:48</td>
 <td>United States</td>
-<td>4</td>
-<td>10</td>
-<td>16</td>
-<td>1</td>
-<td>22</td>
-<td>32</td>
-<td>50</td>
-<td>youtube.com</td>
-<td>referral</td>
-<td>Social</td>
-<td>6</td>
+<td>3</td>
+<td>9</td>
+<td>29</td>
+<td>5</td>
+<td>18</td>
+<td>43</td>
+<td>48</td>
+<td>google</td>
+<td>organic</td>
+<td>Organic Search</td>
+<td>21</td>
 <td>0</td>
+<td>2</td>
+<td>2</td>
+<td>9</td>
 <td>0</td>
-<td>0</td>
-<td>54</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
+<td>90</td>
+<td>2</td>
+<td>19</td>
 <td>NaN</td>
-<td>270</td>
-<td>Opera</td>
+<td>467</td>
+<td>Chrome</td>
 <td>Windows</td>
 <td>desktop</td>
 <td>0</td>
@@ -792,103 +789,103 @@ Query returned 92,859 rows</code></pre>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>4648924122067625674</td>
-<td>1475958245</td>
+<td>3891893273235584028</td>
+<td>1478844153</td>
 <td>1</td>
-<td>2016-10-08 16:24:05</td>
+<td>2016-11-10 22:02:33</td>
 <td>United States</td>
 <td>4</td>
+<td>11</td>
 <td>10</td>
-<td>8</td>
-<td>7</td>
-<td>16</td>
-<td>24</td>
 <td>5</td>
+<td>22</td>
+<td>2</td>
+<td>33</td>
 <td>youtube.com</td>
 <td>referral</td>
 <td>Social</td>
-<td>5</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>36</td>
-<td>0</td>
-<td>4</td>
+<td>11</td>
 <td>0</td>
 <td>2</td>
+<td>1</td>
+<td>18</td>
+<td>0</td>
+<td>36</td>
+<td>1</td>
+<td>10</td>
 <td>NaN</td>
-<td>198</td>
-<td>Opera</td>
-<td>Windows</td>
-<td>desktop</td>
+<td>1003</td>
+<td>Safari (in-app)</td>
+<td>iOS</td>
+<td>tablet</td>
 <td>0</td>
 <td>False</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>2743152869399749836</td>
-<td>1481229164</td>
+<td>6952706734234495703</td>
+<td>1480581075</td>
 <td>1</td>
-<td>2016-12-08 15:32:44</td>
+<td>2016-12-01 00:31:15</td>
 <td>United States</td>
 <td>4</td>
 <td>12</td>
-<td>8</td>
+<td>1</td>
 <td>5</td>
+<td>0</td>
+<td>31</td>
 <td>15</td>
-<td>32</td>
-<td>44</td>
 <td>google</td>
 <td>organic</td>
 <td>Organic Search</td>
-<td>5</td>
+<td>9</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
-<td>18</td>
+<td>27</td>
+<td>1</td>
+<td>24</td>
 <td>0</td>
-<td>0</td>
-<td>0</td>
-<td>5</td>
+<td>8</td>
 <td>NaN</td>
-<td>1004</td>
+<td>141</td>
 <td>Chrome</td>
-<td>Windows</td>
-<td>desktop</td>
+<td>Android</td>
+<td>mobile</td>
 <td>0</td>
 <td>False</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>1565213706199847638</td>
-<td>1475172212</td>
+<td>3008949133172215443</td>
+<td>1475213353</td>
 <td>1</td>
-<td>2016-09-29 14:03:32</td>
+<td>2016-09-29 22:29:13</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>29</td>
 <td>5</td>
-<td>14</td>
-<td>3</td>
-<td>32</td>
+<td>22</td>
+<td>29</td>
+<td>13</td>
 <td>google</td>
 <td>organic</td>
 <td>Organic Search</td>
-<td>5</td>
+<td>14</td>
 <td>0</td>
+<td>2</td>
+<td>3</td>
+<td>9</td>
 <td>0</td>
-<td>0</td>
-<td>18</td>
-<td>0</td>
-<td>15</td>
-<td>0</td>
-<td>5</td>
+<td>24</td>
+<td>3</td>
+<td>11</td>
 <td>NaN</td>
-<td>107</td>
+<td>229</td>
 <td>Chrome</td>
-<td>Android</td>
-<td>mobile</td>
+<td>Macintosh</td>
+<td>desktop</td>
 <td>0</td>
 <td>False</td>
 </tr>
@@ -941,135 +938,135 @@ Query returned 92,859 rows</code></pre>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">92854</td>
-<td>116047731488418420</td>
-<td>1481947293</td>
+<td>1446285229092173706</td>
+<td>1478190491</td>
 <td>1</td>
-<td>2016-12-16 23:01:33</td>
+<td>2016-11-03 09:28:11</td>
 <td>United States</td>
 <td>4</td>
-<td>12</td>
-<td>16</td>
-<td>6</td>
-<td>23</td>
-<td>1</td>
-<td>33</td>
-<td>google</td>
-<td>organic</td>
-<td>Organic Search</td>
-<td>4</td>
+<td>11</td>
+<td>3</td>
+<td>5</td>
+<td>9</td>
+<td>28</td>
+<td>11</td>
+<td>(direct)</td>
+<td>(none)</td>
+<td>Direct</td>
+<td>3</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
-<td>40</td>
+<td>29</td>
 <td>0</td>
-<td>4</td>
+<td>3</td>
 <td>NaN</td>
-<td>41</td>
-<td>Internet Explorer</td>
-<td>Windows</td>
+<td>224</td>
+<td>Chrome</td>
+<td>Chrome OS</td>
 <td>desktop</td>
 <td>0</td>
-<td>False</td>
+<td>True</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">92855</td>
-<td>4456968726181345855</td>
-<td>1475469647</td>
+<td>927804845306410814</td>
+<td>1482181118</td>
 <td>1</td>
-<td>2016-10-03 00:40:47</td>
+<td>2016-12-19 12:58:38</td>
 <td>United States</td>
 <td>4</td>
-<td>10</td>
-<td>3</td>
+<td>12</td>
+<td>19</td>
 <td>2</td>
-<td>0</td>
-<td>40</td>
-<td>47</td>
+<td>12</td>
+<td>58</td>
+<td>38</td>
 <td>google</td>
 <td>organic</td>
 <td>Organic Search</td>
-<td>4</td>
+<td>3</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
-<td>48</td>
+<td>32</td>
 <td>0</td>
-<td>4</td>
+<td>3</td>
 <td>NaN</td>
-<td>116</td>
-<td>Safari</td>
-<td>Macintosh</td>
+<td>83</td>
+<td>Chrome</td>
+<td>Linux</td>
 <td>desktop</td>
 <td>0</td>
 <td>False</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">92856</td>
-<td>3959327314706060020</td>
-<td>1482846670</td>
+<td>8969674851394509099</td>
+<td>1482941116</td>
 <td>1</td>
-<td>2016-12-27 08:51:10</td>
+<td>2016-12-28 08:05:16</td>
 <td>United States</td>
 <td>4</td>
 <td>12</td>
-<td>27</td>
-<td>3</td>
+<td>28</td>
+<td>4</td>
 <td>8</td>
-<td>51</td>
-<td>10</td>
-<td>google</td>
-<td>organic</td>
-<td>Organic Search</td>
-<td>4</td>
+<td>5</td>
+<td>16</td>
+<td>youtube.com</td>
+<td>referral</td>
+<td>Social</td>
+<td>3</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
-<td>43</td>
+<td>28</td>
 <td>0</td>
-<td>4</td>
+<td>3</td>
 <td>NaN</td>
-<td>77</td>
+<td>85</td>
 <td>Chrome</td>
-<td>Android</td>
-<td>mobile</td>
+<td>Windows</td>
+<td>desktop</td>
 <td>0</td>
 <td>False</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">92857</td>
-<td>3020400276554321201</td>
-<td>1478988254</td>
+<td>0486118040507415508</td>
+<td>1477164641</td>
 <td>1</td>
-<td>2016-11-12 17:04:14</td>
+<td>2016-10-22 12:30:41</td>
 <td>United States</td>
 <td>4</td>
-<td>11</td>
-<td>12</td>
+<td>10</td>
+<td>22</td>
 <td>7</td>
-<td>17</td>
-<td>4</td>
-<td>14</td>
-<td>google</td>
-<td>organic</td>
-<td>Organic Search</td>
-<td>4</td>
+<td>12</td>
+<td>30</td>
+<td>41</td>
+<td>t.co</td>
+<td>referral</td>
+<td>Social</td>
+<td>3</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
-<td>48</td>
+<td>28</td>
 <td>0</td>
-<td>4</td>
+<td>3</td>
 <td>NaN</td>
-<td>61</td>
-<td>Internet Explorer</td>
+<td>78</td>
+<td>Chrome</td>
 <td>Windows</td>
 <td>desktop</td>
 <td>0</td>
@@ -1077,34 +1074,34 @@ Query returned 92,859 rows</code></pre>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">92858</td>
-<td>7677161554293089105</td>
-<td>1481515229</td>
+<td>9088496055778533168</td>
+<td>1482668980</td>
 <td>1</td>
-<td>2016-12-11 23:00:29</td>
+<td>2016-12-25 04:29:40</td>
 <td>United States</td>
 <td>4</td>
 <td>12</td>
-<td>11</td>
+<td>25</td>
 <td>1</td>
-<td>23</td>
-<td>0</td>
+<td>4</td>
 <td>29</td>
-<td>google</td>
-<td>organic</td>
-<td>Organic Search</td>
-<td>4</td>
+<td>40</td>
+<td>youtube.com</td>
+<td>referral</td>
+<td>Social</td>
+<td>3</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
-<td>44</td>
+<td>36</td>
 <td>0</td>
-<td>4</td>
+<td>3</td>
 <td>NaN</td>
-<td>31</td>
+<td>69</td>
 <td>Chrome</td>
-<td>Macintosh</td>
+<td>Linux</td>
 <td>desktop</td>
 <td>0</td>
 <td>False</td>
@@ -1144,7 +1141,7 @@ Notes
 </ul></li>
 <li>The BigQuery SQL function <code>UNNEST</code> was used to flatten nested columns.</li>
 <li>The start and end dates of the ML training, validation and test data splits were defined. The training dates have been used to filter the <code>first_visit_attributes</code> CTE in order since EDA in this step will only be performed using the training data in order to avoid data leakage (or lookahead bias).</li>
-<li>The SQL required to extract most of these columns was fairly straightforward and was determined from (a) the documentation for the dataset and (b) examining the first few rows of the dataset in these columns. For brevity, we won’t discuss these columns in further detail. These column categories are listed below
+<li>The SQL required to extract most of these columns was determined from (a) the documentation for the dataset and (b) examining the first few rows of the dataset in these columns. For brevity, we won’t discuss these columns in further detail. These column categories are listed below
 <ul>
 <li>geospatial and temporal</li>
 <li>metadata of each visit and visitor</li>
@@ -1161,7 +1158,7 @@ Notes
 <section id="fraction-of-visitors-with-add-to-cart-on-first-visit" class="level3">
 <h3 class="anchored" data-anchor-id="fraction-of-visitors-with-add-to-cart-on-first-visit">Fraction of Visitors with Add-to-Cart on First Visit</h3>
 <p><strong>Question 3. What fraction of visitors added one or more items to their shopping cart during their first visit?</strong></p>
-<div class="cell" data-tags="[]" data-execution_count="12">
+<div class="cell" data-tags="[]" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> [<span class="st">"added_to_cart"</span>]:</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    display(</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        (<span class="dv">100</span> <span class="op">*</span> df[c].value_counts(dropna<span class="op">=</span><span class="va">False</span>, normalize<span class="op">=</span><span class="va">True</span>))</span>
@@ -1274,7 +1271,7 @@ Notes
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">18</td>
-<td>19</td>
+<td>18</td>
 <td>0.004308</td>
 </tr>
 <tr class="even">
@@ -1284,7 +1281,7 @@ Notes
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">20</td>
-<td>18</td>
+<td>19</td>
 <td>0.004308</td>
 </tr>
 <tr class="even">
@@ -1304,62 +1301,62 @@ Notes
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">24</td>
-<td>40</td>
+<td>34</td>
 <td>0.002154</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">25</td>
-<td>34</td>
+<td>40</td>
 <td>0.002154</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">26</td>
-<td>27</td>
+<td>36</td>
 <td>0.001077</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">27</td>
-<td>32</td>
+<td>26</td>
 <td>0.001077</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">28</td>
-<td>24</td>
-<td>0.001077</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">29</td>
-<td>36</td>
-<td>0.001077</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">30</td>
-<td>113</td>
-<td>0.001077</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">31</td>
-<td>45</td>
-<td>0.001077</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">32</td>
-<td>39</td>
-<td>0.001077</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">33</td>
-<td>30</td>
-<td>0.001077</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">34</td>
 <td>28</td>
 <td>0.001077</td>
 </tr>
 <tr class="even">
+<td data-quarto-table-cell-role="th">29</td>
+<td>32</td>
+<td>0.001077</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">30</td>
+<td>24</td>
+<td>0.001077</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">31</td>
+<td>113</td>
+<td>0.001077</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">32</td>
+<td>45</td>
+<td>0.001077</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">33</td>
+<td>39</td>
+<td>0.001077</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">34</td>
+<td>27</td>
+<td>0.001077</td>
+</tr>
+<tr class="even">
 <td data-quarto-table-cell-role="th">35</td>
-<td>26</td>
+<td>30</td>
 <td>0.001077</td>
 </tr>
 <tr class="odd">
@@ -1393,7 +1390,7 @@ Observations
 <h3 class="anchored" data-anchor-id="reasons-for-and-handling-of-duplicates">Reasons For and Handling of Duplicates</h3>
 <p><strong>Question 4. Comment on duplicates present in the data prepared above. What are some possible reasons for the presence of duplicates in the above prepared data? How should these be handled?</strong></p>
 <p>Below we show that there are duplicates within the <code>fullvisitorid</code> column</p>
-<div class="cell" data-tags="[]" data-execution_count="13">
+<div class="cell" data-tags="[]" data-execution_count="14">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
@@ -1409,7 +1406,7 @@ Largest visitNumber = 1</code></pre>
 </div>
 </div>
 <p>These duplicates are retrieved below, showing that multiple <code>visitId</code>s are present for the same <code>visitorid</code></p>
-<div class="cell" data-tags="[]" data-execution_count="14">
+<div class="cell" data-tags="[]" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df_num_dups <span class="op">=</span> (</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    df.groupby([<span class="st">"fullvisitorid"</span>])</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    .agg({<span class="st">"visitId"</span>: <span class="st">"count"</span>, <span class="st">"visitNumber"</span>: <span class="st">"max"</span>})</span>
@@ -1539,7 +1536,7 @@ so, we should explore both cases separately.</li>
 </div>
 </div>
 <p>Duplicated <code>visitId</code>s are shown below</p>
-<div class="cell" data-tags="[]" data-execution_count="15">
+<div class="cell" data-tags="[]" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dup_visit_ids <span class="op">=</span> df[df.duplicated(subset<span class="op">=</span>[<span class="st">"visitId"</span>], keep<span class="op">=</span><span class="va">False</span>)]</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>num_dups <span class="op">=</span> <span class="bu">len</span>(df[df.duplicated(subset<span class="op">=</span>[<span class="st">"visitId"</span>], keep<span class="op">=</span><span class="st">"first"</span>)])</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
@@ -1594,17 +1591,17 @@ so, we should explore both cases separately.</li>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4977</td>
+<td data-quarto-table-cell-role="th">28174</td>
 <td>7673928089571501866</td>
 <td>1472751431</td>
 <td>1</td>
-<td>2016-09-01 13:37:11</td>
+<td>2016-09-01 10:37:11</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>1</td>
 <td>5</td>
-<td>13</td>
+<td>10</td>
 <td>37</td>
 <td>11</td>
 <td>google</td>
@@ -1628,17 +1625,17 @@ so, we should explore both cases separately.</li>
 <td>False</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">47310</td>
+<td data-quarto-table-cell-role="th">47204</td>
 <td>6028120763017470092</td>
 <td>1472751431</td>
 <td>1</td>
-<td>2016-09-01 13:37:11</td>
+<td>2016-09-01 10:37:11</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>1</td>
 <td>5</td>
-<td>13</td>
+<td>10</td>
 <td>37</td>
 <td>11</td>
 <td>dfa</td>
@@ -1662,51 +1659,17 @@ so, we should explore both cases separately.</li>
 <td>False</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">26457</td>
-<td>0622219713224273207</td>
-<td>1472752926</td>
-<td>1</td>
-<td>2016-09-01 14:02:06</td>
-<td>United States</td>
-<td>3</td>
-<td>9</td>
-<td>1</td>
-<td>5</td>
-<td>14</td>
-<td>2</td>
-<td>6</td>
-<td>mall.googleplex.com</td>
-<td>referral</td>
-<td>Referral</td>
-<td>7</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>9</td>
-<td>0</td>
-<td>167</td>
-<td>0</td>
-<td>7</td>
-<td>NaN</td>
-<td>178</td>
-<td>Chrome</td>
-<td>Linux</td>
-<td>desktop</td>
-<td>0</td>
-<td>False</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">66595</td>
+<td data-quarto-table-cell-role="th">66489</td>
 <td>4654710059786315542</td>
 <td>1472752926</td>
 <td>1</td>
-<td>2016-09-01 14:02:06</td>
+<td>2016-09-01 11:02:06</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>1</td>
 <td>5</td>
-<td>14</td>
+<td>11</td>
 <td>2</td>
 <td>6</td>
 <td>youtube.com</td>
@@ -1729,52 +1692,52 @@ so, we should explore both cases separately.</li>
 <td>0</td>
 <td>False</td>
 </tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">64155</td>
-<td>8679833862264857329</td>
-<td>1472771118</td>
+<tr class="even">
+<td data-quarto-table-cell-role="th">14790</td>
+<td>0622219713224273207</td>
+<td>1472752926</td>
 <td>1</td>
-<td>2016-09-01 19:05:18</td>
+<td>2016-09-01 11:02:06</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>1</td>
 <td>5</td>
-<td>19</td>
-<td>5</td>
-<td>18</td>
-<td>google</td>
-<td>organic</td>
-<td>Organic Search</td>
-<td>1</td>
-<td>1</td>
+<td>11</td>
+<td>2</td>
+<td>6</td>
+<td>mall.googleplex.com</td>
+<td>referral</td>
+<td>Referral</td>
+<td>7</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
+<td>9</td>
 <td>0</td>
+<td>167</td>
 <td>0</td>
-<td>0</td>
-<td>1</td>
+<td>7</td>
 <td>NaN</td>
-<td>0</td>
-<td>Safari</td>
-<td>Macintosh</td>
+<td>178</td>
+<td>Chrome</td>
+<td>Linux</td>
 <td>desktop</td>
 <td>0</td>
 <td>False</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">21248</td>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">79228</td>
 <td>0983194581450463928</td>
 <td>1472771118</td>
 <td>1</td>
-<td>2016-09-01 19:05:18</td>
+<td>2016-09-01 16:05:18</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>1</td>
 <td>5</td>
-<td>19</td>
+<td>16</td>
 <td>5</td>
 <td>18</td>
 <td>reddit.com</td>
@@ -1797,18 +1760,52 @@ so, we should explore both cases separately.</li>
 <td>0</td>
 <td>False</td>
 </tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">62164</td>
-<td>5501176514964856126</td>
-<td>1472799309</td>
+<tr class="even">
+<td data-quarto-table-cell-role="th">64049</td>
+<td>8679833862264857329</td>
+<td>1472771118</td>
 <td>1</td>
-<td>2016-09-02 02:55:09</td>
+<td>2016-09-01 16:05:18</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
-<td>2</td>
-<td>6</td>
-<td>2</td>
+<td>1</td>
+<td>5</td>
+<td>16</td>
+<td>5</td>
+<td>18</td>
+<td>google</td>
+<td>organic</td>
+<td>Organic Search</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>NaN</td>
+<td>0</td>
+<td>Safari</td>
+<td>Macintosh</td>
+<td>desktop</td>
+<td>0</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">62058</td>
+<td>5501176514964856126</td>
+<td>1472799309</td>
+<td>1</td>
+<td>2016-09-01 23:55:09</td>
+<td>United States</td>
+<td>3</td>
+<td>9</td>
+<td>1</td>
+<td>5</td>
+<td>23</td>
 <td>55</td>
 <td>9</td>
 <td>google</td>
@@ -1832,17 +1829,17 @@ so, we should explore both cases separately.</li>
 <td>False</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">72189</td>
+<td data-quarto-table-cell-role="th">83797</td>
 <td>5501176514964856126</td>
 <td>1472799309</td>
 <td>1</td>
-<td>2016-09-02 03:00:01</td>
+<td>2016-09-02 00:00:01</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>2</td>
 <td>6</td>
-<td>3</td>
+<td>0</td>
 <td>0</td>
 <td>1</td>
 <td>google</td>
@@ -1866,17 +1863,17 @@ so, we should explore both cases separately.</li>
 <td>False</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">86303</td>
+<td data-quarto-table-cell-role="th">5052</td>
 <td>3718403740052363161</td>
 <td>1472826491</td>
 <td>1</td>
-<td>2016-09-02 10:28:11</td>
+<td>2016-09-02 07:28:11</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>2</td>
 <td>6</td>
-<td>10</td>
+<td>7</td>
 <td>28</td>
 <td>11</td>
 <td>google</td>
@@ -1900,17 +1897,17 @@ so, we should explore both cases separately.</li>
 <td>False</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1993</td>
+<td data-quarto-table-cell-role="th">25190</td>
 <td>0841953213802800334</td>
 <td>1472826491</td>
 <td>1</td>
-<td>2016-09-02 10:28:11</td>
+<td>2016-09-02 07:28:11</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>2</td>
 <td>6</td>
-<td>10</td>
+<td>7</td>
 <td>28</td>
 <td>11</td>
 <td>(direct)</td>
@@ -1934,51 +1931,17 @@ so, we should explore both cases separately.</li>
 <td>False</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">29447</td>
-<td>3379865943266894087</td>
-<td>1472827968</td>
-<td>1</td>
-<td>2016-09-02 10:52:48</td>
-<td>United States</td>
-<td>3</td>
-<td>9</td>
-<td>2</td>
-<td>6</td>
-<td>10</td>
-<td>52</td>
-<td>48</td>
-<td>(direct)</td>
-<td>(none)</td>
-<td>Direct</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>NaN</td>
-<td>0</td>
-<td>Chrome</td>
-<td>Macintosh</td>
-<td>desktop</td>
-<td>0</td>
-<td>False</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">41280</td>
+<td data-quarto-table-cell-role="th">41174</td>
 <td>8072421534192464916</td>
 <td>1472827968</td>
 <td>1</td>
-<td>2016-09-02 10:52:48</td>
+<td>2016-09-02 07:52:48</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>2</td>
 <td>6</td>
-<td>10</td>
+<td>7</td>
 <td>52</td>
 <td>48</td>
 <td>youtube.com</td>
@@ -2001,52 +1964,52 @@ so, we should explore both cases separately.</li>
 <td>0</td>
 <td>False</td>
 </tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">13883</td>
-<td>7256457379544446924</td>
-<td>1472830743</td>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17780</td>
+<td>3379865943266894087</td>
+<td>1472827968</td>
 <td>1</td>
-<td>2016-09-02 11:39:03</td>
+<td>2016-09-02 07:52:48</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>2</td>
 <td>6</td>
-<td>11</td>
-<td>39</td>
-<td>3</td>
+<td>7</td>
+<td>52</td>
+<td>48</td>
 <td>(direct)</td>
 <td>(none)</td>
 <td>Direct</td>
-<td>4</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>9</td>
 <td>1</td>
-<td>17</td>
+<td>1</td>
 <td>0</td>
-<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
 <td>NaN</td>
-<td>31</td>
+<td>0</td>
 <td>Chrome</td>
-<td>Windows</td>
+<td>Macintosh</td>
 <td>desktop</td>
 <td>0</td>
 <td>False</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">20568</td>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">78548</td>
 <td>1755792970575692332</td>
 <td>1472830743</td>
 <td>1</td>
-<td>2016-09-02 11:39:03</td>
+<td>2016-09-02 08:39:03</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>2</td>
 <td>6</td>
-<td>11</td>
+<td>8</td>
 <td>39</td>
 <td>3</td>
 <td>(direct)</td>
@@ -2069,18 +2032,52 @@ so, we should explore both cases separately.</li>
 <td>0</td>
 <td>False</td>
 </tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">90216</td>
-<td>0632675186889921612</td>
-<td>1472837248</td>
+<tr class="even">
+<td data-quarto-table-cell-role="th">71863</td>
+<td>7256457379544446924</td>
+<td>1472830743</td>
 <td>1</td>
-<td>2016-09-02 13:27:28</td>
+<td>2016-09-02 08:39:03</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>2</td>
 <td>6</td>
-<td>13</td>
+<td>8</td>
+<td>39</td>
+<td>3</td>
+<td>(direct)</td>
+<td>(none)</td>
+<td>Direct</td>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>9</td>
+<td>1</td>
+<td>17</td>
+<td>0</td>
+<td>3</td>
+<td>NaN</td>
+<td>31</td>
+<td>Chrome</td>
+<td>Windows</td>
+<td>desktop</td>
+<td>0</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8965</td>
+<td>0632675186889921612</td>
+<td>1472837248</td>
+<td>1</td>
+<td>2016-09-02 10:27:28</td>
+<td>United States</td>
+<td>3</td>
+<td>9</td>
+<td>2</td>
+<td>6</td>
+<td>10</td>
 <td>27</td>
 <td>28</td>
 <td>google</td>
@@ -2104,17 +2101,17 @@ so, we should explore both cases separately.</li>
 <td>False</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">5682</td>
+<td data-quarto-table-cell-role="th">28879</td>
 <td>3083609601584075244</td>
 <td>1472837248</td>
 <td>1</td>
-<td>2016-09-02 13:27:28</td>
+<td>2016-09-02 10:27:28</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>2</td>
 <td>6</td>
-<td>13</td>
+<td>10</td>
 <td>27</td>
 <td>28</td>
 <td>dfa</td>
@@ -2138,17 +2135,17 @@ so, we should explore both cases separately.</li>
 <td>False</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">85346</td>
+<td data-quarto-table-cell-role="th">4095</td>
 <td>921700488150606409</td>
 <td>1472840651</td>
 <td>1</td>
-<td>2016-09-02 14:24:11</td>
+<td>2016-09-02 11:24:11</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>2</td>
 <td>6</td>
-<td>14</td>
+<td>11</td>
 <td>24</td>
 <td>11</td>
 <td>analytics.google.com</td>
@@ -2172,17 +2169,17 @@ so, we should explore both cases separately.</li>
 <td>False</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">12700</td>
+<td data-quarto-table-cell-role="th">70680</td>
 <td>0519598949480129245</td>
 <td>1472840651</td>
 <td>1</td>
-<td>2016-09-02 14:24:11</td>
+<td>2016-09-02 11:24:11</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>2</td>
 <td>6</td>
-<td>14</td>
+<td>11</td>
 <td>24</td>
 <td>11</td>
 <td>google</td>
@@ -2206,17 +2203,17 @@ so, we should explore both cases separately.</li>
 <td>False</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">91711</td>
+<td data-quarto-table-cell-role="th">10460</td>
 <td>7005010567253535201</td>
 <td>1472845470</td>
 <td>1</td>
-<td>2016-09-02 15:44:30</td>
+<td>2016-09-02 12:44:30</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>2</td>
 <td>6</td>
-<td>15</td>
+<td>12</td>
 <td>44</td>
 <td>30</td>
 <td>google</td>
@@ -2240,17 +2237,17 @@ so, we should explore both cases separately.</li>
 <td>False</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">30129</td>
+<td data-quarto-table-cell-role="th">18462</td>
 <td>837289177119980105</td>
 <td>1472845470</td>
 <td>1</td>
-<td>2016-09-02 15:44:30</td>
+<td>2016-09-02 12:44:30</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>2</td>
 <td>6</td>
-<td>15</td>
+<td>12</td>
 <td>44</td>
 <td>30</td>
 <td>(direct)</td>
@@ -2274,17 +2271,17 @@ so, we should explore both cases separately.</li>
 <td>False</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">48767</td>
+<td data-quarto-table-cell-role="th">48661</td>
 <td>0634421561835257232</td>
 <td>1472930237</td>
 <td>1</td>
-<td>2016-09-03 15:17:17</td>
+<td>2016-09-03 12:17:17</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>3</td>
 <td>7</td>
-<td>15</td>
+<td>12</td>
 <td>17</td>
 <td>17</td>
 <td>youtube.com</td>
@@ -2308,17 +2305,17 @@ so, we should explore both cases separately.</li>
 <td>False</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">77061</td>
+<td data-quarto-table-cell-role="th">88669</td>
 <td>8889451242449489132</td>
 <td>1472930237</td>
 <td>1</td>
-<td>2016-09-03 15:17:17</td>
+<td>2016-09-03 12:17:17</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>3</td>
 <td>7</td>
-<td>15</td>
+<td>12</td>
 <td>17</td>
 <td>17</td>
 <td>google</td>
@@ -2342,17 +2339,17 @@ so, we should explore both cases separately.</li>
 <td>False</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">38847</td>
+<td data-quarto-table-cell-role="th">38741</td>
 <td>1935680082667534577</td>
 <td>1472972244</td>
 <td>1</td>
-<td>2016-09-04 03:00:42</td>
+<td>2016-09-04 00:00:42</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>4</td>
 <td>1</td>
-<td>3</td>
+<td>0</td>
 <td>0</td>
 <td>42</td>
 <td>google</td>
@@ -2376,17 +2373,17 @@ so, we should explore both cases separately.</li>
 <td>False</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">23907</td>
+<td data-quarto-table-cell-role="th">12240</td>
 <td>1935680082667534577</td>
 <td>1472972244</td>
 <td>1</td>
-<td>2016-09-04 02:57:24</td>
+<td>2016-09-03 23:57:24</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
-<td>4</td>
-<td>1</td>
-<td>2</td>
+<td>3</td>
+<td>7</td>
+<td>23</td>
 <td>57</td>
 <td>24</td>
 <td>google</td>
@@ -2410,33 +2407,33 @@ so, we should explore both cases separately.</li>
 <td>False</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">87832</td>
+<td data-quarto-table-cell-role="th">9641</td>
 <td>1007310562563797720</td>
 <td>1473058799</td>
 <td>1</td>
-<td>2016-09-05 02:59:59</td>
+<td>2016-09-05 00:00:01</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>5</td>
 <td>2</td>
-<td>2</td>
-<td>59</td>
-<td>59</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
 <td>(direct)</td>
 <td>(none)</td>
 <td>Direct</td>
-<td>1</td>
-<td>1</td>
+<td>3</td>
+<td>0</td>
 <td>0</td>
 <td>0</td>
 <td>9</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
 <td>1</td>
-<td>NaN</td>
+<td>34</td>
 <td>0</td>
+<td>2</td>
+<td>NaN</td>
+<td>52</td>
 <td>Safari (in-app)</td>
 <td>iOS</td>
 <td>mobile</td>
@@ -2484,7 +2481,7 @@ Observations
 </div>
 </div>
 <p>Duplicated <code>fullvisitorId</code>s are shown below</p>
-<div class="cell" data-tags="[]" data-execution_count="16">
+<div class="cell" data-tags="[]" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>dup_visitor_ids <span class="op">=</span> df[df.duplicated(subset<span class="op">=</span>[<span class="st">"fullvisitorid"</span>], keep<span class="op">=</span><span class="va">False</span>)]</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>num_dups <span class="op">=</span> <span class="bu">len</span>(df[df.duplicated(subset<span class="op">=</span>[<span class="st">"fullvisitorid"</span>], keep<span class="op">=</span><span class="st">"first"</span>)])</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
@@ -2539,17 +2536,17 @@ Observations
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">50703</td>
+<td data-quarto-table-cell-role="th">50597</td>
 <td>0014997413479849928</td>
 <td>1477513747</td>
 <td>1</td>
-<td>2016-10-26 16:29:07</td>
+<td>2016-10-26 13:29:07</td>
 <td>United States</td>
 <td>4</td>
 <td>10</td>
 <td>26</td>
 <td>4</td>
-<td>16</td>
+<td>13</td>
 <td>29</td>
 <td>7</td>
 <td>(direct)</td>
@@ -2573,17 +2570,17 @@ Observations
 <td>False</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">62579</td>
+<td data-quarto-table-cell-role="th">62473</td>
 <td>0014997413479849928</td>
 <td>1474324872</td>
 <td>1</td>
-<td>2016-09-19 18:41:12</td>
+<td>2016-09-19 15:41:12</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>19</td>
 <td>2</td>
-<td>18</td>
+<td>15</td>
 <td>41</td>
 <td>12</td>
 <td>mall.googleplex.com</td>
@@ -2607,51 +2604,17 @@ Observations
 <td>False</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">9213</td>
-<td>012569301201854368</td>
-<td>1477339547</td>
-<td>1</td>
-<td>2016-10-24 16:05:52</td>
-<td>United States</td>
-<td>4</td>
-<td>10</td>
-<td>24</td>
-<td>2</td>
-<td>16</td>
-<td>5</td>
-<td>52</td>
-<td>(direct)</td>
-<td>(none)</td>
-<td>Direct</td>
-<td>2</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>9</td>
-<td>0</td>
-<td>10</td>
-<td>0</td>
-<td>2</td>
-<td>NaN</td>
-<td>12</td>
-<td>Chrome</td>
-<td>Macintosh</td>
-<td>desktop</td>
-<td>0</td>
-<td>False</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">87971</td>
+<td data-quarto-table-cell-role="th">6720</td>
 <td>012569301201854368</td>
 <td>1477496472</td>
 <td>1</td>
-<td>2016-10-26 11:41:12</td>
+<td>2016-10-26 08:41:12</td>
 <td>United States</td>
 <td>4</td>
 <td>10</td>
 <td>26</td>
 <td>4</td>
-<td>11</td>
+<td>8</td>
 <td>41</td>
 <td>12</td>
 <td>analytics.google.com</td>
@@ -2674,52 +2637,52 @@ Observations
 <td>0</td>
 <td>False</td>
 </tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">62216</td>
-<td>0153393931967124172</td>
-<td>1481528488</td>
+<tr class="even">
+<td data-quarto-table-cell-role="th">32410</td>
+<td>012569301201854368</td>
+<td>1477339547</td>
 <td>1</td>
-<td>2016-12-12 03:00:03</td>
+<td>2016-10-24 13:05:52</td>
 <td>United States</td>
 <td>4</td>
-<td>12</td>
-<td>12</td>
+<td>10</td>
+<td>24</td>
 <td>2</td>
-<td>3</td>
-<td>0</td>
-<td>3</td>
-<td>google</td>
-<td>organic</td>
-<td>Organic Search</td>
 <td>13</td>
-<td>0</td>
+<td>5</td>
+<td>52</td>
+<td>(direct)</td>
+<td>(none)</td>
+<td>Direct</td>
 <td>2</td>
-<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
 <td>9</td>
 <td>0</td>
-<td>92</td>
+<td>10</td>
+<td>0</td>
 <td>2</td>
-<td>11</td>
 <td>NaN</td>
-<td>614</td>
-<td>Safari</td>
+<td>12</td>
+<td>Chrome</td>
 <td>Macintosh</td>
 <td>desktop</td>
 <td>0</td>
 <td>False</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">23567</td>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">11900</td>
 <td>0153393931967124172</td>
 <td>1481528488</td>
 <td>1</td>
-<td>2016-12-12 02:41:28</td>
+<td>2016-12-11 23:41:28</td>
 <td>United States</td>
 <td>4</td>
 <td>12</td>
-<td>12</td>
-<td>2</td>
-<td>2</td>
+<td>11</td>
+<td>1</td>
+<td>23</td>
 <td>41</td>
 <td>28</td>
 <td>google</td>
@@ -2742,52 +2705,52 @@ Observations
 <td>0</td>
 <td>False</td>
 </tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">27183</td>
-<td>0196238382136996118</td>
-<td>1482220536</td>
+<tr class="even">
+<td data-quarto-table-cell-role="th">62110</td>
+<td>0153393931967124172</td>
+<td>1481528488</td>
 <td>1</td>
-<td>2016-12-20 02:55:36</td>
+<td>2016-12-12 00:00:03</td>
 <td>United States</td>
 <td>4</td>
 <td>12</td>
-<td>20</td>
-<td>3</td>
+<td>12</td>
 <td>2</td>
-<td>55</td>
-<td>36</td>
-<td>(direct)</td>
-<td>(none)</td>
-<td>Direct</td>
-<td>11</td>
-<td>0</td>
-<td>5</td>
-<td>1</td>
 <td>0</td>
 <td>0</td>
-<td>7</td>
+<td>3</td>
+<td>google</td>
+<td>organic</td>
+<td>Organic Search</td>
+<td>13</td>
+<td>0</td>
+<td>2</td>
 <td>1</td>
 <td>9</td>
+<td>0</td>
+<td>92</td>
+<td>2</td>
+<td>11</td>
 <td>NaN</td>
-<td>99</td>
-<td>Chrome</td>
+<td>614</td>
+<td>Safari</td>
 <td>Macintosh</td>
 <td>desktop</td>
-<td>1</td>
+<td>0</td>
 <td>False</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">92841</td>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">11590</td>
 <td>0196238382136996118</td>
 <td>1482220536</td>
 <td>1</td>
-<td>2016-12-20 03:00:19</td>
+<td>2016-12-20 00:00:19</td>
 <td>United States</td>
 <td>4</td>
 <td>12</td>
 <td>20</td>
 <td>3</td>
-<td>3</td>
+<td>0</td>
 <td>0</td>
 <td>19</td>
 <td>(direct)</td>
@@ -2810,52 +2773,52 @@ Observations
 <td>0</td>
 <td>False</td>
 </tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">79440</td>
-<td>0233922069260074966</td>
-<td>1477516633</td>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15516</td>
+<td>0196238382136996118</td>
+<td>1482220536</td>
 <td>1</td>
-<td>2016-10-26 17:17:13</td>
+<td>2016-12-19 23:55:36</td>
 <td>United States</td>
 <td>4</td>
-<td>10</td>
-<td>26</td>
-<td>4</td>
-<td>17</td>
-<td>17</td>
-<td>13</td>
-<td>mall.googleplex.com</td>
-<td>referral</td>
-<td>Referral</td>
-<td>3</td>
+<td>12</td>
+<td>19</td>
+<td>2</td>
+<td>23</td>
+<td>55</td>
+<td>36</td>
+<td>(direct)</td>
+<td>(none)</td>
+<td>Direct</td>
+<td>11</td>
+<td>0</td>
+<td>5</td>
+<td>1</td>
 <td>0</td>
 <td>0</td>
-<td>0</td>
+<td>7</td>
+<td>1</td>
 <td>9</td>
-<td>0</td>
-<td>14</td>
-<td>0</td>
-<td>3</td>
 <td>NaN</td>
-<td>46</td>
+<td>99</td>
 <td>Chrome</td>
 <td>Macintosh</td>
 <td>desktop</td>
-<td>0</td>
+<td>1</td>
 <td>False</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">14258</td>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">72238</td>
 <td>0233922069260074966</td>
 <td>1474926165</td>
 <td>1</td>
-<td>2016-09-26 17:42:45</td>
+<td>2016-09-26 14:42:45</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>26</td>
 <td>2</td>
-<td>17</td>
+<td>14</td>
 <td>42</td>
 <td>45</td>
 <td>(direct)</td>
@@ -2878,52 +2841,52 @@ Observations
 <td>0</td>
 <td>False</td>
 </tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">6588</td>
-<td>023880134273808115</td>
-<td>1473836398</td>
+<tr class="even">
+<td data-quarto-table-cell-role="th">91048</td>
+<td>0233922069260074966</td>
+<td>1477516633</td>
 <td>1</td>
-<td>2016-09-14 02:59:58</td>
+<td>2016-10-26 14:17:13</td>
 <td>United States</td>
-<td>3</td>
-<td>9</td>
-<td>14</td>
 <td>4</td>
-<td>2</td>
-<td>59</td>
-<td>58</td>
+<td>10</td>
+<td>26</td>
+<td>4</td>
+<td>14</td>
+<td>17</td>
+<td>13</td>
 <td>mall.googleplex.com</td>
 <td>referral</td>
 <td>Referral</td>
-<td>1</td>
-<td>1</td>
+<td>3</td>
+<td>0</td>
 <td>0</td>
 <td>0</td>
 <td>9</td>
 <td>0</td>
+<td>14</td>
 <td>0</td>
-<td>0</td>
-<td>1</td>
+<td>3</td>
 <td>NaN</td>
-<td>0</td>
+<td>46</td>
 <td>Chrome</td>
-<td>Windows</td>
+<td>Macintosh</td>
 <td>desktop</td>
 <td>0</td>
 <td>False</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">21411</td>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">79391</td>
 <td>023880134273808115</td>
 <td>1473836398</td>
 <td>1</td>
-<td>2016-09-14 03:01:08</td>
+<td>2016-09-14 00:01:08</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>14</td>
 <td>4</td>
-<td>3</td>
+<td>0</td>
 <td>1</td>
 <td>8</td>
 <td>mall.googleplex.com</td>
@@ -2946,20 +2909,20 @@ Observations
 <td>0</td>
 <td>False</td>
 </tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">6591</td>
-<td>0253256708649119169</td>
-<td>1477495482</td>
+<tr class="even">
+<td data-quarto-table-cell-role="th">29785</td>
+<td>023880134273808115</td>
+<td>1473836398</td>
 <td>1</td>
-<td>2016-10-26 11:24:42</td>
+<td>2016-09-13 23:59:58</td>
 <td>United States</td>
-<td>4</td>
-<td>10</td>
-<td>26</td>
-<td>4</td>
-<td>11</td>
-<td>24</td>
-<td>42</td>
+<td>3</td>
+<td>9</td>
+<td>13</td>
+<td>3</td>
+<td>23</td>
+<td>59</td>
+<td>58</td>
 <td>mall.googleplex.com</td>
 <td>referral</td>
 <td>Referral</td>
@@ -2975,23 +2938,23 @@ Observations
 <td>NaN</td>
 <td>0</td>
 <td>Chrome</td>
-<td>Macintosh</td>
+<td>Windows</td>
 <td>desktop</td>
 <td>0</td>
 <td>False</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">13220</td>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">71200</td>
 <td>0253256708649119169</td>
 <td>1475866302</td>
 <td>1</td>
-<td>2016-10-07 14:51:42</td>
+<td>2016-10-07 11:51:42</td>
 <td>United States</td>
 <td>4</td>
 <td>10</td>
 <td>7</td>
 <td>6</td>
-<td>14</td>
+<td>11</td>
 <td>51</td>
 <td>42</td>
 <td>google</td>
@@ -3014,18 +2977,52 @@ Observations
 <td>2</td>
 <td>False</td>
 </tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">26243</td>
-<td>0273626426804732878</td>
-<td>1477523531</td>
+<tr class="even">
+<td data-quarto-table-cell-role="th">29788</td>
+<td>0253256708649119169</td>
+<td>1477495482</td>
 <td>1</td>
-<td>2016-10-26 19:12:11</td>
+<td>2016-10-26 08:24:42</td>
 <td>United States</td>
 <td>4</td>
 <td>10</td>
 <td>26</td>
 <td>4</td>
-<td>19</td>
+<td>8</td>
+<td>24</td>
+<td>42</td>
+<td>mall.googleplex.com</td>
+<td>referral</td>
+<td>Referral</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>9</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>NaN</td>
+<td>0</td>
+<td>Chrome</td>
+<td>Macintosh</td>
+<td>desktop</td>
+<td>0</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">14576</td>
+<td>0273626426804732878</td>
+<td>1477523531</td>
+<td>1</td>
+<td>2016-10-26 16:12:11</td>
+<td>United States</td>
+<td>4</td>
+<td>10</td>
+<td>26</td>
+<td>4</td>
+<td>16</td>
 <td>12</td>
 <td>11</td>
 <td>mall.googleplex.com</td>
@@ -3049,17 +3046,17 @@ Observations
 <td>False</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">4464</td>
+<td data-quarto-table-cell-role="th">27661</td>
 <td>0273626426804732878</td>
 <td>1475625049</td>
 <td>1</td>
-<td>2016-10-04 19:50:49</td>
+<td>2016-10-04 16:50:49</td>
 <td>United States</td>
 <td>4</td>
 <td>10</td>
 <td>4</td>
 <td>3</td>
-<td>19</td>
+<td>16</td>
 <td>50</td>
 <td>49</td>
 <td>mall.googleplex.com</td>
@@ -3083,51 +3080,17 @@ Observations
 <td>False</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">28585</td>
-<td>0495389417785084319</td>
-<td>1476424324</td>
-<td>1</td>
-<td>2016-10-14 01:52:04</td>
-<td>United States</td>
-<td>4</td>
-<td>10</td>
-<td>14</td>
-<td>6</td>
-<td>1</td>
-<td>52</td>
-<td>4</td>
-<td>google</td>
-<td>organic</td>
-<td>Organic Search</td>
-<td>45</td>
-<td>0</td>
-<td>3</td>
-<td>2</td>
-<td>54</td>
-<td>4</td>
-<td>108</td>
-<td>3</td>
-<td>34</td>
-<td>NaN</td>
-<td>2644</td>
-<td>Chrome</td>
-<td>Android</td>
-<td>mobile</td>
-<td>4</td>
-<td>False</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">68258</td>
+<td data-quarto-table-cell-role="th">68152</td>
 <td>0495389417785084319</td>
 <td>1477460221</td>
 <td>1</td>
-<td>2016-10-26 01:37:01</td>
+<td>2016-10-25 22:37:01</td>
 <td>United States</td>
 <td>4</td>
 <td>10</td>
-<td>26</td>
-<td>4</td>
-<td>1</td>
+<td>25</td>
+<td>3</td>
+<td>22</td>
 <td>37</td>
 <td>1</td>
 <td>(direct)</td>
@@ -3150,18 +3113,52 @@ Observations
 <td>0</td>
 <td>False</td>
 </tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">16918</td>
+<td>0495389417785084319</td>
+<td>1476424324</td>
+<td>1</td>
+<td>2016-10-13 22:52:04</td>
+<td>United States</td>
+<td>4</td>
+<td>10</td>
+<td>13</td>
+<td>5</td>
+<td>22</td>
+<td>52</td>
+<td>4</td>
+<td>google</td>
+<td>organic</td>
+<td>Organic Search</td>
+<td>45</td>
+<td>0</td>
+<td>3</td>
+<td>2</td>
+<td>54</td>
+<td>4</td>
+<td>108</td>
+<td>3</td>
+<td>34</td>
+<td>NaN</td>
+<td>2644</td>
+<td>Chrome</td>
+<td>Android</td>
+<td>mobile</td>
+<td>4</td>
+<td>False</td>
+</tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">44670</td>
+<td data-quarto-table-cell-role="th">44564</td>
 <td>0510616407042133197</td>
 <td>1477499309</td>
 <td>1</td>
-<td>2016-10-26 12:28:29</td>
+<td>2016-10-26 09:28:29</td>
 <td>United States</td>
 <td>4</td>
 <td>10</td>
 <td>26</td>
 <td>4</td>
-<td>12</td>
+<td>9</td>
 <td>28</td>
 <td>29</td>
 <td>sites.google.com</td>
@@ -3185,17 +3182,17 @@ Observations
 <td>False</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">28323</td>
+<td data-quarto-table-cell-role="th">16656</td>
 <td>0510616407042133197</td>
 <td>1473965199</td>
 <td>1</td>
-<td>2016-09-15 14:46:39</td>
+<td>2016-09-15 11:46:39</td>
 <td>United States</td>
 <td>3</td>
 <td>9</td>
 <td>15</td>
 <td>5</td>
-<td>14</td>
+<td>11</td>
 <td>46</td>
 <td>39</td>
 <td>mall.googleplex.com</td>
@@ -3219,17 +3216,17 @@ Observations
 <td>False</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">73353</td>
+<td data-quarto-table-cell-role="th">84961</td>
 <td>0567348342496807208</td>
 <td>1480060521</td>
 <td>1</td>
-<td>2016-11-25 03:08:08</td>
+<td>2016-11-25 00:08:08</td>
 <td>United States</td>
 <td>4</td>
 <td>11</td>
 <td>25</td>
 <td>6</td>
-<td>3</td>
+<td>0</td>
 <td>8</td>
 <td>8</td>
 <td>google</td>
@@ -3253,17 +3250,17 @@ Observations
 <td>False</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">81083</td>
+<td data-quarto-table-cell-role="th">92691</td>
 <td>0567348342496807208</td>
 <td>1480060521</td>
 <td>1</td>
-<td>2016-11-25 02:55:21</td>
+<td>2016-11-24 23:55:21</td>
 <td>United States</td>
 <td>4</td>
 <td>11</td>
-<td>25</td>
-<td>6</td>
-<td>2</td>
+<td>24</td>
+<td>5</td>
+<td>23</td>
 <td>55</td>
 <td>21</td>
 <td>google</td>
@@ -3287,17 +3284,17 @@ Observations
 <td>False</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">8962</td>
+<td data-quarto-table-cell-role="th">32159</td>
 <td>0611144195339874223</td>
 <td>1477810729</td>
 <td>1</td>
-<td>2016-10-30 03:00:13</td>
+<td>2016-10-30 00:00:13</td>
 <td>United States</td>
 <td>4</td>
 <td>10</td>
 <td>30</td>
 <td>1</td>
-<td>3</td>
+<td>0</td>
 <td>0</td>
 <td>13</td>
 <td>mall.googleplex.com</td>
@@ -3321,17 +3318,17 @@ Observations
 <td>False</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">71666</td>
+<td data-quarto-table-cell-role="th">83274</td>
 <td>0611144195339874223</td>
 <td>1477810729</td>
 <td>1</td>
-<td>2016-10-30 02:58:49</td>
+<td>2016-10-29 23:58:49</td>
 <td>United States</td>
 <td>4</td>
 <td>10</td>
-<td>30</td>
-<td>1</td>
-<td>2</td>
+<td>29</td>
+<td>7</td>
+<td>23</td>
 <td>58</td>
 <td>49</td>
 <td>mall.googleplex.com</td>
@@ -3355,17 +3352,17 @@ Observations
 <td>False</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">10194</td>
+<td data-quarto-table-cell-role="th">33391</td>
 <td>0707913578847667979</td>
 <td>1480233588</td>
 <td>1</td>
-<td>2016-11-27 02:59:48</td>
+<td>2016-11-26 23:59:48</td>
 <td>United States</td>
 <td>4</td>
 <td>11</td>
-<td>27</td>
-<td>1</td>
-<td>2</td>
+<td>26</td>
+<td>7</td>
+<td>23</td>
 <td>59</td>
 <td>48</td>
 <td>(direct)</td>
@@ -3427,7 +3424,7 @@ we will want to drop this type of duplicate from the training, validation and te
 </div>
 </div>
 <p>With this in mind, columns with duplicates in the <code>fullvisitorid</code> column are dropped. This will be done using Python</p>
-<div class="cell" data-tags="[]" data-execution_count="17">
+<div class="cell" data-tags="[]" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop_duplicates(subset<span class="op">=</span>[<span class="st">"fullvisitorid"</span>], keep<span class="op">=</span><span class="st">"first"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -3435,7 +3432,7 @@ we will want to drop this type of duplicate from the training, validation and te
 <h3 class="anchored" data-anchor-id="nested-promotion-column">Nested Promotion Column</h3>
 <p><strong>Question 5. Show and comment on unique values in the nested promotion column.</strong></p>
 <p>The number of promotions and products displayed (impressions) and clicked are shown below</p>
-<div class="cell" data-tags="[]" data-execution_count="18">
+<div class="cell" data-tags="[]" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> [</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"promos_displayed"</span>,</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"promos_clicked"</span>,</span>
@@ -3471,27 +3468,27 @@ we will want to drop this type of duplicate from the training, validation and te
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
 <td>9</td>
-<td>42832</td>
+<td>42840</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
 <td>0</td>
-<td>28668</td>
+<td>28655</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
 <td>18</td>
-<td>12933</td>
+<td>12938</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
 <td>27</td>
-<td>4082</td>
+<td>4079</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
 <td>36</td>
-<td>1728</td>
+<td>1729</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">5</td>
@@ -3501,7 +3498,7 @@ we will want to drop this type of duplicate from the training, validation and te
 <tr class="odd">
 <td data-quarto-table-cell-role="th">6</td>
 <td>54</td>
-<td>427</td>
+<td>426</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">7</td>
@@ -3511,12 +3508,12 @@ we will want to drop this type of duplicate from the training, validation and te
 <tr class="odd">
 <td data-quarto-table-cell-role="th">8</td>
 <td>63</td>
-<td>241</td>
+<td>242</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">9</td>
 <td>72</td>
-<td>143</td>
+<td>144</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">10</td>
@@ -3571,7 +3568,7 @@ we will want to drop this type of duplicate from the training, validation and te
 <tr class="odd">
 <td data-quarto-table-cell-role="th">20</td>
 <td>198</td>
-<td>7</td>
+<td>8</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">21</td>
@@ -3590,12 +3587,12 @@ we will want to drop this type of duplicate from the training, validation and te
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">24</td>
-<td>180</td>
+<td>171</td>
 <td>3</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">25</td>
-<td>171</td>
+<td>180</td>
 <td>3</td>
 </tr>
 <tr class="odd">
@@ -3610,52 +3607,52 @@ we will want to drop this type of duplicate from the training, validation and te
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">28</td>
-<td>315</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">29</td>
-<td>49</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">30</td>
-<td>216</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">31</td>
-<td>765</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">32</td>
-<td>189</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">33</td>
-<td>50</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">34</td>
-<td>12</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">35</td>
-<td>432</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">36</td>
 <td>342</td>
 <td>1</td>
 </tr>
 <tr class="even">
+<td data-quarto-table-cell-role="th">29</td>
+<td>216</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">30</td>
+<td>765</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">31</td>
+<td>432</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">32</td>
+<td>12</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">33</td>
+<td>711</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">34</td>
+<td>31</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">35</td>
+<td>143</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">36</td>
+<td>189</td>
+<td>1</td>
+</tr>
+<tr class="even">
 <td data-quarto-table-cell-role="th">37</td>
-<td>522</td>
+<td>50</td>
 <td>1</td>
 </tr>
 <tr class="odd">
@@ -3665,47 +3662,47 @@ we will want to drop this type of duplicate from the training, validation and te
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">39</td>
-<td>711</td>
+<td>279</td>
 <td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">40</td>
-<td>279</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">41</td>
-<td>207</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">42</td>
-<td>297</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">43</td>
-<td>234</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">44</td>
-<td>143</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">45</td>
-<td>31</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">46</td>
 <td>22</td>
 <td>1</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">47</td>
+<td data-quarto-table-cell-role="th">41</td>
 <td>225</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">42</td>
+<td>207</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">43</td>
+<td>297</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">44</td>
+<td>234</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">45</td>
+<td>522</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">46</td>
+<td>315</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">47</td>
+<td>49</td>
 <td>1</td>
 </tr>
 </tbody>
@@ -3729,37 +3726,37 @@ we will want to drop this type of duplicate from the training, validation and te
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
 <td>0</td>
-<td>78330</td>
+<td>78328</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
 <td>1</td>
-<td>10805</td>
+<td>10802</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
 <td>2</td>
-<td>2017</td>
+<td>2019</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
 <td>3</td>
-<td>751</td>
+<td>752</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
 <td>4</td>
-<td>316</td>
+<td>318</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">5</td>
 <td>5</td>
-<td>146</td>
+<td>145</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">6</td>
 <td>6</td>
-<td>75</td>
+<td>76</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">7</td>
@@ -3793,37 +3790,37 @@ we will want to drop this type of duplicate from the training, validation and te
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">13</td>
-<td>17</td>
+<td>12</td>
 <td>2</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">14</td>
-<td>34</td>
+<td>16</td>
 <td>2</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">15</td>
-<td>16</td>
+<td>17</td>
 <td>2</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">16</td>
-<td>12</td>
+<td>34</td>
 <td>2</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">17</td>
-<td>15</td>
+<td>30</td>
 <td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">18</td>
-<td>23</td>
+<td>21</td>
 <td>1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">19</td>
-<td>13</td>
+<td>23</td>
 <td>1</td>
 </tr>
 <tr class="odd">
@@ -3833,12 +3830,12 @@ we will want to drop this type of duplicate from the training, validation and te
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">21</td>
-<td>30</td>
+<td>13</td>
 <td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">22</td>
-<td>21</td>
+<td>15</td>
 <td>1</td>
 </tr>
 </tbody>
@@ -3862,27 +3859,27 @@ we will want to drop this type of duplicate from the training, validation and te
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
 <td>0</td>
-<td>26846</td>
+<td>26848</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
 <td>12</td>
-<td>14268</td>
+<td>14273</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
 <td>24</td>
-<td>4664</td>
+<td>4663</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
 <td>36</td>
-<td>2339</td>
+<td>2343</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
 <td>7</td>
-<td>2273</td>
+<td>2271</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">...</td>
@@ -3890,34 +3887,34 @@ we will want to drop this type of duplicate from the training, validation and te
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">601</td>
-<td>627</td>
-<td>1</td>
-</tr>
-<tr class="even">
 <td data-quarto-table-cell-role="th">602</td>
-<td>706</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">603</td>
-<td>645</td>
+<td>366</td>
 <td>1</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">604</td>
-<td>998</td>
+<td data-quarto-table-cell-role="th">603</td>
+<td>685</td>
 <td>1</td>
 </tr>
 <tr class="odd">
+<td data-quarto-table-cell-role="th">604</td>
+<td>647</td>
+<td>1</td>
+</tr>
+<tr class="even">
 <td data-quarto-table-cell-role="th">605</td>
-<td>1487</td>
+<td>719</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">606</td>
+<td>577</td>
 <td>1</td>
 </tr>
 </tbody>
 </table>
 
-<p>606 rows × 2 columns</p>
+<p>607 rows × 2 columns</p>
 </div>
 </div>
 <div class="cell-output cell-output-display">
@@ -3936,27 +3933,27 @@ we will want to drop this type of duplicate from the training, validation and te
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
 <td>0</td>
-<td>68182</td>
+<td>68175</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
 <td>1</td>
-<td>8674</td>
+<td>8680</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
 <td>2</td>
-<td>5454</td>
+<td>5455</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
 <td>3</td>
-<td>3057</td>
+<td>3056</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
 <td>4</td>
-<td>2035</td>
+<td>2036</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">...</td>
@@ -3965,12 +3962,12 @@ we will want to drop this type of duplicate from the training, validation and te
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">62</td>
-<td>125</td>
+<td>42</td>
 <td>1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">63</td>
-<td>52</td>
+<td>125</td>
 <td>1</td>
 </tr>
 <tr class="odd">
@@ -3980,12 +3977,12 @@ we will want to drop this type of duplicate from the training, validation and te
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">65</td>
-<td>42</td>
+<td>48</td>
 <td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">66</td>
-<td>138</td>
+<td>61</td>
 <td>1</td>
 </tr>
 </tbody>
@@ -4010,27 +4007,27 @@ we will want to drop this type of duplicate from the training, validation and te
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
 <td>0</td>
-<td>68227</td>
+<td>68220</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
 <td>1</td>
-<td>10544</td>
+<td>10547</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
 <td>2</td>
-<td>5193</td>
+<td>5197</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
 <td>3</td>
-<td>2926</td>
+<td>2928</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
 <td>4</td>
-<td>1735</td>
+<td>1734</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">...</td>
@@ -4039,27 +4036,27 @@ we will want to drop this type of duplicate from the training, validation and te
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">56</td>
-<td>71</td>
+<td>41</td>
 <td>1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">57</td>
-<td>96</td>
+<td>82</td>
 <td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">58</td>
-<td>138</td>
+<td>31</td>
 <td>1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">59</td>
-<td>69</td>
+<td>122</td>
 <td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">60</td>
-<td>82</td>
+<td>71</td>
 <td>1</td>
 </tr>
 </tbody>
@@ -4115,13 +4112,13 @@ often.</li>
 </div>
 </div>
 <p>Promotion-related columns are flattened and shown (see <code>promotionActionInfo</code>) for a single visit</p>
-<div class="cell" data-tags="[]" data-execution_count="19">
+<div class="cell" data-tags="[]" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f"""</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        WITH visit_promotion_attrs AS (</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="ss">            SELECT fullvisitorid,</span></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="ss">                   visitId,</span></span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="ss">                   visitNumber,</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="ss">                   DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Eastern') AS visitStartTime,</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="ss">                   DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Pacific') AS visitStartTime,</span></span>
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="ss">                   CAST(h.ecommerceaction.action_type AS INT64) AS action_type,</span></span>
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="ss">                   h.promotion,</span></span>
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="ss">                   h.promotionActionInfo AS pa_info,</span></span>
@@ -4148,7 +4145,7 @@ often.</li>
 <span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pd.option_context(<span class="st">"display.max_colwidth"</span>, <span class="va">None</span>, <span class="st">"display.max_rows"</span>, <span class="va">None</span>):</span>
 <span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>    display(df_raw.head(<span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Query execution start time = 2023-04-12 11:40:50.810...done at 2023-04-12 11:40:52.167 (1.357 seconds).
+<pre><code>Query execution start time = 2023-04-13 17:07:00.571...done at 2023-04-13 17:07:02.254 (1.683 seconds).
 Query returned 42 rows</code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -4418,13 +4415,13 @@ Observations
 <h3 class="anchored" data-anchor-id="nested-product-column">Nested Product Column</h3>
 <p><strong>Question 6. Show and comment on unique values in the nested product column.</strong></p>
 <p>Product-related columns are flattened and shown for a single visit</p>
-<div class="cell" data-tags="[]" data-execution_count="20">
+<div class="cell" data-tags="[]" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f"""</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        WITH visit_product_attrs AS (</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="ss">            SELECT fullvisitorid,</span></span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="ss">               visitId,</span></span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="ss">               visitNumber,</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="ss">               DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Eastern') AS visitStartTime,</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="ss">               DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Pacific') AS visitStartTime,</span></span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="ss">               CAST(h.ecommerceaction.action_type AS INT64) AS action_type,</span></span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="ss">               h.product,</span></span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="ss">               (CASE WHEN ARRAY_LENGTH(h.product) = 0 THEN 0 ELSE ARRAY_LENGTH(h.product) END) AS product_count,</span></span>
@@ -4452,7 +4449,7 @@ Observations
 <span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a>    display(df_raw.head())</span>
 <span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a>    display(df_raw.tail())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Query execution start time = 2023-04-12 11:40:52.204...done at 2023-04-12 11:40:53.807 (1.603 seconds).
+<pre><code>Query execution start time = 2023-04-13 17:07:08.966...done at 2023-04-13 17:07:11.872 (2.906 seconds).
 Query returned 266 rows</code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -4505,7 +4502,7 @@ Query returned 266 rows</code></pre>
 <td>7270403007208566857</td>
 <td>1478579523</td>
 <td>1</td>
-<td>2016-11-07 23:32:03</td>
+<td>2016-11-07 20:32:03</td>
 <td>Unknown</td>
 <td>[]</td>
 <td>0</td>
@@ -4542,7 +4539,7 @@ Query returned 266 rows</code></pre>
 <td>7270403007208566857</td>
 <td>1478579523</td>
 <td>1</td>
-<td>2016-11-07 23:32:03</td>
+<td>2016-11-07 20:32:03</td>
 <td>Unknown</td>
 <td>[]</td>
 <td>0</td>
@@ -4579,7 +4576,7 @@ Query returned 266 rows</code></pre>
 <td>7270403007208566857</td>
 <td>1478579523</td>
 <td>1</td>
-<td>2016-11-07 23:32:03</td>
+<td>2016-11-07 20:32:03</td>
 <td>Unknown</td>
 <td>[]</td>
 <td>0</td>
@@ -4616,7 +4613,7 @@ Query returned 266 rows</code></pre>
 <td>7270403007208566857</td>
 <td>1478579523</td>
 <td>1</td>
-<td>2016-11-07 23:32:03</td>
+<td>2016-11-07 20:32:03</td>
 <td>Unknown</td>
 <td>[]</td>
 <td>0</td>
@@ -4653,7 +4650,7 @@ Query returned 266 rows</code></pre>
 <td>7270403007208566857</td>
 <td>1478579523</td>
 <td>1</td>
-<td>2016-11-07 23:32:03</td>
+<td>2016-11-07 20:32:03</td>
 <td>Unknown</td>
 <td>[]</td>
 <td>0</td>
@@ -4740,7 +4737,7 @@ Query returned 266 rows</code></pre>
 <td>7270403007208566857</td>
 <td>1478579523</td>
 <td>1</td>
-<td>2016-11-07 23:32:03</td>
+<td>2016-11-07 20:32:03</td>
 <td>Unknown</td>
 <td>[{'productSKU': 'GGOEGAAX0318', 'v2ProductName...</td>
 <td>12</td>
@@ -4777,7 +4774,7 @@ Query returned 266 rows</code></pre>
 <td>7270403007208566857</td>
 <td>1478579523</td>
 <td>1</td>
-<td>2016-11-07 23:32:03</td>
+<td>2016-11-07 20:32:03</td>
 <td>Unknown</td>
 <td>[{'productSKU': 'GGOEGAAX0318', 'v2ProductName...</td>
 <td>12</td>
@@ -4814,7 +4811,7 @@ Query returned 266 rows</code></pre>
 <td>7270403007208566857</td>
 <td>1478579523</td>
 <td>1</td>
-<td>2016-11-07 23:32:03</td>
+<td>2016-11-07 20:32:03</td>
 <td>Unknown</td>
 <td>[{'productSKU': 'GGOEGAAX0318', 'v2ProductName...</td>
 <td>12</td>
@@ -4851,7 +4848,7 @@ Query returned 266 rows</code></pre>
 <td>7270403007208566857</td>
 <td>1478579523</td>
 <td>1</td>
-<td>2016-11-07 23:32:03</td>
+<td>2016-11-07 20:32:03</td>
 <td>Unknown</td>
 <td>[{'productSKU': 'GGOEGAAX0318', 'v2ProductName...</td>
 <td>12</td>
@@ -4888,7 +4885,7 @@ Query returned 266 rows</code></pre>
 <td>7270403007208566857</td>
 <td>1478579523</td>
 <td>1</td>
-<td>2016-11-07 23:32:03</td>
+<td>2016-11-07 20:32:03</td>
 <td>Unknown</td>
 <td>[]</td>
 <td>0</td>
@@ -4965,7 +4962,7 @@ Observations
 </div>
 </div>
 <p>If a product is viewed in a listing (<code>product_count &gt; 0</code>) during a visit, then there are only two possible values for <code>clicked_product</code> and <code>viewed_product</code>, as shown below</p>
-<div class="cell" data-tags="[]" data-execution_count="21">
+<div class="cell" data-tags="[]" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> [<span class="st">"viewed_product"</span>, <span class="st">"clicked_product"</span>]:</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># show unique values</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    display(</span>
@@ -5033,7 +5030,7 @@ Observations
 </div>
 <p>If a product is not viewed in a listing, then the only value in these same two columns is <code>NULL</code> since they come from a nested column <code>product</code> which contains an empty array <code>[]</code> if a product is such a scenario.</p>
 <p>This is shown below</p>
-<div class="cell" data-tags="[]" data-execution_count="22">
+<div class="cell" data-tags="[]" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> [<span class="st">"viewed_product"</span>, <span class="st">"clicked_product"</span>]:</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    display(</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>        df_raw.query(<span class="st">"product_count == 0"</span>)[c].value_counts(dropna<span class="op">=</span><span class="va">False</span>).reset_index()</span>
@@ -5091,7 +5088,7 @@ Observations
 <li><code>viewed_product</code> is <code>NULL</code></li>
 </ul>
 <p>which prevents double-counting products that are both viewed and clicked (similar to for promotions), as shown below</p>
-<div class="cell" data-tags="[]" data-execution_count="23">
+<div class="cell" data-tags="[]" data-execution_count="24">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>display(df_raw.query(<span class="st">"clicked_product == True"</span>)[[<span class="st">"viewed_product"</span>, <span class="st">"clicked_product"</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -5201,12 +5198,12 @@ Observations
 </div>
 </div>
 <p>Product detail views and clicking of products that were viewed in a product or product category listing can also be retrieved from the <code>action_type</code> column, which tracks each action performed by a visitor during a visit. Its unique values are shown below</p>
-<div class="cell" data-tags="[]" data-execution_count="24">
+<div class="cell" data-tags="[]" data-execution_count="25">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>df_raw[<span class="st">"action_type"</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>).reset_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="24">
+<div class="cell-output cell-output-display" data-execution_count="25">
 <div>
 
 
@@ -5256,7 +5253,7 @@ Observations
 <li><code>action_type == 'Click through of product lists'</code></li>
 </ul></li>
 </ul>
-<div class="cell" data-tags="[]" data-execution_count="25">
+<div class="cell" data-tags="[]" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>visit_prodict_view_click_cols <span class="op">=</span> [</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"fullvisitorid"</span>,</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"visitStartTime"</span>,</span>
@@ -5274,7 +5271,7 @@ Observations
 <span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>When a product is viewed in a listing (<code>viewed_product</code>), during a visit, the product count for those visits is greater than zero</p>
-<div class="cell" data-tags="[]" data-execution_count="26">
+<div class="cell" data-tags="[]" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> df_raw.query(<span class="st">"viewed_product == True"</span>)[<span class="st">"product_count"</span>].<span class="bu">min</span>() <span class="op">&gt;</span> <span class="dv">0</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>display(df_raw.query(<span class="st">"viewed_product == True"</span>)[<span class="st">"product_count"</span>].describe().to_frame())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -5328,7 +5325,7 @@ Observations
 </div>
 </div>
 <p>For informational purposes, the raw dataset without unnesting the products and promotions columns is shown below for a small number of visits</p>
-<div class="cell" data-tags="[]" data-execution_count="27">
+<div class="cell" data-tags="[]" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>visit_ids_dict <span class="op">=</span> {</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1478844153</span>: <span class="st">"papayawhip"</span>,</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1476880065</span>: <span class="st">"mistyrose"</span>,</span>
@@ -5338,13 +5335,13 @@ Observations
 <span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>visit_ids_str <span class="op">=</span> <span class="st">"("</span> <span class="op">+</span> <span class="st">", "</span>.join([<span class="bu">str</span>(v) <span class="cf">for</span> v <span class="kw">in</span> <span class="bu">list</span>(visit_ids_dict)]) <span class="op">+</span> <span class="st">")"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Attributes for these visits are retrieved below without unnesting <code>product</code> and <code>promotion</code></p>
-<div class="cell" data-tags="[]" data-execution_count="28">
+<div class="cell" data-tags="[]" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f"""</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        WITH visit_promotion_attrs AS (</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="ss">            SELECT fullvisitorid,</span></span>
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="ss">                   visitId,</span></span>
 <span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="ss">                   visitNumber,</span></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="ss">                   DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Eastern') AS visitStartTime,</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="ss">                   DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Pacific') AS visitStartTime,</span></span>
 <span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="ss">                   CAST(h.ecommerceaction.action_type AS INT64) AS action_type,</span></span>
 <span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="ss">                   (CASE WHEN CAST(h.eCommerceAction.action_type AS INT64) = 2 THEN 1 ELSE 0 END) AS product_details_viewed,</span></span>
 <span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="ss">                   trafficSource.source,</span></span>
@@ -5375,7 +5372,7 @@ Observations
 <span id="cb34-34"><a href="#cb34-34" aria-hidden="true" tabindex="-1"></a>df_raw <span class="op">=</span> run_sql_query(query, <span class="op">**</span>gcp_auth_dict, show_df<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb34-35"><a href="#cb34-35" aria-hidden="true" tabindex="-1"></a>df_raw[<span class="st">"action_type"</span>] <span class="op">=</span> df_raw[<span class="st">"action_type"</span>].<span class="bu">map</span>(mapper)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Query execution start time = 2023-04-12 11:40:54.002...done at 2023-04-12 11:40:55.510 (1.508 seconds).
+<pre><code>Query execution start time = 2023-04-13 17:07:43.363...done at 2023-04-13 17:07:46.085 (2.722 seconds).
 Query returned 143 rows</code></pre>
 </div>
 </div>
@@ -5386,7 +5383,7 @@ Query returned 143 rows</code></pre>
 </section>
 <section id="change-data-types-in-prepared-data" class="level3">
 <h3 class="anchored" data-anchor-id="change-data-types-in-prepared-data">Change Data Types in Prepared Data</h3>
-<div class="cell" data-tags="[]" data-execution_count="29">
+<div class="cell" data-tags="[]" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>dtypes_dict <span class="op">=</span> {</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"fullvisitorid"</span>: pd.StringDtype(),</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"visitId"</span>: pd.StringDtype(),</span>
@@ -5419,7 +5416,7 @@ Query returned 143 rows</code></pre>
 <span id="cb37-30"><a href="#cb37-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">"deviceCategory"</span>: pd.StringDtype(),</span>
 <span id="cb37-31"><a href="#cb37-31" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-tags="[]" data-execution_count="30">
+<div class="cell" data-tags="[]" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.astype(dtypes_dict)</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>df.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -5452,7 +5449,7 @@ Data columns (total 31 columns):
  21  product_views                  92551 non-null  Int16         
  22  product_clicks                 92551 non-null  Int16         
  23  pageviews                      92551 non-null  Int16         
- 24  transact_revenue               3091 non-null   Float32       
+ 24  transact_revenue               3094 non-null   Float32       
  25  time_on_site                   92551 non-null  Int16         
  26  browser                        92551 non-null  string        
  27  os                             92551 non-null  string        
@@ -5467,7 +5464,7 @@ memory usage: 12.6 MB</code></pre>
 <section id="separate-columns-by-type" class="level3">
 <h3 class="anchored" data-anchor-id="separate-columns-by-type">Separate Columns by Type</h3>
 <p>The first three rows of the prepared data are shown below</p>
-<div class="cell" data-tags="[]" data-execution_count="31">
+<div class="cell" data-tags="[]" data-execution_count="32">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pd.option_context(</span>
@@ -5519,22 +5516,22 @@ memory usage: 12.6 MB</code></pre>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>483329569933708956</td>
-<td>1477437687</td>
+<td>8163735676529750721</td>
+<td>1481176805</td>
 <td>1</td>
-<td>2016-10-25 19:21:27</td>
+<td>2016-12-07 22:00:05</td>
 <td>United States</td>
 <td>4</td>
-<td>10</td>
-<td>25</td>
-<td>3</td>
-<td>19</td>
-<td>21</td>
-<td>27</td>
+<td>12</td>
+<td>7</td>
+<td>4</td>
+<td>22</td>
+<td>0</td>
+<td>5</td>
 <td>google</td>
-<td>organic</td>
-<td>Organic Search</td>
-<td>6</td>
+<td>cpc</td>
+<td>Paid Search</td>
+<td>5</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
@@ -5542,9 +5539,9 @@ memory usage: 12.6 MB</code></pre>
 <td>0</td>
 <td>0</td>
 <td>0</td>
-<td>6</td>
+<td>5</td>
 <td>&lt;NA&gt;</td>
-<td>602</td>
+<td>109</td>
 <td>Chrome</td>
 <td>Windows</td>
 <td>desktop</td>
@@ -5553,33 +5550,33 @@ memory usage: 12.6 MB</code></pre>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>9534112552538425546</td>
-<td>1476671570</td>
+<td>0897634596694862660</td>
+<td>1475199828</td>
 <td>1</td>
-<td>2016-10-16 22:32:50</td>
+<td>2016-09-29 18:43:48</td>
 <td>United States</td>
-<td>4</td>
-<td>10</td>
-<td>16</td>
-<td>1</td>
-<td>22</td>
-<td>32</td>
-<td>50</td>
-<td>youtube.com</td>
-<td>referral</td>
-<td>Social</td>
-<td>6</td>
+<td>3</td>
+<td>9</td>
+<td>29</td>
+<td>5</td>
+<td>18</td>
+<td>43</td>
+<td>48</td>
+<td>google</td>
+<td>organic</td>
+<td>Organic Search</td>
+<td>21</td>
 <td>0</td>
+<td>2</td>
+<td>2</td>
+<td>9</td>
 <td>0</td>
-<td>0</td>
-<td>54</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
+<td>90</td>
+<td>2</td>
+<td>19</td>
 <td>&lt;NA&gt;</td>
-<td>270</td>
-<td>Opera</td>
+<td>467</td>
+<td>Chrome</td>
 <td>Windows</td>
 <td>desktop</td>
 <td>0</td>
@@ -5587,35 +5584,35 @@ memory usage: 12.6 MB</code></pre>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>4648924122067625674</td>
-<td>1475958245</td>
+<td>3891893273235584028</td>
+<td>1478844153</td>
 <td>1</td>
-<td>2016-10-08 16:24:05</td>
+<td>2016-11-10 22:02:33</td>
 <td>United States</td>
 <td>4</td>
+<td>11</td>
 <td>10</td>
-<td>8</td>
-<td>7</td>
-<td>16</td>
-<td>24</td>
 <td>5</td>
+<td>22</td>
+<td>2</td>
+<td>33</td>
 <td>youtube.com</td>
 <td>referral</td>
 <td>Social</td>
-<td>5</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>36</td>
-<td>0</td>
-<td>4</td>
+<td>11</td>
 <td>0</td>
 <td>2</td>
+<td>1</td>
+<td>18</td>
+<td>0</td>
+<td>36</td>
+<td>1</td>
+<td>10</td>
 <td>&lt;NA&gt;</td>
-<td>198</td>
-<td>Opera</td>
-<td>Windows</td>
-<td>desktop</td>
+<td>1003</td>
+<td>Safari (in-app)</td>
+<td>iOS</td>
+<td>tablet</td>
 <td>0</td>
 <td>False</td>
 </tr>
@@ -5631,7 +5628,7 @@ memory usage: 12.6 MB</code></pre>
 <li>categorical</li>
 <li>numerical</li>
 </ul>
-<div class="cell" data-tags="[]" data-execution_count="32">
+<div class="cell" data-tags="[]" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>datetime_columns <span class="op">=</span> [</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"quarter"</span>,</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"month"</span>,</span>
@@ -5679,12 +5676,12 @@ memory usage: 12.6 MB</code></pre>
 </ol>
 <p>Reducing the cardinality of such features is performed during the data transformation step of a ML workflow. Here, we will demonstrate this before exploratory data analysis (this step) and then apply it during data transformation (next step).</p>
 <p>Show the number of unique values in all categorical columns</p>
-<div class="cell" data-tags="[]" data-execution_count="33">
+<div class="cell" data-tags="[]" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>df_nunique <span class="op">=</span> pd.DataFrame.from_records(</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    [{<span class="st">"column"</span>: c, <span class="st">"num_unique_values"</span>: df[c].nunique()} <span class="cf">for</span> c <span class="kw">in</span> categorical_columns]</span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>df_nunique</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="33">
+<div class="cell-output cell-output-display" data-execution_count="34">
 <div>
 
 
@@ -5775,7 +5772,7 @@ and will likely need to be binned or grouped</li>
 </div>
 </div>
 <p>The category distributions (frequencies) after grouping are shown below for all categorical columns (including those that were grouped)</p>
-<div class="cell" data-tags="[]" data-execution_count="34">
+<div class="cell" data-tags="[]" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>dfs_cats_groups <span class="op">=</span> []</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> categorical_columns:</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get fraction of unique values</span></span>
@@ -5839,65 +5836,65 @@ and will likely need to be binned or grouped</li>
 <td data-quarto-table-cell-role="th">0</td>
 <td>bounces</td>
 <td>False</td>
-<td>65500</td>
-<td>70.771791</td>
+<td>65505</td>
+<td>70.777193</td>
 <td>100.0</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
 <td>bounces</td>
 <td>True</td>
-<td>27051</td>
-<td>29.228209</td>
-<td>29.228209</td>
+<td>27046</td>
+<td>29.222807</td>
+<td>29.222807</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
 <td>last_action</td>
 <td>Unknown</td>
-<td>67519</td>
-<td>72.953291</td>
+<td>67511</td>
+<td>72.944647</td>
 <td>100.0</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
 <td>last_action</td>
 <td>Product detail views</td>
-<td>14720</td>
-<td>15.904744</td>
-<td>27.046709</td>
+<td>14731</td>
+<td>15.91663</td>
+<td>27.055353</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
 <td>last_action</td>
 <td>Add product(s) to cart</td>
-<td>4663</td>
-<td>5.038303</td>
-<td>11.141965</td>
+<td>4655</td>
+<td>5.029659</td>
+<td>11.138724</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">5</td>
 <td>last_action</td>
 <td>Completed purchase</td>
-<td>3094</td>
-<td>3.343022</td>
-<td>6.103662</td>
+<td>3097</td>
+<td>3.346263</td>
+<td>6.109064</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">6</td>
 <td>last_action</td>
 <td>Check out</td>
-<td>1632</td>
-<td>1.763352</td>
-<td>2.76064</td>
+<td>1635</td>
+<td>1.766594</td>
+<td>2.762801</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">7</td>
 <td>last_action</td>
 <td>Remove product(s) from cart</td>
-<td>882</td>
-<td>0.952988</td>
-<td>0.997288</td>
+<td>881</td>
+<td>0.951908</td>
+<td>0.996207</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">8</td>
@@ -5911,25 +5908,25 @@ and will likely need to be binned or grouped</li>
 <td data-quarto-table-cell-role="th">9</td>
 <td>source</td>
 <td>google</td>
-<td>43478</td>
-<td>46.977342</td>
+<td>43484</td>
+<td>46.983825</td>
 <td>100.0</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">10</td>
 <td>source</td>
 <td>(direct)</td>
-<td>21539</td>
-<td>23.272574</td>
-<td>53.022658</td>
+<td>21532</td>
+<td>23.265011</td>
+<td>53.016175</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">11</td>
 <td>source</td>
 <td>mall.googleplex.com</td>
-<td>11776</td>
-<td>12.723796</td>
-<td>29.750084</td>
+<td>11777</td>
+<td>12.724876</td>
+<td>29.751164</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">12</td>
@@ -5967,8 +5964,8 @@ and will likely need to be binned or grouped</li>
 <td data-quarto-table-cell-role="th">16</td>
 <td>source</td>
 <td>dfa</td>
-<td>842</td>
-<td>0.909769</td>
+<td>841</td>
+<td>0.908688</td>
 <td>5.078281</td>
 </tr>
 <tr class="even">
@@ -5977,15 +5974,15 @@ and will likely need to be binned or grouped</li>
 <td>siliconvalley.about.com</td>
 <td>593</td>
 <td>0.640728</td>
-<td>4.168512</td>
+<td>4.169593</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">18</td>
 <td>source</td>
 <td>analytics.google.com</td>
-<td>485</td>
-<td>0.524035</td>
-<td>3.527785</td>
+<td>486</td>
+<td>0.525116</td>
+<td>3.528865</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">19</td>
@@ -6103,8 +6100,8 @@ and will likely need to be binned or grouped</li>
 <td data-quarto-table-cell-role="th">33</td>
 <td>source</td>
 <td>dealspotr.com</td>
-<td>74</td>
-<td>0.079956</td>
+<td>75</td>
+<td>0.081036</td>
 <td>0.627762</td>
 </tr>
 <tr class="odd">
@@ -6113,7 +6110,7 @@ and will likely need to be binned or grouped</li>
 <td>ask</td>
 <td>48</td>
 <td>0.051863</td>
-<td>0.547806</td>
+<td>0.546726</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">35</td>
@@ -6121,7 +6118,7 @@ and will likely need to be binned or grouped</li>
 <td>docs.google.com</td>
 <td>39</td>
 <td>0.042139</td>
-<td>0.495943</td>
+<td>0.494862</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">36</td>
@@ -6129,7 +6126,7 @@ and will likely need to be binned or grouped</li>
 <td>connect.googleforwork.com</td>
 <td>33</td>
 <td>0.035656</td>
-<td>0.453804</td>
+<td>0.452723</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">37</td>
@@ -6137,7 +6134,7 @@ and will likely need to be binned or grouped</li>
 <td>plus.google.com</td>
 <td>21</td>
 <td>0.02269</td>
-<td>0.418148</td>
+<td>0.417067</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">38</td>
@@ -6145,7 +6142,7 @@ and will likely need to be binned or grouped</li>
 <td>outlook.live.com</td>
 <td>20</td>
 <td>0.02161</td>
-<td>0.395458</td>
+<td>0.394377</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">39</td>
@@ -6153,7 +6150,7 @@ and will likely need to be binned or grouped</li>
 <td>tpc.googlesyndication.com</td>
 <td>19</td>
 <td>0.020529</td>
-<td>0.373848</td>
+<td>0.372767</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">40</td>
@@ -6161,7 +6158,7 @@ and will likely need to be binned or grouped</li>
 <td>m.reddit.com</td>
 <td>18</td>
 <td>0.019449</td>
-<td>0.353319</td>
+<td>0.352238</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">41</td>
@@ -6169,7 +6166,7 @@ and will likely need to be binned or grouped</li>
 <td>phandroid.com</td>
 <td>17</td>
 <td>0.018368</td>
-<td>0.33387</td>
+<td>0.332789</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">42</td>
@@ -6177,7 +6174,7 @@ and will likely need to be binned or grouped</li>
 <td>search.xfinity.com</td>
 <td>17</td>
 <td>0.018368</td>
-<td>0.315502</td>
+<td>0.314421</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">43</td>
@@ -6185,7 +6182,7 @@ and will likely need to be binned or grouped</li>
 <td>learn.colorado.edu</td>
 <td>13</td>
 <td>0.014046</td>
-<td>0.297133</td>
+<td>0.296053</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">44</td>
@@ -6193,7 +6190,7 @@ and will likely need to be binned or grouped</li>
 <td>googleads.g.doubleclick.net</td>
 <td>12</td>
 <td>0.012966</td>
-<td>0.283087</td>
+<td>0.282007</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">45</td>
@@ -6201,39 +6198,39 @@ and will likely need to be binned or grouped</li>
 <td>m.baidu.com</td>
 <td>12</td>
 <td>0.012966</td>
-<td>0.270121</td>
+<td>0.269041</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">46</td>
 <td>source</td>
-<td>productforums.google.com</td>
+<td>lunametrics.com</td>
 <td>11</td>
 <td>0.011885</td>
-<td>0.257156</td>
+<td>0.256075</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">47</td>
 <td>source</td>
-<td>lunametrics.com</td>
+<td>productforums.google.com</td>
 <td>11</td>
 <td>0.011885</td>
-<td>0.24527</td>
+<td>0.24419</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">48</td>
 <td>source</td>
-<td>arstechnica.com</td>
+<td>pinterest.com</td>
 <td>10</td>
 <td>0.010805</td>
-<td>0.211775</td>
+<td>0.210695</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">49</td>
 <td>source</td>
-<td>pinterest.com</td>
+<td>arstechnica.com</td>
 <td>10</td>
 <td>0.010805</td>
-<td>0.22258</td>
+<td>0.221499</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">50</td>
@@ -6241,7 +6238,7 @@ and will likely need to be binned or grouped</li>
 <td>duckduckgo.com</td>
 <td>10</td>
 <td>0.010805</td>
-<td>0.233385</td>
+<td>0.232304</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">51</td>
@@ -6249,7 +6246,7 @@ and will likely need to be binned or grouped</li>
 <td>search.tb.ask.com</td>
 <td>9</td>
 <td>0.009724</td>
-<td>0.20097</td>
+<td>0.19989</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">52</td>
@@ -6257,7 +6254,7 @@ and will likely need to be binned or grouped</li>
 <td>us.search.yahoo.com</td>
 <td>9</td>
 <td>0.009724</td>
-<td>0.191246</td>
+<td>0.190165</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">53</td>
@@ -6265,7 +6262,7 @@ and will likely need to be binned or grouped</li>
 <td>plus.sandbox.google.com</td>
 <td>8</td>
 <td>0.008644</td>
-<td>0.181522</td>
+<td>0.180441</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">54</td>
@@ -6273,44 +6270,44 @@ and will likely need to be binned or grouped</li>
 <td>uweoconnect.extn.washington.edu</td>
 <td>7</td>
 <td>0.007563</td>
-<td>0.172878</td>
+<td>0.171797</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">55</td>
 <td>source</td>
-<td>course.fso.fullsail.edu</td>
+<td>luyaochen.mtv.corp.google.com:8080</td>
 <td>6</td>
 <td>0.006483</td>
-<td>0.165314</td>
+<td>0.164234</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">56</td>
 <td>source</td>
-<td>mg.mail.yahoo.com</td>
+<td>course.fso.fullsail.edu</td>
 <td>6</td>
 <td>0.006483</td>
-<td>0.158831</td>
+<td>0.157751</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">57</td>
 <td>source</td>
-<td>trainup.withgoogle.com</td>
+<td>mg.mail.yahoo.com</td>
 <td>6</td>
 <td>0.006483</td>
-<td>0.152348</td>
+<td>0.151268</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">58</td>
 <td>source</td>
-<td>luyaochen.mtv.corp.google.com:8080</td>
-<td>6</td>
-<td>0.006483</td>
-<td>0.145866</td>
+<td>gophergala.com</td>
+<td>5</td>
+<td>0.005402</td>
+<td>0.144785</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">59</td>
 <td>source</td>
-<td>plus.url.google.com</td>
+<td>wap.sogou.com</td>
 <td>5</td>
 <td>0.005402</td>
 <td>0.139383</td>
@@ -6318,7 +6315,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">60</td>
 <td>source</td>
-<td>wap.sogou.com</td>
+<td>plus.url.google.com</td>
 <td>5</td>
 <td>0.005402</td>
 <td>0.13398</td>
@@ -6326,7 +6323,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">61</td>
 <td>source</td>
-<td>gophergala.com</td>
+<td>trainup.withgoogle.com</td>
 <td>5</td>
 <td>0.005402</td>
 <td>0.128578</td>
@@ -6334,7 +6331,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">62</td>
 <td>source</td>
-<td>csfirst.withgoogle.com</td>
+<td>feedly.com</td>
 <td>4</td>
 <td>0.004322</td>
 <td>0.118853</td>
@@ -6342,7 +6339,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">63</td>
 <td>source</td>
-<td>m.sogou.com</td>
+<td>amazon.com</td>
 <td>4</td>
 <td>0.004322</td>
 <td>0.11021</td>
@@ -6350,7 +6347,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">64</td>
 <td>source</td>
-<td>aol</td>
+<td>drawnames.com</td>
 <td>4</td>
 <td>0.004322</td>
 <td>0.123175</td>
@@ -6358,7 +6355,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">65</td>
 <td>source</td>
-<td>amazon.com</td>
+<td>keep.google.com</td>
 <td>4</td>
 <td>0.004322</td>
 <td>0.114531</td>
@@ -6366,7 +6363,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">66</td>
 <td>source</td>
-<td>drawnames.com</td>
+<td>search.earthlink.net</td>
 <td>4</td>
 <td>0.004322</td>
 <td>0.105888</td>
@@ -6382,7 +6379,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">68</td>
 <td>source</td>
-<td>dynamite.sandbox.google.com</td>
+<td>hangouts.google.com</td>
 <td>4</td>
 <td>0.004322</td>
 <td>0.092922</td>
@@ -6390,7 +6387,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">69</td>
 <td>source</td>
-<td>keep.google.com</td>
+<td>csfirst.withgoogle.com</td>
 <td>4</td>
 <td>0.004322</td>
 <td>0.0886</td>
@@ -6398,7 +6395,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">70</td>
 <td>source</td>
-<td>hangouts.google.com</td>
+<td>m.sogou.com</td>
 <td>4</td>
 <td>0.004322</td>
 <td>0.084278</td>
@@ -6406,7 +6403,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">71</td>
 <td>source</td>
-<td>feedly.com</td>
+<td>dynamite.sandbox.google.com</td>
 <td>4</td>
 <td>0.004322</td>
 <td>0.079956</td>
@@ -6414,7 +6411,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">72</td>
 <td>source</td>
-<td>search.earthlink.net</td>
+<td>aol</td>
 <td>4</td>
 <td>0.004322</td>
 <td>0.101566</td>
@@ -6422,7 +6419,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">73</td>
 <td>source</td>
-<td>s0.2mdn.net</td>
+<td>qiita.com</td>
 <td>3</td>
 <td>0.003241</td>
 <td>0.056185</td>
@@ -6430,7 +6427,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">74</td>
 <td>source</td>
-<td>qiita.com</td>
+<td>ics-devel-west.qa.adz.google.com</td>
 <td>3</td>
 <td>0.003241</td>
 <td>0.062668</td>
@@ -6438,7 +6435,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">75</td>
 <td>source</td>
-<td>web.mail.comcast.net</td>
+<td>us-mg5.mail.yahoo.com</td>
 <td>3</td>
 <td>0.003241</td>
 <td>0.059427</td>
@@ -6454,7 +6451,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">77</td>
 <td>source</td>
-<td>optimize.google.com</td>
+<td>web.mail.comcast.net</td>
 <td>3</td>
 <td>0.003241</td>
 <td>0.069151</td>
@@ -6462,7 +6459,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">78</td>
 <td>source</td>
-<td>us-mg5.mail.yahoo.com</td>
+<td>optimize.google.com</td>
 <td>3</td>
 <td>0.003241</td>
 <td>0.072393</td>
@@ -6470,7 +6467,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">79</td>
 <td>source</td>
-<td>ics-devel-west.qa.adz.google.com</td>
+<td>s0.2mdn.net</td>
 <td>3</td>
 <td>0.003241</td>
 <td>0.075634</td>
@@ -6478,7 +6475,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">80</td>
 <td>source</td>
-<td>m.mg.mail.yahoo.com</td>
+<td>(not set)</td>
 <td>2</td>
 <td>0.002161</td>
 <td>0.052944</td>
@@ -6486,7 +6483,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">81</td>
 <td>source</td>
-<td>(not set)</td>
+<td>so.com</td>
 <td>2</td>
 <td>0.002161</td>
 <td>0.050783</td>
@@ -6494,7 +6491,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">82</td>
 <td>source</td>
-<td>so.com</td>
+<td>awics.corp.google.com</td>
 <td>2</td>
 <td>0.002161</td>
 <td>0.048622</td>
@@ -6502,7 +6499,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">83</td>
 <td>source</td>
-<td>awics.corp.google.com</td>
+<td>m.mg.mail.yahoo.com</td>
 <td>2</td>
 <td>0.002161</td>
 <td>0.046461</td>
@@ -6510,7 +6507,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">84</td>
 <td>source</td>
-<td>adwords.google.com</td>
+<td>searchlock.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.017288</td>
@@ -6518,7 +6515,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">85</td>
 <td>source</td>
-<td>inbox.google.com</td>
+<td>0.shared.bow.cat2.ads-bow.lf.borg.google.com:9860</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.015127</td>
@@ -6526,7 +6523,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">86</td>
 <td>source</td>
-<td>us.reddit.com</td>
+<td>0.shared.bow.cat2.ads-bow.qk.borg.google.com:9848</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.016207</td>
@@ -6534,7 +6531,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">87</td>
 <td>source</td>
-<td>blackboard.neu.edu</td>
+<td>g3doc.corp.google.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.002161</td>
@@ -6542,7 +6539,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">88</td>
 <td>source</td>
-<td>kik.com</td>
+<td>businessinsider.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.018368</td>
@@ -6550,7 +6547,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">89</td>
 <td>source</td>
-<td>0.shared.bow.cat2.ads-bow.qk.borg.google.com:9830</td>
+<td>wheretoget.it</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.019449</td>
@@ -6558,7 +6555,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">90</td>
 <td>source</td>
-<td>online-metrics.com</td>
+<td>blackboard.neu.edu</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.020529</td>
@@ -6566,7 +6563,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">91</td>
 <td>source</td>
-<td>0.shared.bow.cat2.ads-bow.lf.borg.google.com:9860</td>
+<td>goto.google.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.012966</td>
@@ -6574,7 +6571,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">92</td>
 <td>source</td>
-<td>0.shared.bow.cat2.ads-bow.yw.borg.google.com:9885</td>
+<td>mail.aol.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.014046</td>
@@ -6582,7 +6579,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">93</td>
 <td>source</td>
-<td>wheretoget.it</td>
+<td>0.shared.bow.cat2.ads-bow.yw.borg.google.com:9885</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.003241</td>
@@ -6590,7 +6587,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">94</td>
 <td>source</td>
-<td>getpocket.com</td>
+<td>prod.facebook.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.011885</td>
@@ -6598,7 +6595,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">95</td>
 <td>source</td>
-<td>0.shared.bow.cat2.ads-bow.qk.borg.google.com:9848</td>
+<td>login.corp.google.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.010805</td>
@@ -6606,7 +6603,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">96</td>
 <td>source</td>
-<td>g3doc.corp.google.com</td>
+<td>m.sp.sm.cn</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.009724</td>
@@ -6614,7 +6611,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">97</td>
 <td>source</td>
-<td>mail.aol.com</td>
+<td>getpocket.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.008644</td>
@@ -6622,7 +6619,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">98</td>
 <td>source</td>
-<td>wanelo.com</td>
+<td>us.reddit.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.007563</td>
@@ -6630,7 +6627,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">99</td>
 <td>source</td>
-<td>mail.verizon.com</td>
+<td>pinpoint.corp.google.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.006483</td>
@@ -6638,7 +6635,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">100</td>
 <td>source</td>
-<td>m.sp.sm.cn</td>
+<td>wanelo.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.005402</td>
@@ -6646,7 +6643,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">101</td>
 <td>source</td>
-<td>goto.google.com</td>
+<td>mail.verizon.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.004322</td>
@@ -6654,7 +6651,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">102</td>
 <td>source</td>
-<td>pinpoint.corp.google.com</td>
+<td>inbox.google.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.02269</td>
@@ -6662,7 +6659,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">103</td>
 <td>source</td>
-<td>9to5google.com</td>
+<td>0.shared.bow.cat2.ads-bow.qk.borg.google.com:9830</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.02161</td>
@@ -6670,7 +6667,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">104</td>
 <td>source</td>
-<td>baidu.com</td>
+<td>0.shared.bow.cat2.ads-bow.yw.borg.google.com:9849</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.032415</td>
@@ -6678,7 +6675,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">105</td>
 <td>source</td>
-<td>adwords-displayads.googleusercontent.com</td>
+<td>9to5google.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.023771</td>
@@ -6686,7 +6683,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">106</td>
 <td>source</td>
-<td>xbidprodmirror.corp.google.com</td>
+<td>adwords.google.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.024851</td>
@@ -6694,7 +6691,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">107</td>
 <td>source</td>
-<td>myactivity.google.com</td>
+<td>cl-cards.googleplex.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.0443</td>
@@ -6702,7 +6699,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">108</td>
 <td>source</td>
-<td>prod.facebook.com</td>
+<td>newclasses.nyu.edu</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.043219</td>
@@ -6710,7 +6707,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">109</td>
 <td>source</td>
-<td>login.corp.google.com</td>
+<td>myactivity.google.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.042139</td>
@@ -6718,7 +6715,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">110</td>
 <td>source</td>
-<td>searchlock.com</td>
+<td>seroundtable.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.041058</td>
@@ -6726,7 +6723,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">111</td>
 <td>source</td>
-<td>newclasses.nyu.edu</td>
+<td>0.shared.bow.cat2.ads-bow.yw.borg.google.com:9850</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.039978</td>
@@ -6734,7 +6731,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">112</td>
 <td>source</td>
-<td>dailydot.com</td>
+<td>lm.facebook.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.038897</td>
@@ -6742,7 +6739,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">113</td>
 <td>source</td>
-<td>businessinsider.com</td>
+<td>cases.corp.google.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.037817</td>
@@ -6750,7 +6747,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">114</td>
 <td>source</td>
-<td>lm.facebook.com</td>
+<td>google.co.jp</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.036737</td>
@@ -6758,7 +6755,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">115</td>
 <td>source</td>
-<td>cl-cards.googleplex.com</td>
+<td>adwords-displayads.googleusercontent.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.035656</td>
@@ -6766,7 +6763,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">116</td>
 <td>source</td>
-<td>spaces.google.com</td>
+<td>xbidprodmirror.corp.google.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.034576</td>
@@ -6782,7 +6779,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">118</td>
 <td>source</td>
-<td>0.shared.bow.cat2.ads-bow.yw.borg.google.com:9813</td>
+<td>online-metrics.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.031334</td>
@@ -6790,7 +6787,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">119</td>
 <td>source</td>
-<td>digg.com</td>
+<td>0.shared.bow.cat2.ads-bow.yw.borg.google.com:9813</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.030254</td>
@@ -6798,7 +6795,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">120</td>
 <td>source</td>
-<td>google.co.jp</td>
+<td>kik.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.029173</td>
@@ -6806,7 +6803,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">121</td>
 <td>source</td>
-<td>0.shared.bow.cat2.ads-bow.yw.borg.google.com:9849</td>
+<td>baidu.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.028093</td>
@@ -6814,7 +6811,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">122</td>
 <td>source</td>
-<td>seroundtable.com</td>
+<td>dailydot.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.027012</td>
@@ -6822,7 +6819,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">123</td>
 <td>source</td>
-<td>cases.corp.google.com</td>
+<td>digg.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.025932</td>
@@ -6830,7 +6827,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">124</td>
 <td>source</td>
-<td>0.shared.bow.cat2.ads-bow.yw.borg.google.com:9850</td>
+<td>spaces.google.com</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.00108</td>
@@ -6839,33 +6836,33 @@ and will likely need to be binned or grouped</li>
 <td data-quarto-table-cell-role="th">125</td>
 <td>medium</td>
 <td>organic</td>
-<td>38580</td>
-<td>41.685125</td>
+<td>38584</td>
+<td>41.689447</td>
 <td>100.0</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">126</td>
 <td>medium</td>
 <td>referral</td>
-<td>25084</td>
-<td>27.102895</td>
-<td>58.314875</td>
+<td>25086</td>
+<td>27.105056</td>
+<td>58.310553</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">127</td>
 <td>medium</td>
 <td>(none)</td>
-<td>21539</td>
-<td>23.272574</td>
-<td>31.21198</td>
+<td>21532</td>
+<td>23.265011</td>
+<td>31.205498</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">128</td>
 <td>medium</td>
 <td>cpc</td>
-<td>5605</td>
-<td>6.05612</td>
-<td>7.939406</td>
+<td>5607</td>
+<td>6.058281</td>
+<td>7.940487</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">129</td>
@@ -6873,15 +6870,15 @@ and will likely need to be binned or grouped</li>
 <td>affiliate</td>
 <td>899</td>
 <td>0.971356</td>
-<td>1.883286</td>
+<td>1.882205</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">130</td>
 <td>medium</td>
 <td>cpm</td>
-<td>842</td>
-<td>0.909769</td>
-<td>0.91193</td>
+<td>841</td>
+<td>0.908688</td>
+<td>0.910849</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">131</td>
@@ -6895,25 +6892,25 @@ and will likely need to be binned or grouped</li>
 <td data-quarto-table-cell-role="th">132</td>
 <td>channelGrouping</td>
 <td>Organic Search</td>
-<td>38580</td>
-<td>41.685125</td>
+<td>38584</td>
+<td>41.689447</td>
 <td>100.0</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">133</td>
 <td>channelGrouping</td>
 <td>Direct</td>
-<td>21539</td>
-<td>23.272574</td>
-<td>58.314875</td>
+<td>21532</td>
+<td>23.265011</td>
+<td>58.310553</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">134</td>
 <td>channelGrouping</td>
 <td>Referral</td>
-<td>16158</td>
-<td>17.458482</td>
-<td>35.042301</td>
+<td>16160</td>
+<td>17.460643</td>
+<td>35.045542</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">135</td>
@@ -6921,15 +6918,15 @@ and will likely need to be binned or grouped</li>
 <td>Social</td>
 <td>8926</td>
 <td>9.644412</td>
-<td>17.583819</td>
+<td>17.584899</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">136</td>
 <td>channelGrouping</td>
 <td>Paid Search</td>
-<td>5605</td>
-<td>6.05612</td>
-<td>7.939406</td>
+<td>5607</td>
+<td>6.058281</td>
+<td>7.940487</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">137</td>
@@ -6937,15 +6934,15 @@ and will likely need to be binned or grouped</li>
 <td>Affiliates</td>
 <td>899</td>
 <td>0.971356</td>
-<td>1.883286</td>
+<td>1.882205</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">138</td>
 <td>channelGrouping</td>
 <td>Display</td>
-<td>842</td>
-<td>0.909769</td>
-<td>0.91193</td>
+<td>841</td>
+<td>0.908688</td>
+<td>0.910849</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">139</td>
@@ -6959,8 +6956,8 @@ and will likely need to be binned or grouped</li>
 <td data-quarto-table-cell-role="th">140</td>
 <td>browser</td>
 <td>Chrome</td>
-<td>69001</td>
-<td>74.55457</td>
+<td>69002</td>
+<td>74.55565</td>
 <td>100.0</td>
 </tr>
 <tr class="even">
@@ -6969,7 +6966,7 @@ and will likely need to be binned or grouped</li>
 <td>Safari</td>
 <td>15294</td>
 <td>16.524943</td>
-<td>25.44543</td>
+<td>25.44435</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">142</td>
@@ -6977,7 +6974,7 @@ and will likely need to be binned or grouped</li>
 <td>Firefox</td>
 <td>2594</td>
 <td>2.802779</td>
-<td>8.920487</td>
+<td>8.919407</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">143</td>
@@ -6985,7 +6982,7 @@ and will likely need to be binned or grouped</li>
 <td>Internet Explorer</td>
 <td>2214</td>
 <td>2.392195</td>
-<td>6.117708</td>
+<td>6.116628</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">144</td>
@@ -6993,7 +6990,7 @@ and will likely need to be binned or grouped</li>
 <td>Opera</td>
 <td>1119</td>
 <td>1.209063</td>
-<td>3.725514</td>
+<td>3.724433</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">145</td>
@@ -7001,7 +6998,7 @@ and will likely need to be binned or grouped</li>
 <td>Edge</td>
 <td>989</td>
 <td>1.0686</td>
-<td>2.51645</td>
+<td>2.51537</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">146</td>
@@ -7009,15 +7006,15 @@ and will likely need to be binned or grouped</li>
 <td>Safari (in-app)</td>
 <td>799</td>
 <td>0.863308</td>
-<td>1.44785</td>
+<td>1.44677</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">147</td>
 <td>browser</td>
 <td>Android Webview</td>
-<td>166</td>
-<td>0.179361</td>
-<td>0.584543</td>
+<td>165</td>
+<td>0.17828</td>
+<td>0.583462</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">148</td>
@@ -7150,7 +7147,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">164</td>
 <td>browser</td>
-<td>SeaMonkey</td>
+<td>no-ua</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.003241</td>
@@ -7158,7 +7155,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">165</td>
 <td>browser</td>
-<td>no-ua</td>
+<td>SeaMonkey</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.00108</td>
@@ -7254,7 +7251,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">177</td>
 <td>os</td>
-<td>Nokia</td>
+<td>Samsung</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.00108</td>
@@ -7262,7 +7259,7 @@ and will likely need to be binned or grouped</li>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">178</td>
 <td>os</td>
-<td>Samsung</td>
+<td>FreeBSD</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.002161</td>
@@ -7270,7 +7267,7 @@ and will likely need to be binned or grouped</li>
 <tr class="even">
 <td data-quarto-table-cell-role="th">179</td>
 <td>os</td>
-<td>FreeBSD</td>
+<td>Nokia</td>
 <td>1</td>
 <td>0.00108</td>
 <td>0.003241</td>
@@ -7340,17 +7337,17 @@ These thresholds were determined by examining the output of <code>df_frequencies
 </div>
 </div>
 <p>Below are lists of categorical columns to be grouped based on this threshold (5% or 10%)</p>
-<div class="cell" data-tags="[]" data-execution_count="35">
+<div class="cell" data-tags="[]" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>cols_to_group_5_pct <span class="op">=</span> [<span class="st">"source"</span>, <span class="st">"browser"</span>]</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>cols_to_group_10_pct <span class="op">=</span> [<span class="st">"os"</span>, <span class="st">"channelGrouping"</span>, <span class="st">"medium"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We’ll get names for the columns after grouping, by adding a <code>_grouped</code> suffix</p>
-<div class="cell" data-tags="[]" data-execution_count="36">
+<div class="cell" data-tags="[]" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>grouped_cols_5_pct <span class="op">=</span> [<span class="ss">f"</span><span class="sc">{</span>c<span class="sc">}</span><span class="ss">_grouped"</span> <span class="cf">for</span> c <span class="kw">in</span> cols_to_group_5_pct]</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>grouped_cols_10_pct <span class="op">=</span> [<span class="ss">f"</span><span class="sc">{</span>c<span class="sc">}</span><span class="ss">_grouped"</span> <span class="cf">for</span> c <span class="kw">in</span> cols_to_group_10_pct]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Next, create lists of categorical columns that will and will not be grouped and then combine them into a single list</p>
-<div class="cell" data-tags="[]" data-execution_count="37">
+<div class="cell" data-tags="[]" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>categorical_columns_mapped <span class="op">=</span> (</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># columns that will not be grouped</span></span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">list</span>(</span>
@@ -7362,7 +7359,7 @@ These thresholds were determined by examining the output of <code>df_frequencies
 <span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Create a duplicate of the columns that will be grouped and add a <code>_grouped</code> suffix to their column name</p>
-<div class="cell" data-tags="[]" data-execution_count="38">
+<div class="cell" data-tags="[]" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> cols_to_group_5_pct <span class="op">+</span> cols_to_group_10_pct:</span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>    df[<span class="ss">f"</span><span class="sc">{</span>c<span class="sc">}</span><span class="ss">_grouped"</span>] <span class="op">=</span> df[c]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -7372,7 +7369,7 @@ These thresholds were determined by examining the output of <code>df_frequencies
 <li><code>pandas.value_counts(normalize=True) &lt; 0.10</code> (10% threshold)</li>
 </ol>
 <p>where all infrequently occurring values that satisfy these filters will have their values replaced by <code>other</code></p>
-<div class="cell" data-tags="[]" data-execution_count="39">
+<div class="cell" data-tags="[]" data-execution_count="40">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>df[grouped_cols_5_pct] <span class="op">=</span> df[grouped_cols_5_pct].<span class="bu">apply</span>(</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> x: x.mask(x.<span class="bu">map</span>(x.value_counts(normalize<span class="op">=</span><span class="va">True</span>)) <span class="op">&lt;</span> <span class="fl">0.05</span>, <span class="st">"other"</span>), axis<span class="op">=</span><span class="dv">0</span></span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>)</span>
@@ -7381,7 +7378,7 @@ These thresholds were determined by examining the output of <code>df_frequencies
 <span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The cardinality of the columns before and after grouping is shown below</p>
-<div class="cell" data-tags="[]" data-execution_count="40">
+<div class="cell" data-tags="[]" data-execution_count="41">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>df_nunique.merge(</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>    pd.DataFrame.from_records(</span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>        [</span>
@@ -7396,7 +7393,7 @@ These thresholds were determined by examining the output of <code>df_frequencies
 <span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>    on<span class="op">=</span>[<span class="st">"column"</span>],</span>
 <span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>    how<span class="op">=</span><span class="st">"left"</span>,</span>
 <span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="40">
+<div class="cell-output cell-output-display" data-execution_count="41">
 <div>
 
 
@@ -7490,7 +7487,7 @@ Observations
 </div>
 </div>
 <p>The category distributions (frequencies) after grouping are shown below for all categorical columns (including those that were grouped)</p>
-<div class="cell" data-tags="[]" data-execution_count="41">
+<div class="cell" data-tags="[]" data-execution_count="42">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>dfs_cats_groups <span class="op">=</span> []</span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> categorical_columns_mapped:</span>
 <span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get fraction of unique values</span></span>
@@ -7552,123 +7549,123 @@ Observations
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>last_action</td>
-<td>Unknown</td>
-<td>67519</td>
-<td>72.953291</td>
-<td>100.0</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>last_action</td>
-<td>Product detail views</td>
-<td>14720</td>
-<td>15.904744</td>
-<td>27.046709</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>last_action</td>
-<td>Add product(s) to cart</td>
-<td>4663</td>
-<td>5.038303</td>
-<td>11.141965</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>last_action</td>
-<td>Completed purchase</td>
-<td>3094</td>
-<td>3.343022</td>
-<td>6.103662</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>last_action</td>
-<td>Check out</td>
-<td>1632</td>
-<td>1.763352</td>
-<td>2.76064</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">5</td>
-<td>last_action</td>
-<td>Remove product(s) from cart</td>
-<td>882</td>
-<td>0.952988</td>
-<td>0.997288</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">6</td>
-<td>last_action</td>
-<td>Click through of product lists</td>
-<td>41</td>
-<td>0.0443</td>
-<td>0.0443</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">7</td>
-<td>bounces</td>
-<td>False</td>
-<td>65500</td>
-<td>70.771791</td>
-<td>100.0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">8</td>
-<td>bounces</td>
-<td>True</td>
-<td>27051</td>
-<td>29.228209</td>
-<td>29.228209</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">9</td>
 <td>deviceCategory</td>
 <td>desktop</td>
 <td>67355</td>
 <td>72.776091</td>
 <td>100.0</td>
 </tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">10</td>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
 <td>deviceCategory</td>
 <td>mobile</td>
 <td>21790</td>
 <td>23.543776</td>
 <td>27.223909</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">11</td>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
 <td>deviceCategory</td>
 <td>tablet</td>
 <td>3406</td>
 <td>3.680133</td>
 <td>3.680133</td>
 </tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>bounces</td>
+<td>False</td>
+<td>65505</td>
+<td>70.777193</td>
+<td>100.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>bounces</td>
+<td>True</td>
+<td>27046</td>
+<td>29.222807</td>
+<td>29.222807</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>last_action</td>
+<td>Unknown</td>
+<td>67511</td>
+<td>72.944647</td>
+<td>100.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>last_action</td>
+<td>Product detail views</td>
+<td>14731</td>
+<td>15.91663</td>
+<td>27.055353</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>last_action</td>
+<td>Add product(s) to cart</td>
+<td>4655</td>
+<td>5.029659</td>
+<td>11.138724</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>last_action</td>
+<td>Completed purchase</td>
+<td>3097</td>
+<td>3.346263</td>
+<td>6.109064</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>last_action</td>
+<td>Check out</td>
+<td>1635</td>
+<td>1.766594</td>
+<td>2.762801</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>last_action</td>
+<td>Remove product(s) from cart</td>
+<td>881</td>
+<td>0.951908</td>
+<td>0.996207</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>last_action</td>
+<td>Click through of product lists</td>
+<td>41</td>
+<td>0.0443</td>
+<td>0.0443</td>
+</tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">12</td>
 <td>source_grouped</td>
 <td>google</td>
-<td>43478</td>
-<td>46.977342</td>
+<td>43484</td>
+<td>46.983825</td>
 <td>100.0</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">13</td>
 <td>source_grouped</td>
 <td>(direct)</td>
-<td>21539</td>
-<td>23.272574</td>
-<td>53.022658</td>
+<td>21532</td>
+<td>23.265011</td>
+<td>53.016175</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">14</td>
 <td>source_grouped</td>
 <td>mall.googleplex.com</td>
-<td>11776</td>
-<td>12.723796</td>
-<td>29.750084</td>
+<td>11777</td>
+<td>12.724876</td>
+<td>29.751164</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">15</td>
@@ -7690,8 +7687,8 @@ Observations
 <td data-quarto-table-cell-role="th">17</td>
 <td>browser_grouped</td>
 <td>Chrome</td>
-<td>69001</td>
-<td>74.55457</td>
+<td>69002</td>
+<td>74.55565</td>
 <td>100.0</td>
 </tr>
 <tr class="odd">
@@ -7700,15 +7697,15 @@ Observations
 <td>Safari</td>
 <td>15294</td>
 <td>16.524943</td>
-<td>25.44543</td>
+<td>25.44435</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">19</td>
 <td>browser_grouped</td>
 <td>other</td>
-<td>8256</td>
-<td>8.920487</td>
-<td>8.920487</td>
+<td>8255</td>
+<td>8.919407</td>
+<td>8.919407</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">20</td>
@@ -7754,65 +7751,65 @@ Observations
 <td data-quarto-table-cell-role="th">25</td>
 <td>channelGrouping_grouped</td>
 <td>Organic Search</td>
-<td>38580</td>
-<td>41.685125</td>
+<td>38584</td>
+<td>41.689447</td>
 <td>100.0</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">26</td>
 <td>channelGrouping_grouped</td>
 <td>Direct</td>
-<td>21539</td>
-<td>23.272574</td>
-<td>58.314875</td>
+<td>21532</td>
+<td>23.265011</td>
+<td>58.310553</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">27</td>
 <td>channelGrouping_grouped</td>
 <td>other</td>
-<td>16274</td>
-<td>17.583819</td>
-<td>35.042301</td>
+<td>16275</td>
+<td>17.584899</td>
+<td>35.045542</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">28</td>
 <td>channelGrouping_grouped</td>
 <td>Referral</td>
-<td>16158</td>
-<td>17.458482</td>
-<td>17.458482</td>
+<td>16160</td>
+<td>17.460643</td>
+<td>17.460643</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">29</td>
 <td>medium_grouped</td>
 <td>organic</td>
-<td>38580</td>
-<td>41.685125</td>
+<td>38584</td>
+<td>41.689447</td>
 <td>100.0</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">30</td>
 <td>medium_grouped</td>
 <td>referral</td>
-<td>25084</td>
-<td>27.102895</td>
-<td>58.314875</td>
+<td>25086</td>
+<td>27.105056</td>
+<td>58.310553</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">31</td>
 <td>medium_grouped</td>
 <td>(none)</td>
-<td>21539</td>
-<td>23.272574</td>
-<td>31.21198</td>
+<td>21532</td>
+<td>23.265011</td>
+<td>31.205498</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">32</td>
 <td>medium_grouped</td>
 <td>other</td>
-<td>7348</td>
-<td>7.939406</td>
-<td>7.939406</td>
+<td>7349</td>
+<td>7.940487</td>
+<td>7.940487</td>
 </tr>
 </tbody>
 </table>
@@ -7837,7 +7834,7 @@ Notes
 </div>
 </div>
 <p>The reduction in cardinality of the categorical feaures, after frequency grouping, is calculated below</p>
-<div class="cell" data-tags="[]" data-execution_count="42">
+<div class="cell" data-tags="[]" data-execution_count="43">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>frac_reduction_in_cats_cardinality <span class="op">=</span> (</span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">100</span></span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span> (</span>
@@ -7856,7 +7853,7 @@ Notes
 </div>
 <p>The groupings above have been learnt from the training data. We now need to create a lookup table for columns that were grouped so that we can apply the same groupings to unseen data (validation and test data splits). This means when we encounter the same infrequently occurring values in the validation and test data splits, they will be replaced by <code>other</code>.</p>
 <p>This lookup table is defined below</p>
-<div class="cell" data-tags="[]" data-execution_count="43">
+<div class="cell" data-tags="[]" data-execution_count="44">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>df_groupings <span class="op">=</span> pd.DataFrame.from_dict(</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>    {</span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>        c: df[c]</span>
@@ -7953,7 +7950,7 @@ Notes
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">107</td>
-<td>seroundtable.com</td>
+<td>dailydot.com</td>
 <td>None</td>
 <td>None</td>
 <td>None</td>
@@ -7961,7 +7958,7 @@ Notes
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">108</td>
-<td>cases.corp.google.com</td>
+<td>digg.com</td>
 <td>None</td>
 <td>None</td>
 <td>None</td>
@@ -7969,7 +7966,7 @@ Notes
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">109</td>
-<td>spaces.google.com</td>
+<td>xbidprodmirror.corp.google.com</td>
 <td>None</td>
 <td>None</td>
 <td>None</td>
@@ -7977,7 +7974,7 @@ Notes
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">110</td>
-<td>searchlock.com</td>
+<td>seroundtable.com</td>
 <td>None</td>
 <td>None</td>
 <td>None</td>
@@ -7985,7 +7982,7 @@ Notes
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">111</td>
-<td>0.shared.bow.cat2.ads-bow.yw.borg.google.com:9850</td>
+<td>spaces.google.com</td>
 <td>None</td>
 <td>None</td>
 <td>None</td>
@@ -7999,7 +7996,7 @@ Notes
 </div>
 <p>We’ll also create a lookup table of unique values in the categorical columns that were not grouped. When we encounter these values in the validation or test data splits, they will remain unchanged.</p>
 <p>This lookup table is defined below</p>
-<div class="cell" data-tags="[]" data-execution_count="44">
+<div class="cell" data-tags="[]" data-execution_count="45">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>df_ungrouped <span class="op">=</span> pd.DataFrame.from_dict(</span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>    {</span>
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>        c: df[c]</span>
@@ -8016,7 +8013,7 @@ Notes
 <span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a>    orient<span class="op">=</span><span class="st">"index"</span>,</span>
 <span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a>).transpose()</span>
 <span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a>df_ungrouped</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="44">
+<div class="cell-output cell-output-display" data-execution_count="45">
 <div>
 
 
@@ -8071,7 +8068,7 @@ Notes
 </div>
 </div>
 <p>For a quick demonstration of using these two lookup tables, we’ll create a dummy validation data <code>DataFrame</code> below with two categorical features</p>
-<div class="cell" data-tags="[]" data-execution_count="45">
+<div class="cell" data-tags="[]" data-execution_count="46">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>df_val <span class="op">=</span> pd.DataFrame.from_records(</span>
@@ -8083,7 +8080,7 @@ Notes
 <span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>df_val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="45">
+<div class="cell-output cell-output-display" data-execution_count="46">
 <div>
 
 
@@ -8127,7 +8124,7 @@ Notes
 </ul></li>
 <li>drop original columns and rename the combined columns appropriately</li>
 </ol>
-<div class="cell" data-tags="[]" data-execution_count="46">
+<div class="cell" data-tags="[]" data-execution_count="47">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>categorical_columns_validation_data <span class="op">=</span> [<span class="st">"source"</span>, <span class="st">"browser"</span>]</span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> categorical_columns_validation_data:</span>
 <span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1. replace infrequent values in columns that were grouped (add suffix _grouped)</span></span>
@@ -8146,7 +8143,7 @@ Notes
 <span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> categorical_columns_validation_data</span>
 <span id="cb56-17"><a href="#cb56-17" aria-hidden="true" tabindex="-1"></a>).rename(columns<span class="op">=</span>{<span class="ss">f"</span><span class="sc">{</span>c<span class="sc">}</span><span class="ss">_grouped"</span>: c <span class="cf">for</span> c <span class="kw">in</span> categorical_columns_validation_data})</span>
 <span id="cb56-18"><a href="#cb56-18" aria-hidden="true" tabindex="-1"></a>df_val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="46">
+<div class="cell-output cell-output-display" data-execution_count="47">
 <div>
 
 
@@ -8290,7 +8287,6 @@ Observations
 <section id="next-step" class="level2">
 <h2 class="anchored" data-anchor-id="next-step">Next Step</h2>
 <p>The next step will be to perform exploratory data analysis using data prepared using the findings from this data preparation step.</p>
-<hr>
 
 
 </section>
