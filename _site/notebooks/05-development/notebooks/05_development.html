@@ -1685,7 +1685,8 @@ Observations
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>The combination that best matches the observed class balance in the validation split does not have the highest <code>uplift</code> score.</li>
+<li>Here, the uplift for the best hyperparameters indicates the chosen baseline model is approximately 5X better than a random model that draws samples randomly from a normal distribution.</li>
+<li>The hyperparameters with the best <code>f05</code> in the validation split does not have the highest <code>uplift</code> score. As mentioned earlier, the uplift is not calculated using the true labels, so the model’s predictions of observations in the validation split are not being scored. For this reason, the ML metrics are of relatively higher importance than uplift when scoring predictions for the current use-case.</li>
 </ol>
 </div>
 </div>
