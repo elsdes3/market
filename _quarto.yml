@@ -46,6 +46,8 @@ website:
         text: Explore Data
       - href: notebooks/04-transform/notebooks/04_transform.ipynb
         text: Transform Data
+      - href: notebooks/05-development/notebooks/05_development.ipynb
+        text: Baseline
       - href: notebooks/07-create-audience/notebooks/07_create_audience.ipynb
         text: Create Audience
 
