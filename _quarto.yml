@@ -6,14 +6,17 @@ project:
   render:
     - "*.qmd"
     - references/scoping/*.qmd
-    - "notebooks/*/notebooks/*.ipynb"
-    - "!notebooks/*/notebooks/*_dummy.ipynb"
+    - "notebooks/02-train/notebooks/02_*.ipynb"
+    - "notebooks/02-train/notebooks/03_*.ipynb"
+    - "notebooks/02-train/notebooks/04_get_*.ipynb"
+    - "notebooks/02-train/notebooks/05_*.ipynb"
+    - "notebooks/02-train/notebooks/06_*.ipynb"
   output-dir: _site
 
 website:
   page-navigation: true
   reader-mode: false
-  # back-to-top-navigation: true
+  back-to-top-navigation: true
   repo-url: https://github.com/elsdes3/market
   repo-actions: [edit, issue]
   title: "Machine Learning Project"
@@ -36,20 +39,20 @@ website:
     contents:
       - href: index.qmd
         text: Welcome
-      - href: references/Scope.qmd
-        text: Scope
-      - href: notebooks/01-get-data/notebooks/01_get_data.ipynb
-        text: Get Data
-      - href: notebooks/02-prepare/notebooks/02_prepare.ipynb
-        text: Prepare Data
-      - href: notebooks/03-eda/notebooks/03_eda.ipynb
-        text: Explore Data
-      - href: notebooks/04-transform/notebooks/04_transform.ipynb
-        text: Transform Data
-      - href: notebooks/05-development/notebooks/05_development.ipynb
-        text: Baseline
-      - href: notebooks/07-create-audience/notebooks/07_create_audience.ipynb
-        text: Create Audience
+      # - href: references/Scope.qmd
+      #   text: Scope
+      # - href: notebooks/01-get-data/notebooks/01_get_data.ipynb
+      #   text: Train
+      - href: notebooks/02-train/notebooks/02_get_best_model.ipynb
+        text: Register Model
+      - href: notebooks/02-train/notebooks/03_design_experiment.ipynb
+        text: Sample Sizes
+      - href: notebooks/02-train/notebooks/04_get_audience_cohorts.ipynb
+        text: Get Audience
+      - href: notebooks/02-train/notebooks/05_analyze_campaign_outputs.ipynb
+        text: Post-Campaign
+      - href: notebooks/02-train/notebooks/06_cleanup.ipynb
+        text: Cleanup
 
 format:
   html:
@@ -61,10 +64,11 @@ format:
     page-layout: full
     smooth-scroll: true
     theme:
-      light: [cosmo, theme.scss] # from https://github.com/sta210-s22/website/blob/main/_quarto.yml
+      light: [cosmo, theme.scss]
     code-copy: true
     code-overflow: wrap
-    code-fold: true
+    code-fold: false
+    echo: false
     toc: true
     toc-expand: 3
     toc-title: On this page

@@ -15,18 +15,12 @@ else
     cd notebooks
     if [[ "$ACTION" == 'reset-get-data' ]]; then
         cd 01-get-data
-    elif [[ "$ACTION" == 'reset-prepare' ]]; then
-        cd 02-prepare
-    elif [[ "$ACTION" == 'reset-eda' ]]; then
-        cd 03-eda
-    elif [[ "$ACTION" == 'reset-transform' ]]; then
-        cd 04-transform
-    elif [[ "$ACTION" == 'reset-development' ]]; then
-        cd 05-development
-    elif [[ "$ACTION" == 'reset-post-process' ]]; then
-        cd 06-post-process
+    elif [[ "$ACTION" == 'reset-train' ]]; then
+        cd 02-train
+    elif [[ "$ACTION" == 'reset-explore' ]]; then
+        cd 03-explore
     else
-        cd 07-create-audience
+        cd 04-cleanup
     fi
 
     cd notebooks

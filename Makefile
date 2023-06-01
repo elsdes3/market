@@ -19,41 +19,23 @@ get-data:
 	@docker compose up get-data --detach
 .PHONY: get-data
 
-## Run prepare service
-prepare:
+## Run train service
+train:
 	@echo "+ $@"
-	@docker compose up prepare --detach
-.PHONY: prepare
+	@docker compose up train --detach
+.PHONY: train
 
-## Run eda service
-eda:
+## Run explore service
+explore:
 	@echo "+ $@"
-	@docker compose up eda --detach
-.PHONY: eda
+	@docker compose up explore --detach
+.PHONY: explore
 
-## Run transform service
-transform:
+## Run cleanup service
+cleanup:
 	@echo "+ $@"
-	@docker compose up transform --detach
-.PHONY: transform
-
-## Run development service
-development:
-	@echo "+ $@"
-	@docker compose up development --detach
-.PHONY: development
-
-## Run post-process service
-post-process:
-	@echo "+ $@"
-	@docker compose up post-process --detach
-.PHONY: post-process
-
-## Run create-audience service
-create-audience:
-	@echo "+ $@"
-	@docker compose up create-audience --detach
-.PHONY: create-audience
+	@docker compose up cleanup --detach
+.PHONY: cleanup
 
 ## Get logs for get-data service
 get-data-logs:
@@ -61,41 +43,23 @@ get-data-logs:
 	@./utils.sh "get-data"
 .PHONY: get-data-logs
 
-## Get logs for prepare service
-prepare-logs:
+## Get logs for train service
+train-logs:
 	@echo "+ $@"
-	@./utils.sh "prepare"
-.PHONY: prepare-logs
+	@./utils.sh "train"
+.PHONY: train-logs
 
-## Get logs for eda service
-eda-logs:
+## Get logs for explore service
+explore-logs:
 	@echo "+ $@"
-	@./utils.sh "eda"
-.PHONY: eda-logs
+	@./utils.sh "explore"
+.PHONY: explore-logs
 
-## Get logs for transform service
-transform-logs:
+## Get logs for cleanup service
+cleanup-logs:
 	@echo "+ $@"
-	@./utils.sh "transform"
-.PHONY: transform-logs
-
-## Get logs for development service
-development-logs:
-	@echo "+ $@"
-	@./utils.sh "development"
-.PHONY: development-logs
-
-## Get logs for post-process service
-post-process-logs:
-	@echo "+ $@"
-	@./utils.sh "post-process"
-.PHONY: post-process-logs
-
-## Get logs for create-audience service
-create-audience-logs:
-	@echo "+ $@"
-	@./utils.sh "create-audience"
-.PHONY: create-audience-logs
+	@./utils.sh "cleanup"
+.PHONY: cleanup-logs
 
 ## Remove Service(s)
 down:
@@ -115,41 +79,23 @@ reset-get-data:
 	@./utils.sh "reset-get-data"
 .PHONY: reset-get-data
 
-## Reset prepare service
-reset-prepare:
+## Reset train service
+reset-train:
 	@echo "+ $@"
-	@./utils.sh "reset-prepare"
-.PHONY: reset-prepare
+	@./utils.sh "reset-train"
+.PHONY: reset-train
 
-## Reset eda service
-reset-eda:
+## Reset explore service
+reset-explore:
 	@echo "+ $@"
-	@./utils.sh "reset-eda"
-.PHONY: reset-eda
+	@./utils.sh "reset-explore"
+.PHONY: reset-explore
 
-## Reset transform service
-reset-transform:
+## Reset cleanup service
+reset-cleanup:
 	@echo "+ $@"
-	@./utils.sh "reset-transform"
-.PHONY: reset-transform
-
-## Reset development service
-reset-development:
-	@echo "+ $@"
-	@./utils.sh "reset-development"
-.PHONY: reset-development
-
-## Reset post-process service
-reset-post-process:
-	@echo "+ $@"
-	@./utils.sh "reset-post-process"
-.PHONY: reset-post-process
-
-## Reset create-audience service
-reset-create-audience:
-	@echo "+ $@"
-	@./utils.sh "reset-create-audience"
-.PHONY: reset-create-audience
+	@./utils.sh "reset-cleanup"
+.PHONY: reset-cleanup
 
 ## Run Quarto preview
 quarto-preview:

@@ -1,0 +1,2467 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.313">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Machine Learning Project - Get Randomized Audience Cohorts From Inference</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../notebooks/04-transform/notebooks/05_analyze_campaign_outputs.html" rel="next">
+<link href="../../../notebooks/04-transform/notebooks/03_design_experiment.html" rel="prev">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Machine Learning Project</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools ms-auto">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../notebooks/04-transform/notebooks/04_get_audience_cohorts.html">Get Audience</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../../../index.html" class="sidebar-logo-link">
+      <img src="../../../images/lorip_square.jpg" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/04-transform/notebooks/02_get_best_model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Register Model</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/04-transform/notebooks/03_design_experiment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sample Sizes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/04-transform/notebooks/04_get_audience_cohorts.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Get Audience</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/04-transform/notebooks/05_analyze_campaign_outputs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Post-Campaign</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/04-transform/notebooks/06_cleanup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cleanup</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="3">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#about" id="toc-about" class="nav-link active" data-scroll-target="#about">About</a>
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">Implementation</a></li>
+  </ul></li>
+  <li><a href="#user-inputs" id="toc-user-inputs" class="nav-link" data-scroll-target="#user-inputs">User Inputs</a></li>
+  <li><a href="#get-inference-data" id="toc-get-inference-data" class="nav-link" data-scroll-target="#get-inference-data">Get Inference Data</a></li>
+  <li><a href="#get-model" id="toc-get-model" class="nav-link" data-scroll-target="#get-model">Get Model</a>
+  <ul class="collapse">
+  <li><a href="#fetch-latest-version-of-best-deployment-candidate-model-from-model-registry" id="toc-fetch-latest-version-of-best-deployment-candidate-model-from-model-registry" class="nav-link" data-scroll-target="#fetch-latest-version-of-best-deployment-candidate-model-from-model-registry">Fetch Latest Version of Best Deployment Candidate Model from Model Registry</a></li>
+  </ul></li>
+  <li><a href="#make-inference-predictions" id="toc-make-inference-predictions" class="nav-link" data-scroll-target="#make-inference-predictions">Make Inference Predictions</a></li>
+  <li><a href="#create-cohorts" id="toc-create-cohorts" class="nav-link" data-scroll-target="#create-cohorts">Create Cohorts</a></li>
+  <li><a href="#export-to-disk-and-ml-experiment-tracking" id="toc-export-to-disk-and-ml-experiment-tracking" class="nav-link" data-scroll-target="#export-to-disk-and-ml-experiment-tracking">Export to Disk and ML Experiment Tracking</a>
+  <ul class="collapse">
+  <li><a href="#audience-cohorts" id="toc-audience-cohorts" class="nav-link" data-scroll-target="#audience-cohorts">Audience Cohorts</a></li>
+  <li><a href="#audience-profiles" id="toc-audience-profiles" class="nav-link" data-scroll-target="#audience-profiles">Audience Profiles</a></li>
+  </ul></li>
+  <li><a href="#next-step" id="toc-next-step" class="nav-link" data-scroll-target="#next-step">Next Step</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/elsdes3/market/blob/main/notebooks/04-transform/notebooks/04_get_audience_cohorts.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/elsdes3/market/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Get Randomized Audience Cohorts From Inference</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="about" class="level2">
+<h2 class="anchored" data-anchor-id="about">About</h2>
+<section id="overview" class="level3">
+<h3 class="anchored" data-anchor-id="overview">Overview</h3>
+<p>This step generates the randomized test and control cohorts needed to run a marketing campaign. The impact of the campaign on conversions (KPI) will be assessed using an A/B test at the end of the campaign. The randomized cohorts are needed in order to conduct this test. This is step 4. from a <a href="https://www.datacamp.com/blog/data-demystified-what-is-a-b-testing">typical A/B Testing workflow</a>.</p>
+<p>This step can be run prospectively at the end of the inference period, just before the start of the campaign, when all the inference data (first-time visitors to the store) becomes available.</p>
+<p>For the current use-case, the sizes of one or more audience groups were determined in the previous step. The audience strategy determines if one of more groups are used. For a single audience group, only the visitors predicted to have a high propensity to make a purchase on a return visit are selected to participate in the campaign and so randomized cohorts are to be drawn from this single group. For multiple audience groups, namely visitors predicted to have a low, medium or high propensity, randomized cohorts are to be drawn from each such group.</p>
+<p>This step first assigns all first-time visitors to the store during the inference period to an audience group based on the requied audience strategy (single or multiple audience groups). Next, within each audience group, visitors are randomly assigned to test or control cohorts. A brief profile of each audience group is then performed using attributes of the visitors’ first visit. The profile and the inference data with the audience group and cohort for each first-time visitor during the inference period can be used by the marketing team to design and implement the marketing campaign aimed at growing the customer base.</p>
+</section>
+<section id="implementation" class="level3">
+<h3 class="anchored" data-anchor-id="implementation">Implementation</h3>
+<p>A custom python module in <code>src/cohorts.py</code> has been developed to create the test and control audience cohorts based on required sample sizes that were estimated in the previous step and logged as a MLFlow artifact (file) for the best MLFlow deployment candidate model.</p>
+<p>The procedure followed in this step is briefle outlined below</p>
+<ol type="1">
+<li>the MLFlow artifact (file) is loaded in order to access the required sample sizes for each
+<ul>
+<li>audience strategy</li>
+<li>desired combination of effect sizes (power, confidence level and uplift)</li>
+</ul></li>
+<li>the file is filtered based on the
+<ul>
+<li>audience strategy</li>
+<li>desired combination of effect sizes (see <code>wanted_effect_sizes</code> from <strong>User Inputs</strong>)</li>
+</ul></li>
+<li>inference data (first-time visitors) is retrieved and the best ML model is used to make inference predictions of the propensity of these visitors to make a purchase on a return (future) visit to the store.</li>
+<li>propensities are used to assign first-time visitors to audience groups (or bins)
+<ul>
+<li>if the desired audience strategy is for a single audience group, then visitors are placed into a single bin</li>
+<li>if the desired audience strategy is for multiple audience groups, then multiple bins are creaed</li>
+</ul></li>
+<li>for each bin (audience group), visitors are randomly placed into test and control cohorts</li>
+<li>the inference data with
+<ul>
+<li>predicted propensity (probability)</li>
+<li>audience group</li>
+<li>cohort (test or control)</li>
+</ul>
+is then logged as a MLFlow artifact for use by the marketing team to build and design the campaign.</li>
+</ol>
+</section>
+</section>
+<section id="user-inputs" class="level2">
+<h2 class="anchored" data-anchor-id="user-inputs">User Inputs</h2>
+<p>Define the following</p>
+<ol type="1">
+<li>start and end dates for inference data</li>
+<li>name of column containing label (outcome)</li>
+<li><code>audience_groups</code>
+<ul>
+<li>desired audience groups into which the first-time visitors propensities will be placed
+<ul>
+<li><code>num_propens_groups</code> specifies the number of desired audience propensity groups (low, medium and high)</li>
+<li><code>propens_group_labels</code> specifies names of the desired audience propensity groups</li>
+</ul></li>
+</ul></li>
+<li>inputs (uplift, powerm confidence level) for which random cohort sizes are to be created</li>
+<li>type of audience strategy (single- or multi- group) from which to create cohorts</li>
+</ol>
+<div class="cell" data-tags="[&quot;parameters&quot;]" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. start and end dates</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>infer_start_date <span class="op">=</span> <span class="st">"20170301"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>infer_end_date <span class="op">=</span> <span class="st">"20170331"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. label column</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>label <span class="op">=</span> <span class="st">"made_purchase_on_future_visit"</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. mapping dictionaries</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>audience_groups_strategy_1 <span class="op">=</span> {</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"num_propens_groups"</span>: <span class="dv">3</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"propens_group_labels"</span>: [<span class="st">"High"</span>, <span class="st">"Medium"</span>, <span class="st">"Low"</span>],</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>audience_groups_strategy_2 <span class="op">=</span> {</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"num_propens_groups"</span>: <span class="dv">3</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"propens_group_labels"</span>: [<span class="st">"High"</span>, <span class="st">"High-Medium"</span>, <span class="st">"High-Medium-Low"</span>],</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. wanted inputs for estimating sample sizes</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>wanted_inputs <span class="op">=</span> {</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"uplift_percentage"</span>: <span class="dv">10</span>,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"power_percentage"</span>: <span class="dv">55</span>,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"confidence_level_percentage"</span>: <span class="dv">55</span>,</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. type of audience strategy to use when creating groups</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>audience_strategy <span class="op">=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Create a mapping between audience group number (0, 1, 2) and group name</p>
+<div class="cell" data-tags="[]" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mapper_dict_audience_strategy_1 <span class="op">=</span> <span class="bu">dict</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">zip</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">range</span>(audience_groups_strategy_1[<span class="st">"num_propens_groups"</span>]),</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        audience_groups_strategy_1[<span class="st">"propens_group_labels"</span>],</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>mapper_dict_audience_strategy_2 <span class="op">=</span> <span class="bu">dict</span>(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">zip</span>(</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">range</span>(audience_groups_strategy_2[<span class="st">"num_propens_groups"</span>]),</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        audience_groups_strategy_2[<span class="st">"propens_group_labels"</span>],</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mapper_dict_audience_strategy_1)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mapper_dict_audience_strategy_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{0: 'High', 1: 'Medium', 2: 'Low'}
+{0: 'High', 1: 'High-Medium', 2: 'High-Medium-Low'}</code></pre>
+</div>
+</div>
+<p>Get desired effect size queries and number of audience groups</p>
+<div class="cell" data-tags="[]" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> audience_strategy <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    query_inputs <span class="op">=</span> (</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"(uplift == </span><span class="sc">{</span>wanted_inputs[<span class="st">'uplift_percentage'</span>]<span class="sc">}</span><span class="ss">) &amp; "</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"(power == </span><span class="sc">{</span>wanted_inputs[<span class="st">'power_percentage'</span>]<span class="sc">}</span><span class="ss">) &amp; "</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"(ci_level == </span><span class="sc">{</span>wanted_inputs[<span class="st">'confidence_level_percentage'</span>]<span class="sc">}</span><span class="ss">)"</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    query_inputs <span class="op">=</span> (</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"(group_size_proportion &lt; 34) &amp; "</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"(uplift == </span><span class="sc">{</span>wanted_inputs[<span class="st">'uplift_percentage'</span>]<span class="sc">}</span><span class="ss">) &amp; "</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"(power == </span><span class="sc">{</span>wanted_inputs[<span class="st">'power_percentage'</span>]<span class="sc">}</span><span class="ss">) &amp; "</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"(ci_level == </span><span class="sc">{</span>wanted_inputs[<span class="st">'confidence_level_percentage'</span>]<span class="sc">}</span><span class="ss">)"</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>num_bins <span class="op">=</span> (</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    audience_groups_strategy_1[<span class="st">"num_propens_groups"</span>]</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> audience_strategy <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> audience_groups_strategy_2[<span class="st">"num_propens_groups"</span>]</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="get-inference-data" class="level2">
+<h2 class="anchored" data-anchor-id="get-inference-data">Get Inference Data</h2>
+<div class="cell" data-tags="[]" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>query_infer <span class="op">=</span> sqlh.get_sql_query_infer(infer_start_date, infer_end_date)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>X_infer, _ <span class="op">=</span> th.extract_data(query_infer, gcp_auth_dict).pipe(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    th.transform_data,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    datatypes_dict<span class="op">=</span>{k:v <span class="cf">for</span> k,v <span class="kw">in</span> dtypes_dict.items() <span class="cf">if</span> k <span class="op">!=</span> label},</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    duplicate_cols<span class="op">=</span>[<span class="st">"fullvisitorid"</span>],</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    column_mapper_dict<span class="op">=</span>{<span class="st">'last_action'</span>: action_mapper},</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>X_infer <span class="op">=</span> X_infer.pipe(th.shuffle_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Query execution start time = 2023-05-19 19:44:35.392...done at 2023-05-19 19:44:40.548 (5.156 seconds).
+Query returned 21,768 rows
+Got 21,752 rows and 27 columns after dropping duplicates
+Transformed data has 21,752 rows &amp; 27 columns
+CPU times: user 1 s, sys: 109 ms, total: 1.11 s
+Wall time: 5.19 s</code></pre>
+</div>
+</div>
+<p>Get the size of each audience cohort in the inference data</p>
+<div class="cell" data-tags="[]" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>bin_size_infer <span class="op">=</span> <span class="bu">len</span>(X_infer) <span class="op">/</span> num_bins</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>bin_size_infer_control <span class="op">=</span> <span class="bu">int</span>(bin_size_infer <span class="op">/</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="get-model" class="level2">
+<h2 class="anchored" data-anchor-id="get-model">Get Model</h2>
+<section id="fetch-latest-version-of-best-deployment-candidate-model-from-model-registry" class="level3">
+<h3 class="anchored" data-anchor-id="fetch-latest-version-of-best-deployment-candidate-model-from-model-registry">Fetch Latest Version of Best Deployment Candidate Model from Model Registry</h3>
+<p>Get name of best deployment candidate model from model registry</p>
+<div class="cell" data-tags="[]" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df_deployment_candidate_mlflow_models <span class="op">=</span> modh.get_all_deployment_candidate_models()</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>best_run_model_name <span class="op">=</span> modh.get_best_deployment_candidate_model(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    df_deployment_candidate_mlflow_models</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pd.option_context(<span class="st">"display.max_colwidth"</span>, <span class="va">None</span>):</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    display(df_deployment_candidate_mlflow_models)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">description</th>
+<th data-quarto-table-cell-role="th">run_id</th>
+<th data-quarto-table-cell-role="th">tags</th>
+<th data-quarto-table-cell-role="th">version</th>
+<th data-quarto-table-cell-role="th">score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>BetaDistClassifier_20160901_20170228_133892_feats__20230519_234249</td>
+<td>Best Model based on fbeta2 score of 0.4977033436</td>
+<td>eee3d281e0cb48cd8dba9f93a6de4347</td>
+<td>{'deployment-candidate': 'yes'}</td>
+<td>2</td>
+<td>0.497703</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CPU times: user 277 ms, sys: 28.2 ms, total: 305 ms
+Wall time: 305 ms</code></pre>
+</div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="18">
+<div class="cell-output cell-output-display" data-execution_count="18">
+<style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[('preprocessor',
+                 ColumnTransformer(transformers=[('num',
+                                                  Pipeline(steps=[('aboveavg',
+                                                                   AboveAveragePagePromoEngager(cols=['hits',
+                                                                                                      'promos_displayed',
+                                                                                                      'promos_clicked',
+                                                                                                      'product_views',
+                                                                                                      'product_clicks',
+                                                                                                      'pageviews',
+                                                                                                      'time_on_site'])),
+                                                                  ('scaler',
+                                                                   MinMaxScaler())]),
+                                                  ['hits', 'promos_displayed',
+                                                   'promos_clicked',
+                                                   'product_views',
+                                                   'product_clicks',
+                                                   'page...
+                                                                   OneHotEncoder(drop='first',
+                                                                                 dtype=&lt;class 'int'&gt;,
+                                                                                 handle_unknown='ignore'))]),
+                                                  ['bounces', 'last_action',
+                                                   'source', 'medium',
+                                                   'channelGrouping', 'browser',
+                                                   'os', 'deviceCategory'])])),
+                ('select', DropCorrelatedFeatures(threshold=0.7)),
+                ('resampler',
+                 RandomOverSampler(random_state=88, sampling_strategy=0.1)),
+                ['clf', BetaDistClassifier(a=0.15, b=2.35, random_state=88)]])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox"><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[('preprocessor',
+                 ColumnTransformer(transformers=[('num',
+                                                  Pipeline(steps=[('aboveavg',
+                                                                   AboveAveragePagePromoEngager(cols=['hits',
+                                                                                                      'promos_displayed',
+                                                                                                      'promos_clicked',
+                                                                                                      'product_views',
+                                                                                                      'product_clicks',
+                                                                                                      'pageviews',
+                                                                                                      'time_on_site'])),
+                                                                  ('scaler',
+                                                                   MinMaxScaler())]),
+                                                  ['hits', 'promos_displayed',
+                                                   'promos_clicked',
+                                                   'product_views',
+                                                   'product_clicks',
+                                                   'page...
+                                                                   OneHotEncoder(drop='first',
+                                                                                 dtype=&lt;class 'int'&gt;,
+                                                                                 handle_unknown='ignore'))]),
+                                                  ['bounces', 'last_action',
+                                                   'source', 'medium',
+                                                   'channelGrouping', 'browser',
+                                                   'os', 'deviceCategory'])])),
+                ('select', DropCorrelatedFeatures(threshold=0.7)),
+                ('resampler',
+                 RandomOverSampler(random_state=88, sampling_strategy=0.1)),
+                ['clf', BetaDistClassifier(a=0.15, b=2.35, random_state=88)]])</pre></div></div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox"><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">preprocessor: ColumnTransformer</label><div class="sk-toggleable__content"><pre>ColumnTransformer(transformers=[('num',
+                                 Pipeline(steps=[('aboveavg',
+                                                  AboveAveragePagePromoEngager(cols=['hits',
+                                                                                     'promos_displayed',
+                                                                                     'promos_clicked',
+                                                                                     'product_views',
+                                                                                     'product_clicks',
+                                                                                     'pageviews',
+                                                                                     'time_on_site'])),
+                                                 ('scaler', MinMaxScaler())]),
+                                 ['hits', 'promos_displayed', 'promos_clicked',
+                                  'product_views', 'product_clicks',
+                                  'pageviews', 'time_on_site']),
+                                ('cat',
+                                 P...
+                                                                                                    n_categories=1,
+                                                                                                    replace_with='other',
+                                                                                                    tol=0.1,
+                                                                                                    variables=['source',
+                                                                                                               'browser']),
+                                                                                   ['bounces',
+                                                                                    'last_action',
+                                                                                    'source',
+                                                                                    'medium',
+                                                                                    'channelGrouping',
+                                                                                    'browser',
+                                                                                    'os',
+                                                                                    'deviceCategory'])])),
+                                                 ('dummy',
+                                                  OneHotEncoder(drop='first',
+                                                                dtype=&lt;class 'int'&gt;,
+                                                                handle_unknown='ignore'))]),
+                                 ['bounces', 'last_action', 'source', 'medium',
+                                  'channelGrouping', 'browser', 'os',
+                                  'deviceCategory'])])</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox"><label for="sk-estimator-id-3" class="sk-toggleable__label sk-toggleable__label-arrow">num</label><div class="sk-toggleable__content"><pre>['hits', 'promos_displayed', 'promos_clicked', 'product_views', 'product_clicks', 'pageviews', 'time_on_site']</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox"><label for="sk-estimator-id-4" class="sk-toggleable__label sk-toggleable__label-arrow">AboveAveragePagePromoEngager</label><div class="sk-toggleable__content"><pre>AboveAveragePagePromoEngager(cols=['hits', 'promos_displayed', 'promos_clicked',
+                                   'product_views', 'product_clicks',
+                                   'pageviews', 'time_on_site'])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox"><label for="sk-estimator-id-5" class="sk-toggleable__label sk-toggleable__label-arrow">MinMaxScaler</label><div class="sk-toggleable__content"><pre>MinMaxScaler()</pre></div></div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox"><label for="sk-estimator-id-6" class="sk-toggleable__label sk-toggleable__label-arrow">cat</label><div class="sk-toggleable__content"><pre>['bounces', 'last_action', 'source', 'medium', 'channelGrouping', 'browser', 'os', 'deviceCategory']</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox"><label for="sk-estimator-id-7" class="sk-toggleable__label sk-toggleable__label-arrow">rarecats: ColumnTransformer</label><div class="sk-toggleable__content"><pre>ColumnTransformer(remainder='passthrough',
+                  transformers=[('fe',
+                                 RareLabelEncoder(ignore_format=True,
+                                                  n_categories=1,
+                                                  replace_with='other', tol=0.1,
+                                                  variables=['source',
+                                                             'browser']),
+                                 ['bounces', 'last_action', 'source', 'medium',
+                                  'channelGrouping', 'browser', 'os',
+                                  'deviceCategory'])])</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox"><label for="sk-estimator-id-8" class="sk-toggleable__label sk-toggleable__label-arrow">fe</label><div class="sk-toggleable__content"><pre>['bounces', 'last_action', 'source', 'medium', 'channelGrouping', 'browser', 'os', 'deviceCategory']</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-9" type="checkbox"><label for="sk-estimator-id-9" class="sk-toggleable__label sk-toggleable__label-arrow">RareLabelEncoder</label><div class="sk-toggleable__content"><pre>RareLabelEncoder(ignore_format=True, n_categories=1, replace_with='other',
+                 tol=0.1, variables=['source', 'browser'])</pre></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-10" type="checkbox"><label for="sk-estimator-id-10" class="sk-toggleable__label sk-toggleable__label-arrow">remainder</label><div class="sk-toggleable__content"><pre></pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-11" type="checkbox"><label for="sk-estimator-id-11" class="sk-toggleable__label sk-toggleable__label-arrow">passthrough</label><div class="sk-toggleable__content"><pre>passthrough</pre></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-12" type="checkbox"><label for="sk-estimator-id-12" class="sk-toggleable__label sk-toggleable__label-arrow">OneHotEncoder</label><div class="sk-toggleable__content"><pre>OneHotEncoder(drop='first', dtype=&lt;class 'int'&gt;, handle_unknown='ignore')</pre></div></div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-13" type="checkbox"><label for="sk-estimator-id-13" class="sk-toggleable__label sk-toggleable__label-arrow">DropCorrelatedFeatures</label><div class="sk-toggleable__content"><pre>DropCorrelatedFeatures(threshold=0.7)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-14" type="checkbox"><label for="sk-estimator-id-14" class="sk-toggleable__label sk-toggleable__label-arrow">RandomOverSampler</label><div class="sk-toggleable__content"><pre>RandomOverSampler(random_state=88, sampling_strategy=0.1)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-15" type="checkbox"><label for="sk-estimator-id-15" class="sk-toggleable__label sk-toggleable__label-arrow">BetaDistClassifier</label><div class="sk-toggleable__content"><pre>BetaDistClassifier(a=0.15, b=2.35, random_state=88)</pre></div></div></div></div></div></div></div>
+</div>
+</div>
+</section>
+</section>
+<section id="make-inference-predictions" class="level2">
+<h2 class="anchored" data-anchor-id="make-inference-predictions">Make Inference Predictions</h2>
+<p>Make inference predictions with best deployment candidate model</p>
+<div class="cell" data-tags="[]" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>y_infer_pred, y_infer_pred_proba <span class="op">=</span> modh.make_inference(model, X_infer, label)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>display(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    y_infer_pred.value_counts(normalize<span class="op">=</span><span class="va">True</span>).rename(<span class="st">'proportion'</span>).to_frame().merge(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        y_infer_pred.value_counts(normalize<span class="op">=</span><span class="va">False</span>).rename(<span class="st">'number'</span>).to_frame(),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        left_index<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        right_index<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        how<span class="op">=</span><span class="st">'left'</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    ).reset_index()</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/opt/conda/envs/transform/lib/python3.11/site-packages/sklearn/preprocessing/_encoders.py:202: UserWarning: Found unknown categories in columns [6] during transform. These unknown categories will be encoded as all zeros
+  warnings.warn(
+/opt/conda/envs/transform/lib/python3.11/site-packages/sklearn/preprocessing/_encoders.py:202: UserWarning: Found unknown categories in columns [6] during transform. These unknown categories will be encoded as all zeros
+  warnings.warn(</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">made_purchase_on_future_visit</th>
+<th data-quarto-table-cell-role="th">proportion</th>
+<th data-quarto-table-cell-role="th">number</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>0</td>
+<td>0.978439</td>
+<td>21283</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>1</td>
+<td>0.021561</td>
+<td>469</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CPU times: user 116 ms, sys: 12.1 ms, total: 128 ms
+Wall time: 128 ms</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Notes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Per the business use-case, these are predictions of whether a visitor will make a purchase during a later (return) visit to the merchandise store. Such predictions are made using attributes (features) of the first visit by visitors to the store and they can only be evaluated at a later time (after the outcome of the same visitor’s later visit is known).</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="create-cohorts" class="level2">
+<h2 class="anchored" data-anchor-id="create-cohorts">Create Cohorts</h2>
+<p>Perform the following to prepare the inference observations for extracting cohorts</p>
+<ol type="1">
+<li>combine inference features and predicted hard and soft labels into single <code>DataFrame</code></li>
+<li>sort predictions in ascending order of the predicted probability (propensity) (score)</li>
+<li>separate the predictions into bins, using the predicted probability, based on the required number of bins</li>
+<li>rename <code>bin_number</code> column (for use in downstream step)</li>
+<li>set datatypes for columns</li>
+</ol>
+<div class="cell" data-tags="[]" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df_infer_pred <span class="op">=</span> (</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    ch.combine_infer_data(X_infer, y_infer_pred, y_infer_pred_proba)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.sort_scores, <span class="va">False</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.get_audience_groups_by_propensity, num_bins)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    .pipe(ch.rename_columns, {<span class="st">"group_number"</span>: <span class="st">"maudience"</span>})</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        ash.set_datatypes,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>            <span class="st">"row_number"</span>: pd.Int16Dtype(),</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>            <span class="st">"fullvisitorid"</span>: pd.StringDtype(),</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>            <span class="st">"score"</span>: pd.Float32Dtype(),</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>            <span class="st">"predicted_score_label"</span>: pd.BooleanDtype(),</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>            <span class="st">"maudience"</span>: pd.Int8Dtype(),</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pd.option_context(<span class="st">"display.max_columns"</span>, <span class="dv">1000</span>):</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    display(df_infer_pred.dtypes.rename(<span class="st">"dtype"</span>).to_frame().T)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    display(df_infer_pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Set all specified datatypes.</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">fullvisitorid</th>
+<th data-quarto-table-cell-role="th">visitId</th>
+<th data-quarto-table-cell-role="th">visitNumber</th>
+<th data-quarto-table-cell-role="th">visitStartTime</th>
+<th data-quarto-table-cell-role="th">quarter</th>
+<th data-quarto-table-cell-role="th">month</th>
+<th data-quarto-table-cell-role="th">day_of_month</th>
+<th data-quarto-table-cell-role="th">day_of_week</th>
+<th data-quarto-table-cell-role="th">hour</th>
+<th data-quarto-table-cell-role="th">minute</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">pageviews</th>
+<th data-quarto-table-cell-role="th">time_on_site</th>
+<th data-quarto-table-cell-role="th">browser</th>
+<th data-quarto-table-cell-role="th">os</th>
+<th data-quarto-table-cell-role="th">deviceCategory</th>
+<th data-quarto-table-cell-role="th">added_to_cart</th>
+<th data-quarto-table-cell-role="th">score</th>
+<th data-quarto-table-cell-role="th">predicted_score_label</th>
+<th data-quarto-table-cell-role="th">row_number</th>
+<th data-quarto-table-cell-role="th">maudience</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">dtype</td>
+<td>string[python]</td>
+<td>string[python]</td>
+<td>Int8</td>
+<td>datetime64[ns]</td>
+<td>Int8</td>
+<td>Int8</td>
+<td>Int8</td>
+<td>Int8</td>
+<td>Int8</td>
+<td>Int8</td>
+<td>...</td>
+<td>Int16</td>
+<td>Int16</td>
+<td>category</td>
+<td>category</td>
+<td>category</td>
+<td>Int16</td>
+<td>Float32</td>
+<td>boolean</td>
+<td>Int16</td>
+<td>Int8</td>
+</tr>
+</tbody>
+</table>
+
+<p>1 rows × 31 columns</p>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">fullvisitorid</th>
+<th data-quarto-table-cell-role="th">visitId</th>
+<th data-quarto-table-cell-role="th">visitNumber</th>
+<th data-quarto-table-cell-role="th">visitStartTime</th>
+<th data-quarto-table-cell-role="th">quarter</th>
+<th data-quarto-table-cell-role="th">month</th>
+<th data-quarto-table-cell-role="th">day_of_month</th>
+<th data-quarto-table-cell-role="th">day_of_week</th>
+<th data-quarto-table-cell-role="th">hour</th>
+<th data-quarto-table-cell-role="th">minute</th>
+<th data-quarto-table-cell-role="th">second</th>
+<th data-quarto-table-cell-role="th">source</th>
+<th data-quarto-table-cell-role="th">medium</th>
+<th data-quarto-table-cell-role="th">channelGrouping</th>
+<th data-quarto-table-cell-role="th">hits</th>
+<th data-quarto-table-cell-role="th">bounces</th>
+<th data-quarto-table-cell-role="th">last_action</th>
+<th data-quarto-table-cell-role="th">promos_displayed</th>
+<th data-quarto-table-cell-role="th">promos_clicked</th>
+<th data-quarto-table-cell-role="th">product_views</th>
+<th data-quarto-table-cell-role="th">product_clicks</th>
+<th data-quarto-table-cell-role="th">pageviews</th>
+<th data-quarto-table-cell-role="th">time_on_site</th>
+<th data-quarto-table-cell-role="th">browser</th>
+<th data-quarto-table-cell-role="th">os</th>
+<th data-quarto-table-cell-role="th">deviceCategory</th>
+<th data-quarto-table-cell-role="th">added_to_cart</th>
+<th data-quarto-table-cell-role="th">score</th>
+<th data-quarto-table-cell-role="th">predicted_score_label</th>
+<th data-quarto-table-cell-role="th">row_number</th>
+<th data-quarto-table-cell-role="th">maudience</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12968</td>
+<td>2750061365734892376</td>
+<td>1490726705</td>
+<td>1</td>
+<td>2017-03-28 11:45:05</td>
+<td>1</td>
+<td>3</td>
+<td>28</td>
+<td>3</td>
+<td>11</td>
+<td>45</td>
+<td>5</td>
+<td>google</td>
+<td>organic</td>
+<td>Organic Search</td>
+<td>1</td>
+<td>1</td>
+<td>Unknown</td>
+<td>0</td>
+<td>0</td>
+<td>12</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>Chrome</td>
+<td>Windows</td>
+<td>desktop</td>
+<td>0</td>
+<td>0.93977</td>
+<td>False</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5429</td>
+<td>5725820476426446335</td>
+<td>1490547900</td>
+<td>1</td>
+<td>2017-03-26 10:05:00</td>
+<td>1</td>
+<td>3</td>
+<td>26</td>
+<td>1</td>
+<td>10</td>
+<td>5</td>
+<td>0</td>
+<td>google</td>
+<td>organic</td>
+<td>Organic Search</td>
+<td>4</td>
+<td>0</td>
+<td>Unknown</td>
+<td>0</td>
+<td>0</td>
+<td>24</td>
+<td>0</td>
+<td>4</td>
+<td>1491</td>
+<td>Safari</td>
+<td>iOS</td>
+<td>mobile</td>
+<td>0</td>
+<td>0.934336</td>
+<td>True</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18567</td>
+<td>9832530502455357095</td>
+<td>1488923809</td>
+<td>1</td>
+<td>2017-03-07 13:56:49</td>
+<td>1</td>
+<td>3</td>
+<td>7</td>
+<td>3</td>
+<td>13</td>
+<td>56</td>
+<td>49</td>
+<td>keep.google.com</td>
+<td>referral</td>
+<td>Referral</td>
+<td>1</td>
+<td>1</td>
+<td>Unknown</td>
+<td>0</td>
+<td>0</td>
+<td>10</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>Chrome</td>
+<td>Windows</td>
+<td>desktop</td>
+<td>0</td>
+<td>0.929517</td>
+<td>False</td>
+<td>2</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">4808</td>
+<td>0146316056086331538</td>
+<td>1490891406</td>
+<td>1</td>
+<td>2017-03-30 09:30:06</td>
+<td>1</td>
+<td>3</td>
+<td>30</td>
+<td>5</td>
+<td>9</td>
+<td>30</td>
+<td>6</td>
+<td>analytics.google.com</td>
+<td>referral</td>
+<td>Referral</td>
+<td>3</td>
+<td>0</td>
+<td>Unknown</td>
+<td>0</td>
+<td>0</td>
+<td>12</td>
+<td>0</td>
+<td>3</td>
+<td>46</td>
+<td>Firefox</td>
+<td>Windows</td>
+<td>desktop</td>
+<td>0</td>
+<td>0.0</td>
+<td>False</td>
+<td>21749</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">5803</td>
+<td>9128678154595193098</td>
+<td>1490638312</td>
+<td>1</td>
+<td>2017-03-27 11:11:52</td>
+<td>1</td>
+<td>3</td>
+<td>27</td>
+<td>2</td>
+<td>11</td>
+<td>11</td>
+<td>52</td>
+<td>mall.googleplex.com</td>
+<td>referral</td>
+<td>Referral</td>
+<td>5</td>
+<td>0</td>
+<td>Unknown</td>
+<td>9</td>
+<td>0</td>
+<td>47</td>
+<td>0</td>
+<td>5</td>
+<td>219</td>
+<td>Chrome</td>
+<td>Macintosh</td>
+<td>desktop</td>
+<td>0</td>
+<td>0.0</td>
+<td>False</td>
+<td>21750</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11156</td>
+<td>6907576544396353102</td>
+<td>1489941679</td>
+<td>1</td>
+<td>2017-03-19 09:41:19</td>
+<td>1</td>
+<td>3</td>
+<td>19</td>
+<td>1</td>
+<td>9</td>
+<td>41</td>
+<td>19</td>
+<td>google</td>
+<td>organic</td>
+<td>Organic Search</td>
+<td>4</td>
+<td>0</td>
+<td>Unknown</td>
+<td>9</td>
+<td>0</td>
+<td>27</td>
+<td>0</td>
+<td>4</td>
+<td>82</td>
+<td>Safari</td>
+<td>iOS</td>
+<td>mobile</td>
+<td>0</td>
+<td>0.0</td>
+<td>False</td>
+<td>21751</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Notes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>This is the same data preparation that was used during the (previous) sample size estimation step step in order to prepare the test data split for estimating the required sample size.</li>
+</ol>
+</div>
+</div>
+<p>Perform the following to get the test and control cohorts from the inference data</p>
+<ol type="1">
+<li>load estimates for required sample sizes associated with best deployment candidate model</li>
+<li>get required sample sizes for the chosen audience strategy</li>
+<li>get required sample sizes that can be supported by size of inference data</li>
+<li>get required sample sizes that support all required audience groups (bins)</li>
+<li>get required sample sizes that capture required effect sizes</li>
+<li>get random test and control cohorts</li>
+</ol>
+<div class="cell" data-tags="[]" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df_infer_audience_groups <span class="op">=</span> (</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    ch.load_file_from_mlflow_artifact(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        df_deployment_candidate_mlflow_models, <span class="st">"audience_sample_sizes"</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    .pipe(ch.get_sample_sizes_by_strategy, audience_strategy)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    .pipe(ch.get_suitable_sample_sizes, bin_size_infer_control)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    .pipe(ch.get_sample_sizes_with_all_audience_groups, num_bins)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    .pipe(ch.get_required_inputs, query_inputs)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        ch.create_cohorts,</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>        df_infer_pred,</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>        mapper_dict_audience_strategy_1</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> audience_strategy <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> mapper_dict_audience_strategy_2,</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>        audience_strategy,</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>        ash.set_datatypes,</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>            <span class="st">"maudience"</span>: pd.StringDtype(),</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">"cohort"</span>: pd.StringDtype(),</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>            <span class="st">"audience_strategy"</span>: pd.Int8Dtype(),</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pd.option_context(<span class="st">"display.max_columns"</span>, <span class="dv">1000</span>):</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>    display(df_infer_audience_groups)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>audience=0: High, size=7,251,  excluded=2,575, wanted=2,338, control=2,338, test=2,338
+audience=1: Medium, size=7,250,  excluded=3,156, wanted=2,047, control=2,047, test=2,047
+audience=2: Low, size=7,251,  excluded=3,545, wanted=1,853, control=1,853, test=1,853
+Found suitable sample sizes and generated cohorts.
+Set all specified datatypes.</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">fullvisitorid</th>
+<th data-quarto-table-cell-role="th">visitId</th>
+<th data-quarto-table-cell-role="th">visitNumber</th>
+<th data-quarto-table-cell-role="th">visitStartTime</th>
+<th data-quarto-table-cell-role="th">quarter</th>
+<th data-quarto-table-cell-role="th">month</th>
+<th data-quarto-table-cell-role="th">day_of_month</th>
+<th data-quarto-table-cell-role="th">day_of_week</th>
+<th data-quarto-table-cell-role="th">hour</th>
+<th data-quarto-table-cell-role="th">minute</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">time_on_site</th>
+<th data-quarto-table-cell-role="th">browser</th>
+<th data-quarto-table-cell-role="th">os</th>
+<th data-quarto-table-cell-role="th">deviceCategory</th>
+<th data-quarto-table-cell-role="th">added_to_cart</th>
+<th data-quarto-table-cell-role="th">score</th>
+<th data-quarto-table-cell-role="th">predicted_score_label</th>
+<th data-quarto-table-cell-role="th">maudience</th>
+<th data-quarto-table-cell-role="th">cohort</th>
+<th data-quarto-table-cell-role="th">audience_strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2750061365734892376</td>
+<td>1490726705</td>
+<td>1</td>
+<td>2017-03-28 11:45:05</td>
+<td>1</td>
+<td>3</td>
+<td>28</td>
+<td>3</td>
+<td>11</td>
+<td>45</td>
+<td>...</td>
+<td>0</td>
+<td>Chrome</td>
+<td>Windows</td>
+<td>desktop</td>
+<td>0</td>
+<td>0.93977</td>
+<td>False</td>
+<td>High</td>
+<td>Control</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>5743383239793607743</td>
+<td>1490248543</td>
+<td>1</td>
+<td>2017-03-22 22:55:43</td>
+<td>1</td>
+<td>3</td>
+<td>22</td>
+<td>4</td>
+<td>22</td>
+<td>55</td>
+<td>...</td>
+<td>41</td>
+<td>Chrome</td>
+<td>Macintosh</td>
+<td>desktop</td>
+<td>0</td>
+<td>0.868146</td>
+<td>False</td>
+<td>High</td>
+<td>Control</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3103623410019510094</td>
+<td>1489274258</td>
+<td>1</td>
+<td>2017-03-11 15:17:38</td>
+<td>1</td>
+<td>3</td>
+<td>11</td>
+<td>7</td>
+<td>15</td>
+<td>17</td>
+<td>...</td>
+<td>0</td>
+<td>Chrome</td>
+<td>Windows</td>
+<td>desktop</td>
+<td>0</td>
+<td>0.867407</td>
+<td>False</td>
+<td>High</td>
+<td>Control</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>1346722877763370807</td>
+<td>1489769082</td>
+<td>1</td>
+<td>2017-03-17 09:44:42</td>
+<td>1</td>
+<td>3</td>
+<td>17</td>
+<td>6</td>
+<td>9</td>
+<td>44</td>
+<td>...</td>
+<td>0</td>
+<td>Chrome</td>
+<td>Windows</td>
+<td>desktop</td>
+<td>0</td>
+<td>0.864194</td>
+<td>False</td>
+<td>High</td>
+<td>Control</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>555475706674174642</td>
+<td>1488554437</td>
+<td>1</td>
+<td>2017-03-03 07:20:37</td>
+<td>1</td>
+<td>3</td>
+<td>3</td>
+<td>6</td>
+<td>7</td>
+<td>20</td>
+<td>...</td>
+<td>0</td>
+<td>Chrome</td>
+<td>Chrome OS</td>
+<td>desktop</td>
+<td>0</td>
+<td>0.860542</td>
+<td>False</td>
+<td>High</td>
+<td>Control</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">21747</td>
+<td>3338493143074772484</td>
+<td>1489969663</td>
+<td>1</td>
+<td>2017-03-19 17:27:43</td>
+<td>1</td>
+<td>3</td>
+<td>19</td>
+<td>1</td>
+<td>17</td>
+<td>27</td>
+<td>...</td>
+<td>260</td>
+<td>Firefox</td>
+<td>Windows</td>
+<td>desktop</td>
+<td>0</td>
+<td>0.0</td>
+<td>False</td>
+<td>Low</td>
+<td>&lt;NA&gt;</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">21748</td>
+<td>4708572783660861313</td>
+<td>1489607438</td>
+<td>1</td>
+<td>2017-03-15 12:50:38</td>
+<td>1</td>
+<td>3</td>
+<td>15</td>
+<td>4</td>
+<td>12</td>
+<td>50</td>
+<td>...</td>
+<td>748</td>
+<td>Chrome</td>
+<td>Windows</td>
+<td>desktop</td>
+<td>0</td>
+<td>0.0</td>
+<td>False</td>
+<td>Low</td>
+<td>&lt;NA&gt;</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">21749</td>
+<td>1248256241052574965</td>
+<td>1488761975</td>
+<td>1</td>
+<td>2017-03-05 16:59:35</td>
+<td>1</td>
+<td>3</td>
+<td>5</td>
+<td>1</td>
+<td>16</td>
+<td>59</td>
+<td>...</td>
+<td>22</td>
+<td>Chrome</td>
+<td>iOS</td>
+<td>mobile</td>
+<td>0</td>
+<td>0.0</td>
+<td>False</td>
+<td>Low</td>
+<td>&lt;NA&gt;</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">21750</td>
+<td>9128678154595193098</td>
+<td>1490638312</td>
+<td>1</td>
+<td>2017-03-27 11:11:52</td>
+<td>1</td>
+<td>3</td>
+<td>27</td>
+<td>2</td>
+<td>11</td>
+<td>11</td>
+<td>...</td>
+<td>219</td>
+<td>Chrome</td>
+<td>Macintosh</td>
+<td>desktop</td>
+<td>0</td>
+<td>0.0</td>
+<td>False</td>
+<td>Low</td>
+<td>&lt;NA&gt;</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">21751</td>
+<td>6907576544396353102</td>
+<td>1489941679</td>
+<td>1</td>
+<td>2017-03-19 09:41:19</td>
+<td>1</td>
+<td>3</td>
+<td>19</td>
+<td>1</td>
+<td>9</td>
+<td>41</td>
+<td>...</td>
+<td>82</td>
+<td>Safari</td>
+<td>iOS</td>
+<td>mobile</td>
+<td>0</td>
+<td>0.0</td>
+<td>False</td>
+<td>Low</td>
+<td>&lt;NA&gt;</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+<p>21752 rows × 32 columns</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Notes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>The final sample size used to generate the cohorts is the least number of samples (first-time visitors) to be included in each of the control and test cohorts of each audience group. These sizes come from the output of the previous step (designing a media or marketing experiment - <a href="https://blog.hubspot.com/blog/tabid/6307/bid/31634/a-b-testing-in-action-3-real-life-marketing-experiments.aspx">1</a>, <a href="https://www.datacamp.com/blog/data-demystified-what-is-a-b-testing">2</a>).</li>
+</ol>
+</div>
+</div>
+<p>The treatment (or test) and control groups should be similar to each other for the property to be tested. This is a <a href="https://www.mobileapps.com/blog/test-group#Similarities_Between_Test_and_Control_Groups">fundamental requirement of test and control groups</a>. In this case, the probability (score column) is the property of interest. With this in mind, we now show selected descriptive statistics, for the score column, for both the test (treatment) and control cohorts within each desired audience group (low, medium and high propensity)</p>
+<div class="cell" data-tags="[]" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df_aud_stats <span class="op">=</span> ch.get_cohort_stats(df_infer_audience_groups)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>df_aud_stats</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">maudience</th>
+<th data-quarto-table-cell-role="th">cohort</th>
+<th data-quarto-table-cell-role="th">score_count</th>
+<th data-quarto-table-cell-role="th">score_min</th>
+<th data-quarto-table-cell-role="th">score_mean</th>
+<th data-quarto-table-cell-role="th">score_median</th>
+<th data-quarto-table-cell-role="th">score_max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>High</td>
+<td>Control</td>
+<td>2338</td>
+<td>0.022184</td>
+<td>0.174242</td>
+<td>0.107771</td>
+<td>0.93977</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>High</td>
+<td>Test</td>
+<td>2338</td>
+<td>0.022178</td>
+<td>0.178281</td>
+<td>0.111958</td>
+<td>0.934336</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>High</td>
+<td>&lt;NA&gt;</td>
+<td>2575</td>
+<td>0.022201</td>
+<td>0.177941</td>
+<td>0.109885</td>
+<td>0.929517</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Low</td>
+<td>Control</td>
+<td>1853</td>
+<td>0.0</td>
+<td>0.000031</td>
+<td>0.000003</td>
+<td>0.000219</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Low</td>
+<td>Test</td>
+<td>1853</td>
+<td>0.0</td>
+<td>0.00003</td>
+<td>0.000002</td>
+<td>0.000224</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>Low</td>
+<td>&lt;NA&gt;</td>
+<td>3545</td>
+<td>0.0</td>
+<td>0.00003</td>
+<td>0.000002</td>
+<td>0.000225</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>Medium</td>
+<td>Control</td>
+<td>2047</td>
+<td>0.000227</td>
+<td>0.005895</td>
+<td>0.003517</td>
+<td>0.022168</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>Medium</td>
+<td>Test</td>
+<td>2047</td>
+<td>0.000225</td>
+<td>0.00569</td>
+<td>0.003184</td>
+<td>0.022128</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>Medium</td>
+<td>&lt;NA&gt;</td>
+<td>3156</td>
+<td>0.000225</td>
+<td>0.005708</td>
+<td>0.00327</td>
+<td>0.022167</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Observations">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Observations
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>It is reassuring that there is agreement in the statistics for the probabilities per Test-Control cohort within the same audience group.</li>
+</ol>
+</div>
+</div>
+<p>Finally, the audience groups in the inference data are now briefly profiled, in order to identify characteristics that might help the marketing team build an appropriate strategy to be implemented during the campaign. For each audience group, the profile consists of the following</p>
+<ol type="1">
+<li>proportion of visitors who displayed the following behavior
+<ul>
+<li>whose last action during thier first visit was
+<ul>
+<li><code>last_action == 'Add product(s) to cart'</code></li>
+<li><code>last_action == 'Product detail_views'</code></li>
+<li><code>last_action == 'Click through of product lists'</code></li>
+</ul></li>
+<li>who
+<ul>
+<li>used a <code>medium == 'referral'</code> to get to the store’s website on their first visit</li>
+<li>added one item to their shopping cart (<code>added_to_cart &gt; 0</code>) on their first visit</li>
+</ul></li>
+<li>whose
+<ul>
+<li>first visit occurred on a weekend (<code>day_of_week.isin(@weekend_days)</code>)</li>
+</ul></li>
+</ul></li>
+<li>bounce rate during all first visits</li>
+<li>following descriptive statistics
+<ul>
+<li><code>hour</code>, <code>day_of_week</code>
+<ul>
+<li>statistic: <code>mean</code></li>
+</ul></li>
+<li><code>source</code>, <code>medium</code>, <code>channelGrouping</code>, <code>last_action</code>, <code>browser</code>, <code>os</code>, <code>deviceCategory</code>
+<ul>
+<li>statistic: <code>mode</code> (most common value)</li>
+</ul></li>
+<li><code>promos_displayed</code>, <code>promos_clicked</code>, <code>product_views</code>, <code>product_clicks</code>, <code>pageviews</code>, <code>added_to_cart</code>
+<ul>
+<li>statistics: <code>mean</code>, <code>max</code></li>
+</ul></li>
+</ul></li>
+</ol>
+<div class="cell" data-tags="[]" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df_profile <span class="op">=</span> pa.get_audience_profile(df_infer_audience_groups)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pd.option_context(<span class="st">"display.max_columns"</span>, <span class="dv">1000</span>):</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    display(df_profile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Set all specified datatypes.
+Set all specified datatypes.</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">maudience</th>
+<th data-quarto-table-cell-role="th">stat</th>
+<th data-quarto-table-cell-role="th">stat_type</th>
+<th data-quarto-table-cell-role="th">High</th>
+<th data-quarto-table-cell-role="th">Low</th>
+<th data-quarto-table-cell-role="th">Medium</th>
+<th data-quarto-table-cell-role="th">audience</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>hour__mean</td>
+<td>mean</td>
+<td>12.973382981657702</td>
+<td>12.981657702385878</td>
+<td>13.070344827586206</td>
+<td>hour</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>day_of_week__mean</td>
+<td>mean</td>
+<td>4.0103434009102195</td>
+<td>4.006481864570404</td>
+<td>3.9950344827586206</td>
+<td>day_of_week</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>source__mode</td>
+<td>mode</td>
+<td>google</td>
+<td>google</td>
+<td>google</td>
+<td>source</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>medium__mode</td>
+<td>mode</td>
+<td>organic</td>
+<td>organic</td>
+<td>organic</td>
+<td>medium</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>channelGrouping__mode</td>
+<td>mode</td>
+<td>Organic Search</td>
+<td>Organic Search</td>
+<td>Organic Search</td>
+<td>channelGrouping</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>last_action__mode</td>
+<td>mode</td>
+<td>Unknown</td>
+<td>Unknown</td>
+<td>Unknown</td>
+<td>last_action</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>browser__mode</td>
+<td>mode</td>
+<td>Chrome</td>
+<td>Chrome</td>
+<td>Chrome</td>
+<td>browser</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>os__mode</td>
+<td>mode</td>
+<td>Macintosh</td>
+<td>Macintosh</td>
+<td>Macintosh</td>
+<td>os</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>deviceCategory__mode</td>
+<td>mode</td>
+<td>desktop</td>
+<td>desktop</td>
+<td>desktop</td>
+<td>deviceCategory</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>hits__mean</td>
+<td>mean</td>
+<td>6.293338849813819</td>
+<td>6.338298165770238</td>
+<td>6.433931034482758</td>
+<td>hits</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>hits__max</td>
+<td>max</td>
+<td>500</td>
+<td>179</td>
+<td>220</td>
+<td>hits</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>promos_displayed__mean</td>
+<td>mean</td>
+<td>8.410426148117502</td>
+<td>8.654944145635085</td>
+<td>8.636275862068965</td>
+<td>promos_displayed</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12</td>
+<td>promos_displayed__max</td>
+<td>max</td>
+<td>189</td>
+<td>189</td>
+<td>171</td>
+<td>promos_displayed</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13</td>
+<td>promos_clicked__mean</td>
+<td>mean</td>
+<td>0.0</td>
+<td>0.00013791201213625708</td>
+<td>0.0</td>
+<td>promos_clicked</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">14</td>
+<td>promos_clicked__max</td>
+<td>max</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>promos_clicked</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>product_views__mean</td>
+<td>mean</td>
+<td>22.585988139566957</td>
+<td>23.573851882498964</td>
+<td>23.403310344827585</td>
+<td>product_views</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td>product_views__max</td>
+<td>max</td>
+<td>987</td>
+<td>670</td>
+<td>573</td>
+<td>product_views</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17</td>
+<td>product_clicks__mean</td>
+<td>mean</td>
+<td>0.6760446834919321</td>
+<td>0.6615639222176252</td>
+<td>0.6926896551724138</td>
+<td>product_clicks</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>product_clicks__max</td>
+<td>max</td>
+<td>79</td>
+<td>48</td>
+<td>46</td>
+<td>product_clicks</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19</td>
+<td>pageviews__mean</td>
+<td>mean</td>
+<td>5.322714108398841</td>
+<td>5.39167011446697</td>
+<td>5.468275862068966</td>
+<td>pageviews</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">20</td>
+<td>pageviews__max</td>
+<td>max</td>
+<td>466</td>
+<td>132</td>
+<td>176</td>
+<td>pageviews</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">21</td>
+<td>added_to_cart__mean</td>
+<td>mean</td>
+<td>0.19873120948834644</td>
+<td>0.1933526410150324</td>
+<td>0.19806896551724137</td>
+<td>added_to_cart</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">22</td>
+<td>added_to_cart__max</td>
+<td>max</td>
+<td>25</td>
+<td>22</td>
+<td>22</td>
+<td>added_to_cart</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">23</td>
+<td>last_action_added_to_cart</td>
+<td>behavior</td>
+<td>5.254447662391394</td>
+<td>4.8131292235553715</td>
+<td>5.241379310344827</td>
+<td>&lt;NA&gt;</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">24</td>
+<td>viewed_product_detail</td>
+<td>behavior</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>&lt;NA&gt;</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">25</td>
+<td>clicked_through_product_lists</td>
+<td>behavior</td>
+<td>0.05516480485450283</td>
+<td>0.09653840849537995</td>
+<td>0.013793103448275862</td>
+<td>&lt;NA&gt;</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">26</td>
+<td>used_referral</td>
+<td>behavior</td>
+<td>24.67245897117639</td>
+<td>24.369052544476624</td>
+<td>24.02758620689655</td>
+<td>&lt;NA&gt;</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">27</td>
+<td>added_gt_1_to_cart</td>
+<td>behavior</td>
+<td>3.751206730106192</td>
+<td>3.9029099434560752</td>
+<td>4.248275862068965</td>
+<td>&lt;NA&gt;</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">28</td>
+<td>weekend_visitors</td>
+<td>behavior</td>
+<td>18.259550406840436</td>
+<td>17.900979175286167</td>
+<td>17.889655172413793</td>
+<td>&lt;NA&gt;</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">29</td>
+<td>bounce_rate</td>
+<td>behavior</td>
+<td>33.333333333333336</td>
+<td>33.2092125224107</td>
+<td>33.51724137931034</td>
+<td>&lt;NA&gt;</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Notes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>The audience profile consists of different types of statistics about the first visit, for each audience group.</li>
+<li>The <code>stat</code> column shows the attribute from the first visit in the inference data for which a statistic is calculated.</li>
+<li>The <code>stat_type</code> column indicates the type of statistic.</li>
+<li>The <em>High</em>, <em>Medium</em> and <em>Low</em> columns (or just the <em>High</em> column, if the single-group audience strategy is being used) show the statistic of each attribute <em>within</em> each audience group.</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="export-to-disk-and-ml-experiment-tracking" class="level2">
+<h2 class="anchored" data-anchor-id="export-to-disk-and-ml-experiment-tracking">Export to Disk and ML Experiment Tracking</h2>
+<p>Get the best MLFlow run ID</p>
+<div class="cell" data-tags="[]" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>best_run_id <span class="op">=</span> df_deployment_candidate_mlflow_models.squeeze()[<span class="st">"run_id"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="audience-cohorts" class="level3">
+<h3 class="anchored" data-anchor-id="audience-cohorts">Audience Cohorts</h3>
+<p>Show summary of <code>DataFrame</code> with audience cohorts</p>
+<div class="cell" data-tags="[]" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>ut.summarize_df(df_infer_audience_groups)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">column</th>
+<th data-quarto-table-cell-role="th">dtype</th>
+<th data-quarto-table-cell-role="th">missing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>fullvisitorid</td>
+<td>string[python]</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>visitId</td>
+<td>string[python]</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>visitNumber</td>
+<td>Int8</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>visitStartTime</td>
+<td>datetime64[ns]</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>quarter</td>
+<td>Int8</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>month</td>
+<td>Int8</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>day_of_month</td>
+<td>Int8</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>day_of_week</td>
+<td>Int8</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>hour</td>
+<td>Int8</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>minute</td>
+<td>Int8</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>second</td>
+<td>Int8</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>source</td>
+<td>category</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12</td>
+<td>medium</td>
+<td>category</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13</td>
+<td>channelGrouping</td>
+<td>category</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">14</td>
+<td>hits</td>
+<td>Int16</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>bounces</td>
+<td>category</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td>last_action</td>
+<td>category</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17</td>
+<td>promos_displayed</td>
+<td>Int16</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>promos_clicked</td>
+<td>Int16</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19</td>
+<td>product_views</td>
+<td>Int16</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">20</td>
+<td>product_clicks</td>
+<td>Int16</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">21</td>
+<td>pageviews</td>
+<td>Int16</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">22</td>
+<td>time_on_site</td>
+<td>Int16</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">23</td>
+<td>browser</td>
+<td>category</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">24</td>
+<td>os</td>
+<td>category</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">25</td>
+<td>deviceCategory</td>
+<td>category</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">26</td>
+<td>added_to_cart</td>
+<td>Int16</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">27</td>
+<td>score</td>
+<td>Float32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">28</td>
+<td>predicted_score_label</td>
+<td>boolean</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">29</td>
+<td>maudience</td>
+<td>string[python]</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">30</td>
+<td>cohort</td>
+<td>string[python]</td>
+<td>9276</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">31</td>
+<td>audience_strategy</td>
+<td>Int8</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Notes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>The <code>cohort</code> column has missing values for visitors who were not assigned to either the test or control groups. This is expected.</li>
+</ol>
+</div>
+</div>
+<p>Export to disk and log exported file as MLFlow artifact</p>
+<div class="cell" data-tags="[]" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>ut.export_and_track(</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    os.path.join(</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>        processed_data_dir,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"audience_cohorts__run_"</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>best_run_id<span class="sc">}</span><span class="ss">__"</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"infer_month_</span><span class="sc">{</span>month_name[<span class="dv">1</span>:][X_infer[<span class="st">'month'</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">1</span>]<span class="sc">}</span><span class="ss">__"</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>datetime<span class="sc">.</span>now()<span class="sc">.</span>strftime(<span class="st">'%Y%m</span><span class="sc">%d</span><span class="st">_%H%M%S'</span>)<span class="sc">}</span><span class="ss">.parquet.gzip"</span>,</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    df_infer_audience_groups,</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    (</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"inference audience cohorts for "</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>month_name[<span class="dv">1</span>:][X_infer[<span class="st">'month'</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    best_run_id,</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Exported inference audience cohorts for March to file audience_cohorts__run_eee3d281e0cb48cd8dba9f93a6de4347__infer_month_March__20230519_234456.parquet.gzip
+Logged inference audience cohorts for March as artifact in file audience_cohorts__run_eee3d281e0cb48cd8dba9f93a6de4347__infer_month_March__20230519_234456.parquet.gzip</code></pre>
+</div>
+</div>
+</section>
+<section id="audience-profiles" class="level3">
+<h3 class="anchored" data-anchor-id="audience-profiles">Audience Profiles</h3>
+<p>Show summary <code>DataFrame</code> with audience profiles</p>
+<div class="cell" data-tags="[]" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ut.summarize_df(df_profile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">maudience</th>
+<th data-quarto-table-cell-role="th">dtype</th>
+<th data-quarto-table-cell-role="th">missing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>stat</td>
+<td>string[python]</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>stat_type</td>
+<td>string[python]</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>High</td>
+<td>string[python]</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Low</td>
+<td>string[python]</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Medium</td>
+<td>string[python]</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>audience</td>
+<td>string[python]</td>
+<td>7</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Notes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>The behavioral attributes in the profile are not specific to an individual column. So, the <code>column</code> in the profile <code>DataFrame</code> has missing values for these attributes.</li>
+</ol>
+</div>
+</div>
+<p>Export to disk and log exported file as MLFlow artifact</p>
+<div class="cell" data-tags="[]" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ut.export_and_track(</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    os.path.join(</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>        processed_data_dir,</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"audience_profiles__run_"</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>best_run_id<span class="sc">}</span><span class="ss">__"</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"infer_month_</span><span class="sc">{</span>month_name[<span class="dv">1</span>:][X_infer[<span class="st">'month'</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">1</span>]<span class="sc">}</span><span class="ss">__"</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>datetime<span class="sc">.</span>now()<span class="sc">.</span>strftime(<span class="st">'%Y%m</span><span class="sc">%d</span><span class="st">_%H%M%S'</span>)<span class="sc">}</span><span class="ss">.parquet.gzip"</span>,</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    df_profile,</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    (</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"inference audience profiles for "</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>month_name[<span class="dv">1</span>:][X_infer[<span class="st">'month'</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    best_run_id,</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Exported inference audience profiles for March to file audience_profiles__run_eee3d281e0cb48cd8dba9f93a6de4347__infer_month_March__20230519_234459.parquet.gzip
+Logged inference audience profiles for March as artifact in file audience_profiles__run_eee3d281e0cb48cd8dba9f93a6de4347__infer_month_March__20230519_234459.parquet.gzip</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="next-step" class="level2">
+<h2 class="anchored" data-anchor-id="next-step">Next Step</h2>
+<p>The next step will assess the performance of the marketing campaign, after the campaign has completed.</p>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp("^(?:http:|https:)\/\/www\.quarto\.org\/custom");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../notebooks/04-transform/notebooks/03_design_experiment.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Sample Sizes</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../notebooks/04-transform/notebooks/05_analyze_campaign_outputs.html" class="pagination-link">
+        <span class="nav-page-text">Post-Campaign</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+<script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
