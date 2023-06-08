@@ -10,7 +10,9 @@
 
 ## [About](#about)
 
-See `index.qmd` for details about this project.
+Modeling visitor propensity to make purchase during return visit to the Google merchandise store, to create a marketing audience based on propensity-based groupings. This is intended to help a marketing team target high-value first-time visitors to the store's site during a one-month period with promotions through a campaign aimed at ensuring a conversion (the visitor makes a purchase) when they return to the store.
+
+See `index.qmd` for project details.
 
 ## [Project Organization](#project-organization)
 

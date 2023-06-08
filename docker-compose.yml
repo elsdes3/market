@@ -34,6 +34,7 @@ services:
       - ./notebooks/02-train/notebooks:/home/jovyan/notebooks
       - ./src:/home/jovyan/src
       - ./data:/home/jovyan/data
+      - ./models:/home/jovyan/models
 
   explore:
     container_name: explore
@@ -51,11 +52,12 @@ services:
       - ./notebooks/03-explore/notebooks:/home/jovyan/notebooks
       - ./src:/home/jovyan/src
       - ./data:/home/jovyan/data
+      - ./models:/home/jovyan/models
 
-  cleanup:
-    container_name: cleanup
+  dash:
+    container_name: dash
     build:
-      context: ./notebooks/04-cleanup
+      context: ./notebooks/04-dash
       dockerfile: Dockerfile
     restart: 'no'
     ports:
@@ -65,6 +67,24 @@ services:
       NB_UID: 1000
       NB_GID: 1000
     volumes:
-      - ./notebooks/04-cleanup/notebooks:/home/jovyan/notebooks
+      - ./notebooks/04-dash/notebooks:/home/jovyan/notebooks
       - ./src:/home/jovyan/src
       - ./data:/home/jovyan/data
+
+  cleanup:
+    container_name: cleanup
+    build:
+      context: ./notebooks/05-cleanup
+      dockerfile: Dockerfile
+    restart: 'no'
+    ports:
+      - 8892:8888
+    env_file: ${HOME}/Downloads/.env
+    environment:
+      NB_UID: 1000
+      NB_GID: 1000
+    volumes:
+      - ./notebooks/05-cleanup/notebooks:/home/jovyan/notebooks
+      - ./src:/home/jovyan/src
+      - ./data:/home/jovyan/data
+      - ./models:/home/jovyan/models

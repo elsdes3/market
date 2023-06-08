@@ -27,10 +27,13 @@ def get_inference_data_with_cohorts(
 
 def get_outcome_labels(df: pd.DataFrame) -> pd.DataFrame:
     """Load outcome for first-time visitors during inference period."""
+    # generate random outcomes
     rng = np.random.default_rng(88)
     y = pd.Series(
         rng.beta(a=0.32, b=2.25, size=len(df)) >= 0.5, dtype=pd.BooleanDtype()
     )
+    # load actual outcomes
+    # - to be done
     df = df.assign(label=y)
     return df
 
@@ -83,13 +86,21 @@ def check_significance_using_chisq(
             "check": msg,
         }
         sig_checks.append(summary_dict)
+    cs, cc, ts, tc = [
+        "control_size",
+        "control_conversions",
+        "test_size",
+        "test_conversions",
+    ]
     df_sig_checks = (
         pd.DataFrame.from_records(sig_checks)
         .groupby("check", as_index=False)
         .agg({"p_value": "first", "ci_level": "max"})
-        .assign(control_overall=overall_sizes[1])
-        .assign(test_overall=overall_sizes[0])
+        .assign(control_size=overall_sizes[1])
+        .assign(test_size=overall_sizes[0])
         .assign(control_conversions=conversions_sizes[1])
         .assign(test_conversions=conversions_sizes[0])
+        .assign(control_conversion_rate=lambda df: 100 * df[cc] / df[cs])
+        .assign(test_conversion_rate=lambda df: 100 * df[tc] / df[ts])
     )
     return df_sig_checks

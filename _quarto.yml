@@ -6,11 +6,11 @@ project:
   render:
     - "*.qmd"
     - references/scoping/*.qmd
-    - "notebooks/02-train/notebooks/02_*.ipynb"
-    - "notebooks/02-train/notebooks/03_*.ipynb"
-    - "notebooks/02-train/notebooks/04_get_*.ipynb"
-    - "notebooks/02-train/notebooks/05_*.ipynb"
-    - "notebooks/02-train/notebooks/06_*.ipynb"
+    - "notebooks/02-train/notebooks/*.ipynb"
+    - "!notebooks/02-train/notebooks/03_*.ipynb"
+    - "notebooks/03-explore/notebooks/*.ipynb"
+    - "notebooks/04-dash/notebooks/*.ipynb"
+    - "notebooks/05-cleanup/notebooks/*.ipynb"
   output-dir: _site
 
 website:
@@ -41,18 +41,24 @@ website:
         text: Welcome
       # - href: references/Scope.qmd
       #   text: Scope
-      # - href: notebooks/01-get-data/notebooks/01_get_data.ipynb
-      #   text: Train
-      - href: notebooks/02-train/notebooks/02_get_best_model.ipynb
+      - href: notebooks/02-train/notebooks/04_train.ipynb
+        text: Train Model
+      - href: notebooks/02-train/notebooks/05_get_best_model.ipynb
         text: Register Model
-      - href: notebooks/02-train/notebooks/03_design_experiment.ipynb
+      - href: notebooks/02-train/notebooks/06_design_experiment.ipynb
         text: Sample Sizes
-      - href: notebooks/02-train/notebooks/04_get_audience_cohorts.ipynb
+      - href: notebooks/02-train/notebooks/07_get_audience_cohorts.ipynb
         text: Get Audience
-      - href: notebooks/02-train/notebooks/05_analyze_campaign_outputs.ipynb
+      - href: notebooks/03-explore/notebooks/08_explore_best_model.ipynb
+        text: Vital Features
+      # - href: notebooks/04-dash/notebooks/09_dash.ipynb
+      #   text: Dashboard
+      - href: notebooks/02-train/notebooks/10_analyze_campaign_outputs.ipynb
         text: Post-Campaign
-      - href: notebooks/02-train/notebooks/06_cleanup.ipynb
-        text: Cleanup
+      - href: notebooks/02-train/notebooks/11_cleanup_mlflow.ipynb
+        text: Clean MLFlow
+      - href: notebooks/05-cleanup/notebooks/12_cleanup_bigquery.ipynb
+        text: Clean BigQuery
 
 format:
   html:

@@ -31,6 +31,12 @@ explore:
 	@docker compose up explore --detach
 .PHONY: explore
 
+## Run dash
+dash:
+	@echo "+ $@"
+	@docker compose up dash --detach
+.PHONY: dash
+
 ## Run cleanup service
 cleanup:
 	@echo "+ $@"
@@ -54,6 +60,12 @@ explore-logs:
 	@echo "+ $@"
 	@./utils.sh "explore"
 .PHONY: explore-logs
+
+## Get logs for dash service
+dash-logs:
+	@echo "+ $@"
+	@./utils.sh "dash"
+.PHONY: dash-logs
 
 ## Get logs for cleanup service
 cleanup-logs:
@@ -90,6 +102,12 @@ reset-explore:
 	@echo "+ $@"
 	@./utils.sh "reset-explore"
 .PHONY: reset-explore
+
+## Reset dash service
+reset-dash:
+	@echo "+ $@"
+	@./utils.sh "reset-dash"
+.PHONY: reset-dash
 
 ## Reset cleanup service
 reset-cleanup:

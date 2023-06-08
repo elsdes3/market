@@ -19,8 +19,10 @@ else
         cd 02-train
     elif [[ "$ACTION" == 'reset-explore' ]]; then
         cd 03-explore
+    elif [[ "$ACTION" == 'reset-dash' ]]; then
+        cd 04-dash
     else
-        cd 04-cleanup
+        cd 05-cleanup
     fi
 
     cd notebooks
