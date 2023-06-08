@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Machine Learning Project - Cleanup</title>
+<title>Machine Learning Project - Cleanup BigQuery Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -63,7 +63,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
-<link href="../../../notebooks/04-transform/notebooks/05_analyze_campaign_outputs.html" rel="prev">
+<link href="../../../notebooks/02-train/notebooks/11_cleanup_mlflow.html" rel="prev">
 <script src="../../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../notebooks/04-transform/notebooks/06_cleanup.html">Cleanup</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../notebooks/05-cleanup/notebooks/12_cleanup_bigquery.html">Clean BigQuery</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -151,32 +151,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/04-transform/notebooks/02_get_best_model.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../notebooks/02-train/notebooks/04_train.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Train Model</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/02-train/notebooks/05_get_best_model.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Register Model</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/04-transform/notebooks/03_design_experiment.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../notebooks/02-train/notebooks/06_design_experiment.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sample Sizes</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/04-transform/notebooks/04_get_audience_cohorts.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../notebooks/02-train/notebooks/07_get_audience_cohorts.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Get Audience</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/04-transform/notebooks/05_analyze_campaign_outputs.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../notebooks/03-explore/notebooks/08_explore_best_model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vital Features</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/02-train/notebooks/10_analyze_campaign_outputs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Post-Campaign</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/04-transform/notebooks/06_cleanup.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Cleanup</span></a>
+  <a href="../../../notebooks/02-train/notebooks/11_cleanup_mlflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Clean MLFlow</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/05-cleanup/notebooks/12_cleanup_bigquery.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Clean BigQuery</span></a>
   </div>
 </li>
     </ul>
@@ -191,26 +209,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#about" id="toc-about" class="nav-link active" data-scroll-target="#about">About</a></li>
   <li><a href="#user-inputs" id="toc-user-inputs" class="nav-link" data-scroll-target="#user-inputs">User Inputs</a></li>
-  <li><a href="#get-data" id="toc-get-data" class="nav-link" data-scroll-target="#get-data">Get Data</a>
+  <li><a href="#cleanup-bigquery" id="toc-cleanup-bigquery" class="nav-link" data-scroll-target="#cleanup-bigquery">Cleanup BigQuery</a>
   <ul class="collapse">
-  <li><a href="#fetch-latest-version-of-best-deployment-candidate-model" id="toc-fetch-latest-version-of-best-deployment-candidate-model" class="nav-link" data-scroll-target="#fetch-latest-version-of-best-deployment-candidate-model">Fetch Latest Version of Best Deployment Candidate Model</a></li>
-  <li><a href="#get-filepaths-to-mlflow-file-artifacts" id="toc-get-filepaths-to-mlflow-file-artifacts" class="nav-link" data-scroll-target="#get-filepaths-to-mlflow-file-artifacts">Get Filepaths to MLFlow File Artifacts</a></li>
-  </ul></li>
-  <li><a href="#cleanup" id="toc-cleanup" class="nav-link" data-scroll-target="#cleanup">Cleanup</a>
-  <ul class="collapse">
-  <li><a href="#non-mlflow-local-outputs" id="toc-non-mlflow-local-outputs" class="nav-link" data-scroll-target="#non-mlflow-local-outputs">(Non-MLFlow) Local Outputs</a></li>
-  <li><a href="#non-mlflow-ml-development-experiment-outputs" id="toc-non-mlflow-ml-development-experiment-outputs" class="nav-link" data-scroll-target="#non-mlflow-ml-development-experiment-outputs">(Non-MLFlow) ML Development Experiment Outputs</a></li>
-  <li><a href="#mlflow-outputs" id="toc-mlflow-outputs" class="nav-link" data-scroll-target="#mlflow-outputs">MLFlow Outputs</a></li>
+  <li><a href="#datasets" id="toc-datasets" class="nav-link" data-scroll-target="#datasets">Datasets</a></li>
+  <li><a href="#tables" id="toc-tables" class="nav-link" data-scroll-target="#tables">Tables</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/elsdes3/market/blob/main/notebooks/04-transform/notebooks/06_cleanup.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/elsdes3/market/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/elsdes3/market/blob/main/notebooks/05-cleanup/notebooks/12_cleanup_bigquery.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/elsdes3/market/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Cleanup</h1>
+<h1 class="title">Cleanup BigQuery Resources</h1>
 </div>
 
 
@@ -227,107 +239,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="about" class="level2">
 <h2 class="anchored" data-anchor-id="about">About</h2>
-<p>This step cleans up all project resources that were created, including</p>
-<ol type="1">
-<li>intermediate (non-MLFlow) files</li>
-<li>MLFlow outputs (artifacts, metrics, etc.).</li>
-</ol>
+<p>This step deletes all Google Bigquery resources that were created during this project. This includes BigQuery <a href="https://cloud.google.com/bigquery/docs/datasets-intro">datasets</a> and <a href="https://cloud.google.com/bigquery/docs/tables-intro">tables</a>.</p>
 </section>
 <section id="user-inputs" class="level2">
 <h2 class="anchored" data-anchor-id="user-inputs">User Inputs</h2>
-<p>Define the file name prefix for the following MLFlow artifacts associated with the best deployment candidate MLFLow ML model</p>
+<p>Define the following GCP BigQuery resources</p>
 <ol type="1">
-<li>processed data</li>
-<li>threshold tuning data, where predictions per threshold were evaluated using the test data split</li>
-<li>estimated sample sizes, where sizes were estimated using the test data split</li>
-<li>audience cohorts created using the inference data split</li>
-<li>audience profiles using the inference data split</li>
-<li>post-campaign impact evaluation</li>
+<li>dataset id</li>
+<li>table id</li>
 </ol>
-<div class="cell" data-tags="[&quot;parameters&quot;]" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>artifact_file_prefixes <span class="op">=</span> [</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'processed_data'</span>,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"threshold_tuning_data"</span>,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"audience_sample_sizes"</span>,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"audience_cohorts"</span>,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"audience_profiles"</span>,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"campaign_analysis"</span>,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Define a helper function to get the filepath to an MLFlow artifact and the associated local (non-MLFlow) file</p>
-<div class="cell" data-tags="[]" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> show_artifact_and_local_filepath_for_run_id(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    df: pd.DataFrame, file_prefix: <span class="bu">str</span>, local_dir: <span class="bu">str</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> pd.DataFrame:</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Get artifact and local file associated with a run ID."""</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    artifact_par_dir <span class="op">=</span> mlflow.artifacts.download_artifacts(</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        run_id<span class="op">=</span>df.squeeze()[<span class="st">"run_id"</span>]</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    glob_str <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>file_prefix<span class="sc">}</span><span class="ss">__run_*.parquet.gzip"</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    artifact_glob_dir_str <span class="op">=</span> os.path.join(artifact_par_dir, glob_str)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    artifact_fpath <span class="op">=</span> glob(artifact_glob_dir_str)[<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    artifact_dir <span class="op">=</span> os.path.basename(artifact_fpath)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    local_fpath <span class="op">=</span> os.path.join(local_dir, artifact_dir)</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [artifact_fpath, local_fpath]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-editable="true" data-slideshow="{&quot;slide_type&quot;:&quot;&quot;}" data-tags="[&quot;parameters&quot;]">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. GCP resources</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>gbq_dataset_id <span class="op">=</span> <span class="st">'mydemo2asdf'</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>gbq_table_id <span class="op">=</span> <span class="st">'ecwa'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="get-data" class="level2">
-<h2 class="anchored" data-anchor-id="get-data">Get Data</h2>
-<section id="fetch-latest-version-of-best-deployment-candidate-model" class="level3">
-<h3 class="anchored" data-anchor-id="fetch-latest-version-of-best-deployment-candidate-model">Fetch Latest Version of Best Deployment Candidate Model</h3>
-<p>Get best deployment candidate model from model registry</p>
-<div class="cell" data-tags="[]" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df_candidate_mlflow_models <span class="op">=</span> modh.get_all_deployment_candidate_models()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="get-filepaths-to-mlflow-file-artifacts" class="level3">
-<h3 class="anchored" data-anchor-id="get-filepaths-to-mlflow-file-artifacts">Get Filepaths to MLFlow File Artifacts</h3>
-<p>Get the filepath to the MLFlow artifacts associated with the best deployment candidate model, as well as the filepath to the corresponding local file used when logging the artifact</p>
+<section id="cleanup-bigquery" class="level2">
+<h2 class="anchored" data-anchor-id="cleanup-bigquery">Cleanup BigQuery</h2>
+<section id="datasets" class="level3">
+<h3 class="anchored" data-anchor-id="datasets">Datasets</h3>
+<p><a href="https://cloud.google.com/bigquery/docs/samples/bigquery-delete-dataset#code-sample">Delete BigQuery dataset</a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>artifacts_dict <span class="op">=</span> {</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    k: show_artifact_and_local_filepath_for_run_id(</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        df_candidate_mlflow_models, k, processed_data_dir</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> artifact_file_prefixes</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>client.delete_dataset(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    gbq_dataset_id, delete_contents<span class="op">=</span><span class="va">False</span>, not_found_ok<span class="op">=</span><span class="va">True</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Deleted dataset with ID </span><span class="sc">{</span>gbq_dataset_id<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-</section>
-<section id="cleanup" class="level2">
-<h2 class="anchored" data-anchor-id="cleanup">Cleanup</h2>
-<section id="non-mlflow-local-outputs" class="level3">
-<h3 class="anchored" data-anchor-id="non-mlflow-local-outputs">(Non-MLFlow) Local Outputs</h3>
+<section id="tables" class="level3">
+<h3 class="anchored" data-anchor-id="tables">Tables</h3>
+<p><a href="https://cloud.google.com/bigquery/docs/samples/bigquery-delete-table#code-sample">Delete BigQuery table</a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k,v <span class="kw">in</span> artifacts_dict.items():</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    os.remove(v[<span class="dv">1</span>])</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Deleted: </span><span class="sc">{</span>os<span class="sc">.</span>path<span class="sc">.</span>basename(v[<span class="dv">1</span>])<span class="sc">.</span>split(<span class="st">'__run'</span>)[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="non-mlflow-ml-development-experiment-outputs" class="level3">
-<h3 class="anchored" data-anchor-id="non-mlflow-ml-development-experiment-outputs">(Non-MLFlow) ML Development Experiment Outputs</h3>
-<div class="cell" data-tags="[]" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ml_runs_glob <span class="op">=</span> os.path.join(raw_data_dir, <span class="st">"ml__run_*__expt_*.parquet*"</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> local_fpath <span class="kw">in</span> glob(ml_runs_glob):</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    os.remove(local_fpath)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Deleted: </span><span class="sc">{</span>os<span class="sc">.</span>path<span class="sc">.</span>basename(local_fpath)<span class="sc">.</span>split(<span class="st">'__run'</span>)[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="mlflow-outputs" class="level3">
-<h3 class="anchored" data-anchor-id="mlflow-outputs">MLFlow Outputs</h3>
-<p>Delete the MLFlow run-logging database file</p>
-<div class="cell" data-tags="[]" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>os.remove(mlruns_db_fpath)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Removed MLFlow database at </span><span class="sc">{</span>os<span class="sc">.</span>path<span class="sc">.</span>basename(mlruns_db_fpath)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Delete MLFlow artifact directory (<code>mlruns</code>), and all the artifact sub-directories contained in that directory</p>
-<div class="cell" data-tags="[]" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>shutil.rmtree(mlflow_artifact_fpath)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Removed local MLFlow artifact logging directory at "</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>os<span class="sc">.</span>path<span class="sc">.</span>basename(mlflow_artifact_fpath)<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>client.delete_table(gbq_table_fully_resolved)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Deleted table </span><span class="sc">{</span>gbq_table_fully_resolved<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -584,8 +528,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="../../../notebooks/04-transform/notebooks/05_analyze_campaign_outputs.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Post-Campaign</span>
+      <a href="../../../notebooks/02-train/notebooks/11_cleanup_mlflow.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Clean MLFlow</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

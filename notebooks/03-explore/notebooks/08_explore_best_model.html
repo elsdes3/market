@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.313">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Machine Learning Project - Explore Best Model Predictions</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../notebooks/02-train/notebooks/10_analyze_campaign_outputs.html" rel="next">
+<link href="../../../notebooks/02-train/notebooks/07_get_audience_cohorts.html" rel="prev">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Machine Learning Project</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools ms-auto">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../notebooks/03-explore/notebooks/08_explore_best_model.html">Vital Features</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../../../index.html" class="sidebar-logo-link">
+      <img src="../../../images/lorip_square.jpg" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/02-train/notebooks/04_train.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Train Model</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/02-train/notebooks/05_get_best_model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Register Model</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/02-train/notebooks/06_design_experiment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sample Sizes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/02-train/notebooks/07_get_audience_cohorts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Get Audience</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/03-explore/notebooks/08_explore_best_model.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Vital Features</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/02-train/notebooks/10_analyze_campaign_outputs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Post-Campaign</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/02-train/notebooks/11_cleanup_mlflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Clean MLFlow</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/05-cleanup/notebooks/12_cleanup_bigquery.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Clean BigQuery</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="3">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#about" id="toc-about" class="nav-link active" data-scroll-target="#about">About</a>
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#technical-requirement" id="toc-technical-requirement" class="nav-link" data-scroll-target="#technical-requirement">Technical Requirement</a></li>
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">Implementation</a></li>
+  </ul></li>
+  <li><a href="#user-inputs" id="toc-user-inputs" class="nav-link" data-scroll-target="#user-inputs">User Inputs</a></li>
+  <li><a href="#get-data" id="toc-get-data" class="nav-link" data-scroll-target="#get-data">Get Data</a>
+  <ul class="collapse">
+  <li><a href="#fetch-latest-version-of-best-deployment-candidate-model" id="toc-fetch-latest-version-of-best-deployment-candidate-model" class="nav-link" data-scroll-target="#fetch-latest-version-of-best-deployment-candidate-model">Fetch Latest Version of Best Deployment Candidate Model</a></li>
+  <li><a href="#get-data-used-in-development-of-best-deployment-candidate-model" id="toc-get-data-used-in-development-of-best-deployment-candidate-model" class="nav-link" data-scroll-target="#get-data-used-in-development-of-best-deployment-candidate-model">Get Data Used in Development of Best Deployment Candidate Model</a></li>
+  <li><a href="#get-inference-data-with-audience-assignments" id="toc-get-inference-data-with-audience-assignments" class="nav-link" data-scroll-target="#get-inference-data-with-audience-assignments">Get Inference Data with Audience Assignments</a></li>
+  </ul></li>
+  <li><a href="#ml-evaluation-from-pipeline" id="toc-ml-evaluation-from-pipeline" class="nav-link" data-scroll-target="#ml-evaluation-from-pipeline">ML Evaluation From <code>Pipeline</code></a></li>
+  <li><a href="#ml-evaluation-from-pipeline-using-transformed-data" id="toc-ml-evaluation-from-pipeline-using-transformed-data" class="nav-link" data-scroll-target="#ml-evaluation-from-pipeline-using-transformed-data">ML Evaluation From <code>Pipeline</code> Using Transformed Data</a>
+  <ul class="collapse">
+  <li><a href="#get-transformed-data" id="toc-get-transformed-data" class="nav-link" data-scroll-target="#get-transformed-data">Get Transformed Data</a></li>
+  <li><a href="#ml-evaluation-using-transformed-data" id="toc-ml-evaluation-using-transformed-data" class="nav-link" data-scroll-target="#ml-evaluation-using-transformed-data">ML Evaluation Using Transformed Data</a></li>
+  </ul></li>
+  <li><a href="#ml-evaluation-comparison" id="toc-ml-evaluation-comparison" class="nav-link" data-scroll-target="#ml-evaluation-comparison">ML Evaluation Comparison</a>
+  <ul class="collapse">
+  <li><a href="#transformed-data" id="toc-transformed-data" class="nav-link" data-scroll-target="#transformed-data">Transformed Data</a></li>
+  <li><a href="#evaluation-metrics" id="toc-evaluation-metrics" class="nav-link" data-scroll-target="#evaluation-metrics">Evaluation Metrics</a></li>
+  </ul></li>
+  <li><a href="#explore-ml-model-using-shap" id="toc-explore-ml-model-using-shap" class="nav-link" data-scroll-target="#explore-ml-model-using-shap">Explore ML Model Using SHAP</a>
+  <ul class="collapse">
+  <li><a href="#get-transformed-inferece-data" id="toc-get-transformed-inferece-data" class="nav-link" data-scroll-target="#get-transformed-inferece-data">Get Transformed Inferece Data</a></li>
+  <li><a href="#explore-model" id="toc-explore-model" class="nav-link" data-scroll-target="#explore-model">Explore Model</a></li>
+  </ul></li>
+  <li><a href="#export-to-disk" id="toc-export-to-disk" class="nav-link" data-scroll-target="#export-to-disk">Export To Disk</a></li>
+  <li><a href="#next-step" id="toc-next-step" class="nav-link" data-scroll-target="#next-step">Next Step</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/elsdes3/market/blob/main/notebooks/03-explore/notebooks/08_explore_best_model.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/elsdes3/market/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Explore Best Model Predictions</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="about" class="level2">
+<h2 class="anchored" data-anchor-id="about">About</h2>
+<section id="overview" class="level3">
+<h3 class="anchored" data-anchor-id="overview">Overview</h3>
+<p>As mentioned in the scope, understanding ML predictions of propensity can be helpful to characterize audience groups during the design of a marketing campaign. One example question could be answered by exploring the predictions of a ML model is what are the most and least important attributes of visitors predicted to have a high or low propensity. This can be one factor used to design a marketing strategy aimed at one or both groups of visitors.</p>
+<p>This step explores the best ML model’s predictions of visitor propensity to make a purchase on a return visit using ML explainability packages (eg. <a href="https://en.wikipedia.org/wiki/Shapley_value">SHAP</a>). This exploration is done per audience group so the output of this step is a profile of each audience group based on the features that are most important to predicting the outcome for first-time visitors to the store in that group during the inference data period. This is performed as part of step 4. from a <a href="https://www.datacamp.com/blog/data-demystified-what-is-a-b-testing">typical A/B Testing workflow</a>.</p>
+<p>This step can be run prospectively at the end of the inference period, just before the start of the campaign, when all the inference data (first-time visitors to the store) becomes available.</p>
+</section>
+<section id="technical-requirement" class="level3">
+<h3 class="anchored" data-anchor-id="technical-requirement">Technical Requirement</h3>
+<p>Model exploration is supported for a single ML model. This is the best model found in an earlier step and registered in the MLFlow model registry. The model associated with a single experiment run (or <code>run_id</code>) is a <code>sklearn</code> <code>Pipeline</code>, consisting of data preprocessing and ML modeling steps. SHAP cannot work directly with a <code>sklearn</code> <code>Pipeline</code>s to generate explanations. It can only accept the ML model (classifier, or last <code>Pipeline</code> step). So, we’ll need to retrieve the preliminary <code>Pipeline</code> steps (the data preprocessor) and the transformed data that is generated by the preprocessor. Then, we can make predictions on this transformed data using the last step (the ML classifier). Finally, SHAP can be used to explain predictions made by this classifier. These explanations are required for the first-time visitors to the store during the inference data period.</p>
+</section>
+<section id="limitations" class="level3">
+<h3 class="anchored" data-anchor-id="limitations">Limitations</h3>
+<ol type="1">
+<li>Since extracting SHAP values can be time-consuming, they will be retrieved for a slice of the inference data and not for the entire inference dataset.</li>
+</ol>
+</section>
+<section id="implementation" class="level3">
+<h3 class="anchored" data-anchor-id="implementation">Implementation</h3>
+<p>First, the preprocessor steps of the <code>Pipeline</code> are used to get the transformed train and test data splits from the best model. A custom Python modeule <code>src/model_explore_helpers.py</code> has been developed to extract the transformed train and data. Next, the ML classifier step of the <code>Pipeline</code> is used to make and score predictions of the processed test data using this model.</p>
+<p>Next, the end-to-end <code>Pipeline</code> will be used to make and evaluate these predictions directly on the raw test data, without creating the intermediate transformed data splits.</p>
+<p>Then, the metrics using both approaches will be compared to ensure they are identical to each other. This is outlined below</p>
+<ol type="1">
+<li>Make and evaluate predictions using the model (end-to-end <code>sklearn</code> <code>Pipeline</code>) associated with the specified <code>run_id</code></li>
+<li>Make and evaluate predictions using the manual approach</li>
+<li>Compare predictions and evaluation metrics on the training and test data splits between the <code>Pipeline</code>-based and manual outputs</li>
+</ol>
+<p>If the <code>Pipeline</code> and manual approaches are verified to give identical metrics for first-time visitors in the test data split during ML model development, then it is possible to reliably apply the same manual workflow to retrieve the transformed features during the inference period. So, next, this same manual transformation procedure is applied to transform the inference data. Recall that the inference data only covers the first visit during the inference period and so the outcome of the return visit for each first-time visitor is not known until after the entire inference (production) period (one month) has ended.</p>
+<p>Finally, a SHAP explainer will be used to explore a subset of the transformed inference data in order to get the feature importances for the audience group(s). The top <code>N</code> most important features for each audience group will be combined into a single <code>DataFrame</code> and exported to disk. This will represent the profile of the audience group(s) in terms of most important features.</p>
+</section>
+</section>
+<section id="user-inputs" class="level2">
+<h2 class="anchored" data-anchor-id="user-inputs">User Inputs</h2>
+<p>Define the following</p>
+<ol type="1">
+<li>best MLFlow run ID</li>
+<li>name of column containing label (outcome)</li>
+<li>list of categorical features</li>
+<li>list of numerical features, including categorical features present in the raw data as integers</li>
+<li>number of SHAP observations from the transformed inferece data that are to be explained</li>
+<li>number of features from the transformed inference data for which SHAP feature importances are required</li>
+<li><code>audience_groups_strategies</code>
+<ul>
+<li>dictionary of desired audience groups into which the first-time visitors propensities will be placed
+<ul>
+<li>key specifies the number of desired audience propensity groups (low, medium and high)</li>
+<li>value specifies names of the desired audience propensity groups</li>
+</ul></li>
+</ul></li>
+<li>type of audience strategy (single- or multi- group) from which to create cohorts</li>
+</ol>
+<div class="cell" data-editable="true" data-slideshow="{&quot;slide_type&quot;:&quot;&quot;}" data-tags="[&quot;parameters&quot;]" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>best_run_id <span class="op">=</span> <span class="st">"742cf152d5094be0b686edf910c7d398"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. label column</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>label <span class="op">=</span> <span class="st">"made_purchase_on_future_visit"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. categorical columns</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>categorical_features <span class="op">=</span> [</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'bounces'</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'source'</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'medium'</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'channelGrouping'</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'last_action'</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'browser'</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">'os'</span>,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">'deviceCategory'</span>,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. numerical columns</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>numerical_features <span class="op">=</span> [</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">'hits'</span>,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">'pageviews'</span>,</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">'promos_displayed'</span>,</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">'product_views'</span>,</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">'product_clicks'</span>,</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">'time_on_site'</span>,</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. number of SHAP observations to be explained</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>num_shap_obs <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. number of top-performing SHAP features to be kept</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>num_features_shap <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co"># 7. mapping dictionaries</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>audience_groups_strategies <span class="op">=</span> {</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>: [<span class="st">"High"</span>, <span class="st">"Medium"</span>, <span class="st">"Low"</span>], <span class="dv">2</span>: [<span class="st">"High"</span>, <span class="st">"High-Medium"</span>, <span class="st">"High-Medium-Low"</span>],</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="co"># 8. type of audience strategy to use when creating groups</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>audience_strategy <span class="op">=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="get-data" class="level2">
+<h2 class="anchored" data-anchor-id="get-data">Get Data</h2>
+<section id="fetch-latest-version-of-best-deployment-candidate-model" class="level3">
+<h3 class="anchored" data-anchor-id="fetch-latest-version-of-best-deployment-candidate-model">Fetch Latest Version of Best Deployment Candidate Model</h3>
+<p>Load best deployment candidate model object</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pipe <span class="op">=</span> joblib.load(model_filepath)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="get-data-used-in-development-of-best-deployment-candidate-model" class="level3">
+<h3 class="anchored" data-anchor-id="get-data-used-in-development-of-best-deployment-candidate-model">Get Data Used in Development of Best Deployment Candidate Model</h3>
+<p>For the data used during development of the best deployment candidate model, get the</p>
+<ol type="1">
+<li>train and test data splits</li>
+<li>overall (combined) data</li>
+</ol>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df_train_val_eval_best_run, df_test_best_run <span class="op">=</span> [</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    pd.read_parquet(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        processed_data_filepath,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        columns<span class="op">=</span><span class="bu">list</span>(dtypes_dict)<span class="op">+</span>[<span class="st">'split_type'</span>],</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        filters<span class="op">=</span>[(<span class="st">'split_type'</span>, <span class="st">'='</span>, split_type)]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> split_type <span class="kw">in</span> [<span class="st">'train_val'</span>, <span class="st">'test'</span>]</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>df_all <span class="op">=</span> (</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    pd.concat(</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        [df_train_val_eval_best_run, df_test_best_run],</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        ignore_index<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Get features and label from</p>
+<ol type="1">
+<li>train and test split</li>
+<li>overall data</li>
+</ol>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>X_train, y_train <span class="op">=</span> [</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    df_train_val_eval_best_run.drop(columns<span class="op">=</span>[label, <span class="st">'split_type'</span>]),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    df_train_val_eval_best_run[label]</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>X_test, y_test <span class="op">=</span> [</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    df_test_best_run.drop(columns<span class="op">=</span>[label, <span class="st">'split_type'</span>]), df_test_best_run[label]</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> [df_all.drop(columns<span class="op">=</span>[label, <span class="st">'split_type'</span>]), df_all[label]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="get-inference-data-with-audience-assignments" class="level3">
+<h3 class="anchored" data-anchor-id="get-inference-data-with-audience-assignments">Get Inference Data with Audience Assignments</h3>
+<p>Load inference data with audience and cohort assignments</p>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_infer_with_audience <span class="op">=</span> (</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    pd.read_parquet(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        audience_filepath,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        columns<span class="op">=</span>[</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>            c</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">list</span>(dtypes_dict)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> c <span class="kw">not</span> <span class="kw">in</span> [<span class="st">'made_purchase_on_future_visit'</span>]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        ] <span class="op">+</span> [<span class="st">'maudience'</span>, <span class="st">'audience_strategy'</span>],</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        filters<span class="op">=</span>[(<span class="st">'audience_strategy'</span>, <span class="st">'='</span>, audience_strategy)]</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Get features from inference data</p>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>X_infer_with_audience <span class="op">=</span> (</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    df_infer_with_audience.drop(columns<span class="op">=</span>[<span class="st">'maudience'</span>, <span class="st">'audience_strategy'</span>])</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="ml-evaluation-from-pipeline" class="level2">
+<h2 class="anchored" data-anchor-id="ml-evaluation-from-pipeline">ML Evaluation From <code>Pipeline</code></h2>
+<div class="cell" data-execution_count="21">
+<div class="cell-output cell-output-display">
+<style type="text/css">
+#T_18e65_row0_col0, #T_18e65_row1_col0, #T_18e65_row2_col0, #T_18e65_row3_col0, #T_18e65_row4_col0, #T_18e65_row5_col0, #T_18e65_row6_col0, #T_18e65_row7_col0, #T_18e65_row8_col0, #T_18e65_row9_col0 {
+  font-size: 14px;
+}
+#T_18e65_row0_col1, #T_18e65_row0_col2 {
+  background-color: #800026;
+  color: #f1f1f1;
+  font-size: 14px;
+}
+#T_18e65_row1_col1, #T_18e65_row3_col1, #T_18e65_row4_col1, #T_18e65_row5_col1, #T_18e65_row6_col1, #T_18e65_row7_col1 {
+  background-color: #fd8239;
+  color: #f1f1f1;
+  font-size: 14px;
+}
+#T_18e65_row1_col2, #T_18e65_row3_col2, #T_18e65_row4_col2, #T_18e65_row5_col2, #T_18e65_row6_col2, #T_18e65_row7_col2 {
+  background-color: #fd8439;
+  color: #f1f1f1;
+  font-size: 14px;
+}
+#T_18e65_row2_col1 {
+  background-color: #fffecb;
+  color: #000000;
+  font-size: 14px;
+}
+#T_18e65_row2_col2, #T_18e65_row8_col1, #T_18e65_row8_col2, #T_18e65_row9_col1, #T_18e65_row9_col2 {
+  background-color: #ffffcc;
+  color: #000000;
+  font-size: 14px;
+}
+</style>
+
+<table id="T_18e65" data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th class="index_name level0" data-quarto-table-cell-role="th">split</th>
+<th id="T_18e65_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">metric</th>
+<th id="T_18e65_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">train_val</th>
+<th id="T_18e65_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">test</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_18e65_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">0</td>
+<td id="T_18e65_row0_col0" class="data row0 col0">accuracy</td>
+<td id="T_18e65_row0_col1" class="data row0 col1">0.919483</td>
+<td id="T_18e65_row0_col2" class="data row0 col2">0.940538</td>
+</tr>
+<tr class="even">
+<td id="T_18e65_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">1</td>
+<td id="T_18e65_row1_col0" class="data row1 col0">balanced_accuracy</td>
+<td id="T_18e65_row1_col1" class="data row1 col1">0.501968</td>
+<td id="T_18e65_row1_col2" class="data row1 col2">0.499218</td>
+</tr>
+<tr class="odd">
+<td id="T_18e65_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">2</td>
+<td id="T_18e65_row2_col0" class="data row2 col0">precision</td>
+<td id="T_18e65_row2_col1" class="data row2 col1">0.047763</td>
+<td id="T_18e65_row2_col2" class="data row2 col2">0.022135</td>
+</tr>
+<tr class="even">
+<td id="T_18e65_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">3</td>
+<td id="T_18e65_row3_col0" class="data row3 col0">recall</td>
+<td id="T_18e65_row3_col1" class="data row3 col1">0.501968</td>
+<td id="T_18e65_row3_col2" class="data row3 col2">0.499218</td>
+</tr>
+<tr class="odd">
+<td id="T_18e65_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">4</td>
+<td id="T_18e65_row4_col0" class="data row4 col0">roc_auc</td>
+<td id="T_18e65_row4_col1" class="data row4 col1">0.501968</td>
+<td id="T_18e65_row4_col2" class="data row4 col2">0.499218</td>
+</tr>
+<tr class="even">
+<td id="T_18e65_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">5</td>
+<td id="T_18e65_row5_col0" class="data row5 col0">f1</td>
+<td id="T_18e65_row5_col1" class="data row5 col1">0.502007</td>
+<td id="T_18e65_row5_col2" class="data row5 col2">0.498453</td>
+</tr>
+<tr class="odd">
+<td id="T_18e65_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">6</td>
+<td id="T_18e65_row6_col0" class="data row6 col0">fbeta05</td>
+<td id="T_18e65_row6_col1" class="data row6 col1">0.502060</td>
+<td id="T_18e65_row6_col2" class="data row6 col2">0.498946</td>
+</tr>
+<tr class="even">
+<td id="T_18e65_level0_row7" class="row_heading level0 row7" data-quarto-table-cell-role="th">7</td>
+<td id="T_18e65_row7_col0" class="data row7 col0">fbeta2</td>
+<td id="T_18e65_row7_col1" class="data row7 col1">0.501977</td>
+<td id="T_18e65_row7_col2" class="data row7 col2">0.498594</td>
+</tr>
+<tr class="odd">
+<td id="T_18e65_level0_row8" class="row_heading level0 row8" data-quarto-table-cell-role="th">8</td>
+<td id="T_18e65_row8_col0" class="data row8 col0">pr_auc</td>
+<td id="T_18e65_row8_col1" class="data row8 col1">0.043754</td>
+<td id="T_18e65_row8_col2" class="data row8 col2">0.023227</td>
+</tr>
+<tr class="even">
+<td id="T_18e65_level0_row9" class="row_heading level0 row9" data-quarto-table-cell-role="th">9</td>
+<td id="T_18e65_row9_col0" class="data row9 col0">avg_precision</td>
+<td id="T_18e65_row9_col1" class="data row9 col1">0.043898</td>
+<td id="T_18e65_row9_col2" class="data row9 col2">0.023027</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="ml-evaluation-from-pipeline-using-transformed-data" class="level2">
+<h2 class="anchored" data-anchor-id="ml-evaluation-from-pipeline-using-transformed-data">ML Evaluation From <code>Pipeline</code> Using Transformed Data</h2>
+<section id="get-transformed-data" class="level3">
+<h3 class="anchored" data-anchor-id="get-transformed-data">Get Transformed Data</h3>
+<p>In order to get the transformed data used by the end-to-end <code>Pipeline</code>, the following two-step procedure will be used</p>
+<ol type="1">
+<li>Extract untrained pipeline consisting of the following steps
+<ul>
+<li>under-sampling
+<ul>
+<li>under-sampling</li>
+<li>pre-processing</li>
+</ul></li>
+<li>over-sampling
+<ul>
+<li>pre-processing</li>
+<li>over-sampling</li>
+</ul></li>
+</ul></li>
+<li>Use untrained pipeline to get transformed training and validation data as follows
+<ul>
+<li>under-sampling
+<ul>
+<li>under-sample training data</li>
+<li>train pre-processor using under-sampled training data</li>
+<li>pre-process all
+<ul>
+<li>training data</li>
+<li>validation data</li>
+</ul></li>
+</ul></li>
+<li>over-sampling
+<ul>
+<li>train pre-processor using all training data</li>
+<li>pre-process all
+<ul>
+<li>training data</li>
+<li>validatation data</li>
+</ul></li>
+<li>over-sample pre-processed training data</li>
+</ul></li>
+</ul></li>
+</ol>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'Under'</span> <span class="kw">in</span> <span class="bu">type</span>(pipe.named_steps[<span class="st">'resampler'</span>]).<span class="va">__name__</span>:</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    resampling_approach <span class="op">=</span> <span class="st">'us'</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    pipe_resample_trans <span class="op">=</span> meh.get_preprocessor_pipeline(pipe, <span class="st">'us'</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    X_train_trans, X_test_trans <span class="op">=</span> meh.get_preprocessed_resampled_data(</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">'us'</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        X_train,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        y_train,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        X_test,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        categorical_features,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        pipe_resample_trans<span class="op">=</span>pipe_resample_trans,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    resampling_approach <span class="op">=</span> <span class="st">'os'</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    pipe_trans, pipe_resample <span class="op">=</span> meh.get_preprocessor_pipeline(pipe, <span class="st">'os'</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    (</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        X_train_trans,</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        X_test_trans,</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        X_train_trans_rs,</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        y_train_trans_rs,</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    ) <span class="op">=</span> meh.get_preprocessed_resampled_data(</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">'os'</span>,</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>        X_train,</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>        y_train,</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>        X_test,</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>        categorical_features,</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>        pipe_trans<span class="op">=</span>pipe_trans,</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>        pipe_resample<span class="op">=</span>pipe_resample,</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ml-evaluation-using-transformed-data" class="level3">
+<h3 class="anchored" data-anchor-id="ml-evaluation-using-transformed-data">ML Evaluation Using Transformed Data</h3>
+<div class="cell" data-execution_count="27">
+<div class="cell-output cell-output-display">
+<style type="text/css">
+#T_28b86_row0_col0, #T_28b86_row1_col0, #T_28b86_row2_col0, #T_28b86_row3_col0, #T_28b86_row4_col0, #T_28b86_row5_col0, #T_28b86_row6_col0, #T_28b86_row7_col0, #T_28b86_row8_col0, #T_28b86_row9_col0 {
+  font-size: 14px;
+}
+#T_28b86_row0_col1, #T_28b86_row0_col2 {
+  background-color: #800026;
+  color: #f1f1f1;
+  font-size: 14px;
+}
+#T_28b86_row1_col1, #T_28b86_row3_col1, #T_28b86_row4_col1, #T_28b86_row5_col1, #T_28b86_row6_col1, #T_28b86_row7_col1 {
+  background-color: #fd8239;
+  color: #f1f1f1;
+  font-size: 14px;
+}
+#T_28b86_row1_col2, #T_28b86_row3_col2, #T_28b86_row4_col2, #T_28b86_row5_col2, #T_28b86_row6_col2, #T_28b86_row7_col2 {
+  background-color: #fd8439;
+  color: #f1f1f1;
+  font-size: 14px;
+}
+#T_28b86_row2_col1 {
+  background-color: #fffecb;
+  color: #000000;
+  font-size: 14px;
+}
+#T_28b86_row2_col2, #T_28b86_row8_col1, #T_28b86_row8_col2, #T_28b86_row9_col1, #T_28b86_row9_col2 {
+  background-color: #ffffcc;
+  color: #000000;
+  font-size: 14px;
+}
+</style>
+
+<table id="T_28b86" data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th class="index_name level0" data-quarto-table-cell-role="th">split</th>
+<th id="T_28b86_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">metric</th>
+<th id="T_28b86_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">train_val</th>
+<th id="T_28b86_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">test</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_28b86_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">0</td>
+<td id="T_28b86_row0_col0" class="data row0 col0">accuracy</td>
+<td id="T_28b86_row0_col1" class="data row0 col1">0.919483</td>
+<td id="T_28b86_row0_col2" class="data row0 col2">0.940538</td>
+</tr>
+<tr class="even">
+<td id="T_28b86_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">1</td>
+<td id="T_28b86_row1_col0" class="data row1 col0">balanced_accuracy</td>
+<td id="T_28b86_row1_col1" class="data row1 col1">0.501968</td>
+<td id="T_28b86_row1_col2" class="data row1 col2">0.499218</td>
+</tr>
+<tr class="odd">
+<td id="T_28b86_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">2</td>
+<td id="T_28b86_row2_col0" class="data row2 col0">precision</td>
+<td id="T_28b86_row2_col1" class="data row2 col1">0.047763</td>
+<td id="T_28b86_row2_col2" class="data row2 col2">0.022135</td>
+</tr>
+<tr class="even">
+<td id="T_28b86_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">3</td>
+<td id="T_28b86_row3_col0" class="data row3 col0">recall</td>
+<td id="T_28b86_row3_col1" class="data row3 col1">0.501968</td>
+<td id="T_28b86_row3_col2" class="data row3 col2">0.499218</td>
+</tr>
+<tr class="odd">
+<td id="T_28b86_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">4</td>
+<td id="T_28b86_row4_col0" class="data row4 col0">roc_auc</td>
+<td id="T_28b86_row4_col1" class="data row4 col1">0.501968</td>
+<td id="T_28b86_row4_col2" class="data row4 col2">0.499218</td>
+</tr>
+<tr class="even">
+<td id="T_28b86_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">5</td>
+<td id="T_28b86_row5_col0" class="data row5 col0">f1</td>
+<td id="T_28b86_row5_col1" class="data row5 col1">0.502007</td>
+<td id="T_28b86_row5_col2" class="data row5 col2">0.498453</td>
+</tr>
+<tr class="odd">
+<td id="T_28b86_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">6</td>
+<td id="T_28b86_row6_col0" class="data row6 col0">fbeta05</td>
+<td id="T_28b86_row6_col1" class="data row6 col1">0.502060</td>
+<td id="T_28b86_row6_col2" class="data row6 col2">0.498946</td>
+</tr>
+<tr class="even">
+<td id="T_28b86_level0_row7" class="row_heading level0 row7" data-quarto-table-cell-role="th">7</td>
+<td id="T_28b86_row7_col0" class="data row7 col0">fbeta2</td>
+<td id="T_28b86_row7_col1" class="data row7 col1">0.501977</td>
+<td id="T_28b86_row7_col2" class="data row7 col2">0.498594</td>
+</tr>
+<tr class="odd">
+<td id="T_28b86_level0_row8" class="row_heading level0 row8" data-quarto-table-cell-role="th">8</td>
+<td id="T_28b86_row8_col0" class="data row8 col0">pr_auc</td>
+<td id="T_28b86_row8_col1" class="data row8 col1">0.043754</td>
+<td id="T_28b86_row8_col2" class="data row8 col2">0.023227</td>
+</tr>
+<tr class="even">
+<td id="T_28b86_level0_row9" class="row_heading level0 row9" data-quarto-table-cell-role="th">9</td>
+<td id="T_28b86_row9_col0" class="data row9 col0">avg_precision</td>
+<td id="T_28b86_row9_col1" class="data row9 col1">0.043898</td>
+<td id="T_28b86_row9_col2" class="data row9 col2">0.023027</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</section>
+<section id="ml-evaluation-comparison" class="level2">
+<h2 class="anchored" data-anchor-id="ml-evaluation-comparison">ML Evaluation Comparison</h2>
+<p>Verify that the metrics obtained using the end-to-end <code>Pipeline</code> and the manually transformed data are identical.</p>
+<section id="transformed-data" class="level3">
+<h3 class="anchored" data-anchor-id="transformed-data">Transformed Data</h3>
+<p>Verify agreement between predictions of training data split</p>
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> y_train_pred.equals(y_train_pred_m)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> y_train_pred_proba.equals(y_train_pred_proba_m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Verify agreement between predictions of test data split</p>
+<div class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> y_test_pred.reset_index(drop<span class="op">=</span><span class="va">True</span>).equals(y_test_pred_m)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> y_test_pred_proba.reset_index(drop<span class="op">=</span><span class="va">True</span>).equals(y_test_pred_proba_m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="evaluation-metrics" class="level3">
+<h3 class="anchored" data-anchor-id="evaluation-metrics">Evaluation Metrics</h3>
+<p>Verify agreement between ML model evaluation metrics using the test data split</p>
+<div class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> df_metrics.equals(df_metrics_m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This section has verified that the manual approach to transforming features and using them to make and evaluate predictions of test data observations gives the same classification metrics as using the self-contained end-to-end <code>Pipeline</code> to make and evaluate predictions.</p>
+</section>
+</section>
+<section id="explore-ml-model-using-shap" class="level2">
+<h2 class="anchored" data-anchor-id="explore-ml-model-using-shap">Explore ML Model Using SHAP</h2>
+<p>Transform features in the inference data using the same feature transformation approach as that developed above using the test data split during ML development. Use SHAP to generate explanations for a subset of these transformed observations.</p>
+<section id="get-transformed-inferece-data" class="level3">
+<h3 class="anchored" data-anchor-id="get-transformed-inferece-data">Get Transformed Inferece Data</h3>
+<p>Get the transformed features for the</p>
+<ol type="1">
+<li>overall data used during ML development (combination of train+val and test)</li>
+<li>inference data</li>
+</ol>
+<div class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'Under'</span> <span class="kw">in</span> <span class="bu">type</span>(pipe.named_steps[<span class="st">'resampler'</span>]).<span class="va">__name__</span>:</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    resampling_approach <span class="op">=</span> <span class="st">'us'</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    pipe_resample_trans <span class="op">=</span> meh.get_preprocessor_pipeline(pipe, <span class="st">'us'</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    X_trans, X_infer_trans <span class="op">=</span> meh.get_preprocessed_resampled_data(</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">'us'</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        X,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        y,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>        X_infer_with_audience,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        categorical_features,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>        pipe_resample_trans<span class="op">=</span>pipe_resample_trans,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    resampling_approach <span class="op">=</span> <span class="st">'os'</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    pipe_trans, pipe_resample <span class="op">=</span> meh.get_preprocessor_pipeline(pipe, <span class="st">'os'</span>)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    (</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>        X_trans,</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>        X_infer_trans,</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>        X_trans_rs,</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>        y_trans_rs,</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    ) <span class="op">=</span> meh.get_preprocessed_resampled_data(</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">'os'</span>,</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>        X,</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>        y,</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>        X_infer_with_audience,</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>        categorical_features,</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>        pipe_trans<span class="op">=</span>pipe_trans,</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>        pipe_resample<span class="op">=</span>pipe_resample,</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Append the audience group name and strategy to the transformed inference data</p>
+<div class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df_infer_trans <span class="op">=</span> (</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    X_infer_trans.assign(maudience<span class="op">=</span>df_infer_with_audience[<span class="st">'maudience'</span>])</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    .assign(audience_strategy<span class="op">=</span>df_infer_with_audience[<span class="st">'audience_strategy'</span>])</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="explore-model" class="level3">
+<h3 class="anchored" data-anchor-id="explore-model">Explore Model</h3>
+<p>For each audience group, profile the audience group(s) using <a href="https://stackoverflow.com/a/72099096/4057186">SHAP feature importances</a> as follows</p>
+<ol type="1">
+<li>get a random slice of the inference data within each audience group</li>
+<li>get SHAP values for the selected slice of inference data</li>
+<li>append metadata about the selected slice of inference data</li>
+</ol>
+<p>The above process is repeated for all audience groups. This is shown below</p>
+<div class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dfs_shap_values <span class="op">=</span> []</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> maudience <span class="kw">in</span> audience_groups_strategies[audience_strategy]:</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1. Get SHAP training data for audience group</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    df_infer_shap_train <span class="op">=</span> df_infer_trans.sample(n<span class="op">=</span>num_shap_obs)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Randomly sliced </span><span class="sc">{</span>num_shap_obs<span class="sc">:,}</span><span class="ss"> observations "</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"from </span><span class="sc">{</span>maudience<span class="sc">}</span><span class="ss"> audience group in inference data"</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2. Get SHAP values</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    start_time <span class="op">=</span> datetime.now(pytz.timezone(<span class="st">"US/Eastern"</span>))</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    start_time_str <span class="op">=</span> start_time.strftime(<span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st"> %H:%M:%S.</span><span class="sc">%f</span><span class="st">"</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Query execution start time = </span><span class="sc">{</span>start_time_str[:<span class="op">-</span><span class="dv">3</span>]<span class="sc">}</span><span class="ss">..."</span>, end<span class="op">=</span><span class="st">""</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># shap_means = np.abs(shap_values).mean(axis=0)</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    shap_means <span class="op">=</span> np.random.rand(num_features_shap, <span class="dv">1</span>)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    end_time <span class="op">=</span> datetime.now(pytz.timezone(<span class="st">"US/Eastern"</span>))</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    end_time_str <span class="op">=</span> end_time.strftime(<span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st"> %H:%M:%S.</span><span class="sc">%f</span><span class="st">"</span>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    duration <span class="op">=</span> end_time <span class="op">-</span> start_time</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    duration <span class="op">=</span> duration.seconds <span class="op">+</span> (duration.microseconds <span class="op">/</span> <span class="dv">1_000_000</span>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"done at </span><span class="sc">{</span>end_time_str[:<span class="op">-</span><span class="dv">3</span>]<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span>duration<span class="sc">:.3f}</span><span class="ss"> seconds)."</span>)</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Retrieved SHAP values using </span><span class="sc">{</span>num_shap_obs<span class="sc">:,}</span><span class="ss"> observations "</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"from </span><span class="sc">{</span>maudience<span class="sc">}</span><span class="ss"> group in inference data"</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3. Log SHAP values and metadata</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>    df_shap_values <span class="op">=</span> (</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>        pd.DataFrame.from_dict(</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>            {</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>                <span class="st">'feature'</span>: <span class="bu">list</span>(X_trans_rs)[:num_features_shap],</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>                <span class="st">'mean_shap_value'</span>: shap_means.squeeze(),</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>            },</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>            orient<span class="op">=</span><span class="st">'index'</span></span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>        ).transpose()</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>        .sort_values(by<span class="op">=</span><span class="st">'mean_shap_value'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>        .reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>        .assign(infer_month<span class="op">=</span>month_name[X_infer_with_audience[<span class="st">'month'</span>].squeeze()[<span class="dv">0</span>]])</span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>        .assign(maudience<span class="op">=</span>maudience)</span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>        .assign(audience_strategy<span class="op">=</span>audience_strategy)</span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>        .assign(num_shap_observations<span class="op">=</span>num_shap_obs)</span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>    dfs_shap_values.append(df_shap_values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Convert the feature importances and metadata into a single <code>DataFrame</code></p>
+<div class="cell" data-execution_count="36">
+<div class="cell-output cell-output-display" data-execution_count="36">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">feature</th>
+<th data-quarto-table-cell-role="th">mean_shap_value</th>
+<th data-quarto-table-cell-role="th">infer_month</th>
+<th data-quarto-table-cell-role="th">maudience</th>
+<th data-quarto-table-cell-role="th">audience_strategy</th>
+<th data-quarto-table-cell-role="th">num_shap_observations</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>source__Check out</td>
+<td>0.825161</td>
+<td>March</td>
+<td>High</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>promos_clicked</td>
+<td>0.737896</td>
+<td>March</td>
+<td>High</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>time_on_site</td>
+<td>0.615848</td>
+<td>March</td>
+<td>High</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>source__Remove product(s) from cart</td>
+<td>0.421039</td>
+<td>March</td>
+<td>High</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>bounces__1</td>
+<td>0.3781</td>
+<td>March</td>
+<td>High</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>promos_displayed</td>
+<td>0.24851</td>
+<td>March</td>
+<td>High</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>hits</td>
+<td>0.223202</td>
+<td>March</td>
+<td>High</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>source__Product detail views</td>
+<td>0.134502</td>
+<td>March</td>
+<td>High</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>source__Click through of product lists</td>
+<td>0.116958</td>
+<td>March</td>
+<td>High</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>source__Completed purchase</td>
+<td>0.021289</td>
+<td>March</td>
+<td>High</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>time_on_site</td>
+<td>0.885989</td>
+<td>March</td>
+<td>Medium</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>source__Click through of product lists</td>
+<td>0.839497</td>
+<td>March</td>
+<td>Medium</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12</td>
+<td>hits</td>
+<td>0.827934</td>
+<td>March</td>
+<td>Medium</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13</td>
+<td>source__Product detail views</td>
+<td>0.747796</td>
+<td>March</td>
+<td>Medium</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">14</td>
+<td>promos_clicked</td>
+<td>0.546836</td>
+<td>March</td>
+<td>Medium</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>bounces__1</td>
+<td>0.545509</td>
+<td>March</td>
+<td>Medium</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td>source__Completed purchase</td>
+<td>0.458597</td>
+<td>March</td>
+<td>Medium</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17</td>
+<td>source__Check out</td>
+<td>0.40554</td>
+<td>March</td>
+<td>Medium</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>source__Remove product(s) from cart</td>
+<td>0.157091</td>
+<td>March</td>
+<td>Medium</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19</td>
+<td>promos_displayed</td>
+<td>0.131683</td>
+<td>March</td>
+<td>Medium</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">20</td>
+<td>hits</td>
+<td>0.838479</td>
+<td>March</td>
+<td>Low</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">21</td>
+<td>bounces__1</td>
+<td>0.717931</td>
+<td>March</td>
+<td>Low</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">22</td>
+<td>source__Product detail views</td>
+<td>0.685082</td>
+<td>March</td>
+<td>Low</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">23</td>
+<td>promos_clicked</td>
+<td>0.628822</td>
+<td>March</td>
+<td>Low</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">24</td>
+<td>source__Remove product(s) from cart</td>
+<td>0.241925</td>
+<td>March</td>
+<td>Low</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">25</td>
+<td>promos_displayed</td>
+<td>0.143101</td>
+<td>March</td>
+<td>Low</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">26</td>
+<td>time_on_site</td>
+<td>0.114057</td>
+<td>March</td>
+<td>Low</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">27</td>
+<td>source__Completed purchase</td>
+<td>0.077123</td>
+<td>March</td>
+<td>Low</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">28</td>
+<td>source__Check out</td>
+<td>0.070355</td>
+<td>March</td>
+<td>Low</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">29</td>
+<td>source__Click through of product lists</td>
+<td>0.002271</td>
+<td>March</td>
+<td>Low</td>
+<td>1</td>
+<td>500</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="export-to-disk" class="level2">
+<h2 class="anchored" data-anchor-id="export-to-disk">Export To Disk</h2>
+<p>Export <code>DataFrame</code> with audience profiles, based on feature importances, to disk</p>
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df_audience_explored.to_parquet(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    os.path.join(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        processed_data_dir,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"audience_profiles_feature_importances__run_"</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>best_run_id<span class="sc">}</span><span class="ss">__"</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"infer_month_</span><span class="sc">{</span>month_name[X_infer_with_audience[<span class="st">'month'</span>].squeeze()[<span class="dv">0</span>]]<span class="sc">}</span><span class="ss">__"</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>datetime<span class="sc">.</span>now()<span class="sc">.</span>strftime(<span class="st">'%Y%m</span><span class="sc">%d</span><span class="st">_%H%M%S'</span>)<span class="sc">}</span><span class="ss">.parquet.gzip"</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    engine<span class="op">=</span><span class="st">'pyarrow'</span>,</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    compression<span class="op">=</span><span class="st">'gzip'</span>,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="next-step" class="level2">
+<h2 class="anchored" data-anchor-id="next-step">Next Step</h2>
+<p>The next step will assess the performance of the marketing campaign, after the campaign has completed.</p>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp("^(?:http:|https:)\/\/www\.quarto\.org\/custom");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../notebooks/02-train/notebooks/07_get_audience_cohorts.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Get Audience</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../notebooks/02-train/notebooks/10_analyze_campaign_outputs.html" class="pagination-link">
+        <span class="nav-page-text">Post-Campaign</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+<script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

@@ -63,8 +63,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
-<link href="../../../notebooks/04-transform/notebooks/06_cleanup.html" rel="next">
-<link href="../../../notebooks/04-transform/notebooks/04_get_audience_cohorts.html" rel="prev">
+<link href="../../../notebooks/02-train/notebooks/11_cleanup_mlflow.html" rel="next">
+<link href="../../../notebooks/03-explore/notebooks/08_explore_best_model.html" rel="prev">
 <script src="../../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -122,7 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../notebooks/04-transform/notebooks/05_analyze_campaign_outputs.html">Post-Campaign</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../notebooks/02-train/notebooks/10_analyze_campaign_outputs.html">Post-Campaign</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -155,32 +155,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/04-transform/notebooks/02_get_best_model.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../notebooks/02-train/notebooks/04_train.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Train Model</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/02-train/notebooks/05_get_best_model.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Register Model</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/04-transform/notebooks/03_design_experiment.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../notebooks/02-train/notebooks/06_design_experiment.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sample Sizes</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/04-transform/notebooks/04_get_audience_cohorts.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../notebooks/02-train/notebooks/07_get_audience_cohorts.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Get Audience</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/04-transform/notebooks/05_analyze_campaign_outputs.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../../notebooks/03-explore/notebooks/08_explore_best_model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vital Features</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/02-train/notebooks/10_analyze_campaign_outputs.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Post-Campaign</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/04-transform/notebooks/06_cleanup.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cleanup</span></a>
+  <a href="../../../notebooks/02-train/notebooks/11_cleanup_mlflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Clean MLFlow</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/05-cleanup/notebooks/12_cleanup_bigquery.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Clean BigQuery</span></a>
   </div>
 </li>
     </ul>
@@ -206,8 +224,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#compare-difference-in-kpi-between-cohorts" id="toc-compare-difference-in-kpi-between-cohorts" class="nav-link" data-scroll-target="#compare-difference-in-kpi-between-cohorts">Compare Difference in KPI Between Cohorts</a></li>
   <li><a href="#export-to-disk-and-ml-experiment-tracking" id="toc-export-to-disk-and-ml-experiment-tracking" class="nav-link" data-scroll-target="#export-to-disk-and-ml-experiment-tracking">Export to Disk and ML Experiment Tracking</a></li>
+  <li><a href="#next-step" id="toc-next-step" class="nav-link" data-scroll-target="#next-step">Next Step</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/elsdes3/market/blob/main/notebooks/04-transform/notebooks/05_analyze_campaign_outputs.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/elsdes3/market/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/elsdes3/market/blob/main/notebooks/02-train/notebooks/10_analyze_campaign_outputs.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/elsdes3/market/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
@@ -235,7 +254,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="overview">Overview</h3>
 <p>This step assess the impact of running the marketing campaign. This step can be performed retrospectively, at the end of the campaign, when the outcome of the return visit of the first-time visitors to the merchandise store (during the inference period) is known. This is step 5. from a <a href="https://www.datacamp.com/blog/data-demystified-what-is-a-b-testing">typical A/B Testing workflow</a>.</p>
 <p>For the current use-case, if the marketing campaign results in more conversions in the control cohort compared to the test cohort, then this could suggest that the campaign has grown the customer base and thereby met the objective of this project. However, a test of statistical significance will be needed in order to ensure that this impact seen by running the campaign (growth in conversions) was not a random occurrence.</p>
-<p>This step compares the proportions (conversions) taken from two independent samples (test and control cohorts). The purpose is to determine if the number of conversions (KPI) of the test cohort is statistically different from that of the control cohort. If the</p>
+<p>This step compares the proportions (conversions) taken from two independent samples (test and control cohorts). The purpose is to determine if the conversion rate (KPI) of the test cohort is statistically different from that of the control cohort. If the</p>
 <ol type="1">
 <li>conversion rate is higher in the test cohort</li>
 <li>difference in conversion rate between the test and control cohort is statistically significant at some level of confidence (eg. 95%)</li>
@@ -254,7 +273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>start and end dates for inference data</li>
 <li>confidence levels at which the difference in the cohort conversion rates is to be checked</li>
 </ol>
-<div class="cell" data-tags="[&quot;parameters&quot;]" data-execution_count="5">
+<div class="cell" data-editable="true" data-slideshow="{&quot;slide_type&quot;:&quot;&quot;}" data-tags="[&quot;parameters&quot;]" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. start and end dates</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>infer_start_date <span class="op">=</span> <span class="st">"20170301"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>infer_end_date <span class="op">=</span> <span class="st">"20170331"</span></span>
@@ -298,7 +317,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="get-inference-data-with-audience-cohorts-associated-with-best-model" class="level3">
 <h3 class="anchored" data-anchor-id="get-inference-data-with-audience-cohorts-associated-with-best-model">Get Inference Data with Audience Cohorts, Associated with Best Model</h3>
-<p>Load inference data, with the audience groups and cohorts shown as separate columns. This data should contain the outcome for all these first-time visitors to the store during the inference period. Filter this data to only get visitors who were placed in a test or control cohorts, and exclude others. This is done below</p>
+<p>Load inference data, with the audience groups and cohorts shown as separate columns. This data should contain the outcome for all these first-time visitors to the store during the inference period. Filter this data to only get visitors who were placed in a test or control cohorts, and exclude others. This is done below using random outcomes (for demonstration purposes)</p>
 <div class="cell" data-tags="[]" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df_infer_audience_cohorts <span class="op">=</span> (</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    sc.get_inference_data_with_cohorts(df_candidate_mlflow_models, <span class="st">"audience_cohorts"</span>)</span>
@@ -306,12 +325,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    .pipe(sc.get_cohorts, <span class="st">"cohort"</span>)</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled" title="Notes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><code>sc.get_outcome_labels()</code> retrieves the campaign outcomes, which is the number of conversions in both the control and test cohorts. Here, for demonstration purposes, random values are used for the outcomes for both cohorts.</li>
+</ol>
+</div>
+</div>
 </section>
 </section>
 <section id="compare-difference-in-kpi-between-cohorts" class="level2">
 <h2 class="anchored" data-anchor-id="compare-difference-in-kpi-between-cohorts">Compare Difference in KPI Between Cohorts</h2>
 <p>Check if the difference between conversions across the two cohorts is statistically significant</p>
-<div class="cell" data-tags="[]" data-execution_count="13">
+<div class="cell" data-editable="true" data-slideshow="{&quot;slide_type&quot;:&quot;&quot;}" data-tags="[&quot;parameters&quot;]" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>overall_sizes, conversion_sizes <span class="op">=</span> sc.get_overall_and_converted_cohort_sizes(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    df_infer_audience_cohorts, verbose<span class="op">=</span><span class="va">False</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>)</span>
@@ -323,13 +357,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"check"</span>: pd.StringDtype(),</span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"p_value"</span>: pd.Float32Dtype(),</span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"ci_level"</span>: pd.Int8Dtype(),</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"control_overall"</span>: pd.Int16Dtype(),</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"test_overall"</span>: pd.Int16Dtype(),</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"control_size"</span>: pd.Int16Dtype(),</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"test_size"</span>: pd.Int16Dtype(),</span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"control_conversions"</span>: pd.Int16Dtype(),</span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"test_conversions"</span>: pd.Int16Dtype(),</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    },</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>df_sig_checks</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">"control_conversion_rate"</span>: pd.Float32Dtype(),</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">"test_conversion_rate"</span>: pd.Float32Dtype(),</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>df_sig_checks</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Set all specified datatypes.</code></pre>
 </div>
@@ -344,37 +380,74 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <th data-quarto-table-cell-role="th">check</th>
 <th data-quarto-table-cell-role="th">p_value</th>
 <th data-quarto-table-cell-role="th">ci_level</th>
-<th data-quarto-table-cell-role="th">control_overall</th>
-<th data-quarto-table-cell-role="th">test_overall</th>
+<th data-quarto-table-cell-role="th">control_size</th>
+<th data-quarto-table-cell-role="th">test_size</th>
 <th data-quarto-table-cell-role="th">control_conversions</th>
 <th data-quarto-table-cell-role="th">test_conversions</th>
+<th data-quarto-table-cell-role="th">control_conversion_rate</th>
+<th data-quarto-table-cell-role="th">test_conversion_rate</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
 <td>not statistically significant</td>
-<td>0.526886</td>
+<td>0.579219</td>
 <td>94</td>
-<td>6238</td>
-<td>6238</td>
+<td>6206</td>
+<td>6206</td>
 <td>330</td>
-<td>346</td>
+<td>344</td>
+<td>5.317435</td>
+<td>5.543023</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
 <td>statistically significant</td>
-<td>0.526886</td>
-<td>44</td>
-<td>6238</td>
-<td>6238</td>
+<td>0.579219</td>
+<td>40</td>
+<td>6206</td>
+<td>6206</td>
 <td>330</td>
-<td>346</td>
+<td>344</td>
+<td>5.317435</td>
+<td>5.543023</td>
 </tr>
 </tbody>
 </table>
 
 </div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Notes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>The chi-squared test indicates if the difference between the conversion rate in the test and control cohort is statistically significant at a particular confidence level.</li>
+</ol>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Observations">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Observations
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>The top row shows the test of significance for the maximum specified confidence level (in this case 94%).</li>
+<li>The bottom row shows the maximum confidence level (40%) for which the difference in conversion rates is significant.</li>
+</ol>
 </div>
 </div>
 </section>
@@ -384,9 +457,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell" data-tags="[]" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>best_run_id <span class="op">=</span> df_candidate_mlflow_models.squeeze()[<span class="st">"run_id"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Show summary of <code>DataFrame</code> with checks of significance</p>
 <div class="cell" data-tags="[]" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ut.summarize_df(df_sig_checks)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 
@@ -421,13 +492,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>control_overall</td>
+<td>control_size</td>
 <td>Int16</td>
 <td>0</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>test_overall</td>
+<td>test_size</td>
 <td>Int16</td>
 <td>0</td>
 </tr>
@@ -443,6 +514,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Int16</td>
 <td>0</td>
 </tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>control_conversion_rate</td>
+<td>Float32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>test_conversion_rate</td>
+<td>Float32</td>
+<td>0</td>
+</tr>
 </tbody>
 </table>
 
@@ -451,23 +534,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Export to disk and log exported file as MLFlow artifact</p>
 <div class="cell" data-tags="[]" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ut.export_and_track(</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    os.path.join(</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        processed_data_dir,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"campaign_analysis__run_"</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>best_run_id<span class="sc">}</span><span class="ss">__"</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"infer_month_</span><span class="sc">{</span>infer_month<span class="sc">}</span><span class="ss">__"</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>datetime<span class="sc">.</span>now()<span class="sc">.</span>strftime(<span class="st">'%Y%m</span><span class="sc">%d</span><span class="st">_%H%M%S'</span>)<span class="sc">}</span><span class="ss">.parquet.gzip"</span>,</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    df_sig_checks,</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"campaign outcome analysis for inference during </span><span class="sc">{</span>infer_month<span class="sc">}</span><span class="ss">"</span>,</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    best_run_id,</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Exported campaign outcome analysis for inference during March to file campaign_analysis__run_eee3d281e0cb48cd8dba9f93a6de4347__infer_month_March__20230519_234530.parquet.gzip
-Logged campaign outcome analysis for inference during March as artifact in file campaign_analysis__run_eee3d281e0cb48cd8dba9f93a6de4347__infer_month_March__20230519_234530.parquet.gzip</code></pre>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ut.export_and_track(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    os.path.join(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        processed_data_dir,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"campaign_analysis__run_"</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>best_run_id<span class="sc">}</span><span class="ss">__"</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"infer_month_</span><span class="sc">{</span>infer_month<span class="sc">}</span><span class="ss">__"</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>datetime<span class="sc">.</span>now()<span class="sc">.</span>strftime(<span class="st">'%Y%m</span><span class="sc">%d</span><span class="st">_%H%M%S'</span>)<span class="sc">}</span><span class="ss">.parquet.gzip"</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    df_sig_checks,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"campaign outcome analysis for inference during </span><span class="sc">{</span>infer_month<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    best_run_id,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
+</section>
+<section id="next-step" class="level2">
+<h2 class="anchored" data-anchor-id="next-step">Next Step</h2>
+<p>The next step will clean up all project resources related to MLFlow.</p>
 
 
 </section>
@@ -722,13 +805,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="../../../notebooks/04-transform/notebooks/04_get_audience_cohorts.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Get Audience</span>
+      <a href="../../../notebooks/03-explore/notebooks/08_explore_best_model.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Vital Features</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../notebooks/04-transform/notebooks/06_cleanup.html" class="pagination-link">
-        <span class="nav-page-text">Cleanup</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../../notebooks/02-train/notebooks/11_cleanup_mlflow.html" class="pagination-link">
+        <span class="nav-page-text">Clean MLFlow</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

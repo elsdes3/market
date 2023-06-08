@@ -63,8 +63,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
-<link href="../../../notebooks/04-transform/notebooks/04_get_audience_cohorts.html" rel="next">
-<link href="../../../notebooks/04-transform/notebooks/02_get_best_model.html" rel="prev">
+<link href="../../../notebooks/02-train/notebooks/07_get_audience_cohorts.html" rel="next">
+<link href="../../../notebooks/02-train/notebooks/05_get_best_model.html" rel="prev">
 <script src="../../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -122,7 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../notebooks/04-transform/notebooks/03_design_experiment.html">Sample Sizes</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../notebooks/02-train/notebooks/06_design_experiment.html">Sample Sizes</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -155,32 +155,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/04-transform/notebooks/02_get_best_model.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../notebooks/02-train/notebooks/04_train.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Train Model</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/02-train/notebooks/05_get_best_model.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Register Model</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/04-transform/notebooks/03_design_experiment.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../../notebooks/02-train/notebooks/06_design_experiment.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Sample Sizes</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/04-transform/notebooks/04_get_audience_cohorts.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../notebooks/02-train/notebooks/07_get_audience_cohorts.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Get Audience</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/04-transform/notebooks/05_analyze_campaign_outputs.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../notebooks/03-explore/notebooks/08_explore_best_model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vital Features</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/02-train/notebooks/10_analyze_campaign_outputs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Post-Campaign</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/04-transform/notebooks/06_cleanup.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cleanup</span></a>
+  <a href="../../../notebooks/02-train/notebooks/11_cleanup_mlflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Clean MLFlow</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/05-cleanup/notebooks/12_cleanup_bigquery.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Clean BigQuery</span></a>
   </div>
 </li>
     </ul>
@@ -204,8 +222,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#user-inputs" id="toc-user-inputs" class="nav-link" data-scroll-target="#user-inputs">User Inputs</a></li>
   <li><a href="#get-best-mlflow-model-from-model-registry" id="toc-get-best-mlflow-model-from-model-registry" class="nav-link" data-scroll-target="#get-best-mlflow-model-from-model-registry">Get Best MLFlow Model from Model Registry</a>
   <ul class="collapse">
-  <li><a href="#fetch-latest-version-of-best-deployment-candidate-model-from-model-registry" id="toc-fetch-latest-version-of-best-deployment-candidate-model-from-model-registry" class="nav-link" data-scroll-target="#fetch-latest-version-of-best-deployment-candidate-model-from-model-registry">Fetch Latest Version of Best Deployment Candidate Model from Model Registry</a></li>
-  <li><a href="#get-data-used-in-development-of-best-deployment-candidate-model" id="toc-get-data-used-in-development-of-best-deployment-candidate-model" class="nav-link" data-scroll-target="#get-data-used-in-development-of-best-deployment-candidate-model">Get Data Used in Development of Best Deployment Candidate Model</a></li>
+  <li><a href="#fetch-latest-version-of-best-deployment-candidate-model" id="toc-fetch-latest-version-of-best-deployment-candidate-model" class="nav-link" data-scroll-target="#fetch-latest-version-of-best-deployment-candidate-model">Fetch Latest Version of Best Deployment Candidate Model</a></li>
+  <li><a href="#get-data-used-to-develop-best-deployment-candidate-model" id="toc-get-data-used-to-develop-best-deployment-candidate-model" class="nav-link" data-scroll-target="#get-data-used-to-develop-best-deployment-candidate-model">Get Data Used to Develop Best Deployment Candidate Model</a></li>
   <li><a href="#load-best-deployment-candidate-model-from-model-registry" id="toc-load-best-deployment-candidate-model-from-model-registry" class="nav-link" data-scroll-target="#load-best-deployment-candidate-model-from-model-registry">Load Best Deployment Candidate Model from Model Registry</a></li>
   </ul></li>
   <li><a href="#explore-best-model-performance" id="toc-explore-best-model-performance" class="nav-link" data-scroll-target="#explore-best-model-performance">Explore Best Model Performance</a>
@@ -221,7 +239,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#ml-experiment-tracking" id="toc-ml-experiment-tracking" class="nav-link" data-scroll-target="#ml-experiment-tracking">ML Experiment Tracking</a></li>
   <li><a href="#next-step" id="toc-next-step" class="nav-link" data-scroll-target="#next-step">Next Step</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/elsdes3/market/blob/main/notebooks/04-transform/notebooks/03_design_experiment.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/elsdes3/market/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/elsdes3/market/blob/main/notebooks/02-train/notebooks/06_design_experiment.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/elsdes3/market/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
@@ -248,6 +266,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="overview" class="level3">
 <h3 class="anchored" data-anchor-id="overview">Overview</h3>
 <p>As discussed for the overall use-case, a marketing strategy is to be developed based on first-time visitors’ propenisty to make a purchase during a future (return) visit to the merchandise store website. The aim of the strategy is to convert these first time visitors into customers (if they did not make a purchase during their first visit), or repeat customers (if they did make a purchase during their first visit). This covers steps 2. and 3. from a <a href="https://www.datacamp.com/blog/data-demystified-what-is-a-b-testing">typical A/B Testing workflow</a>.</p>
+<p>This step can be run during ML model development since it requires</p>
+<ol type="1">
+<li>combined training+validation</li>
+<li>test</li>
+</ol>
+<p>data splits to be created.</p>
 </section>
 <section id="candidate-strategies" class="level3">
 <h3 class="anchored" data-anchor-id="candidate-strategies">Candidate Strategies</h3>
@@ -355,9 +379,9 @@ Notes
 </section>
 <section id="get-best-mlflow-model-from-model-registry" class="level2">
 <h2 class="anchored" data-anchor-id="get-best-mlflow-model-from-model-registry">Get Best MLFlow Model from Model Registry</h2>
-<section id="fetch-latest-version-of-best-deployment-candidate-model-from-model-registry" class="level3">
-<h3 class="anchored" data-anchor-id="fetch-latest-version-of-best-deployment-candidate-model-from-model-registry">Fetch Latest Version of Best Deployment Candidate Model from Model Registry</h3>
-<p>Get all MLFlow deployment candidate models from model registry</p>
+<section id="fetch-latest-version-of-best-deployment-candidate-model" class="level3">
+<h3 class="anchored" data-anchor-id="fetch-latest-version-of-best-deployment-candidate-model">Fetch Latest Version of Best Deployment Candidate Model</h3>
+<p>Get all MLFlow deployment candidate models from MLFlow model registry</p>
 <div class="cell" data-tags="[]" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_deployment_candidate_mlflow_models <span class="op">=</span> modh.get_all_deployment_candidate_models()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -377,38 +401,30 @@ Notes
 </div>
 </div>
 <p>Get name of best deployment candidate model</p>
-<div class="cell" data-tags="[]" data-execution_count="11">
+<div class="cell" data-tags="[]" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>best_run_model_name <span class="op">=</span> modh.get_best_deployment_candidate_model(</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    df_deployment_candidate_mlflow_models</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="get-data-used-in-development-of-best-deployment-candidate-model" class="level3">
-<h3 class="anchored" data-anchor-id="get-data-used-in-development-of-best-deployment-candidate-model">Get Data Used in Development of Best Deployment Candidate Model</h3>
+<section id="get-data-used-to-develop-best-deployment-candidate-model" class="level3">
+<h3 class="anchored" data-anchor-id="get-data-used-to-develop-best-deployment-candidate-model">Get Data Used to Develop Best Deployment Candidate Model</h3>
 <p>Get all available data used during model development of the best deployment candidate model</p>
-<div class="cell" data-tags="[]" data-execution_count="12">
+<div class="cell" data-tags="[]" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df_all <span class="op">=</span> modh.get_data_for_run_id(df_deployment_candidate_mlflow_models, <span class="st">'processed_data'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 93.9 ms, sys: 46.3 ms, total: 140 ms
-Wall time: 68.8 ms</code></pre>
-</div>
 </div>
 <p>Separate features and label</p>
-<div class="cell" data-tags="[]" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> [df_all.drop(columns<span class="op">=</span>[label, <span class="st">'split_type'</span>]), df_all[label]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 7.16 ms, sys: 7.13 ms, total: 14.3 ms
-Wall time: 13.9 ms</code></pre>
-</div>
+<div class="cell" data-tags="[]" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> [df_all.drop(columns<span class="op">=</span>[label, <span class="st">'split_type'</span>]), df_all[label]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Get test split from the data used during development of the best deployment candidate model</p>
-<div class="cell" data-tags="[]" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df_prediction_best_run <span class="op">=</span> (</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    df_all</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    .query(<span class="st">"split_type == 'test'"</span>)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    .rename(columns<span class="op">=</span>{label: <span class="st">'label'</span>})</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    .drop(columns<span class="op">=</span>[<span class="st">'split_type'</span>])</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df_prediction_best_run <span class="op">=</span> (</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    df_all</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    .query(<span class="st">"split_type == 'test'"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    .rename(columns<span class="op">=</span>{label: <span class="st">'label'</span>})</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    .drop(columns<span class="op">=</span>[<span class="st">'split_type'</span>])</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Notes">
 <div class="callout-header d-flex align-content-center">
@@ -434,38 +450,37 @@ Notes
 </section>
 <section id="load-best-deployment-candidate-model-from-model-registry" class="level3">
 <h3 class="anchored" data-anchor-id="load-best-deployment-candidate-model-from-model-registry">Load Best Deployment Candidate Model from Model Registry</h3>
-<div class="cell" data-tags="[]" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>best_model_uri <span class="op">=</span> <span class="ss">f"models:/</span><span class="sc">{</span>best_run_model_name<span class="sc">}</span><span class="ss">/latest"</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> mlflow.sklearn.load_model(model_uri<span class="op">=</span>best_model_uri)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>best_model_uri <span class="op">=</span> <span class="ss">f"models:/</span><span class="sc">{</span>best_run_model_name<span class="sc">}</span><span class="ss">/latest"</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> mlflow.sklearn.load_model(model_uri<span class="op">=</span>best_model_uri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
 <section id="explore-best-model-performance" class="level2">
 <h2 class="anchored" data-anchor-id="explore-best-model-performance">Explore Best Model Performance</h2>
 <p>Make predictions on same data that best model was trained on</p>
-<div class="cell" data-tags="[]" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>y_pred, y_pred_proba <span class="op">=</span> modh.make_inference(model, X, y.name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>y_pred, y_pred_proba <span class="op">=</span> modh.make_inference(model, X, y.name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Get evaluation metrics on same data that best model was trained on</p>
-<div class="cell" data-tags="[]" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df_metrics_all <span class="op">=</span> mh.calculate_metrics(y, y_pred, y_pred_proba, <span class="va">None</span>, <span class="va">None</span>, <span class="va">None</span>, [<span class="st">"all"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df_metrics_all <span class="op">=</span> mh.calculate_metrics(y, y_pred, y_pred_proba, <span class="va">None</span>, <span class="va">None</span>, <span class="va">None</span>, [<span class="st">"all"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="optimal-discrimination-threshold-tuning" class="level3">
 <h3 class="anchored" data-anchor-id="optimal-discrimination-threshold-tuning">Optimal Discrimination Threshold Tuning</h3>
 <p>Show a visualization of evaluation metrics relative to the discrimination threshold</p>
-<div class="cell" data-tags="[]" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>vh.plot_multi_line_threshold_chart(</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    df_thresholds_best_run.set_index(<span class="st">"t"</span>),</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    ptitle_str<span class="op">=</span><span class="st">"Threshold Plot"</span>,</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    xlabel<span class="op">=</span><span class="st">"Threshold (t)"</span>,</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    ylabel<span class="op">=</span><span class="st">"Score"</span>,</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    title_fontsize<span class="op">=</span><span class="dv">12</span>,</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    axis_label_fontsize<span class="op">=</span><span class="dv">12</span>,</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>),</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>vh.plot_multi_line_threshold_chart(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    df_thresholds_best_run.set_index(<span class="st">"t"</span>),</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    ptitle_str<span class="op">=</span><span class="st">"Threshold Plot"</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    xlabel<span class="op">=</span><span class="st">"Threshold (t)"</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    ylabel<span class="op">=</span><span class="st">"Score"</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    title_fontsize<span class="op">=</span><span class="dv">12</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    axis_label_fontsize<span class="op">=</span><span class="dv">12</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>),</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="03_design_experiment_files/figure-html/cell-25-output-1.png" class="img-fluid"></p>
+<p><img src="06_design_experiment_files/figure-html/cell-26-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Observations">
@@ -479,7 +494,7 @@ Observations
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>To be done.</li>
+<li>To be completed.</li>
 </ol>
 </div>
 </div>
@@ -508,42 +523,40 @@ Observations
 <li>set datatypes for columns</li>
 <li>(optional) move column with meaningful names to second from front (for display purposes only)</li>
 </ol>
-<div class="cell" data-tags="[]" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df_sample_sizes_strategy_1 <span class="op">=</span> (</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    df_prediction_best_run.copy()</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.sort_scores, <span class="va">True</span>)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.get_audience_groups_by_propensity, audience_groups_strategy_1[<span class="st">"num_propens_groups"</span>])</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.get_kpi_per_audience_group)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>        ash.calculate_multi_group_sample_sizes,</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        uplift_ranges,</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        power_ranges,</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        ci_level_ranges,</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.invert_group_numbers, audience_groups_strategy_1[<span class="st">"num_propens_groups"</span>])</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.map_audience_group_number_to_name, mapper_dict_audience_strategy_1)</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>        ash.set_datatypes,</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_number"</span>: pd.Int8Dtype(),</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">"maudience"</span>: pd.StringDtype(),</span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_size"</span>: pd.Int16Dtype(),</span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_min_propensity"</span>: pd.Float32Dtype(),</span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_conv_rate"</span>: pd.Float32Dtype(),</span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>            <span class="st">"uplift"</span>: pd.Int8Dtype(),</span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">"power"</span>: pd.Int8Dtype(),</span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ci_level"</span>: pd.Int8Dtype(),</span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">"required_sample_size"</span>: pd.Int32Dtype(),</span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>        },</span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>    ).pipe(ash.move_cols_to_front, [<span class="st">"group_number"</span>, <span class="st">"maudience"</span>])</span>
-<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>df_sample_sizes_strategy_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df_sample_sizes_strategy_1 <span class="op">=</span> (</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    df_prediction_best_run.copy()</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.sort_scores, <span class="va">True</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.get_audience_groups_by_propensity, audience_groups_strategy_1[<span class="st">"num_propens_groups"</span>])</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.get_kpi_per_audience_group)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        ash.calculate_multi_group_sample_sizes,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        uplift_ranges,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        power_ranges,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        ci_level_ranges,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.invert_group_numbers, audience_groups_strategy_1[<span class="st">"num_propens_groups"</span>])</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.map_audience_group_number_to_name, mapper_dict_audience_strategy_1)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>        ash.set_datatypes,</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_number"</span>: pd.Int8Dtype(),</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">"maudience"</span>: pd.StringDtype(),</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_size"</span>: pd.Int16Dtype(),</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_min_propensity"</span>: pd.Float32Dtype(),</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_conv_rate"</span>: pd.Float32Dtype(),</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>            <span class="st">"uplift"</span>: pd.Int8Dtype(),</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">"power"</span>: pd.Int8Dtype(),</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ci_level"</span>: pd.Int8Dtype(),</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">"required_sample_size"</span>: pd.Int32Dtype(),</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>    ).pipe(ash.move_cols_to_front, [<span class="st">"group_number"</span>, <span class="st">"maudience"</span>])</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>df_sample_sizes_strategy_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Set all specified datatypes.
-CPU times: user 5.7 s, sys: 0 ns, total: 5.7 s
-Wall time: 5.69 s</code></pre>
+<pre><code>Set all specified datatypes.</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="21">
+<div class="cell-output cell-output-display" data-execution_count="25">
 <div>
 
 
@@ -568,60 +581,60 @@ Wall time: 5.69 s</code></pre>
 <td>0</td>
 <td>High</td>
 <td>6721</td>
-<td>0.02255</td>
-<td>2.038387</td>
+<td>0.092311</td>
+<td>2.157417</td>
 <td>15</td>
 <td>90</td>
 <td>95</td>
-<td>22444</td>
+<td>21180</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
 <td>0</td>
 <td>High</td>
 <td>6721</td>
-<td>0.02255</td>
-<td>2.038387</td>
+<td>0.092311</td>
+<td>2.157417</td>
 <td>10</td>
 <td>90</td>
 <td>66</td>
-<td>23934</td>
+<td>22586</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
 <td>0</td>
 <td>High</td>
 <td>6721</td>
-<td>0.02255</td>
-<td>2.038387</td>
+<td>0.092311</td>
+<td>2.157417</td>
 <td>10</td>
 <td>90</td>
 <td>67</td>
-<td>24375</td>
+<td>23003</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
 <td>0</td>
 <td>High</td>
 <td>6721</td>
-<td>0.02255</td>
-<td>2.038387</td>
+<td>0.092311</td>
+<td>2.157417</td>
 <td>10</td>
 <td>90</td>
 <td>68</td>
-<td>24828</td>
+<td>23430</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
 <td>0</td>
 <td>High</td>
 <td>6721</td>
-<td>0.02255</td>
-<td>2.038387</td>
+<td>0.092311</td>
+<td>2.157417</td>
 <td>10</td>
 <td>90</td>
 <td>69</td>
-<td>25293</td>
+<td>23869</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">...</td>
@@ -641,11 +654,11 @@ Wall time: 5.69 s</code></pre>
 <td>Low</td>
 <td>6722</td>
 <td>0.0</td>
-<td>2.558762</td>
+<td>2.261232</td>
 <td>15</td>
 <td>55</td>
 <td>67</td>
-<td>1849</td>
+<td>2098</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1508</td>
@@ -653,11 +666,11 @@ Wall time: 5.69 s</code></pre>
 <td>Low</td>
 <td>6722</td>
 <td>0.0</td>
-<td>2.558762</td>
+<td>2.261232</td>
 <td>15</td>
 <td>55</td>
 <td>68</td>
-<td>1942</td>
+<td>2205</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">1509</td>
@@ -665,11 +678,11 @@ Wall time: 5.69 s</code></pre>
 <td>Low</td>
 <td>6722</td>
 <td>0.0</td>
-<td>2.558762</td>
+<td>2.261232</td>
 <td>15</td>
 <td>55</td>
 <td>69</td>
-<td>2038</td>
+<td>2313</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1510</td>
@@ -677,11 +690,11 @@ Wall time: 5.69 s</code></pre>
 <td>Low</td>
 <td>6722</td>
 <td>0.0</td>
-<td>2.558762</td>
+<td>2.261232</td>
 <td>12</td>
 <td>90</td>
 <td>70</td>
-<td>14182</td>
+<td>16097</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">1511</td>
@@ -689,11 +702,11 @@ Wall time: 5.69 s</code></pre>
 <td>Low</td>
 <td>6722</td>
 <td>0.0</td>
-<td>2.558762</td>
+<td>2.261232</td>
 <td>10</td>
 <td>55</td>
 <td>55</td>
-<td>1853</td>
+<td>2103</td>
 </tr>
 </tbody>
 </table>
@@ -725,47 +738,45 @@ Wall time: 5.69 s</code></pre>
 <li>set datatypes for columns</li>
 <li>(optional) move column with meaningful names to second from front (for display purposes only)</li>
 </ol>
-<div class="cell" data-tags="[]" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df_sample_sizes_strategy_2 <span class="op">=</span> (</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    df_prediction_best_run.copy()</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.sort_scores, <span class="va">False</span>)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        ash.calculate_single_group_sample_sizes,</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>        audience_groups_strategy_2[<span class="st">"num_propens_groups"</span>],</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>        ash.get_group_size(df_prediction_best_run, audience_groups_strategy_2[<span class="st">"num_propens_groups"</span>]),</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        uplift_ranges,</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>        power_ranges,</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>        ci_level_ranges,</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.subtract_one_from_group_numbers, <span class="st">"group_number"</span>)</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>        ash.map_audience_group_number_to_name,</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>        mapper_dict_audience_strategy_2,</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">"group_number"</span>,</span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>        ash.set_datatypes,</span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_number"</span>: pd.Int8Dtype(),</span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>            <span class="st">"maudience"</span>: pd.StringDtype(),</span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_size"</span>: pd.Int16Dtype(),</span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_size_proportion"</span>: pd.Float32Dtype(),</span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_min_propensity"</span>: pd.Float32Dtype(),</span>
-<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_conv_rate"</span>: pd.Float32Dtype(),</span>
-<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">"uplift"</span>: pd.Int8Dtype(),</span>
-<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>            <span class="st">"power"</span>: pd.Int8Dtype(),</span>
-<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ci_level"</span>: pd.Int8Dtype(),</span>
-<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>            <span class="st">"required_sample_size"</span>: pd.Int32Dtype(),</span>
-<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>        },</span>
-<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.move_cols_to_front, [<span class="st">"group_number"</span>, <span class="st">"maudience"</span>])</span>
-<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>display(df_sample_sizes_strategy_2.dtypes.rename(<span class="st">"dtype"</span>).to_frame().transpose())</span>
-<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>df_sample_sizes_strategy_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df_sample_sizes_strategy_2 <span class="op">=</span> (</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    df_prediction_best_run.copy()</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.sort_scores, <span class="va">False</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        ash.calculate_single_group_sample_sizes,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        audience_groups_strategy_2[<span class="st">"num_propens_groups"</span>],</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>        ash.get_group_size(df_prediction_best_run, audience_groups_strategy_2[<span class="st">"num_propens_groups"</span>]),</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        uplift_ranges,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        power_ranges,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        ci_level_ranges,</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.subtract_one_from_group_numbers, <span class="st">"group_number"</span>)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        ash.map_audience_group_number_to_name,</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>        mapper_dict_audience_strategy_2,</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">"group_number"</span>,</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>        ash.set_datatypes,</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_number"</span>: pd.Int8Dtype(),</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>            <span class="st">"maudience"</span>: pd.StringDtype(),</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_size"</span>: pd.Int16Dtype(),</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_size_proportion"</span>: pd.Float32Dtype(),</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_min_propensity"</span>: pd.Float32Dtype(),</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_conv_rate"</span>: pd.Float32Dtype(),</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">"uplift"</span>: pd.Int8Dtype(),</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>            <span class="st">"power"</span>: pd.Int8Dtype(),</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ci_level"</span>: pd.Int8Dtype(),</span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>            <span class="st">"required_sample_size"</span>: pd.Int32Dtype(),</span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.move_cols_to_front, [<span class="st">"group_number"</span>, <span class="st">"maudience"</span>])</span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>display(df_sample_sizes_strategy_2.dtypes.rename(<span class="st">"dtype"</span>).to_frame().transpose())</span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>df_sample_sizes_strategy_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Set all specified datatypes.
-CPU times: user 5.97 s, sys: 0 ns, total: 5.97 s
-Wall time: 5.97 s</code></pre>
+<pre><code>Set all specified datatypes.</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -806,7 +817,7 @@ Wall time: 5.97 s</code></pre>
 
 </div>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="22">
+<div class="cell-output cell-output-display" data-execution_count="26">
 <div>
 
 
@@ -833,12 +844,12 @@ Wall time: 5.97 s</code></pre>
 <td>High</td>
 <td>6721</td>
 <td>33.33168</td>
-<td>0.02195</td>
-<td>2.038387</td>
+<td>0.092205</td>
+<td>2.157417</td>
 <td>10</td>
 <td>55</td>
 <td>55</td>
-<td>2338</td>
+<td>2206</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
@@ -846,12 +857,12 @@ Wall time: 5.97 s</code></pre>
 <td>High</td>
 <td>6721</td>
 <td>33.33168</td>
-<td>0.02195</td>
-<td>2.038387</td>
+<td>0.092205</td>
+<td>2.157417</td>
 <td>10</td>
 <td>55</td>
 <td>57</td>
-<td>2802</td>
+<td>2644</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
@@ -859,12 +870,12 @@ Wall time: 5.97 s</code></pre>
 <td>High</td>
 <td>6721</td>
 <td>33.33168</td>
-<td>0.02195</td>
-<td>2.038387</td>
+<td>0.092205</td>
+<td>2.157417</td>
 <td>10</td>
 <td>55</td>
 <td>60</td>
-<td>3508</td>
+<td>3310</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
@@ -872,12 +883,12 @@ Wall time: 5.97 s</code></pre>
 <td>High</td>
 <td>6721</td>
 <td>33.33168</td>
-<td>0.02195</td>
-<td>2.038387</td>
+<td>0.092205</td>
+<td>2.157417</td>
 <td>10</td>
 <td>55</td>
 <td>63</td>
-<td>4233</td>
+<td>3995</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
@@ -885,12 +896,12 @@ Wall time: 5.97 s</code></pre>
 <td>High</td>
 <td>6721</td>
 <td>33.33168</td>
-<td>0.02195</td>
-<td>2.038387</td>
+<td>0.092205</td>
+<td>2.157417</td>
 <td>10</td>
 <td>55</td>
 <td>65</td>
-<td>4732</td>
+<td>4466</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">...</td>
@@ -982,35 +993,32 @@ Wall time: 5.97 s</code></pre>
 <section id="export-audience-sample-sizes-to-disk" class="level2">
 <h2 class="anchored" data-anchor-id="export-audience-sample-sizes-to-disk">Export Audience Sample Sizes to Disk</h2>
 <p>Concatenate the two <code>DataFrame</code>s with the required sample sizes to acheive a KPI using different combinations of inputs (uplift, confidence level and power) and then export to disk</p>
-<div class="cell" data-tags="[]" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    df_combined_sample_sizes,</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    aud_sizes_fpath,</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>) <span class="op">=</span> ash.combine_and_export_sample_size_estimates(</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    df_sample_sizes_strategy_1,</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    df_sample_sizes_strategy_2,</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    df_deployment_candidate_mlflow_models,</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    processed_data_dir,</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    df_combined_sample_sizes,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    aud_sizes_fpath,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>) <span class="op">=</span> ash.combine_and_export_sample_size_estimates(</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    df_sample_sizes_strategy_1,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    df_sample_sizes_strategy_2,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    df_deployment_candidate_mlflow_models,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    processed_data_dir,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="ml-experiment-tracking" class="level2">
 <h2 class="anchored" data-anchor-id="ml-experiment-tracking">ML Experiment Tracking</h2>
 <p>Get best run ID</p>
-<div class="cell" data-tags="[]" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>best_run_id <span class="op">=</span> df_deployment_candidate_mlflow_models.squeeze()[<span class="st">"run_id"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>best_run_id <span class="op">=</span> df_deployment_candidate_mlflow_models.squeeze()[<span class="st">"run_id"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Log audience sample sizes file as MLFlow artifact</p>
-<div class="cell" data-tags="[]" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> mlflow.start_run(run_id<span class="op">=</span>best_run_id) <span class="im">as</span> run:</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    mlflow.log_artifact(aud_sizes_fpath)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Logged required audience sizes as artifact in file "</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>os<span class="sc">.</span>path<span class="sc">.</span>basename(aud_sizes_fpath)<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Logged required audience sizes as artifact in file audience_sample_sizes__run_eee3d281e0cb48cd8dba9f93a6de4347.parquet.gzip</code></pre>
-</div>
+<div class="cell" data-tags="[]" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> mlflow.start_run(run_id<span class="op">=</span>best_run_id) <span class="im">as</span> run:</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    mlflow.log_artifact(aud_sizes_fpath)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Logged required audience sizes as artifact in file "</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>os<span class="sc">.</span>path<span class="sc">.</span>basename(aud_sizes_fpath)<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="next-step" class="level2">
@@ -1270,12 +1278,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="../../../notebooks/04-transform/notebooks/02_get_best_model.html" class="pagination-link">
+      <a href="../../../notebooks/02-train/notebooks/05_get_best_model.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Register Model</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../notebooks/04-transform/notebooks/04_get_audience_cohorts.html" class="pagination-link">
+      <a href="../../../notebooks/02-train/notebooks/07_get_audience_cohorts.html" class="pagination-link">
         <span class="nav-page-text">Get Audience</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
