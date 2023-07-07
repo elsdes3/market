@@ -63,7 +63,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
-<link href="../../../notebooks/02-train/notebooks/10_analyze_campaign_outputs.html" rel="next">
+<link href="../../../notebooks/04-upload/notebooks/09_upload.html" rel="next">
 <link href="../../../notebooks/02-train/notebooks/07_get_audience_cohorts.html" rel="prev">
 <script src="../../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../../site_libs/quarto-html/popper.min.js"></script>
@@ -185,20 +185,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/02-train/notebooks/10_analyze_campaign_outputs.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../notebooks/04-upload/notebooks/09_upload.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Upload Audience</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/05-dash/notebooks/10_dash.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dashboard</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/02-train/notebooks/11_analyze_campaign_outputs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Post-Campaign</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/02-train/notebooks/11_cleanup_mlflow.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../notebooks/02-train/notebooks/12_cleanup_mlflow.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Clean MLFlow</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/05-cleanup/notebooks/12_cleanup_bigquery.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Clean BigQuery</span></a>
+  <a href="../../../notebooks/06-cleanup/notebooks/13_cleanup_gcloud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Clean GCloud</span></a>
   </div>
 </li>
     </ul>
@@ -413,7 +425,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="get-inference-data-with-audience-assignments" class="level3">
 <h3 class="anchored" data-anchor-id="get-inference-data-with-audience-assignments">Get Inference Data with Audience Assignments</h3>
 <p>Load inference data with audience and cohort assignments</p>
-<div class="cell" data-execution_count="16">
+<div class="cell" data-execution_count="48">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_infer_with_audience <span class="op">=</span> (</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    pd.read_parquet(</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        audience_filepath,</span>
@@ -421,13 +433,317 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>            c</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">list</span>(dtypes_dict)</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> c <span class="kw">not</span> <span class="kw">in</span> [<span class="st">'made_purchase_on_future_visit'</span>]</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        ] <span class="op">+</span> [<span class="st">'maudience'</span>, <span class="st">'audience_strategy'</span>],</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        ] <span class="op">+</span> [<span class="st">'maudience'</span>, <span class="st">'audience_strategy'</span>, <span class="st">'cohort'</span>],</span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        filters<span class="op">=</span>[(<span class="st">'audience_strategy'</span>, <span class="st">'='</span>, audience_strategy)]</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    ).dropna(subset<span class="op">=</span>[<span class="st">'cohort'</span>]).drop(columns<span class="op">=</span>[<span class="st">'cohort'</span>])</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    .reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>df_infer_with_audience</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="48">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">fullvisitorid</th>
+<th data-quarto-table-cell-role="th">visitId</th>
+<th data-quarto-table-cell-role="th">visitNumber</th>
+<th data-quarto-table-cell-role="th">quarter</th>
+<th data-quarto-table-cell-role="th">month</th>
+<th data-quarto-table-cell-role="th">day_of_month</th>
+<th data-quarto-table-cell-role="th">day_of_week</th>
+<th data-quarto-table-cell-role="th">hour</th>
+<th data-quarto-table-cell-role="th">minute</th>
+<th data-quarto-table-cell-role="th">second</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">product_views</th>
+<th data-quarto-table-cell-role="th">product_clicks</th>
+<th data-quarto-table-cell-role="th">pageviews</th>
+<th data-quarto-table-cell-role="th">time_on_site</th>
+<th data-quarto-table-cell-role="th">browser</th>
+<th data-quarto-table-cell-role="th">os</th>
+<th data-quarto-table-cell-role="th">added_to_cart</th>
+<th data-quarto-table-cell-role="th">deviceCategory</th>
+<th data-quarto-table-cell-role="th">maudience</th>
+<th data-quarto-table-cell-role="th">audience_strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>0680963722765513682</td>
+<td>1490246407</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>22</td>
+<td>4</td>
+<td>22</td>
+<td>20</td>
+<td>7</td>
+<td>...</td>
+<td>12</td>
+<td>2</td>
+<td>8</td>
+<td>127</td>
+<td>Chrome</td>
+<td>Macintosh</td>
+<td>0</td>
+<td>desktop</td>
+<td>High</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>3339620488023808675</td>
+<td>1489208703</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>10</td>
+<td>6</td>
+<td>21</td>
+<td>5</td>
+<td>3</td>
+<td>...</td>
+<td>12</td>
+<td>2</td>
+<td>4</td>
+<td>34</td>
+<td>Safari</td>
+<td>iOS</td>
+<td>0</td>
+<td>tablet</td>
+<td>High</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>4352137968854306424</td>
+<td>1489597665</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>15</td>
+<td>4</td>
+<td>10</td>
+<td>7</td>
+<td>45</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+<td>7</td>
+<td>Safari</td>
+<td>Macintosh</td>
+<td>0</td>
+<td>desktop</td>
+<td>High</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>415961985355681274</td>
+<td>1489621178</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>15</td>
+<td>4</td>
+<td>16</td>
+<td>39</td>
+<td>38</td>
+<td>...</td>
+<td>39</td>
+<td>0</td>
+<td>4</td>
+<td>90</td>
+<td>Chrome</td>
+<td>Windows</td>
+<td>0</td>
+<td>desktop</td>
+<td>High</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>8333492141906527532</td>
+<td>1490084582</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>21</td>
+<td>3</td>
+<td>1</td>
+<td>23</td>
+<td>2</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>Safari</td>
+<td>iOS</td>
+<td>0</td>
+<td>tablet</td>
+<td>High</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12407</td>
+<td>3468175352212463876</td>
+<td>1489255537</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>11</td>
+<td>7</td>
+<td>10</td>
+<td>5</td>
+<td>37</td>
+<td>...</td>
+<td>7</td>
+<td>1</td>
+<td>2</td>
+<td>16</td>
+<td>Chrome</td>
+<td>Macintosh</td>
+<td>0</td>
+<td>desktop</td>
+<td>Low</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">12408</td>
+<td>2297134143716418806</td>
+<td>1489463792</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>13</td>
+<td>2</td>
+<td>20</td>
+<td>56</td>
+<td>32</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>Chrome</td>
+<td>Android</td>
+<td>0</td>
+<td>mobile</td>
+<td>Low</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12409</td>
+<td>4875088489598899615</td>
+<td>1489358551</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>12</td>
+<td>1</td>
+<td>15</td>
+<td>42</td>
+<td>31</td>
+<td>...</td>
+<td>72</td>
+<td>0</td>
+<td>8</td>
+<td>677</td>
+<td>Chrome</td>
+<td>Android</td>
+<td>0</td>
+<td>mobile</td>
+<td>Low</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">12410</td>
+<td>504996867976621481</td>
+<td>1488752321</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>5</td>
+<td>1</td>
+<td>14</td>
+<td>18</td>
+<td>41</td>
+<td>...</td>
+<td>37</td>
+<td>1</td>
+<td>11</td>
+<td>898</td>
+<td>Chrome</td>
+<td>Chrome OS</td>
+<td>0</td>
+<td>desktop</td>
+<td>Low</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12411</td>
+<td>5311563555589439877</td>
+<td>1488382048</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>1</td>
+<td>4</td>
+<td>7</td>
+<td>27</td>
+<td>28</td>
+<td>...</td>
+<td>24</td>
+<td>0</td>
+<td>4</td>
+<td>66</td>
+<td>Chrome</td>
+<td>Windows</td>
+<td>0</td>
+<td>desktop</td>
+<td>Low</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+<p>12412 rows × 28 columns</p>
+</div>
+</div>
 </div>
 <p>Get features from inference data</p>
-<div class="cell" data-execution_count="17">
+<div class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>X_infer_with_audience <span class="op">=</span> (</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    df_infer_with_audience.drop(columns<span class="op">=</span>[<span class="st">'maudience'</span>, <span class="st">'audience_strategy'</span>])</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -436,108 +752,108 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="ml-evaluation-from-pipeline" class="level2">
 <h2 class="anchored" data-anchor-id="ml-evaluation-from-pipeline">ML Evaluation From <code>Pipeline</code></h2>
-<div class="cell" data-execution_count="21">
+<div class="cell" data-execution_count="34">
 <div class="cell-output cell-output-display">
 <style type="text/css">
-#T_18e65_row0_col0, #T_18e65_row1_col0, #T_18e65_row2_col0, #T_18e65_row3_col0, #T_18e65_row4_col0, #T_18e65_row5_col0, #T_18e65_row6_col0, #T_18e65_row7_col0, #T_18e65_row8_col0, #T_18e65_row9_col0 {
+#T_99818_row0_col0, #T_99818_row1_col0, #T_99818_row2_col0, #T_99818_row3_col0, #T_99818_row4_col0, #T_99818_row5_col0, #T_99818_row6_col0, #T_99818_row7_col0, #T_99818_row8_col0, #T_99818_row9_col0 {
   font-size: 14px;
 }
-#T_18e65_row0_col1, #T_18e65_row0_col2 {
+#T_99818_row0_col1, #T_99818_row0_col2 {
   background-color: #800026;
   color: #f1f1f1;
   font-size: 14px;
 }
-#T_18e65_row1_col1, #T_18e65_row3_col1, #T_18e65_row4_col1, #T_18e65_row5_col1, #T_18e65_row6_col1, #T_18e65_row7_col1 {
+#T_99818_row1_col1, #T_99818_row3_col1, #T_99818_row4_col1, #T_99818_row5_col1, #T_99818_row6_col1, #T_99818_row7_col1 {
   background-color: #fd8239;
   color: #f1f1f1;
   font-size: 14px;
 }
-#T_18e65_row1_col2, #T_18e65_row3_col2, #T_18e65_row4_col2, #T_18e65_row5_col2, #T_18e65_row6_col2, #T_18e65_row7_col2 {
+#T_99818_row1_col2, #T_99818_row3_col2, #T_99818_row4_col2, #T_99818_row5_col2, #T_99818_row6_col2, #T_99818_row7_col2 {
   background-color: #fd8439;
   color: #f1f1f1;
   font-size: 14px;
 }
-#T_18e65_row2_col1 {
+#T_99818_row2_col1 {
   background-color: #fffecb;
   color: #000000;
   font-size: 14px;
 }
-#T_18e65_row2_col2, #T_18e65_row8_col1, #T_18e65_row8_col2, #T_18e65_row9_col1, #T_18e65_row9_col2 {
+#T_99818_row2_col2, #T_99818_row8_col1, #T_99818_row8_col2, #T_99818_row9_col1, #T_99818_row9_col2 {
   background-color: #ffffcc;
   color: #000000;
   font-size: 14px;
 }
 </style>
 
-<table id="T_18e65" data-quarto-postprocess="true" class="table table-sm table-striped small">
+<table id="T_99818" data-quarto-postprocess="true" class="table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th class="index_name level0" data-quarto-table-cell-role="th">split</th>
-<th id="T_18e65_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">metric</th>
-<th id="T_18e65_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">train_val</th>
-<th id="T_18e65_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">test</th>
+<th id="T_99818_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">metric</th>
+<th id="T_99818_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">train_val</th>
+<th id="T_99818_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">test</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_18e65_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">0</td>
-<td id="T_18e65_row0_col0" class="data row0 col0">accuracy</td>
-<td id="T_18e65_row0_col1" class="data row0 col1">0.919483</td>
-<td id="T_18e65_row0_col2" class="data row0 col2">0.940538</td>
+<td id="T_99818_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">0</td>
+<td id="T_99818_row0_col0" class="data row0 col0">accuracy</td>
+<td id="T_99818_row0_col1" class="data row0 col1">0.919483</td>
+<td id="T_99818_row0_col2" class="data row0 col2">0.940538</td>
 </tr>
 <tr class="even">
-<td id="T_18e65_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">1</td>
-<td id="T_18e65_row1_col0" class="data row1 col0">balanced_accuracy</td>
-<td id="T_18e65_row1_col1" class="data row1 col1">0.501968</td>
-<td id="T_18e65_row1_col2" class="data row1 col2">0.499218</td>
+<td id="T_99818_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">1</td>
+<td id="T_99818_row1_col0" class="data row1 col0">balanced_accuracy</td>
+<td id="T_99818_row1_col1" class="data row1 col1">0.501968</td>
+<td id="T_99818_row1_col2" class="data row1 col2">0.499218</td>
 </tr>
 <tr class="odd">
-<td id="T_18e65_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">2</td>
-<td id="T_18e65_row2_col0" class="data row2 col0">precision</td>
-<td id="T_18e65_row2_col1" class="data row2 col1">0.047763</td>
-<td id="T_18e65_row2_col2" class="data row2 col2">0.022135</td>
+<td id="T_99818_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">2</td>
+<td id="T_99818_row2_col0" class="data row2 col0">precision</td>
+<td id="T_99818_row2_col1" class="data row2 col1">0.047763</td>
+<td id="T_99818_row2_col2" class="data row2 col2">0.022135</td>
 </tr>
 <tr class="even">
-<td id="T_18e65_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">3</td>
-<td id="T_18e65_row3_col0" class="data row3 col0">recall</td>
-<td id="T_18e65_row3_col1" class="data row3 col1">0.501968</td>
-<td id="T_18e65_row3_col2" class="data row3 col2">0.499218</td>
+<td id="T_99818_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">3</td>
+<td id="T_99818_row3_col0" class="data row3 col0">recall</td>
+<td id="T_99818_row3_col1" class="data row3 col1">0.501968</td>
+<td id="T_99818_row3_col2" class="data row3 col2">0.499218</td>
 </tr>
 <tr class="odd">
-<td id="T_18e65_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">4</td>
-<td id="T_18e65_row4_col0" class="data row4 col0">roc_auc</td>
-<td id="T_18e65_row4_col1" class="data row4 col1">0.501968</td>
-<td id="T_18e65_row4_col2" class="data row4 col2">0.499218</td>
+<td id="T_99818_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">4</td>
+<td id="T_99818_row4_col0" class="data row4 col0">roc_auc</td>
+<td id="T_99818_row4_col1" class="data row4 col1">0.501968</td>
+<td id="T_99818_row4_col2" class="data row4 col2">0.499218</td>
 </tr>
 <tr class="even">
-<td id="T_18e65_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">5</td>
-<td id="T_18e65_row5_col0" class="data row5 col0">f1</td>
-<td id="T_18e65_row5_col1" class="data row5 col1">0.502007</td>
-<td id="T_18e65_row5_col2" class="data row5 col2">0.498453</td>
+<td id="T_99818_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">5</td>
+<td id="T_99818_row5_col0" class="data row5 col0">f1</td>
+<td id="T_99818_row5_col1" class="data row5 col1">0.502007</td>
+<td id="T_99818_row5_col2" class="data row5 col2">0.498453</td>
 </tr>
 <tr class="odd">
-<td id="T_18e65_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">6</td>
-<td id="T_18e65_row6_col0" class="data row6 col0">fbeta05</td>
-<td id="T_18e65_row6_col1" class="data row6 col1">0.502060</td>
-<td id="T_18e65_row6_col2" class="data row6 col2">0.498946</td>
+<td id="T_99818_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">6</td>
+<td id="T_99818_row6_col0" class="data row6 col0">fbeta05</td>
+<td id="T_99818_row6_col1" class="data row6 col1">0.502060</td>
+<td id="T_99818_row6_col2" class="data row6 col2">0.498946</td>
 </tr>
 <tr class="even">
-<td id="T_18e65_level0_row7" class="row_heading level0 row7" data-quarto-table-cell-role="th">7</td>
-<td id="T_18e65_row7_col0" class="data row7 col0">fbeta2</td>
-<td id="T_18e65_row7_col1" class="data row7 col1">0.501977</td>
-<td id="T_18e65_row7_col2" class="data row7 col2">0.498594</td>
+<td id="T_99818_level0_row7" class="row_heading level0 row7" data-quarto-table-cell-role="th">7</td>
+<td id="T_99818_row7_col0" class="data row7 col0">fbeta2</td>
+<td id="T_99818_row7_col1" class="data row7 col1">0.501977</td>
+<td id="T_99818_row7_col2" class="data row7 col2">0.498594</td>
 </tr>
 <tr class="odd">
-<td id="T_18e65_level0_row8" class="row_heading level0 row8" data-quarto-table-cell-role="th">8</td>
-<td id="T_18e65_row8_col0" class="data row8 col0">pr_auc</td>
-<td id="T_18e65_row8_col1" class="data row8 col1">0.043754</td>
-<td id="T_18e65_row8_col2" class="data row8 col2">0.023227</td>
+<td id="T_99818_level0_row8" class="row_heading level0 row8" data-quarto-table-cell-role="th">8</td>
+<td id="T_99818_row8_col0" class="data row8 col0">pr_auc</td>
+<td id="T_99818_row8_col1" class="data row8 col1">0.043754</td>
+<td id="T_99818_row8_col2" class="data row8 col2">0.023227</td>
 </tr>
 <tr class="even">
-<td id="T_18e65_level0_row9" class="row_heading level0 row9" data-quarto-table-cell-role="th">9</td>
-<td id="T_18e65_row9_col0" class="data row9 col0">avg_precision</td>
-<td id="T_18e65_row9_col1" class="data row9 col1">0.043898</td>
-<td id="T_18e65_row9_col2" class="data row9 col2">0.023027</td>
+<td id="T_99818_level0_row9" class="row_heading level0 row9" data-quarto-table-cell-role="th">9</td>
+<td id="T_99818_row9_col0" class="data row9 col0">avg_precision</td>
+<td id="T_99818_row9_col1" class="data row9 col1">0.043898</td>
+<td id="T_99818_row9_col2" class="data row9 col2">0.023027</td>
 </tr>
 </tbody>
 </table>
@@ -587,7 +903,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 </ul></li>
 </ol>
-<div class="cell" data-execution_count="22">
+<div class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'Under'</span> <span class="kw">in</span> <span class="bu">type</span>(pipe.named_steps[<span class="st">'resampler'</span>]).<span class="va">__name__</span>:</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    resampling_approach <span class="op">=</span> <span class="st">'us'</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    pipe_resample_trans <span class="op">=</span> meh.get_preprocessor_pipeline(pipe, <span class="st">'us'</span>)</span>
@@ -620,108 +936,108 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="ml-evaluation-using-transformed-data" class="level3">
 <h3 class="anchored" data-anchor-id="ml-evaluation-using-transformed-data">ML Evaluation Using Transformed Data</h3>
-<div class="cell" data-execution_count="27">
+<div class="cell" data-execution_count="40">
 <div class="cell-output cell-output-display">
 <style type="text/css">
-#T_28b86_row0_col0, #T_28b86_row1_col0, #T_28b86_row2_col0, #T_28b86_row3_col0, #T_28b86_row4_col0, #T_28b86_row5_col0, #T_28b86_row6_col0, #T_28b86_row7_col0, #T_28b86_row8_col0, #T_28b86_row9_col0 {
+#T_15b21_row0_col0, #T_15b21_row1_col0, #T_15b21_row2_col0, #T_15b21_row3_col0, #T_15b21_row4_col0, #T_15b21_row5_col0, #T_15b21_row6_col0, #T_15b21_row7_col0, #T_15b21_row8_col0, #T_15b21_row9_col0 {
   font-size: 14px;
 }
-#T_28b86_row0_col1, #T_28b86_row0_col2 {
+#T_15b21_row0_col1, #T_15b21_row0_col2 {
   background-color: #800026;
   color: #f1f1f1;
   font-size: 14px;
 }
-#T_28b86_row1_col1, #T_28b86_row3_col1, #T_28b86_row4_col1, #T_28b86_row5_col1, #T_28b86_row6_col1, #T_28b86_row7_col1 {
+#T_15b21_row1_col1, #T_15b21_row3_col1, #T_15b21_row4_col1, #T_15b21_row5_col1, #T_15b21_row6_col1, #T_15b21_row7_col1 {
   background-color: #fd8239;
   color: #f1f1f1;
   font-size: 14px;
 }
-#T_28b86_row1_col2, #T_28b86_row3_col2, #T_28b86_row4_col2, #T_28b86_row5_col2, #T_28b86_row6_col2, #T_28b86_row7_col2 {
+#T_15b21_row1_col2, #T_15b21_row3_col2, #T_15b21_row4_col2, #T_15b21_row5_col2, #T_15b21_row6_col2, #T_15b21_row7_col2 {
   background-color: #fd8439;
   color: #f1f1f1;
   font-size: 14px;
 }
-#T_28b86_row2_col1 {
+#T_15b21_row2_col1 {
   background-color: #fffecb;
   color: #000000;
   font-size: 14px;
 }
-#T_28b86_row2_col2, #T_28b86_row8_col1, #T_28b86_row8_col2, #T_28b86_row9_col1, #T_28b86_row9_col2 {
+#T_15b21_row2_col2, #T_15b21_row8_col1, #T_15b21_row8_col2, #T_15b21_row9_col1, #T_15b21_row9_col2 {
   background-color: #ffffcc;
   color: #000000;
   font-size: 14px;
 }
 </style>
 
-<table id="T_28b86" data-quarto-postprocess="true" class="table table-sm table-striped small">
+<table id="T_15b21" data-quarto-postprocess="true" class="table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th class="index_name level0" data-quarto-table-cell-role="th">split</th>
-<th id="T_28b86_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">metric</th>
-<th id="T_28b86_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">train_val</th>
-<th id="T_28b86_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">test</th>
+<th id="T_15b21_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">metric</th>
+<th id="T_15b21_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">train_val</th>
+<th id="T_15b21_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">test</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_28b86_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">0</td>
-<td id="T_28b86_row0_col0" class="data row0 col0">accuracy</td>
-<td id="T_28b86_row0_col1" class="data row0 col1">0.919483</td>
-<td id="T_28b86_row0_col2" class="data row0 col2">0.940538</td>
+<td id="T_15b21_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">0</td>
+<td id="T_15b21_row0_col0" class="data row0 col0">accuracy</td>
+<td id="T_15b21_row0_col1" class="data row0 col1">0.919483</td>
+<td id="T_15b21_row0_col2" class="data row0 col2">0.940538</td>
 </tr>
 <tr class="even">
-<td id="T_28b86_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">1</td>
-<td id="T_28b86_row1_col0" class="data row1 col0">balanced_accuracy</td>
-<td id="T_28b86_row1_col1" class="data row1 col1">0.501968</td>
-<td id="T_28b86_row1_col2" class="data row1 col2">0.499218</td>
+<td id="T_15b21_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">1</td>
+<td id="T_15b21_row1_col0" class="data row1 col0">balanced_accuracy</td>
+<td id="T_15b21_row1_col1" class="data row1 col1">0.501968</td>
+<td id="T_15b21_row1_col2" class="data row1 col2">0.499218</td>
 </tr>
 <tr class="odd">
-<td id="T_28b86_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">2</td>
-<td id="T_28b86_row2_col0" class="data row2 col0">precision</td>
-<td id="T_28b86_row2_col1" class="data row2 col1">0.047763</td>
-<td id="T_28b86_row2_col2" class="data row2 col2">0.022135</td>
+<td id="T_15b21_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">2</td>
+<td id="T_15b21_row2_col0" class="data row2 col0">precision</td>
+<td id="T_15b21_row2_col1" class="data row2 col1">0.047763</td>
+<td id="T_15b21_row2_col2" class="data row2 col2">0.022135</td>
 </tr>
 <tr class="even">
-<td id="T_28b86_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">3</td>
-<td id="T_28b86_row3_col0" class="data row3 col0">recall</td>
-<td id="T_28b86_row3_col1" class="data row3 col1">0.501968</td>
-<td id="T_28b86_row3_col2" class="data row3 col2">0.499218</td>
+<td id="T_15b21_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">3</td>
+<td id="T_15b21_row3_col0" class="data row3 col0">recall</td>
+<td id="T_15b21_row3_col1" class="data row3 col1">0.501968</td>
+<td id="T_15b21_row3_col2" class="data row3 col2">0.499218</td>
 </tr>
 <tr class="odd">
-<td id="T_28b86_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">4</td>
-<td id="T_28b86_row4_col0" class="data row4 col0">roc_auc</td>
-<td id="T_28b86_row4_col1" class="data row4 col1">0.501968</td>
-<td id="T_28b86_row4_col2" class="data row4 col2">0.499218</td>
+<td id="T_15b21_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">4</td>
+<td id="T_15b21_row4_col0" class="data row4 col0">roc_auc</td>
+<td id="T_15b21_row4_col1" class="data row4 col1">0.501968</td>
+<td id="T_15b21_row4_col2" class="data row4 col2">0.499218</td>
 </tr>
 <tr class="even">
-<td id="T_28b86_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">5</td>
-<td id="T_28b86_row5_col0" class="data row5 col0">f1</td>
-<td id="T_28b86_row5_col1" class="data row5 col1">0.502007</td>
-<td id="T_28b86_row5_col2" class="data row5 col2">0.498453</td>
+<td id="T_15b21_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">5</td>
+<td id="T_15b21_row5_col0" class="data row5 col0">f1</td>
+<td id="T_15b21_row5_col1" class="data row5 col1">0.502007</td>
+<td id="T_15b21_row5_col2" class="data row5 col2">0.498453</td>
 </tr>
 <tr class="odd">
-<td id="T_28b86_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">6</td>
-<td id="T_28b86_row6_col0" class="data row6 col0">fbeta05</td>
-<td id="T_28b86_row6_col1" class="data row6 col1">0.502060</td>
-<td id="T_28b86_row6_col2" class="data row6 col2">0.498946</td>
+<td id="T_15b21_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">6</td>
+<td id="T_15b21_row6_col0" class="data row6 col0">fbeta05</td>
+<td id="T_15b21_row6_col1" class="data row6 col1">0.502060</td>
+<td id="T_15b21_row6_col2" class="data row6 col2">0.498946</td>
 </tr>
 <tr class="even">
-<td id="T_28b86_level0_row7" class="row_heading level0 row7" data-quarto-table-cell-role="th">7</td>
-<td id="T_28b86_row7_col0" class="data row7 col0">fbeta2</td>
-<td id="T_28b86_row7_col1" class="data row7 col1">0.501977</td>
-<td id="T_28b86_row7_col2" class="data row7 col2">0.498594</td>
+<td id="T_15b21_level0_row7" class="row_heading level0 row7" data-quarto-table-cell-role="th">7</td>
+<td id="T_15b21_row7_col0" class="data row7 col0">fbeta2</td>
+<td id="T_15b21_row7_col1" class="data row7 col1">0.501977</td>
+<td id="T_15b21_row7_col2" class="data row7 col2">0.498594</td>
 </tr>
 <tr class="odd">
-<td id="T_28b86_level0_row8" class="row_heading level0 row8" data-quarto-table-cell-role="th">8</td>
-<td id="T_28b86_row8_col0" class="data row8 col0">pr_auc</td>
-<td id="T_28b86_row8_col1" class="data row8 col1">0.043754</td>
-<td id="T_28b86_row8_col2" class="data row8 col2">0.023227</td>
+<td id="T_15b21_level0_row8" class="row_heading level0 row8" data-quarto-table-cell-role="th">8</td>
+<td id="T_15b21_row8_col0" class="data row8 col0">pr_auc</td>
+<td id="T_15b21_row8_col1" class="data row8 col1">0.043754</td>
+<td id="T_15b21_row8_col2" class="data row8 col2">0.023227</td>
 </tr>
 <tr class="even">
-<td id="T_28b86_level0_row9" class="row_heading level0 row9" data-quarto-table-cell-role="th">9</td>
-<td id="T_28b86_row9_col0" class="data row9 col0">avg_precision</td>
-<td id="T_28b86_row9_col1" class="data row9 col1">0.043898</td>
-<td id="T_28b86_row9_col2" class="data row9 col2">0.023027</td>
+<td id="T_15b21_level0_row9" class="row_heading level0 row9" data-quarto-table-cell-role="th">9</td>
+<td id="T_15b21_row9_col0" class="data row9 col0">avg_precision</td>
+<td id="T_15b21_row9_col1" class="data row9 col1">0.043898</td>
+<td id="T_15b21_row9_col2" class="data row9 col2">0.023027</td>
 </tr>
 </tbody>
 </table>
@@ -735,12 +1051,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="transformed-data" class="level3">
 <h3 class="anchored" data-anchor-id="transformed-data">Transformed Data</h3>
 <p>Verify agreement between predictions of training data split</p>
-<div class="cell" data-execution_count="28">
+<div class="cell" data-execution_count="41">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> y_train_pred.equals(y_train_pred_m)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> y_train_pred_proba.equals(y_train_pred_proba_m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Verify agreement between predictions of test data split</p>
-<div class="cell" data-execution_count="29">
+<div class="cell" data-execution_count="42">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> y_test_pred.reset_index(drop<span class="op">=</span><span class="va">True</span>).equals(y_test_pred_m)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> y_test_pred_proba.reset_index(drop<span class="op">=</span><span class="va">True</span>).equals(y_test_pred_proba_m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -748,7 +1064,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="evaluation-metrics" class="level3">
 <h3 class="anchored" data-anchor-id="evaluation-metrics">Evaluation Metrics</h3>
 <p>Verify agreement between ML model evaluation metrics using the test data split</p>
-<div class="cell" data-execution_count="30">
+<div class="cell" data-execution_count="43">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> df_metrics.equals(df_metrics_m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This section has verified that the manual approach to transforming features and using them to make and evaluate predictions of test data observations gives the same classification metrics as using the self-contained end-to-end <code>Pipeline</code> to make and evaluate predictions.</p>
@@ -764,7 +1080,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>overall data used during ML development (combination of train+val and test)</li>
 <li>inference data</li>
 </ol>
-<div class="cell" data-execution_count="31">
+<div class="cell" data-execution_count="49">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'Under'</span> <span class="kw">in</span> <span class="bu">type</span>(pipe.named_steps[<span class="st">'resampler'</span>]).<span class="va">__name__</span>:</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    resampling_approach <span class="op">=</span> <span class="st">'us'</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    pipe_resample_trans <span class="op">=</span> meh.get_preprocessor_pipeline(pipe, <span class="st">'us'</span>)</span>
@@ -795,7 +1111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Append the audience group name and strategy to the transformed inference data</p>
-<div class="cell" data-execution_count="33">
+<div class="cell" data-execution_count="51">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df_infer_trans <span class="op">=</span> (</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    X_infer_trans.assign(maudience<span class="op">=</span>df_infer_with_audience[<span class="st">'maudience'</span>])</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    .assign(audience_strategy<span class="op">=</span>df_infer_with_audience[<span class="st">'audience_strategy'</span>])</span>
@@ -811,7 +1127,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>append metadata about the selected slice of inference data</li>
 </ol>
 <p>The above process is repeated for all audience groups. This is shown below</p>
-<div class="cell" data-execution_count="34">
+<div class="cell" data-execution_count="52">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dfs_shap_values <span class="op">=</span> []</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> maudience <span class="kw">in</span> audience_groups_strategies[audience_strategy]:</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1. Get SHAP training data for audience group</span></span>
@@ -842,320 +1158,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>        pd.DataFrame.from_dict(</span>
 <span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>            {</span>
 <span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>                <span class="st">'feature'</span>: <span class="bu">list</span>(X_trans_rs)[:num_features_shap],</span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>                <span class="st">'mean_shap_value'</span>: shap_means.squeeze(),</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>                <span class="st">'value'</span>: shap_means.squeeze(),</span>
 <span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>            },</span>
 <span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>            orient<span class="op">=</span><span class="st">'index'</span></span>
 <span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>        ).transpose()</span>
-<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>        .sort_values(by<span class="op">=</span><span class="st">'mean_shap_value'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>        .sort_values(by<span class="op">=</span><span class="st">'value'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>        .reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>        .assign(infer_month<span class="op">=</span>month_name[X_infer_with_audience[<span class="st">'month'</span>].squeeze()[<span class="dv">0</span>]])</span>
 <span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>        .assign(maudience<span class="op">=</span>maudience)</span>
 <span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>        .assign(audience_strategy<span class="op">=</span>audience_strategy)</span>
-<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>        .assign(num_shap_observations<span class="op">=</span>num_shap_obs)</span>
-<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>    dfs_shap_values.append(df_shap_values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>        .assign(num_observations<span class="op">=</span>num_shap_obs)</span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>        .assign(stat<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">'feature'</span>])</span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>        .assign(stat_type<span class="op">=</span><span class="st">'feature_importance'</span>)</span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>        .assign(feature<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">'stat'</span>].<span class="bu">str</span>.split(<span class="st">"__"</span>, expand<span class="op">=</span><span class="va">True</span>)[<span class="dv">0</span>])</span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>    dfs_shap_values.append(df_shap_values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Convert the feature importances and metadata into a single <code>DataFrame</code></p>
-<div class="cell" data-execution_count="36">
-<div class="cell-output cell-output-display" data-execution_count="36">
-<div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">feature</th>
-<th data-quarto-table-cell-role="th">mean_shap_value</th>
-<th data-quarto-table-cell-role="th">infer_month</th>
-<th data-quarto-table-cell-role="th">maudience</th>
-<th data-quarto-table-cell-role="th">audience_strategy</th>
-<th data-quarto-table-cell-role="th">num_shap_observations</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>source__Check out</td>
-<td>0.825161</td>
-<td>March</td>
-<td>High</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>promos_clicked</td>
-<td>0.737896</td>
-<td>March</td>
-<td>High</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>time_on_site</td>
-<td>0.615848</td>
-<td>March</td>
-<td>High</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>source__Remove product(s) from cart</td>
-<td>0.421039</td>
-<td>March</td>
-<td>High</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>bounces__1</td>
-<td>0.3781</td>
-<td>March</td>
-<td>High</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">5</td>
-<td>promos_displayed</td>
-<td>0.24851</td>
-<td>March</td>
-<td>High</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">6</td>
-<td>hits</td>
-<td>0.223202</td>
-<td>March</td>
-<td>High</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">7</td>
-<td>source__Product detail views</td>
-<td>0.134502</td>
-<td>March</td>
-<td>High</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">8</td>
-<td>source__Click through of product lists</td>
-<td>0.116958</td>
-<td>March</td>
-<td>High</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">9</td>
-<td>source__Completed purchase</td>
-<td>0.021289</td>
-<td>March</td>
-<td>High</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">10</td>
-<td>time_on_site</td>
-<td>0.885989</td>
-<td>March</td>
-<td>Medium</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">11</td>
-<td>source__Click through of product lists</td>
-<td>0.839497</td>
-<td>March</td>
-<td>Medium</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">12</td>
-<td>hits</td>
-<td>0.827934</td>
-<td>March</td>
-<td>Medium</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">13</td>
-<td>source__Product detail views</td>
-<td>0.747796</td>
-<td>March</td>
-<td>Medium</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">14</td>
-<td>promos_clicked</td>
-<td>0.546836</td>
-<td>March</td>
-<td>Medium</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">15</td>
-<td>bounces__1</td>
-<td>0.545509</td>
-<td>March</td>
-<td>Medium</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">16</td>
-<td>source__Completed purchase</td>
-<td>0.458597</td>
-<td>March</td>
-<td>Medium</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">17</td>
-<td>source__Check out</td>
-<td>0.40554</td>
-<td>March</td>
-<td>Medium</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">18</td>
-<td>source__Remove product(s) from cart</td>
-<td>0.157091</td>
-<td>March</td>
-<td>Medium</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">19</td>
-<td>promos_displayed</td>
-<td>0.131683</td>
-<td>March</td>
-<td>Medium</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">20</td>
-<td>hits</td>
-<td>0.838479</td>
-<td>March</td>
-<td>Low</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">21</td>
-<td>bounces__1</td>
-<td>0.717931</td>
-<td>March</td>
-<td>Low</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">22</td>
-<td>source__Product detail views</td>
-<td>0.685082</td>
-<td>March</td>
-<td>Low</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">23</td>
-<td>promos_clicked</td>
-<td>0.628822</td>
-<td>March</td>
-<td>Low</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">24</td>
-<td>source__Remove product(s) from cart</td>
-<td>0.241925</td>
-<td>March</td>
-<td>Low</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">25</td>
-<td>promos_displayed</td>
-<td>0.143101</td>
-<td>March</td>
-<td>Low</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">26</td>
-<td>time_on_site</td>
-<td>0.114057</td>
-<td>March</td>
-<td>Low</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">27</td>
-<td>source__Completed purchase</td>
-<td>0.077123</td>
-<td>March</td>
-<td>Low</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">28</td>
-<td>source__Check out</td>
-<td>0.070355</td>
-<td>March</td>
-<td>Low</td>
-<td>1</td>
-<td>500</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">29</td>
-<td>source__Click through of product lists</td>
-<td>0.002271</td>
-<td>March</td>
-<td>Low</td>
-<td>1</td>
-<td>500</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
 </section>
 </section>
 <section id="export-to-disk" class="level2">
 <h2 class="anchored" data-anchor-id="export-to-disk">Export To Disk</h2>
 <p>Export <code>DataFrame</code> with audience profiles, based on feature importances, to disk</p>
-<div class="cell" data-execution_count="37">
+<div class="cell" data-execution_count="55">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df_audience_explored.to_parquet(</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    os.path.join(</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        processed_data_dir,</span>
@@ -1432,8 +1457,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../notebooks/02-train/notebooks/10_analyze_campaign_outputs.html" class="pagination-link">
-        <span class="nav-page-text">Post-Campaign</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../../notebooks/04-upload/notebooks/09_upload.html" class="pagination-link">
+        <span class="nav-page-text">Upload Audience</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

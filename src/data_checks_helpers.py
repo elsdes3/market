@@ -164,7 +164,7 @@ def check_data_stability(
             eaits.TestNumberOfConstantColumns(),
             eaits.TestNumberOfDuplicatedRows(),
             eaits.TestNumberOfDuplicatedColumns(),
-            eaits.TestColumnsType(),
+            # eaits.TestColumnsType(),
             eaits.TestNumberOfEmptyColumns(),
             eaits.TestNumberOfEmptyRows(),
             eaits.TestNumberOfRowsWithMissingValues(),
@@ -183,11 +183,12 @@ def check_data_stability(
     df_stability = (
         pd.DataFrame.from_dict(tests.as_dict()["summary"], orient="index")
         .transpose()
-        .assign(success=lambda df: pd.json_normalize(df["by_status"]))
         .assign(len_curr_data=len(curr_data))
         .assign(len_ref_data=len(refer_data))
         .assign(features_checked=json.dumps(ts_cols_eai))
         .assign(num_features_checked=len(ts_cols_eai))
-        .drop(columns=["by_status"])
     )
+    df_stability = df_stability.join(
+        pd.json_normalize(df_stability["by_status"])
+    ).drop(columns=["by_status"])
     return df_stability

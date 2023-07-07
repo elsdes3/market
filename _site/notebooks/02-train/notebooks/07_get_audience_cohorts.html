@@ -185,20 +185,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/02-train/notebooks/10_analyze_campaign_outputs.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../notebooks/04-upload/notebooks/09_upload.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Upload Audience</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/05-dash/notebooks/10_dash.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dashboard</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/02-train/notebooks/11_analyze_campaign_outputs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Post-Campaign</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/02-train/notebooks/11_cleanup_mlflow.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../notebooks/02-train/notebooks/12_cleanup_mlflow.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Clean MLFlow</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/05-cleanup/notebooks/12_cleanup_bigquery.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Clean BigQuery</span></a>
+  <a href="../../../notebooks/06-cleanup/notebooks/13_cleanup_gcloud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Clean GCloud</span></a>
   </div>
 </li>
     </ul>
@@ -463,7 +475,7 @@ is then logged as a MLFlow artifact for use by the marketing team to build and d
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>X_infer <span class="op">=</span> X_infer.pipe(th.shuffle_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Query execution start time = 2023-06-05 19:14:19.839...done at 2023-06-05 19:14:25.363 (5.524 seconds).
+<pre><code>Query execution start time = 2023-06-08 15:26:52.394...done at 2023-06-08 15:26:59.239 (6.844 seconds).
 Query returned 21,768 rows
 Got 21,752 rows and 27 columns after dropping duplicates
 Transformed data has 21,752 rows &amp; 27 columns</code></pre>
@@ -694,11 +706,11 @@ Transformed data has 21,752 rows &amp; 27 columns</code></pre>
 <td>hits</td>
 <td>104</td>
 <td>112</td>
-<td>-2.788887</td>
-<td>-16.201796</td>
-<td>-0.172507</td>
-<td>-1.568929</td>
-<td>0.222779</td>
+<td>-2.780711</td>
+<td>-16.199663</td>
+<td>-0.172002</td>
+<td>-1.568722</td>
+<td>0.222733</td>
 <td>1</td>
 <td>False</td>
 <td>Wasserstein</td>
@@ -709,11 +721,11 @@ Transformed data has 21,752 rows &amp; 27 columns</code></pre>
 <td>pageviews</td>
 <td>78</td>
 <td>94</td>
-<td>-2.221251</td>
-<td>-19.111907</td>
-<td>-0.117295</td>
-<td>-1.415531</td>
-<td>0.162935</td>
+<td>-2.214286</td>
+<td>-19.109738</td>
+<td>-0.116928</td>
+<td>-1.41537</td>
+<td>0.163119</td>
 <td>1</td>
 <td>False</td>
 <td>Wasserstein</td>
@@ -724,11 +736,11 @@ Transformed data has 21,752 rows &amp; 27 columns</code></pre>
 <td>promos_displayed</td>
 <td>21</td>
 <td>18</td>
-<td>-9.664244</td>
-<td>2.995538</td>
-<td>-0.754956</td>
-<td>0.316693</td>
-<td>0.786333</td>
+<td>-9.669541</td>
+<td>2.99709</td>
+<td>-0.755369</td>
+<td>0.316857</td>
+<td>0.786746</td>
 <td>1</td>
 <td>False</td>
 <td>Wasserstein</td>
@@ -739,11 +751,11 @@ Transformed data has 21,752 rows &amp; 27 columns</code></pre>
 <td>product_views</td>
 <td>273</td>
 <td>286</td>
-<td>1.210796</td>
-<td>-5.643018</td>
-<td>0.284302</td>
-<td>-2.017041</td>
-<td>0.721632</td>
+<td>1.212166</td>
+<td>-5.643205</td>
+<td>0.284623</td>
+<td>-2.017108</td>
+<td>0.721954</td>
 <td>1</td>
 <td>False</td>
 <td>Wasserstein</td>
@@ -754,11 +766,11 @@ Transformed data has 21,752 rows &amp; 27 columns</code></pre>
 <td>product_clicks</td>
 <td>30</td>
 <td>35</td>
-<td>-6.762275</td>
-<td>-13.531232</td>
-<td>-0.042843</td>
-<td>-0.246337</td>
-<td>0.042843</td>
+<td>-6.755019</td>
+<td>-13.531448</td>
+<td>-0.042797</td>
+<td>-0.246341</td>
+<td>0.042797</td>
 <td>1</td>
 <td>False</td>
 <td>Wasserstein</td>
@@ -769,11 +781,11 @@ Transformed data has 21,752 rows &amp; 27 columns</code></pre>
 <td>time_on_site</td>
 <td>1583</td>
 <td>1702</td>
-<td>-7.346253</td>
-<td>-6.512765</td>
-<td>-13.136182</td>
-<td>-25.665576</td>
-<td>13.500904</td>
+<td>-7.338</td>
+<td>-6.511342</td>
+<td>-13.121425</td>
+<td>-25.659969</td>
+<td>13.486147</td>
 <td>1</td>
 <td>True</td>
 <td>Wasserstein</td>
@@ -848,7 +860,7 @@ Observations
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>df_stability</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test suite start time = 2023-06-05 19:14:26.354...done at 2023-06-05 19:14:39.566 (13.212 seconds).</code></pre>
+<pre><code>Test suite start time = 2023-06-08 15:27:16.819...done at 2023-06-08 15:27:29.626 (12.807 seconds).</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="23">
 <div>
@@ -1107,32 +1119,32 @@ Notes
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">5667</td>
-<td>0680963722765513682</td>
-<td>1490246407</td>
+<td data-quarto-table-cell-role="th">5666</td>
+<td>520307366001567097</td>
+<td>1490251282</td>
 <td>1</td>
-<td>2017-03-22 22:20:07</td>
+<td>2017-03-22 23:41:22</td>
 <td>1</td>
 <td>3</td>
 <td>22</td>
 <td>4</td>
+<td>23</td>
+<td>41</td>
 <td>22</td>
-<td>20</td>
-<td>7</td>
 <td>google</td>
 <td>organic</td>
 <td>Organic Search</td>
-<td>10</td>
+<td>12</td>
 <td>0</td>
-<td>Product detail views</td>
-<td>9</td>
+<td>Unknown</td>
+<td>18</td>
+<td>0</td>
+<td>98</td>
 <td>0</td>
 <td>12</td>
-<td>2</td>
-<td>8</td>
-<td>127</td>
+<td>616</td>
 <td>Chrome</td>
-<td>Macintosh</td>
+<td>Windows</td>
 <td>desktop</td>
 <td>0</td>
 <td>0.955219</td>
@@ -1141,33 +1153,33 @@ Notes
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">966</td>
-<td>5015398141797883848</td>
-<td>1488954219</td>
+<td data-quarto-table-cell-role="th">965</td>
+<td>3282749693081717182</td>
+<td>1490170758</td>
 <td>1</td>
-<td>2017-03-07 22:23:39</td>
+<td>2017-03-22 01:19:18</td>
 <td>1</td>
-<td>3</td>
-<td>7</td>
 <td>3</td>
 <td>22</td>
-<td>23</td>
-<td>39</td>
-<td>google</td>
-<td>organic</td>
-<td>Organic Search</td>
+<td>4</td>
+<td>1</td>
+<td>19</td>
+<td>18</td>
+<td>sites.google.com</td>
+<td>referral</td>
+<td>Referral</td>
 <td>20</td>
 <td>0</td>
 <td>Product detail views</td>
-<td>9</td>
 <td>0</td>
-<td>163</td>
-<td>1</td>
-<td>19</td>
-<td>663</td>
+<td>0</td>
+<td>31</td>
+<td>8</td>
+<td>12</td>
+<td>186</td>
 <td>Chrome</td>
-<td>Windows</td>
-<td>desktop</td>
+<td>Android</td>
+<td>mobile</td>
 <td>0</td>
 <td>0.939487</td>
 <td>False</td>
@@ -1175,18 +1187,18 @@ Notes
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2368</td>
-<td>4256619380024888759</td>
-<td>1490567835</td>
+<td data-quarto-table-cell-role="th">2367</td>
+<td>1764786572315782245</td>
+<td>1490306312</td>
 <td>1</td>
-<td>2017-03-26 15:37:15</td>
+<td>2017-03-23 14:58:32</td>
 <td>1</td>
 <td>3</td>
-<td>26</td>
-<td>1</td>
-<td>15</td>
-<td>37</td>
-<td>15</td>
+<td>23</td>
+<td>5</td>
+<td>14</td>
+<td>58</td>
+<td>32</td>
 <td>google</td>
 <td>organic</td>
 <td>Organic Search</td>
@@ -1199,7 +1211,7 @@ Notes
 <td>0</td>
 <td>1</td>
 <td>0</td>
-<td>Chrome</td>
+<td>Internet Explorer</td>
 <td>Windows</td>
 <td>desktop</td>
 <td>0</td>
@@ -1209,52 +1221,52 @@ Notes
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">9009</td>
-<td>3214011699506166608</td>
-<td>1489445124</td>
+<td data-quarto-table-cell-role="th">9011</td>
+<td>8621310088570492440</td>
+<td>1489440474</td>
 <td>1</td>
-<td>2017-03-13 15:45:24</td>
+<td>2017-03-13 14:27:54</td>
 <td>1</td>
 <td>3</td>
 <td>13</td>
 <td>2</td>
-<td>15</td>
-<td>45</td>
-<td>24</td>
-<td>(direct)</td>
-<td>(none)</td>
-<td>Direct</td>
-<td>15</td>
+<td>14</td>
+<td>27</td>
+<td>54</td>
+<td>google</td>
+<td>organic</td>
+<td>Organic Search</td>
+<td>20</td>
 <td>0</td>
-<td>Completed purchase</td>
-<td>9</td>
+<td>Unknown</td>
 <td>0</td>
-<td>16</td>
-<td>1</td>
-<td>13</td>
-<td>414</td>
+<td>0</td>
+<td>94</td>
+<td>0</td>
+<td>10</td>
+<td>554</td>
 <td>Chrome</td>
 <td>Chrome OS</td>
 <td>desktop</td>
-<td>1</td>
+<td>0</td>
 <td>0.932164</td>
 <td>False</td>
 <td>3</td>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">10507</td>
-<td>0716469409246179583</td>
-<td>1489155359</td>
+<td data-quarto-table-cell-role="th">10509</td>
+<td>4373513092598117459</td>
+<td>1488395147</td>
 <td>1</td>
-<td>2017-03-10 06:15:59</td>
+<td>2017-03-01 11:05:47</td>
 <td>1</td>
 <td>3</td>
-<td>10</td>
-<td>6</td>
-<td>6</td>
-<td>15</td>
-<td>59</td>
+<td>1</td>
+<td>4</td>
+<td>11</td>
+<td>5</td>
+<td>47</td>
 <td>google</td>
 <td>organic</td>
 <td>Organic Search</td>
@@ -1311,32 +1323,32 @@ Notes
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">1271</td>
-<td>2297134143716418806</td>
-<td>1489463792</td>
+<td data-quarto-table-cell-role="th">1270</td>
+<td>945300756961188181</td>
+<td>1490421874</td>
 <td>1</td>
-<td>2017-03-13 20:56:32</td>
+<td>2017-03-24 23:04:34</td>
 <td>1</td>
 <td>3</td>
-<td>13</td>
-<td>2</td>
-<td>20</td>
-<td>56</td>
-<td>32</td>
-<td>google</td>
-<td>organic</td>
-<td>Organic Search</td>
+<td>24</td>
+<td>6</td>
+<td>23</td>
+<td>4</td>
+<td>34</td>
+<td>(direct)</td>
+<td>(none)</td>
+<td>Direct</td>
 <td>1</td>
 <td>1</td>
 <td>Unknown</td>
-<td>0</td>
+<td>9</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>1</td>
 <td>0</td>
-<td>Chrome</td>
-<td>Android</td>
+<td>Safari</td>
+<td>iOS</td>
 <td>mobile</td>
 <td>0</td>
 <td>0.0</td>
@@ -1345,32 +1357,32 @@ Notes
 <td>2</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">16990</td>
-<td>4875088489598899615</td>
-<td>1489358551</td>
+<td data-quarto-table-cell-role="th">16993</td>
+<td>9829627021161111968</td>
+<td>1489281180</td>
 <td>1</td>
-<td>2017-03-12 15:42:31</td>
+<td>2017-03-11 17:13:00</td>
 <td>1</td>
 <td>3</td>
-<td>12</td>
-<td>1</td>
-<td>15</td>
-<td>42</td>
-<td>31</td>
+<td>11</td>
+<td>7</td>
+<td>17</td>
+<td>13</td>
+<td>0</td>
 <td>google</td>
-<td>cpc</td>
-<td>Paid Search</td>
-<td>8</td>
+<td>organic</td>
+<td>Organic Search</td>
+<td>9</td>
 <td>0</td>
 <td>Unknown</td>
-<td>18</td>
 <td>0</td>
-<td>72</td>
+<td>0</td>
+<td>108</td>
 <td>0</td>
 <td>8</td>
-<td>677</td>
-<td>Chrome</td>
-<td>Android</td>
+<td>196</td>
+<td>Safari</td>
+<td>iOS</td>
 <td>mobile</td>
 <td>0</td>
 <td>0.0</td>
@@ -1379,32 +1391,32 @@ Notes
 <td>2</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">832</td>
-<td>504996867976621481</td>
-<td>1488752321</td>
+<td data-quarto-table-cell-role="th">831</td>
+<td>0800477723917056072</td>
+<td>1488930796</td>
 <td>1</td>
-<td>2017-03-05 14:18:41</td>
+<td>2017-03-07 15:53:16</td>
 <td>1</td>
 <td>3</td>
-<td>5</td>
-<td>1</td>
-<td>14</td>
-<td>18</td>
-<td>41</td>
-<td>(direct)</td>
-<td>(none)</td>
-<td>Direct</td>
+<td>7</td>
+<td>3</td>
+<td>15</td>
+<td>53</td>
+<td>16</td>
+<td>duckduckgo.com</td>
+<td>referral</td>
+<td>Referral</td>
 <td>12</td>
 <td>0</td>
 <td>Product detail views</td>
 <td>18</td>
 <td>0</td>
-<td>37</td>
-<td>1</td>
-<td>11</td>
-<td>898</td>
-<td>Chrome</td>
-<td>Chrome OS</td>
+<td>48</td>
+<td>3</td>
+<td>9</td>
+<td>475</td>
+<td>Firefox</td>
+<td>Windows</td>
 <td>desktop</td>
 <td>0</td>
 <td>0.0</td>
@@ -1413,32 +1425,32 @@ Notes
 <td>2</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">4867</td>
-<td>3772471281235004535</td>
-<td>1488495634</td>
+<td data-quarto-table-cell-role="th">4866</td>
+<td>5617050146442977857</td>
+<td>1489764164</td>
 <td>1</td>
-<td>2017-03-02 15:00:34</td>
+<td>2017-03-17 08:22:44</td>
 <td>1</td>
 <td>3</td>
-<td>2</td>
-<td>5</td>
-<td>15</td>
-<td>0</td>
-<td>34</td>
-<td>youtube.com</td>
-<td>referral</td>
-<td>Social</td>
+<td>17</td>
+<td>6</td>
+<td>8</td>
+<td>22</td>
+<td>44</td>
+<td>google</td>
+<td>organic</td>
+<td>Organic Search</td>
 <td>3</td>
 <td>0</td>
 <td>Unknown</td>
 <td>9</td>
 <td>0</td>
-<td>2</td>
+<td>23</td>
 <td>0</td>
 <td>3</td>
-<td>101</td>
-<td>Internet Explorer</td>
-<td>Windows</td>
+<td>44</td>
+<td>Safari</td>
+<td>Macintosh</td>
 <td>desktop</td>
 <td>0</td>
 <td>0.0</td>
@@ -1448,32 +1460,32 @@ Notes
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">7383</td>
-<td>5311563555589439877</td>
-<td>1488382048</td>
+<td>6343294815135863456</td>
+<td>1489606474</td>
 <td>1</td>
-<td>2017-03-01 07:27:28</td>
+<td>2017-03-15 12:34:34</td>
 <td>1</td>
 <td>3</td>
-<td>1</td>
+<td>15</td>
 <td>4</td>
-<td>7</td>
-<td>27</td>
-<td>28</td>
-<td>google</td>
-<td>organic</td>
-<td>Organic Search</td>
-<td>4</td>
+<td>12</td>
+<td>34</td>
+<td>34</td>
+<td>(direct)</td>
+<td>(none)</td>
+<td>Direct</td>
+<td>2</td>
 <td>0</td>
 <td>Unknown</td>
 <td>9</td>
 <td>0</td>
-<td>24</td>
+<td>12</td>
 <td>0</td>
-<td>4</td>
-<td>66</td>
-<td>Chrome</td>
-<td>Windows</td>
-<td>desktop</td>
+<td>2</td>
+<td>6</td>
+<td>Safari</td>
+<td>iOS</td>
+<td>mobile</td>
 <td>0</td>
 <td>0.0</td>
 <td>False</td>
@@ -1591,31 +1603,31 @@ Set all specified datatypes.</code></pre>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>0680963722765513682</td>
-<td>1490246407</td>
+<td>520307366001567097</td>
+<td>1490251282</td>
 <td>1</td>
-<td>2017-03-22 22:20:07</td>
+<td>2017-03-22 23:41:22</td>
 <td>1</td>
 <td>3</td>
 <td>22</td>
 <td>4</td>
+<td>23</td>
+<td>41</td>
 <td>22</td>
-<td>20</td>
-<td>7</td>
 <td>google</td>
 <td>organic</td>
 <td>Organic Search</td>
-<td>10</td>
+<td>12</td>
 <td>0</td>
-<td>Product detail views</td>
-<td>9</td>
+<td>Unknown</td>
+<td>18</td>
+<td>0</td>
+<td>98</td>
 <td>0</td>
 <td>12</td>
-<td>2</td>
-<td>8</td>
-<td>127</td>
+<td>616</td>
 <td>Chrome</td>
-<td>Macintosh</td>
+<td>Windows</td>
 <td>desktop</td>
 <td>0</td>
 <td>0.955219</td>
@@ -1626,32 +1638,32 @@ Set all specified datatypes.</code></pre>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>3339620488023808675</td>
-<td>1489208703</td>
+<td>7303974902830298317</td>
+<td>1489878541</td>
 <td>1</td>
-<td>2017-03-10 21:05:03</td>
+<td>2017-03-18 16:09:01</td>
 <td>1</td>
 <td>3</td>
-<td>10</td>
-<td>6</td>
-<td>21</td>
-<td>5</td>
-<td>3</td>
-<td>(direct)</td>
-<td>(none)</td>
-<td>Direct</td>
-<td>6</td>
+<td>18</td>
+<td>7</td>
+<td>16</td>
+<td>9</td>
+<td>1</td>
+<td>google</td>
+<td>organic</td>
+<td>Organic Search</td>
+<td>8</td>
 <td>0</td>
 <td>Product detail views</td>
-<td>9</td>
 <td>0</td>
-<td>12</td>
+<td>0</td>
+<td>48</td>
 <td>2</td>
-<td>4</td>
-<td>34</td>
-<td>Safari</td>
-<td>iOS</td>
-<td>tablet</td>
+<td>6</td>
+<td>132</td>
+<td>Chrome</td>
+<td>Android</td>
+<td>mobile</td>
 <td>0</td>
 <td>0.873791</td>
 <td>False</td>
@@ -1661,32 +1673,32 @@ Set all specified datatypes.</code></pre>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>4352137968854306424</td>
-<td>1489597665</td>
+<td>2165282615833828730</td>
+<td>1488384003</td>
 <td>1</td>
-<td>2017-03-15 10:07:45</td>
+<td>2017-03-01 08:00:03</td>
 <td>1</td>
 <td>3</td>
-<td>15</td>
+<td>1</td>
 <td>4</td>
-<td>10</td>
-<td>7</td>
-<td>45</td>
-<td>google</td>
-<td>organic</td>
-<td>Organic Search</td>
+<td>8</td>
+<td>0</td>
+<td>3</td>
+<td>youtube.com</td>
+<td>referral</td>
+<td>Social</td>
 <td>2</td>
 <td>0</td>
 <td>Unknown</td>
-<td>9</td>
+<td>18</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>2</td>
-<td>7</td>
+<td>21</td>
 <td>Safari</td>
-<td>Macintosh</td>
-<td>desktop</td>
+<td>iOS</td>
+<td>mobile</td>
 <td>0</td>
 <td>0.865694</td>
 <td>False</td>
@@ -1696,31 +1708,31 @@ Set all specified datatypes.</code></pre>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>415961985355681274</td>
-<td>1489621178</td>
+<td>7119021771217478933</td>
+<td>1489430344</td>
 <td>1</td>
-<td>2017-03-15 16:39:38</td>
+<td>2017-03-13 11:39:04</td>
 <td>1</td>
 <td>3</td>
-<td>15</td>
-<td>4</td>
-<td>16</td>
+<td>13</td>
+<td>2</td>
+<td>11</td>
 <td>39</td>
-<td>38</td>
-<td>(direct)</td>
-<td>(none)</td>
-<td>Direct</td>
 <td>4</td>
-<td>0</td>
+<td>google</td>
+<td>organic</td>
+<td>Organic Search</td>
+<td>1</td>
+<td>1</td>
 <td>Unknown</td>
-<td>9</td>
 <td>0</td>
-<td>39</td>
 <td>0</td>
-<td>4</td>
-<td>90</td>
+<td>12</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
 <td>Chrome</td>
-<td>Windows</td>
+<td>Chrome OS</td>
 <td>desktop</td>
 <td>0</td>
 <td>0.862547</td>
@@ -1731,17 +1743,17 @@ Set all specified datatypes.</code></pre>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>8333492141906527532</td>
-<td>1490084582</td>
+<td>2333770804949173317</td>
+<td>1488400313</td>
 <td>1</td>
-<td>2017-03-21 01:23:02</td>
+<td>2017-03-01 12:31:53</td>
 <td>1</td>
 <td>3</td>
-<td>21</td>
-<td>3</td>
 <td>1</td>
-<td>23</td>
-<td>2</td>
+<td>4</td>
+<td>12</td>
+<td>31</td>
+<td>53</td>
 <td>(direct)</td>
 <td>(none)</td>
 <td>Direct</td>
@@ -1754,9 +1766,9 @@ Set all specified datatypes.</code></pre>
 <td>0</td>
 <td>1</td>
 <td>0</td>
-<td>Safari</td>
-<td>iOS</td>
-<td>tablet</td>
+<td>Chrome</td>
+<td>Windows</td>
+<td>desktop</td>
 <td>0</td>
 <td>0.849589</td>
 <td>False</td>
@@ -1801,31 +1813,31 @@ Set all specified datatypes.</code></pre>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">21747</td>
-<td>6565680845296579697</td>
-<td>1490824341</td>
+<td>7930647502569239239</td>
+<td>1490893600</td>
 <td>1</td>
-<td>2017-03-29 14:52:21</td>
+<td>2017-03-30 10:06:40</td>
 <td>1</td>
 <td>3</td>
-<td>29</td>
-<td>4</td>
-<td>14</td>
-<td>52</td>
-<td>21</td>
-<td>google</td>
-<td>organic</td>
-<td>Organic Search</td>
-<td>1</td>
-<td>1</td>
+<td>30</td>
+<td>5</td>
+<td>10</td>
+<td>6</td>
+<td>40</td>
+<td>mall.googleplex.com</td>
+<td>referral</td>
+<td>Referral</td>
+<td>2</td>
+<td>0</td>
 <td>Unknown</td>
+<td>9</td>
 <td>0</td>
 <td>0</td>
-<td>12</td>
 <td>0</td>
-<td>1</td>
-<td>0</td>
+<td>2</td>
+<td>25</td>
 <td>Chrome</td>
-<td>Chrome OS</td>
+<td>Linux</td>
 <td>desktop</td>
 <td>0</td>
 <td>0.0</td>
@@ -1836,31 +1848,31 @@ Set all specified datatypes.</code></pre>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">21748</td>
-<td>536791133490221570</td>
-<td>1490224587</td>
+<td>8852352403814725936</td>
+<td>1489376582</td>
 <td>1</td>
-<td>2017-03-22 16:16:27</td>
+<td>2017-03-12 20:43:02</td>
 <td>1</td>
 <td>3</td>
-<td>22</td>
-<td>4</td>
-<td>16</td>
-<td>16</td>
-<td>27</td>
+<td>12</td>
+<td>1</td>
+<td>20</td>
+<td>43</td>
+<td>2</td>
 <td>(direct)</td>
 <td>(none)</td>
 <td>Direct</td>
-<td>4</td>
+<td>2</td>
 <td>0</td>
 <td>Unknown</td>
 <td>9</td>
 <td>0</td>
-<td>24</td>
+<td>3</td>
 <td>0</td>
-<td>4</td>
-<td>108</td>
+<td>2</td>
+<td>112</td>
 <td>Chrome</td>
-<td>Macintosh</td>
+<td>Windows</td>
 <td>desktop</td>
 <td>0</td>
 <td>0.0</td>
@@ -1871,29 +1883,29 @@ Set all specified datatypes.</code></pre>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">21749</td>
-<td>2449684517758558577</td>
-<td>1489676669</td>
+<td>945300756961188181</td>
+<td>1490421874</td>
 <td>1</td>
-<td>2017-03-16 08:04:29</td>
+<td>2017-03-24 23:04:34</td>
 <td>1</td>
 <td>3</td>
-<td>16</td>
-<td>5</td>
-<td>8</td>
+<td>24</td>
+<td>6</td>
+<td>23</td>
 <td>4</td>
-<td>29</td>
-<td>google</td>
-<td>organic</td>
-<td>Organic Search</td>
-<td>2</td>
-<td>0</td>
+<td>34</td>
+<td>(direct)</td>
+<td>(none)</td>
+<td>Direct</td>
+<td>1</td>
+<td>1</td>
 <td>Unknown</td>
+<td>9</td>
 <td>0</td>
 <td>0</td>
-<td>12</td>
 <td>0</td>
-<td>2</td>
-<td>7</td>
+<td>1</td>
+<td>0</td>
 <td>Safari</td>
 <td>iOS</td>
 <td>mobile</td>
@@ -1906,32 +1918,32 @@ Set all specified datatypes.</code></pre>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">21750</td>
-<td>3477856770102973339</td>
-<td>1489148447</td>
+<td>9829627021161111968</td>
+<td>1489281180</td>
 <td>1</td>
-<td>2017-03-10 04:20:47</td>
+<td>2017-03-11 17:13:00</td>
 <td>1</td>
 <td>3</td>
-<td>10</td>
-<td>6</td>
-<td>4</td>
-<td>20</td>
-<td>47</td>
-<td>(direct)</td>
-<td>(none)</td>
-<td>Direct</td>
-<td>1</td>
-<td>1</td>
+<td>11</td>
+<td>7</td>
+<td>17</td>
+<td>13</td>
+<td>0</td>
+<td>google</td>
+<td>organic</td>
+<td>Organic Search</td>
+<td>9</td>
+<td>0</td>
 <td>Unknown</td>
 <td>0</td>
 <td>0</td>
+<td>108</td>
 <td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>Chrome</td>
-<td>Linux</td>
-<td>desktop</td>
+<td>8</td>
+<td>196</td>
+<td>Safari</td>
+<td>iOS</td>
+<td>mobile</td>
 <td>0</td>
 <td>0.0</td>
 <td>False</td>
@@ -1941,31 +1953,31 @@ Set all specified datatypes.</code></pre>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">21751</td>
-<td>3772471281235004535</td>
-<td>1488495634</td>
+<td>5617050146442977857</td>
+<td>1489764164</td>
 <td>1</td>
-<td>2017-03-02 15:00:34</td>
+<td>2017-03-17 08:22:44</td>
 <td>1</td>
 <td>3</td>
-<td>2</td>
-<td>5</td>
-<td>15</td>
-<td>0</td>
-<td>34</td>
-<td>youtube.com</td>
-<td>referral</td>
-<td>Social</td>
+<td>17</td>
+<td>6</td>
+<td>8</td>
+<td>22</td>
+<td>44</td>
+<td>google</td>
+<td>organic</td>
+<td>Organic Search</td>
 <td>3</td>
 <td>0</td>
 <td>Unknown</td>
 <td>9</td>
 <td>0</td>
-<td>2</td>
+<td>23</td>
 <td>0</td>
 <td>3</td>
-<td>101</td>
-<td>Internet Explorer</td>
-<td>Windows</td>
+<td>44</td>
+<td>Safari</td>
+<td>Macintosh</td>
 <td>desktop</td>
 <td>0</td>
 <td>0.0</td>
@@ -2033,19 +2045,19 @@ Notes
 <td>High</td>
 <td>Test</td>
 <td>2206</td>
-<td>0.094071</td>
-<td>0.278541</td>
-<td>0.225066</td>
-<td>0.920158</td>
+<td>0.094022</td>
+<td>0.283584</td>
+<td>0.228162</td>
+<td>0.932821</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
 <td>High</td>
 <td>&lt;NA&gt;</td>
 <td>2839</td>
-<td>0.094022</td>
-<td>0.280057</td>
-<td>0.226255</td>
+<td>0.094071</td>
+<td>0.276138</td>
+<td>0.224684</td>
 <td>0.939487</td>
 </tr>
 <tr class="even">
@@ -2064,9 +2076,9 @@ Notes
 <td>Test</td>
 <td>2103</td>
 <td>0.0</td>
-<td>0.001858</td>
-<td>0.000675</td>
-<td>0.00845</td>
+<td>0.002025</td>
+<td>0.000883</td>
+<td>0.008467</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">5</td>
@@ -2074,9 +2086,9 @@ Notes
 <td>&lt;NA&gt;</td>
 <td>3045</td>
 <td>0.0</td>
-<td>0.001973</td>
-<td>0.000881</td>
-<td>0.008467</td>
+<td>0.001858</td>
+<td>0.000747</td>
+<td>0.00845</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">6</td>
@@ -2093,9 +2105,9 @@ Notes
 <td>Medium</td>
 <td>Test</td>
 <td>1897</td>
-<td>0.00847</td>
-<td>0.039329</td>
-<td>0.033066</td>
+<td>0.008476</td>
+<td>0.039079</td>
+<td>0.033442</td>
 <td>0.093933</td>
 </tr>
 <tr class="odd">
@@ -2104,9 +2116,9 @@ Notes
 <td>&lt;NA&gt;</td>
 <td>3456</td>
 <td>0.008468</td>
-<td>0.03929</td>
-<td>0.033022</td>
-<td>0.093914</td>
+<td>0.039427</td>
+<td>0.032878</td>
+<td>0.093892</td>
 </tr>
 </tbody>
 </table>
@@ -2166,10 +2178,14 @@ Observations
 </ul></li>
 </ul></li>
 </ol>
-<div class="cell" data-tags="[]" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>df_profile <span class="op">=</span> pa.get_audience_profile(df_infer_audience_groups)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pd.option_context(<span class="st">"display.max_columns"</span>, <span class="dv">1000</span>):</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    display(df_profile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="57">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>df_profile <span class="op">=</span> pa.get_audience_profile(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    df_infer_audience_groups,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    audience_strategy,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    df_aud_stats.groupby(<span class="st">'maudience'</span>)[<span class="st">'score_count'</span>].<span class="bu">sum</span>().<span class="bu">min</span>(),</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pd.option_context(<span class="st">"display.max_columns"</span>, <span class="dv">1000</span>):</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    display(df_profile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Set all specified datatypes.
 Set all specified datatypes.</code></pre>
@@ -2187,7 +2203,9 @@ Set all specified datatypes.</code></pre>
 <th data-quarto-table-cell-role="th">High</th>
 <th data-quarto-table-cell-role="th">Low</th>
 <th data-quarto-table-cell-role="th">Medium</th>
-<th data-quarto-table-cell-role="th">column</th>
+<th data-quarto-table-cell-role="th">feature</th>
+<th data-quarto-table-cell-role="th">num_observations</th>
+<th data-quarto-table-cell-role="th">audience_strategy</th>
 </tr>
 </thead>
 <tbody>
@@ -2195,19 +2213,23 @@ Set all specified datatypes.</code></pre>
 <td data-quarto-table-cell-role="th">0</td>
 <td>hour__mean</td>
 <td>mean</td>
-<td>13.030892290718521</td>
-<td>12.915735760584747</td>
-<td>13.075586206896551</td>
+<td>12.987587918907737</td>
+<td>13.028547786512204</td>
+<td>13.009241379310344</td>
 <td>hour</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
 <td>day_of_week__mean</td>
 <td>mean</td>
-<td>4.009515928837402</td>
-<td>3.9891049510412357</td>
-<td>4.013379310344828</td>
+<td>3.9932423114053233</td>
+<td>4.017928561577714</td>
+<td>4.001655172413793</td>
 <td>day_of_week</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
@@ -2217,6 +2239,8 @@ Set all specified datatypes.</code></pre>
 <td>google</td>
 <td>google</td>
 <td>source</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
@@ -2226,6 +2250,8 @@ Set all specified datatypes.</code></pre>
 <td>organic</td>
 <td>organic</td>
 <td>medium</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
@@ -2235,6 +2261,8 @@ Set all specified datatypes.</code></pre>
 <td>Organic Search</td>
 <td>Organic Search</td>
 <td>channelGrouping</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">5</td>
@@ -2244,6 +2272,8 @@ Set all specified datatypes.</code></pre>
 <td>Unknown</td>
 <td>Unknown</td>
 <td>last_action</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">6</td>
@@ -2253,6 +2283,8 @@ Set all specified datatypes.</code></pre>
 <td>Chrome</td>
 <td>Chrome</td>
 <td>browser</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">7</td>
@@ -2262,6 +2294,8 @@ Set all specified datatypes.</code></pre>
 <td>Macintosh</td>
 <td>Macintosh</td>
 <td>os</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">8</td>
@@ -2271,141 +2305,173 @@ Set all specified datatypes.</code></pre>
 <td>desktop</td>
 <td>desktop</td>
 <td>deviceCategory</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">9</td>
 <td>hits__mean</td>
 <td>mean</td>
-<td>6.39167011446697</td>
-<td>6.0924010481312925</td>
-<td>6.590068965517242</td>
+<td>6.267825127568611</td>
+<td>6.304923458833264</td>
+<td>6.499862068965517</td>
 <td>hits</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">10</td>
 <td>hits__max</td>
 <td>max</td>
-<td>271</td>
-<td>157</td>
+<td>386</td>
+<td>179</td>
 <td>500</td>
 <td>hits</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">11</td>
 <td>promos_displayed__mean</td>
 <td>mean</td>
-<td>8.802647910633016</td>
-<td>8.409184940008275</td>
-<td>8.488551724137931</td>
+<td>8.561853537443112</td>
+<td>8.61646669424907</td>
+<td>8.523310344827586</td>
 <td>promos_displayed</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">12</td>
 <td>promos_displayed__max</td>
 <td>max</td>
 <td>189</td>
+<td>189</td>
 <td>171</td>
-<td>144</td>
 <td>promos_displayed</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">13</td>
 <td>promos_clicked__mean</td>
 <td>mean</td>
-<td>0.0</td>
 <td>0.00013791201213625708</td>
 <td>0.0</td>
+<td>0.0</td>
 <td>promos_clicked</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">14</td>
 <td>promos_clicked__max</td>
 <td>max</td>
-<td>0</td>
 <td>1</td>
 <td>0</td>
+<td>0</td>
 <td>promos_clicked</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">15</td>
 <td>product_views__mean</td>
 <td>mean</td>
-<td>23.350572334850366</td>
-<td>22.487243138877396</td>
-<td>23.75103448275862</td>
+<td>22.631361191559783</td>
+<td>23.093090608191975</td>
+<td>23.86344827586207</td>
 <td>product_views</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">16</td>
 <td>product_views__max</td>
 <td>max</td>
+<td>625</td>
 <td>670</td>
-<td>395</td>
 <td>987</td>
 <td>product_views</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">17</td>
 <td>product_clicks__mean</td>
 <td>mean</td>
-<td>0.6669424906909391</td>
-<td>0.654530409598676</td>
-<td>0.7077241379310345</td>
+<td>0.6415666804578679</td>
+<td>0.6801820438560199</td>
+<td>0.7073103448275863</td>
 <td>product_clicks</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">18</td>
 <td>product_clicks__max</td>
 <td>max</td>
-<td>79</td>
-<td>50</td>
+<td>34</td>
 <td>48</td>
+<td>79</td>
 <td>product_clicks</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">19</td>
 <td>pageviews__mean</td>
 <td>mean</td>
-<td>5.445593711212247</td>
-<td>5.184112536201903</td>
-<td>5.564</td>
+<td>5.335126189491104</td>
+<td>5.3500206868018205</td>
+<td>5.507448275862069</td>
 <td>pageviews</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">20</td>
 <td>pageviews__max</td>
 <td>max</td>
-<td>249</td>
-<td>101</td>
+<td>343</td>
+<td>132</td>
 <td>466</td>
 <td>pageviews</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">21</td>
 <td>added_to_cart__mean</td>
 <td>mean</td>
-<td>0.1998345055854365</td>
-<td>0.18673286443249207</td>
-<td>0.20220689655172414</td>
+<td>0.2032823058888429</td>
+<td>0.19997241759757275</td>
+<td>0.18524137931034482</td>
 <td>added_to_cart</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">22</td>
 <td>added_to_cart__max</td>
 <td>max</td>
-<td>22</td>
-<td>25</td>
 <td>23</td>
+<td>25</td>
+<td>22</td>
 <td>added_to_cart</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">23</td>
 <td>last_action_added_to_cart</td>
 <td>behavior</td>
-<td>4.9648324369052546</td>
-<td>4.840711625982623</td>
-<td>5.489655172413793</td>
-<td>&lt;NA&gt;</td>
+<td>5.254447662391394</td>
+<td>5.019997241759757</td>
+<td>5.020689655172414</td>
+<td>last_action</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">24</td>
@@ -2414,7 +2480,9 @@ Set all specified datatypes.</code></pre>
 <td>0.0</td>
 <td>0.0</td>
 <td>0.0</td>
-<td>&lt;NA&gt;</td>
+<td>last_action</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">25</td>
@@ -2423,43 +2491,53 @@ Set all specified datatypes.</code></pre>
 <td>0.05516480485450283</td>
 <td>0.08274720728175423</td>
 <td>0.027586206896551724</td>
-<td>&lt;NA&gt;</td>
+<td>last_action</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">26</td>
 <td>used_referral</td>
 <td>behavior</td>
-<td>24.741414977244517</td>
-<td>24.658667769962765</td>
-<td>23.66896551724138</td>
-<td>&lt;NA&gt;</td>
+<td>24.107019721417736</td>
+<td>25.21031581850779</td>
+<td>23.751724137931035</td>
+<td>medium</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">27</td>
 <td>added_gt_1_to_cart</td>
 <td>behavior</td>
-<td>3.847745138601572</td>
-<td>3.723624327678941</td>
-<td>4.3310344827586205</td>
-<td>&lt;NA&gt;</td>
+<td>4.01323955316508</td>
+<td>4.109777961660461</td>
+<td>3.7655172413793103</td>
+<td>added_to_cart</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">28</td>
 <td>weekend_visitors</td>
 <td>behavior</td>
-<td>17.51482554130465</td>
+<td>18.46641842504482</td>
 <td>17.85960557164529</td>
-<td>18.689655172413794</td>
-<td>&lt;NA&gt;</td>
+<td>17.724137931034484</td>
+<td>day_of_week</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">29</td>
 <td>bounce_rate</td>
 <td>behavior</td>
-<td>33.48503654668322</td>
-<td>33.71948696731485</td>
-<td>32.855172413793106</td>
-<td>&lt;NA&gt;</td>
+<td>33.76086057095573</td>
+<td>33.26437732726521</td>
+<td>33.03448275862069</td>
+<td>bounces</td>
+<td>7250</td>
+<td>1</td>
 </tr>
 </tbody>
 </table>
@@ -2489,7 +2567,7 @@ Notes
 <section id="export-to-disk-and-ml-experiment-tracking" class="level2">
 <h2 class="anchored" data-anchor-id="export-to-disk-and-ml-experiment-tracking">Export to Disk and ML Experiment Tracking</h2>
 <p>Get the best MLFlow run ID</p>
-<div class="cell" data-tags="[]" data-execution_count="29">
+<div class="cell" data-tags="[]" data-execution_count="58">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>best_run_id <span class="op">=</span> df_deployment_candidate_mlflow_models.squeeze()[<span class="st">"run_id"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="audience-cohorts" class="level3">
@@ -2510,7 +2588,7 @@ Notes
 </div>
 </div>
 <p>Export to disk and log exported file as MLFlow artifact</p>
-<div class="cell" data-tags="[]" data-execution_count="31">
+<div class="cell" data-tags="[]">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>ut.export_and_track(</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    os.path.join(</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        processed_data_dir,</span>
@@ -2546,7 +2624,7 @@ Notes
 </div>
 </div>
 <p>Export to disk and log exported file as MLFlow artifact</p>
-<div class="cell" data-tags="[]" data-execution_count="33">
+<div class="cell" data-tags="[]" data-execution_count="61">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ut.export_and_track(</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    os.path.join(</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>        processed_data_dir,</span>

@@ -5,7 +5,7 @@
 """Define helper utilities to transform raw data."""
 
 # pylint: disable=invalid-name,dangerous-default-value
-# pylint: disable=too-many-locals,unused-argument
+# pylint: disable=too-many-locals,unused-argument,too-many-arguments
 
 import os
 from typing import Dict, List, Union
@@ -95,3 +95,189 @@ def load_data(
     )
     df.to_parquet(fpath, index=False, compression="gzip", engine="pyarrow")
     print(f"Exported data to {fpath}")
+
+
+def get_conv_rate(
+    df: pd.DataFrame, label_col: str = "predicted_score_label"
+) -> float:
+    """Calculate conversion rate."""
+    conv_rate = 100 * df[label_col].sum() / len(df)
+    return conv_rate
+
+
+def perform_custom_aggregation(
+    df: pd.DataFrame,
+    groupby_cols: List[str],
+    agg_dict: Dict[str, Union[List[str], str]],
+    audience_strategy: int,
+    column_renamer: Dict[str, str],
+    dtypes_out: Dict,
+    visitor_type_mapper: Dict[str, str] = dict(),
+    visitor_type_col: str = "maudience",
+    df_months_ordered: pd.DataFrame = pd.DataFrame(),
+    zero_replacement_dict: Dict[str, Dict[int, None]] = {},
+    cols_to_drop: List[str] = [],
+    mom_stats: List[str] = [],
+) -> pd.DataFrame:
+    """."""
+    # perform aggregations
+    groupby_kwargs = dict(by=groupby_cols, as_index=False, sort=False)
+    df_agg = df.groupby(**groupby_kwargs).agg(agg_dict)
+    df_agg.columns = [
+        "_".join(a).rstrip("_") for a in df_agg.columns.to_flat_index()
+    ]
+    df_agg = df_agg.assign(audience_strategy=audience_strategy).rename(
+        columns=column_renamer
+    )
+
+    # (optional) sort by month, where month does not start at January
+    if not df_months_ordered.empty:
+        df_agg = df_months_ordered.merge(df_agg, on="month")
+    else:
+        df_agg = df_agg.assign(
+            month=lambda df: pd.to_datetime(df["date"]).dt.month_name()
+        )
+
+    # add metadata
+    df_agg = (
+        df_agg
+        # add rates
+        .assign(bounce_rate=lambda df: 100 * df["bounces"] / df["visitors"])
+        .assign(time_on_site=lambda df: df["time_on_site"] / 60)
+        .assign(
+            product_clicks_rate=lambda df: 100
+            * df["product_clicks"].astype(pd.Int32Dtype())
+            / df["product_views"].astype(pd.Int32Dtype())
+        )
+        .assign(
+            add_to_cart_rate=lambda df: (
+                100
+                * (
+                    df["add_to_cart"].astype(pd.Int16Dtype())
+                    / df["visitors"].astype(pd.Int16Dtype())
+                )
+            )
+        )
+    )
+    # add indicator of the type of visitor
+    # - return purchasers during ML development & all visitors in inference
+    if visitor_type_mapper:
+        df_agg = df_agg.assign(
+            visitor_type=lambda df: df[visitor_type_col].map(
+                visitor_type_mapper
+            )
+        )
+    if (
+        "conversion_rate" in list(dtypes_out)
+        and "made_purchase_on_future_visit_sum" in list(column_renamer)
+        and "made_purchase_on_future_visit" in list(agg_dict)
+    ):
+        df_agg = df_agg.assign(
+            conversion_rate=lambda df: 100
+            * df["return_purchasers"]
+            / df["visitors"]
+        )
+
+    # (optional) replace zeros with NaNs for inference data
+    if zero_replacement_dict:
+        df_agg = df_agg.replace(zero_replacement_dict)
+
+    # (optional) drop unwanted columns and rename columns
+    if cols_to_drop:
+        df_agg = df_agg.drop(columns=cols_to_drop)
+
+    # add month-over-month stats
+    if mom_stats:
+        for c in mom_stats:
+            df_agg[f"{c}_pct_change"] = 100 * df_agg[c].pct_change()
+
+    # set datatypes
+    df_agg = df_agg.astype(dtypes_out)
+
+    # move month column to front
+    col = df_agg.pop("month")
+    df_agg.insert(0, col.name, col)
+    return df_agg
+
+
+def group_infrequent_categories(s: pd.Series, f: str) -> pd.Series:
+    """Group infrequent categories in a categorical into a single category."""
+    freq_cats = (
+        s.astype(pd.StringDtype())
+        .value_counts(normalize=True)
+        .reset_index()
+        .assign(proportion=lambda df: df["proportion"] * 100)
+        .query("proportion > 10")[f]
+        .tolist()
+    )
+    all_freq_cats = s.astype(pd.StringDtype()).unique().tolist()
+    infreq_cats = {f: "other" for f in set(all_freq_cats) - set(freq_cats)}
+    mapper_freq_cats = {f: f for f in freq_cats}
+    mapper_freq_cats.update(infreq_cats)
+    s = s.astype(pd.StringDtype()).map(mapper_freq_cats)
+    return s
+
+
+def agg_kpis(df: pd.DataFrame, f: str) -> pd.DataFrame:
+    """Aggregate KPIs by a single categorical feature."""
+    pc, pv, vis, cr = [
+        "product_clicks",
+        "product_views",
+        "visitors",
+        "conversion_rate",
+    ]
+    df_agg = (
+        df.astype(
+            {
+                f: pd.StringDtype(),
+                "product_clicks": pd.Int32Dtype(),
+                "product_views": pd.Int32Dtype(),
+            }
+        )
+        .groupby(f)
+        .agg(
+            {
+                "revenue": "sum",
+                "made_purchase_on_future_visit": "sum",
+                "product_views": "sum",
+                "product_clicks": "sum",
+                "fullvisitorid": "count",
+            }
+        )
+        .reset_index()
+        .rename(
+            columns={
+                "fullvisitorid": "visitors",
+                "made_purchase_on_future_visit": "conversions",
+            }
+        )
+        .astype(
+            {
+                "conversions": pd.Int32Dtype(),
+                "visitors": pd.Int32Dtype(),
+                "revenue": pd.Float32Dtype(),
+            }
+        )
+        .merge(
+            (
+                df[f]
+                .astype(pd.StringDtype())
+                .value_counts(normalize=True)
+                .reset_index()
+                .assign(proportion=lambda df: df["proportion"] * 100)
+            ),
+            on=[f],
+            how="left",
+        )
+        .assign(ctr=lambda df: 100 * df[pc] / df[pv])
+        .assign(conversion_rate=lambda df: 100 * df["conversions"] / df[vis])
+        .sort_values(by=[cr], ascending=False, ignore_index=True)
+        .rename(columns={f: "feature_category"})
+        .assign(feature_name=f)
+        .assign(
+            feature=lambda df: df["feature_name"].str.cat(
+                df["feature_category"], sep="__"
+            )
+        )
+    )
+    return df_agg

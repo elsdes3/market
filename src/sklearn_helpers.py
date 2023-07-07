@@ -61,6 +61,7 @@ class BetaDistClassifier(BaseEstimator, ClassifierMixin):
         return self
 
     def predict_proba(self, X):
+        """Make probabilistic predictions for X."""
         # Check if fit has been called
         skc.check_is_fitted(self)
 

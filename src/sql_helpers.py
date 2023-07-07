@@ -9,6 +9,7 @@
 
 import os
 from datetime import datetime
+from typing import Union
 
 import pandas as pd
 import pytz
@@ -123,6 +124,7 @@ def get_sql_query(
                        os,
                        deviceCategory,
                        SUM(added_to_cart) AS added_to_cart,
+                       ROUND(SUM(pu.localProductRevenue/1000000),2) AS revenue,
                        made_purchase_on_future_visit,
                 FROM first_visit_attributes
                 LEFT JOIN UNNEST(promotion) as p
@@ -157,7 +159,7 @@ def get_sql_query(
 
 
 def get_sql_query_infer(split_start_date: str, split_end_date: str) -> str:
-    """Assemble query to retrieve attributes about first visits."""
+    """Assemble query to retrieve attributes of first visits in inference."""
     query_str = f"""
             WITH
             -- Steps 1. and 2. get attributes of the first visit
@@ -246,7 +248,8 @@ def get_sql_query_infer(split_start_date: str, split_end_date: str) -> str:
                        browser,
                        os,
                        deviceCategory,
-                       SUM(added_to_cart) AS added_to_cart
+                       SUM(added_to_cart) AS added_to_cart,
+                       ROUND(SUM(pu.localProductRevenue/1000000),2) AS revenue
                 FROM first_visit_attributes
                 LEFT JOIN UNNEST(promotion) as p
                 LEFT JOIN UNNEST(product) as pu
@@ -278,10 +281,91 @@ def get_sql_query_infer(split_start_date: str, split_end_date: str) -> str:
     return query_str
 
 
+def get_revenue_sql_query(
+    split_start_date: str,
+    split_end_date: str,
+    train_split_start_date: str,
+    test_split_end_date: str,
+) -> str:
+    """Assemble query to retrieve total revenue from all first visits."""
+    query_revnue = f"""
+                   WITH
+                   -- Step 1. get visitors with a return visit
+                   returning_visitors AS (
+                       SELECT fullvisitorid,
+                              IF(COUNTIF(totals.transactions > 0 AND totals.newVisits IS NULL) > 0, True, False) AS made_purchase_on_future_visit
+                       FROM `data-to-insights.ecommerce.web_analytics`
+                       WHERE date BETWEEN '{train_split_start_date}' AND '{test_split_end_date}'
+                       AND geoNetwork.country = 'United States'
+                       GROUP BY fullvisitorid
+                   ),
+                   -- Steps 2. and 3. get revenue-related attributes of the first visit
+                   first_visit_attributes AS (
+                       SELECT EXTRACT(YEAR FROM DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Pacific')) AS year,
+                              EXTRACT(MONTH FROM DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Pacific')) AS month,
+                              h.product
+                       FROM `data-to-insights.ecommerce.web_analytics`,
+                       UNNEST(hits) AS h
+                       INNER JOIN returning_visitors USING (fullvisitorid)
+                       WHERE date BETWEEN '{split_start_date}' AND '{split_end_date}'
+                       AND geoNetwork.country = 'United States'
+                       AND totals.newVisits = 1
+                   ),
+                   -- Step 4. get revenue per month
+                   visit_attributes AS (
+                       SELECT year,
+                              month,
+                              -- SUM(pu.productQuantity) AS units_sold,
+                              ROUND(SUM(pu.localProductRevenue/1000000),2) AS revenue
+                       FROM first_visit_attributes
+                       LEFT JOIN UNNEST(product) as pu
+                       GROUP BY year, month
+                   )
+                   SELECT *
+                   FROM visit_attributes
+                   ORDER BY revenue DESC
+                   """
+    return query_revnue
+
+
+def get_revenue_sql_query_infer(
+    split_start_date: str, split_end_date: str
+) -> str:
+    """Assemble query to retrieve total revenue from all first visits."""
+    query_revnue = f"""
+                   WITH
+                   -- Steps 1. and 2. get revenue-related attributes of the first visit
+                   first_visit_attributes AS (
+                       SELECT EXTRACT(YEAR FROM DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Pacific')) AS year,
+                              EXTRACT(MONTH FROM DATETIME(TIMESTAMP(TIMESTAMP_SECONDS(visitStartTime)), 'US/Pacific')) AS month,
+                              h.product
+                       FROM `data-to-insights.ecommerce.web_analytics`,
+                       UNNEST(hits) AS h
+                       WHERE date BETWEEN '{split_start_date}' AND '{split_end_date}'
+                       AND geoNetwork.country = 'United States'
+                       AND totals.newVisits = 1
+                   ),
+                   -- Step 3. get revenue per month
+                   visit_attributes AS (
+                       SELECT year,
+                              month,
+                              -- SUM(pu.productQuantity) AS units_sold,
+                              ROUND(SUM(pu.localProductRevenue/1000000),2) AS revenue
+                       FROM first_visit_attributes
+                       LEFT JOIN UNNEST(product) as pu
+                       GROUP BY year, month
+                   )
+                   SELECT *
+                   FROM visit_attributes
+                   ORDER BY revenue DESC
+                   """
+    return query_revnue
+
+
 def run_sql_query(
     query: str,
     gcp_project_id: str,
-    gcp_creds: os.PathLike,
+    gcp_creds: Union[os.PathLike, None],
     show_dtypes: bool = False,
     show_info: bool = False,
     show_df: bool = False,

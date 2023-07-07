@@ -6,6 +6,13 @@
 # COMMANDS                                                                      #
 #################################################################################
 
+## Remove Python artifacts
+clean-py:
+	@echo "+ $@"
+	@find . -type f -name "*.py[co]" -delete
+	@find . -type d -name "__pycache__" -delete
+.PHONY: clean-py
+
 ## Run lint checks manually
 lint:
 	@echo "+ $@"
@@ -31,11 +38,29 @@ explore:
 	@docker compose up explore --detach
 .PHONY: explore
 
+## Run upload service
+upload:
+	@echo "+ $@"
+	@docker compose up upload --detach
+.PHONY: upload
+
 ## Run dash
 dash:
 	@echo "+ $@"
 	@docker compose up dash --detach
 .PHONY: dash
+
+## Run dash-auto
+dash-auto:
+	@echo "+ $@"
+	@docker compose -f docker-compose-auto.yml up dash-auto --detach
+.PHONY: dash-auto
+
+## Run app service
+app:
+	@echo "+ $@"
+	@docker compose up app --detach
+.PHONY: app
 
 ## Run cleanup service
 cleanup:
@@ -61,11 +86,29 @@ explore-logs:
 	@./utils.sh "explore"
 .PHONY: explore-logs
 
+## Get logs for upload service
+upload-logs:
+	@echo "+ $@"
+	@./utils.sh "upload"
+.PHONY: upload-logs
+
 ## Get logs for dash service
 dash-logs:
 	@echo "+ $@"
 	@./utils.sh "dash"
 .PHONY: dash-logs
+
+## Get logs for dash-auto service
+dash-auto-logs:
+	@echo "+ $@"
+	@./utils.sh "dash-auto"
+.PHONY: dash-auto-logs
+
+## Get logs for app service
+app-logs:
+	@echo "+ $@"
+	@./utils.sh "app"
+.PHONY: app-logs
 
 ## Get logs for cleanup service
 cleanup-logs:
@@ -103,17 +146,59 @@ reset-explore:
 	@./utils.sh "reset-explore"
 .PHONY: reset-explore
 
+## Reset upload service
+reset-upload:
+	@echo "+ $@"
+	@./utils.sh "reset-upload"
+.PHONY: reset-upload
+
 ## Reset dash service
 reset-dash:
 	@echo "+ $@"
 	@./utils.sh "reset-dash"
 .PHONY: reset-dash
 
+## Reset dash-auto service
+reset-dash-auto:
+	@echo "+ $@"
+	@./utils.sh "reset-dash-auto"
+.PHONY: reset-dash-auto
+
+## Reset app service
+reset-app:
+	@echo "+ $@"
+	@./utils.sh "reset-app"
+.PHONY: reset-app
+
 ## Reset cleanup service
 reset-cleanup:
 	@echo "+ $@"
 	@./utils.sh "reset-cleanup"
 .PHONY: reset-cleanup
+
+## Run dashboard
+manual-dash:
+	@echo "+ $@"
+	@tox -e dash
+.PHONY: manual-dash
+
+## Activate Google Cloud service account
+gcloud-auth-login:
+	@echo "+ $@"
+	@./gcloud_utils.sh "auth-login"
+.PHONY: gcloud-auth-login
+
+## Deploy to Google Cloud Run
+gcloud-run-deploy:
+	@echo "+ $@"
+	@./gcloud_utils.sh "run-deploy"
+.PHONY: gcloud-run-deploy
+
+## Delete to Google Cloud Run service
+gcloud-run-delete:
+	@echo "+ $@"
+	@./gcloud_utils.sh "run-delete"
+.PHONY: gcloud-run-delete
 
 ## Run Quarto preview
 quarto-preview:

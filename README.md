@@ -1,7 +1,7 @@
 # Market
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/elsdes3/market)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/elsdes3/market/main/notebooks/01-get-data/notebooks/01_get_data.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/elsdes3/market/main/notebooks/02-train/notebooks/04_train.ipynb)
 ![CI](https://github.com/elsdes3/market/workflows/CI/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/mit)
 ![OpenSource](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)
@@ -13,6 +13,41 @@
 Modeling visitor propensity to make purchase during return visit to the Google merchandise store, to create a marketing audience based on propensity-based groupings. This is intended to help a marketing team target high-value first-time visitors to the store's site during a one-month period with promotions through a campaign aimed at ensuring a conversion (the visitor makes a purchase) when they return to the store.
 
 See `index.qmd` for project details.
+
+## [Pre-Requisites](#pre-requisites)
+### [Google Cloud](#google-cloud)
+1. Create a Google Cloud project
+2. From the BigQuery console
+   - select the newly created project and create two GCP Service Accounts with the following permissions
+     - used during development (analysis and dashboard)
+       - *Cloud Storage Admin*
+       - *BigQuery Job User*
+       - *BigQuery Data Viewer*
+       - *BigQuery Data Editor*
+     - deploying containerized dashboard to GCP Cloud Run
+       - *Editor*
+       - *BigQuery Data Viewer*
+       - *Cloud Run Admin*
+       - *Service Account User*
+   - create access keys for both service accounts and download the keys as JSON files into the home directory (`/home/<user-name>`)
+   - add the following datasets
+     - publicly available GA360 dataset
+       - click **+ ADD** to add the data
+       - select **Star a project by name**
+       - select the **data-to-insights** project
+         - one of the available datasets is *ecommerce* and the data in the *web_analytics* table from this dataset will be used for this project
+     - custom (personal) dataset, to which tables will be added during development
+       - select the ellipses (three vertical dots)
+       - click **Create dataset**
+       - enter a dataset ID
+       - click **CREATE DATASET**
+
+### [Local](#local)
+1. Export the following environment variables into the local shell
+   - `GCP_PROJECT_ID`
+   - `SERVICE_ACCOUNT_NAME`
+     - during development, set this to the name of the service account created for use during development
+     - during deployment, change this to the name of the service account created for deploying a containerized version of the dashboard to GCP Cloud Run
 
 ## [Project Organization](#project-organization)
 

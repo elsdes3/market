@@ -100,6 +100,14 @@ def create_cohorts(
             df_audience = df.query(f"maudience == {k}")
             audience_array = df_audience["fullvisitorid"].to_numpy()
 
+            # 0. scale required sample size based on ratio of group sizes in
+            # unseen to base datasets
+            base_group_size = df_group_sizes.query(f"group_number == {k}")[
+                "group_size"
+            ].iloc[0]
+            infer_group_size = len(df_audience)
+            grp_size = int(grp_size * infer_group_size / base_group_size)
+
             # 1. get control group (visitors)
             rng = np.random.default_rng(88)
             control_grp = rng.choice(
