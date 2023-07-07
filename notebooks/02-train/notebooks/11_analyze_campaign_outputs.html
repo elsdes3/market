@@ -63,8 +63,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
-<link href="../../../notebooks/02-train/notebooks/11_cleanup_mlflow.html" rel="next">
-<link href="../../../notebooks/03-explore/notebooks/08_explore_best_model.html" rel="prev">
+<link href="../../../notebooks/02-train/notebooks/12_cleanup_mlflow.html" rel="next">
+<link href="../../../notebooks/05-dash/notebooks/10_dash.html" rel="prev">
 <script src="../../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -122,7 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../notebooks/02-train/notebooks/10_analyze_campaign_outputs.html">Post-Campaign</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../notebooks/02-train/notebooks/11_analyze_campaign_outputs.html">Post-Campaign</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -185,20 +185,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/02-train/notebooks/10_analyze_campaign_outputs.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../../notebooks/04-upload/notebooks/09_upload.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Upload Audience</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/05-dash/notebooks/10_dash.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dashboard</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/02-train/notebooks/11_analyze_campaign_outputs.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Post-Campaign</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/02-train/notebooks/11_cleanup_mlflow.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../notebooks/02-train/notebooks/12_cleanup_mlflow.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Clean MLFlow</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/05-cleanup/notebooks/12_cleanup_bigquery.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Clean BigQuery</span></a>
+  <a href="../../../notebooks/06-cleanup/notebooks/13_cleanup_gcloud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Clean GCloud</span></a>
   </div>
 </li>
     </ul>
@@ -226,7 +238,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#export-to-disk-and-ml-experiment-tracking" id="toc-export-to-disk-and-ml-experiment-tracking" class="nav-link" data-scroll-target="#export-to-disk-and-ml-experiment-tracking">Export to Disk and ML Experiment Tracking</a></li>
   <li><a href="#next-step" id="toc-next-step" class="nav-link" data-scroll-target="#next-step">Next Step</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/elsdes3/market/blob/main/notebooks/02-train/notebooks/10_analyze_campaign_outputs.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/elsdes3/market/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/elsdes3/market/blob/main/notebooks/02-train/notebooks/11_analyze_campaign_outputs.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/elsdes3/market/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
@@ -456,81 +468,6 @@ Observations
 <p>Get the best MLFlow run ID</p>
 <div class="cell" data-tags="[]" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>best_run_id <span class="op">=</span> df_candidate_mlflow_models.squeeze()[<span class="st">"run_id"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-tags="[]" data-execution_count="15">
-<div class="cell-output cell-output-display">
-<div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">column</th>
-<th data-quarto-table-cell-role="th">dtype</th>
-<th data-quarto-table-cell-role="th">missing</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>check</td>
-<td>string[python]</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>p_value</td>
-<td>Float32</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>ci_level</td>
-<td>Int8</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>control_size</td>
-<td>Int16</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>test_size</td>
-<td>Int16</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">5</td>
-<td>control_conversions</td>
-<td>Int16</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">6</td>
-<td>test_conversions</td>
-<td>Int16</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">7</td>
-<td>control_conversion_rate</td>
-<td>Float32</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">8</td>
-<td>test_conversion_rate</td>
-<td>Float32</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
 </div>
 <p>Export to disk and log exported file as MLFlow artifact</p>
 <div class="cell" data-tags="[]" data-execution_count="16">
@@ -805,12 +742,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="../../../notebooks/03-explore/notebooks/08_explore_best_model.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Vital Features</span>
+      <a href="../../../notebooks/05-dash/notebooks/10_dash.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Dashboard</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../notebooks/02-train/notebooks/11_cleanup_mlflow.html" class="pagination-link">
+      <a href="../../../notebooks/02-train/notebooks/12_cleanup_mlflow.html" class="pagination-link">
         <span class="nav-page-text">Clean MLFlow</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
