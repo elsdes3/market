@@ -11,14 +11,14 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
+import src.utils.st_utils as ut
 import src.visualization.dash_helpers as dh
 from src.data.data import get_data
-from src.st_utils import configure_page, print_custom_text, set_page_config
 
 # pylint: disable=invalid-name
 
 # Specify layout, Browser tab title and icon
-set_page_config(
+ut.set_page_config(
     title="Plot Analytics Metrics over Time",
     layout="wide",
     menu_items={
@@ -28,7 +28,7 @@ set_page_config(
     },
 )
 
-configure_page()
+ut.configure_page()
 
 HOME_DIR = os.path.expanduser("~") if not os.path.exists("/app") else "/app"
 gcp_keys_dir = os.path.join(HOME_DIR, "gcp_keys")
@@ -240,7 +240,7 @@ else:
 # Show charts
 col1, col2 = st.columns([6, 6])
 with col1:
-    print_custom_text(
+    ut.print_custom_text(
         (
             "End-of-month and month-over-month GA360 Metrics covering all "
             "tracking data used"
@@ -249,7 +249,7 @@ with col1:
         font_color="rgb(100, 149, 237)",
     )
     st.altair_chart(chart_month, theme="streamlit", use_container_width=True)
-    print_custom_text("Notes")
+    ut.print_custom_text("Notes")
     st.markdown(
         "> Tracking metrics reflect seasonality of store sales. Visits are "
         "retrieved for US visitors only. Revenue from first-time visitors "
@@ -259,18 +259,18 @@ with col1:
         "rate, other metrics show the same trend."
     )
 with col2:
-    print_custom_text(
+    ut.print_custom_text(
         "Daily GA360 Metrics covering all tracking data",
         font_size=22,
         font_color="rgb(100, 149, 237)",
     )
     if not chart_daily_by_aud:
-        print_custom_text("Please select another metric")
+        ut.print_custom_text("Please select another metric")
     else:
         st.altair_chart(
             chart_daily_by_aud, theme="streamlit", use_container_width=True
         )
-        print_custom_text("Notes")
+        ut.print_custom_text("Notes")
         st.markdown(
             "> Dates are offset backwards by one day due to technical "
             "issue with the plotting framework used ([1](https://discuss."

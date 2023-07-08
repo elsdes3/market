@@ -1,4 +1,6 @@
 name: upload
+channels:
+  - conda-forge
 dependencies:
   - python=3.10
   - pip==23.1.2
@@ -10,4 +12,4 @@ dependencies:
     - google-cloud-bigquery==3.11.3
     - pandas-gbq==0.19.2
   - conda:
-    - ipykernel==6.23.3
+    - ipykernel==6.24.0

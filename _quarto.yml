@@ -7,7 +7,7 @@ project:
     - "*.qmd"
     - references/scoping/*.qmd
     - "notebooks/02-train/notebooks/*.ipynb"
-    - "!notebooks/02-train/notebooks/03_*.ipynb"
+    # - "!notebooks/02-train/notebooks/03_*.ipynb"
     - "notebooks/03-explore/notebooks/*.ipynb"
     - "notebooks/04-upload/notebooks/*.ipynb"
     - "notebooks/05-dash/notebooks/*.ipynb"

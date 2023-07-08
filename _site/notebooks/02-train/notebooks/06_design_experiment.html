@@ -209,7 +209,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/06-cleanup/notebooks/13_cleanup_gcloud.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../notebooks/07-cleanup/notebooks/13_cleanup_gcloud.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Clean GCloud</span></a>
   </div>
 </li>
@@ -396,6 +396,18 @@ Notes
 <p>Get all MLFlow deployment candidate models from MLFlow model registry</p>
 <div class="cell" data-tags="[]" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_deployment_candidate_mlflow_models <span class="op">=</span> modh.get_all_deployment_candidate_models()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>2023/07/07 18:55:56 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
+2023/07/07 18:55:56 INFO mlflow.store.db.utils: Updating database tables
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+2023/07/07 18:55:56 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
+2023/07/07 18:55:56 INFO mlflow.store.db.utils: Updating database tables
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre>
+</div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Notes">
 <div class="callout-header d-flex align-content-center">
@@ -414,29 +426,29 @@ Notes
 </div>
 <p>Get name of best deployment candidate model</p>
 <div class="cell" data-tags="[]" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>best_run_model_name <span class="op">=</span> modh.get_best_deployment_candidate_model(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    df_deployment_candidate_mlflow_models</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>best_run_model_name <span class="op">=</span> modh.get_best_deployment_candidate_model(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    df_deployment_candidate_mlflow_models</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="get-data-used-to-develop-best-deployment-candidate-model" class="level3">
 <h3 class="anchored" data-anchor-id="get-data-used-to-develop-best-deployment-candidate-model">Get Data Used to Develop Best Deployment Candidate Model</h3>
 <p>Get all available data used during model development of the best deployment candidate model</p>
 <div class="cell" data-tags="[]" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df_all <span class="op">=</span> modh.get_data_for_run_id(df_deployment_candidate_mlflow_models, <span class="st">'processed_data'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df_all <span class="op">=</span> modh.get_data_for_run_id(df_deployment_candidate_mlflow_models, <span class="st">'processed_data'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Separate features and label</p>
 <div class="cell" data-tags="[]" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> [df_all.drop(columns<span class="op">=</span>[label, <span class="st">'split_type'</span>]), df_all[label]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> [df_all.drop(columns<span class="op">=</span>[label, <span class="st">'split_type'</span>]), df_all[label]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Get test split from the data used during development of the best deployment candidate model</p>
 <div class="cell" data-tags="[]" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df_prediction_best_run <span class="op">=</span> (</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    df_all</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    .query(<span class="st">"split_type == 'test'"</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    .rename(columns<span class="op">=</span>{label: <span class="st">'label'</span>})</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    .drop(columns<span class="op">=</span>[<span class="st">'split_type'</span>])</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df_prediction_best_run <span class="op">=</span> (</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    df_all</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    .query(<span class="st">"split_type == 'test'"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    .rename(columns<span class="op">=</span>{label: <span class="st">'label'</span>})</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    .drop(columns<span class="op">=</span>[<span class="st">'split_type'</span>])</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Notes">
 <div class="callout-header d-flex align-content-center">
@@ -462,35 +474,35 @@ Notes
 </section>
 <section id="load-best-deployment-candidate-model-from-model-registry" class="level3">
 <h3 class="anchored" data-anchor-id="load-best-deployment-candidate-model-from-model-registry">Load Best Deployment Candidate Model from Model Registry</h3>
-<div class="cell" data-tags="[]">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>best_model_uri <span class="op">=</span> <span class="ss">f"models:/</span><span class="sc">{</span>best_run_model_name<span class="sc">}</span><span class="ss">/latest"</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> mlflow.sklearn.load_model(model_uri<span class="op">=</span>best_model_uri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>best_model_uri <span class="op">=</span> <span class="ss">f"models:/</span><span class="sc">{</span>best_run_model_name<span class="sc">}</span><span class="ss">/latest"</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> mlflow.sklearn.load_model(model_uri<span class="op">=</span>best_model_uri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
 <section id="explore-best-model-performance" class="level2">
 <h2 class="anchored" data-anchor-id="explore-best-model-performance">Explore Best Model Performance</h2>
 <p>Make predictions on same data that best model was trained on</p>
-<div class="cell" data-tags="[]" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>y_pred, y_pred_proba <span class="op">=</span> modh.make_inference(model, X, y.name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>y_pred, y_pred_proba <span class="op">=</span> modh.make_inference(model, X, y.name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Get evaluation metrics on same data that best model was trained on</p>
-<div class="cell" data-tags="[]" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df_metrics_all <span class="op">=</span> mh.calculate_metrics(y, y_pred, y_pred_proba, <span class="va">None</span>, <span class="va">None</span>, <span class="va">None</span>, [<span class="st">"all"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df_metrics_all <span class="op">=</span> mh.calculate_metrics(y, y_pred, y_pred_proba, <span class="va">None</span>, <span class="va">None</span>, <span class="va">None</span>, [<span class="st">"all"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="optimal-discrimination-threshold-tuning" class="level3">
 <h3 class="anchored" data-anchor-id="optimal-discrimination-threshold-tuning">Optimal Discrimination Threshold Tuning</h3>
 <p>Show a visualization of evaluation metrics relative to the discrimination threshold</p>
-<div class="cell" data-tags="[]" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>vh.plot_multi_line_threshold_chart(</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    df_thresholds_best_run.set_index(<span class="st">"t"</span>),</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    ptitle_str<span class="op">=</span><span class="st">"Threshold Plot"</span>,</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    xlabel<span class="op">=</span><span class="st">"Threshold (t)"</span>,</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    ylabel<span class="op">=</span><span class="st">"Score"</span>,</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    title_fontsize<span class="op">=</span><span class="dv">12</span>,</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    axis_label_fontsize<span class="op">=</span><span class="dv">12</span>,</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>),</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>vh.plot_multi_line_threshold_chart(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    df_thresholds_best_run.set_index(<span class="st">"t"</span>),</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    ptitle_str<span class="op">=</span><span class="st">"Threshold Plot"</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    xlabel<span class="op">=</span><span class="st">"Threshold (t)"</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    ylabel<span class="op">=</span><span class="st">"Score"</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    title_fontsize<span class="op">=</span><span class="dv">12</span>,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    axis_label_fontsize<span class="op">=</span><span class="dv">12</span>,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>),</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="06_design_experiment_files/figure-html/cell-26-output-1.png" class="img-fluid"></p>
 </div>
@@ -535,40 +547,41 @@ Observations
 <li>set datatypes for columns</li>
 <li>(optional) move column with meaningful names to second from front (for display purposes only)</li>
 </ol>
-<div class="cell" data-tags="[]" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df_sample_sizes_strategy_1 <span class="op">=</span> (</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    df_prediction_best_run.copy()</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.sort_scores, <span class="va">True</span>)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.get_audience_groups_by_propensity, audience_groups_strategy_1[<span class="st">"num_propens_groups"</span>])</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.get_kpi_per_audience_group)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        ash.calculate_multi_group_sample_sizes,</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        uplift_ranges,</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        power_ranges,</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        ci_level_ranges,</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.invert_group_numbers, audience_groups_strategy_1[<span class="st">"num_propens_groups"</span>])</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.map_audience_group_number_to_name, mapper_dict_audience_strategy_1)</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>        ash.set_datatypes,</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_number"</span>: pd.Int8Dtype(),</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">"maudience"</span>: pd.StringDtype(),</span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_size"</span>: pd.Int16Dtype(),</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_min_propensity"</span>: pd.Float32Dtype(),</span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_conv_rate"</span>: pd.Float32Dtype(),</span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>            <span class="st">"uplift"</span>: pd.Int8Dtype(),</span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">"power"</span>: pd.Int8Dtype(),</span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ci_level"</span>: pd.Int8Dtype(),</span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">"required_sample_size"</span>: pd.Int32Dtype(),</span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>        },</span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>    ).pipe(ash.move_cols_to_front, [<span class="st">"group_number"</span>, <span class="st">"maudience"</span>])</span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>df_sample_sizes_strategy_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df_sample_sizes_strategy_1 <span class="op">=</span> (</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    df_prediction_best_run.copy()</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.sort_scores, <span class="va">True</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.get_audience_groups_by_propensity, audience_groups_strategy_1[<span class="st">"num_propens_groups"</span>])</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.get_kpi_per_audience_group)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        ash.calculate_multi_group_sample_sizes,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        uplift_ranges,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        power_ranges,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        ci_level_ranges,</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.invert_group_numbers, audience_groups_strategy_1[<span class="st">"num_propens_groups"</span>])</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.map_audience_group_number_to_name, mapper_dict_audience_strategy_1)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>        ash.set_datatypes,</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_number"</span>: pd.Int8Dtype(),</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">"maudience"</span>: pd.StringDtype(),</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_size"</span>: pd.Int16Dtype(),</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_min_propensity"</span>: pd.Float32Dtype(),</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_conv_rate"</span>: pd.Float32Dtype(),</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>            <span class="st">"uplift"</span>: pd.Int8Dtype(),</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">"power"</span>: pd.Int8Dtype(),</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ci_level"</span>: pd.Int8Dtype(),</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">"required_sample_size"</span>: pd.Int32Dtype(),</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.move_cols_to_front, [<span class="st">"group_number"</span>, <span class="st">"maudience"</span>])</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>df_sample_sizes_strategy_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Set all specified datatypes.</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="25">
+<div class="cell-output cell-output-display" data-execution_count="26">
 <div>
 
 
@@ -593,60 +606,60 @@ Observations
 <td>0</td>
 <td>High</td>
 <td>6721</td>
-<td>0.092311</td>
-<td>2.157417</td>
+<td>0.141187</td>
+<td>2.454992</td>
 <td>15</td>
 <td>90</td>
 <td>95</td>
-<td>21180</td>
+<td>18556</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
 <td>0</td>
 <td>High</td>
 <td>6721</td>
-<td>0.092311</td>
-<td>2.157417</td>
+<td>0.141187</td>
+<td>2.454992</td>
 <td>10</td>
 <td>90</td>
 <td>66</td>
-<td>22586</td>
+<td>19788</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
 <td>0</td>
 <td>High</td>
 <td>6721</td>
-<td>0.092311</td>
-<td>2.157417</td>
+<td>0.141187</td>
+<td>2.454992</td>
 <td>10</td>
 <td>90</td>
 <td>67</td>
-<td>23003</td>
+<td>20153</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
 <td>0</td>
 <td>High</td>
 <td>6721</td>
-<td>0.092311</td>
-<td>2.157417</td>
+<td>0.141187</td>
+<td>2.454992</td>
 <td>10</td>
 <td>90</td>
 <td>68</td>
-<td>23430</td>
+<td>20527</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
 <td>0</td>
 <td>High</td>
 <td>6721</td>
-<td>0.092311</td>
-<td>2.157417</td>
+<td>0.141187</td>
+<td>2.454992</td>
 <td>10</td>
 <td>90</td>
 <td>69</td>
-<td>23869</td>
+<td>20912</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">...</td>
@@ -666,11 +679,11 @@ Observations
 <td>Low</td>
 <td>6722</td>
 <td>0.0</td>
-<td>2.261232</td>
+<td>2.186849</td>
 <td>15</td>
 <td>55</td>
 <td>67</td>
-<td>2098</td>
+<td>2171</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1508</td>
@@ -678,11 +691,11 @@ Observations
 <td>Low</td>
 <td>6722</td>
 <td>0.0</td>
-<td>2.261232</td>
+<td>2.186849</td>
 <td>15</td>
 <td>55</td>
 <td>68</td>
-<td>2205</td>
+<td>2281</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">1509</td>
@@ -690,11 +703,11 @@ Observations
 <td>Low</td>
 <td>6722</td>
 <td>0.0</td>
-<td>2.261232</td>
+<td>2.186849</td>
 <td>15</td>
 <td>55</td>
 <td>69</td>
-<td>2313</td>
+<td>2394</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1510</td>
@@ -702,11 +715,11 @@ Observations
 <td>Low</td>
 <td>6722</td>
 <td>0.0</td>
-<td>2.261232</td>
+<td>2.186849</td>
 <td>12</td>
 <td>90</td>
 <td>70</td>
-<td>16097</td>
+<td>16657</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">1511</td>
@@ -714,11 +727,11 @@ Observations
 <td>Low</td>
 <td>6722</td>
 <td>0.0</td>
-<td>2.261232</td>
+<td>2.186849</td>
 <td>10</td>
 <td>55</td>
 <td>55</td>
-<td>2103</td>
+<td>2176</td>
 </tr>
 </tbody>
 </table>
@@ -750,86 +763,46 @@ Observations
 <li>set datatypes for columns</li>
 <li>(optional) move column with meaningful names to second from front (for display purposes only)</li>
 </ol>
-<div class="cell" data-tags="[]" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df_sample_sizes_strategy_2 <span class="op">=</span> (</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    df_prediction_best_run.copy()</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.sort_scores, <span class="va">False</span>)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        ash.calculate_single_group_sample_sizes,</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        audience_groups_strategy_2[<span class="st">"num_propens_groups"</span>],</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>        ash.get_group_size(df_prediction_best_run, audience_groups_strategy_2[<span class="st">"num_propens_groups"</span>]),</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        uplift_ranges,</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        power_ranges,</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        ci_level_ranges,</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.subtract_one_from_group_numbers, <span class="st">"group_number"</span>)</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        ash.map_audience_group_number_to_name,</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>        mapper_dict_audience_strategy_2,</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">"group_number"</span>,</span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>        ash.set_datatypes,</span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_number"</span>: pd.Int8Dtype(),</span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>            <span class="st">"maudience"</span>: pd.StringDtype(),</span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_size"</span>: pd.Int16Dtype(),</span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_size_proportion"</span>: pd.Float32Dtype(),</span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_min_propensity"</span>: pd.Float32Dtype(),</span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_conv_rate"</span>: pd.Float32Dtype(),</span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">"uplift"</span>: pd.Int8Dtype(),</span>
-<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>            <span class="st">"power"</span>: pd.Int8Dtype(),</span>
-<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ci_level"</span>: pd.Int8Dtype(),</span>
-<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>            <span class="st">"required_sample_size"</span>: pd.Int32Dtype(),</span>
-<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>        },</span>
-<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.move_cols_to_front, [<span class="st">"group_number"</span>, <span class="st">"maudience"</span>])</span>
-<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>display(df_sample_sizes_strategy_2.dtypes.rename(<span class="st">"dtype"</span>).to_frame().transpose())</span>
-<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>df_sample_sizes_strategy_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df_sample_sizes_strategy_2 <span class="op">=</span> (</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    df_prediction_best_run.copy()</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.sort_scores, <span class="va">False</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        ash.calculate_single_group_sample_sizes,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        audience_groups_strategy_2[<span class="st">"num_propens_groups"</span>],</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        ash.get_group_size(df_prediction_best_run, audience_groups_strategy_2[<span class="st">"num_propens_groups"</span>]),</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>        uplift_ranges,</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>        power_ranges,</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>        ci_level_ranges,</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.subtract_one_from_group_numbers, <span class="st">"group_number"</span>)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>        ash.map_audience_group_number_to_name,</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>        mapper_dict_audience_strategy_2,</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">"group_number"</span>,</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>        ash.set_datatypes,</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_number"</span>: pd.Int8Dtype(),</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>            <span class="st">"maudience"</span>: pd.StringDtype(),</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_size"</span>: pd.Int16Dtype(),</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_size_proportion"</span>: pd.Float32Dtype(),</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_min_propensity"</span>: pd.Float32Dtype(),</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_conv_rate"</span>: pd.Float32Dtype(),</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">"uplift"</span>: pd.Int8Dtype(),</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>            <span class="st">"power"</span>: pd.Int8Dtype(),</span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ci_level"</span>: pd.Int8Dtype(),</span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>            <span class="st">"required_sample_size"</span>: pd.Int32Dtype(),</span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.move_cols_to_front, [<span class="st">"group_number"</span>, <span class="st">"maudience"</span>])</span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>df_sample_sizes_strategy_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Set all specified datatypes.</code></pre>
 </div>
-<div class="cell-output cell-output-display">
-<div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">group_number</th>
-<th data-quarto-table-cell-role="th">maudience</th>
-<th data-quarto-table-cell-role="th">group_size</th>
-<th data-quarto-table-cell-role="th">group_size_proportion</th>
-<th data-quarto-table-cell-role="th">group_min_propensity</th>
-<th data-quarto-table-cell-role="th">group_conv_rate</th>
-<th data-quarto-table-cell-role="th">uplift</th>
-<th data-quarto-table-cell-role="th">power</th>
-<th data-quarto-table-cell-role="th">ci_level</th>
-<th data-quarto-table-cell-role="th">required_sample_size</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">dtype</td>
-<td>Int8</td>
-<td>string[python]</td>
-<td>Int16</td>
-<td>Float32</td>
-<td>Float32</td>
-<td>Float32</td>
-<td>Int8</td>
-<td>Int8</td>
-<td>Int8</td>
-<td>Int32</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-<div class="cell-output cell-output-display" data-execution_count="26">
+<div class="cell-output cell-output-display" data-execution_count="28">
 <div>
 
 
@@ -856,12 +829,12 @@ Observations
 <td>High</td>
 <td>6721</td>
 <td>33.33168</td>
-<td>0.092205</td>
-<td>2.157417</td>
+<td>0.140989</td>
+<td>2.454992</td>
 <td>10</td>
 <td>55</td>
 <td>55</td>
-<td>2206</td>
+<td>1933</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
@@ -869,12 +842,12 @@ Observations
 <td>High</td>
 <td>6721</td>
 <td>33.33168</td>
-<td>0.092205</td>
-<td>2.157417</td>
+<td>0.140989</td>
+<td>2.454992</td>
 <td>10</td>
 <td>55</td>
 <td>57</td>
-<td>2644</td>
+<td>2317</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
@@ -882,12 +855,12 @@ Observations
 <td>High</td>
 <td>6721</td>
 <td>33.33168</td>
-<td>0.092205</td>
-<td>2.157417</td>
+<td>0.140989</td>
+<td>2.454992</td>
 <td>10</td>
 <td>55</td>
 <td>60</td>
-<td>3310</td>
+<td>2900</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
@@ -895,12 +868,12 @@ Observations
 <td>High</td>
 <td>6721</td>
 <td>33.33168</td>
-<td>0.092205</td>
-<td>2.157417</td>
+<td>0.140989</td>
+<td>2.454992</td>
 <td>10</td>
 <td>55</td>
 <td>63</td>
-<td>3995</td>
+<td>3500</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
@@ -908,12 +881,12 @@ Observations
 <td>High</td>
 <td>6721</td>
 <td>33.33168</td>
-<td>0.092205</td>
-<td>2.157417</td>
+<td>0.140989</td>
+<td>2.454992</td>
 <td>10</td>
 <td>55</td>
 <td>65</td>
-<td>4466</td>
+<td>3913</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">...</td>
@@ -1004,33 +977,96 @@ Observations
 </section>
 <section id="export-audience-sample-sizes-to-disk" class="level2">
 <h2 class="anchored" data-anchor-id="export-audience-sample-sizes-to-disk">Export Audience Sample Sizes to Disk</h2>
+<div class="cell" data-execution_count="31">
+<div class="cell-output cell-output-display" data-execution_count="31">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">group_number</th>
+<th data-quarto-table-cell-role="th">maudience</th>
+<th data-quarto-table-cell-role="th">group_size</th>
+<th data-quarto-table-cell-role="th">group_min_propensity</th>
+<th data-quarto-table-cell-role="th">group_conv_rate</th>
+<th data-quarto-table-cell-role="th">uplift</th>
+<th data-quarto-table-cell-role="th">power</th>
+<th data-quarto-table-cell-role="th">ci_level</th>
+<th data-quarto-table-cell-role="th">required_sample_size</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">158</td>
+<td>0</td>
+<td>High</td>
+<td>6721</td>
+<td>0.141187</td>
+<td>2.454992</td>
+<td>10</td>
+<td>55</td>
+<td>55</td>
+<td>1933</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">846</td>
+<td>1</td>
+<td>Medium</td>
+<td>6721</td>
+<td>0.023114</td>
+<td>2.276447</td>
+<td>10</td>
+<td>55</td>
+<td>55</td>
+<td>2088</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1511</td>
+<td>2</td>
+<td>Low</td>
+<td>6722</td>
+<td>0.0</td>
+<td>2.186849</td>
+<td>10</td>
+<td>55</td>
+<td>55</td>
+<td>2176</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
 <p>Concatenate the two <code>DataFrame</code>s with the required sample sizes to acheive a KPI using different combinations of inputs (uplift, confidence level and power) and then export to disk</p>
-<div class="cell" data-tags="[]" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    df_combined_sample_sizes,</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    aud_sizes_fpath,</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>) <span class="op">=</span> ash.combine_and_export_sample_size_estimates(</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    df_sample_sizes_strategy_1,</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    df_sample_sizes_strategy_2,</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    df_deployment_candidate_mlflow_models,</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    processed_data_dir,</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    df_combined_sample_sizes,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    aud_sizes_fpath,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>) <span class="op">=</span> ash.combine_and_export_sample_size_estimates(</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    df_sample_sizes_strategy_1,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    df_sample_sizes_strategy_2,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    df_deployment_candidate_mlflow_models,</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    processed_data_dir,</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="ml-experiment-tracking" class="level2">
 <h2 class="anchored" data-anchor-id="ml-experiment-tracking">ML Experiment Tracking</h2>
 <p>Get best run ID</p>
-<div class="cell" data-tags="[]" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>best_run_id <span class="op">=</span> df_deployment_candidate_mlflow_models.squeeze()[<span class="st">"run_id"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>best_run_id <span class="op">=</span> df_deployment_candidate_mlflow_models.squeeze()[<span class="st">"run_id"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Log audience sample sizes file as MLFlow artifact</p>
-<div class="cell" data-tags="[]" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> mlflow.start_run(run_id<span class="op">=</span>best_run_id) <span class="im">as</span> run:</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    mlflow.log_artifact(aud_sizes_fpath)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Logged required audience sizes as artifact in file "</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>os<span class="sc">.</span>path<span class="sc">.</span>basename(aud_sizes_fpath)<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> mlflow.start_run(run_id<span class="op">=</span>best_run_id) <span class="im">as</span> run:</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    mlflow.log_artifact(aud_sizes_fpath)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Logged required audience sizes as artifact in file "</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>os<span class="sc">.</span>path<span class="sc">.</span>basename(aud_sizes_fpath)<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="next-step" class="level2">

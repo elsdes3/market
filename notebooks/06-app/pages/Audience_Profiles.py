@@ -10,7 +10,7 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-import src.st_utils as ut
+import src.utils.st_utils as ut
 import src.visualization.dash_helpers as dh
 from src.data.data import get_data
 
@@ -273,46 +273,57 @@ high = st.expander(":green[High Propensity Visitor Profile]")
 with high:
     st.markdown(
         """
-        1. used an uncommonly used browser
-        2. used one of the following operating systems
-           - Windows
+        1. reached the store site using a paid search
+        2. used an uncommonly used browser
+        3. used one of the following operating systems
            - FreeBSD
            - Nokia-based OS
         3. interacted with content on the store site
-        4. reached the store site through a paid search
 
-        with an :blue[emphasis] on Windows users.
+        with an :blue[emphasis] on visitors who accessed the site from an
+        uncommonly used browser.
         """
     )
 medium = st.expander("Medium Propensity Visitor Profile")
 with medium:
     st.markdown(
         """
-        1. used the Mozilla Firefox browser
-        2. used google search in order to access the store site
-        3. used non-desktop operating systems
-           - Windows Phone
+        1. interacted with content on the store site
+        2. used one of the following frequently used operating systems
+           - Macintosh
            - Chrome OS
+        3. used one of the following infrequently used operating systems
+           - Nintendo WII
            - Firefox OS
-        4. used an affiliate referring website with a personal connection to
-       the visitor to access the store site
-        5. bounced from the site during their first visit
+        4. used an undetermined medium to access the store site
+        5. reached store site using a google search
 
         with an :blue[emphasis] on
-        - Android users (Chrome OS)
-        - visitors who did not bounce from the site during their first visit
+        - visitors who used a Mac-based operating system to access the store
+        site
+        - Chrome OS users (i.e. chromebook users)
         """
     )
 low = st.expander(":violet[Low Propensity Visitor Profile]")
 with low:
     st.markdown(
         """
-        1. bounced from the site during their first visit
-        2. used a Mac-based operating system
+        1. reached the store site by
+           - sources other than google search
+           - directly entering URL into web browser
+        2. used one of the following OSes to access the store site
+           - SunOS
+           - Macintosh OS
         3. used an affiliate or undetermined medium to access the store site
+        4. did not bounce from the store site
 
-        with an :blue[emphasis] on visitors who used a Mac-based operating
-        system to access the store site during their first visit.
+        with an :blue[emphasis] on
+        - visitors who reached the site during their first visit by
+           - sources other than google search
+           - directly entering URL into web browser
+        - visitors who used a Mac-based operating system to access the store
+        site
+        - did not bounce from the site
         """
     )
 ut.print_custom_text("Notes")

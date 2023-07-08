@@ -4968,7 +4968,7 @@ form{
   .bp3-running-text table th, table.bp3-html-table th{
     color:#182026;
     font-weight:600; }
-
+  
   .bp3-running-text table td,
   table.bp3-html-table td{
     color:#182026; }
@@ -15665,7 +15665,7 @@ Define helper function to show datatypes and number of missing values for all co
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
 <span class="c1"># 1. </span>
-<span class="n">best_run_id</span> <span class="o">=</span> <span class="s2">&quot;6a38156c7fbb4c289d7e4d1ba6b149b5&quot;</span>
+<span class="n">best_run_id</span> <span class="o">=</span> <span class="s2">&quot;d5407876ef45489192743e6899207ca5&quot;</span>
 
 <span class="c1"># 2. categorical column</span>
 <span class="n">categorical_features</span> <span class="o">=</span> <span class="p">[</span>
@@ -15975,7 +15975,7 @@ Get inference data month from filepath
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -16025,7 +16025,7 @@ Get inference data month from filepath
     <span class="c1"># select only wanted columns</span>
     <span class="p">[[</span><span class="s1">&#39;audience_strategy&#39;</span><span class="p">,</span> <span class="s1">&#39;num_observations&#39;</span><span class="p">,</span> <span class="s1">&#39;stat&#39;</span><span class="p">,</span> <span class="s1">&#39;maudience&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">]]</span>
 <span class="p">)</span>
-<span class="n">df_feats</span>
+<span class="n">df_feats</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
      </div>
@@ -16040,7 +16040,7 @@ Get inference data month from filepath
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[13]:</div>
 
 
@@ -16076,241 +16076,41 @@ Get inference data month from filepath
       <th>0</th>
       <td>1</td>
       <td>500</td>
-      <td>browser__other</td>
+      <td>medium__cpc</td>
       <td>High</td>
-      <td>0.765699</td>
+      <td>0.855569</td>
     </tr>
     <tr>
       <th>1</th>
       <td>1</td>
       <td>500</td>
-      <td>os__Nokia</td>
+      <td>os__FreeBSD</td>
       <td>High</td>
-      <td>0.628597</td>
+      <td>0.771953</td>
     </tr>
     <tr>
       <th>2</th>
       <td>1</td>
       <td>500</td>
-      <td>hits</td>
+      <td>browser__other</td>
       <td>High</td>
-      <td>0.618297</td>
+      <td>0.70914</td>
     </tr>
     <tr>
       <th>3</th>
       <td>1</td>
       <td>500</td>
-      <td>medium__cpc</td>
+      <td>os__Nokia</td>
       <td>High</td>
-      <td>0.597859</td>
+      <td>0.68788</td>
     </tr>
     <tr>
       <th>4</th>
       <td>1</td>
       <td>500</td>
-      <td>os__Windows</td>
-      <td>High</td>
-      <td>0.520569</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>1</td>
-      <td>500</td>
-      <td>os__FreeBSD</td>
-      <td>High</td>
-      <td>0.492881</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>1</td>
-      <td>500</td>
-      <td>last_action__Click through of product lists</td>
-      <td>High</td>
-      <td>0.358966</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>1</td>
-      <td>500</td>
-      <td>medium__(not set)</td>
-      <td>High</td>
-      <td>0.352581</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>1</td>
-      <td>500</td>
-      <td>os__Samsung</td>
-      <td>High</td>
-      <td>0.240107</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>1</td>
-      <td>500</td>
-      <td>promos_displayed</td>
-      <td>High</td>
-      <td>0.180898</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>1</td>
-      <td>500</td>
-      <td>os__Firefox OS</td>
-      <td>Medium</td>
-      <td>0.770336</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>1</td>
-      <td>500</td>
-      <td>source__google</td>
-      <td>Medium</td>
-      <td>0.536306</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>1</td>
-      <td>500</td>
-      <td>bounces__1</td>
-      <td>Medium</td>
-      <td>0.497124</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>1</td>
-      <td>500</td>
-      <td>os__Windows Phone</td>
-      <td>Medium</td>
-      <td>0.404851</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>1</td>
-      <td>500</td>
-      <td>medium__affiliate</td>
-      <td>Medium</td>
-      <td>0.387117</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>1</td>
-      <td>500</td>
-      <td>os__Chrome OS</td>
-      <td>Medium</td>
-      <td>0.35813</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>1</td>
-      <td>500</td>
       <td>hits</td>
-      <td>Medium</td>
-      <td>0.342117</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>1</td>
-      <td>500</td>
-      <td>os__Nintendo Wii</td>
-      <td>Medium</td>
-      <td>0.332958</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>1</td>
-      <td>500</td>
-      <td>medium__(not set)</td>
-      <td>Medium</td>
-      <td>0.202816</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>1</td>
-      <td>500</td>
-      <td>os__Macintosh</td>
-      <td>Medium</td>
-      <td>0.11908</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>1</td>
-      <td>500</td>
-      <td>bounces__1</td>
-      <td>Low</td>
-      <td>0.939658</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>1</td>
-      <td>500</td>
-      <td>medium__(not set)</td>
-      <td>Low</td>
-      <td>0.657182</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>1</td>
-      <td>500</td>
-      <td>medium__affiliate</td>
-      <td>Low</td>
-      <td>0.598436</td>
-    </tr>
-    <tr>
-      <th>23</th>
-      <td>1</td>
-      <td>500</td>
-      <td>os__Macintosh</td>
-      <td>Low</td>
-      <td>0.576007</td>
-    </tr>
-    <tr>
-      <th>24</th>
-      <td>1</td>
-      <td>500</td>
-      <td>os__BlackBerry</td>
-      <td>Low</td>
-      <td>0.335445</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>1</td>
-      <td>500</td>
-      <td>source__google</td>
-      <td>Low</td>
-      <td>0.214789</td>
-    </tr>
-    <tr>
-      <th>26</th>
-      <td>1</td>
-      <td>500</td>
-      <td>os__SunOS</td>
-      <td>Low</td>
-      <td>0.188757</td>
-    </tr>
-    <tr>
-      <th>27</th>
-      <td>1</td>
-      <td>500</td>
-      <td>last_action__Remove product(s) from cart</td>
-      <td>Low</td>
-      <td>0.141645</td>
-    </tr>
-    <tr>
-      <th>28</th>
-      <td>1</td>
-      <td>500</td>
-      <td>source__other</td>
-      <td>Low</td>
-      <td>0.123551</td>
-    </tr>
-    <tr>
-      <th>29</th>
-      <td>1</td>
-      <td>500</td>
-      <td>os__Nokia</td>
-      <td>Low</td>
-      <td>0.105925</td>
+      <td>High</td>
+      <td>0.686577</td>
     </tr>
   </tbody>
 </table>
@@ -16344,7 +16144,7 @@ Get inference data month from filepath
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
 <span class="n">df_profile</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">fpath_profile</span><span class="p">)</span>
-<span class="n">df_profile</span>
+<span class="n">df_profile</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
      </div>
@@ -16359,7 +16159,7 @@ Get inference data month from filepath
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[14]:</div>
 
 
@@ -16397,9 +16197,9 @@ Get inference data month from filepath
       <th>0</th>
       <td>hour__mean</td>
       <td>mean</td>
-      <td>12.969797269342159</td>
-      <td>13.0235829540753</td>
-      <td>13.038344827586206</td>
+      <td>13.043304371810784</td>
+      <td>13.025513722245208</td>
+      <td>12.969241379310345</td>
       <td>hour</td>
       <td>1</td>
     </tr>
@@ -16407,9 +16207,9 @@ Get inference data month from filepath
       <th>1</th>
       <td>day_of_week__mean</td>
       <td>mean</td>
-      <td>3.9863467107985104</td>
-      <td>3.9991725279271826</td>
-      <td>4.027034482758621</td>
+      <td>4.009240104813129</td>
+      <td>3.9921390153082332</td>
+      <td>4.009931034482759</td>
       <td>day_of_week</td>
       <td>1</td>
     </tr>
@@ -16441,306 +16241,6 @@ Get inference data month from filepath
       <td>Organic Search</td>
       <td>Organic Search</td>
       <td>channelGrouping</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>last_action__mode</td>
-      <td>mode</td>
-      <td>Unknown</td>
-      <td>Unknown</td>
-      <td>Unknown</td>
-      <td>last_action</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>browser__mode</td>
-      <td>mode</td>
-      <td>Chrome</td>
-      <td>Chrome</td>
-      <td>Chrome</td>
-      <td>browser</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>os__mode</td>
-      <td>mode</td>
-      <td>Macintosh</td>
-      <td>Macintosh</td>
-      <td>Macintosh</td>
-      <td>os</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>deviceCategory__mode</td>
-      <td>mode</td>
-      <td>desktop</td>
-      <td>desktop</td>
-      <td>desktop</td>
-      <td>deviceCategory</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>hits__mean</td>
-      <td>mean</td>
-      <td>6.290580609571093</td>
-      <td>6.426148117501034</td>
-      <td>6.3484137931034486</td>
-      <td>hits</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>hits__max</td>
-      <td>max</td>
-      <td>157</td>
-      <td>500</td>
-      <td>246</td>
-      <td>hits</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>promos_displayed__mean</td>
-      <td>mean</td>
-      <td>8.505999172527927</td>
-      <td>8.667356226727348</td>
-      <td>8.530758620689655</td>
-      <td>promos_displayed</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>promos_displayed__max</td>
-      <td>max</td>
-      <td>171</td>
-      <td>189</td>
-      <td>189</td>
-      <td>promos_displayed</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>promos_clicked__mean</td>
-      <td>mean</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.00013793103448275863</td>
-      <td>promos_clicked</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>promos_clicked__max</td>
-      <td>max</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>promos_clicked</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>product_views__mean</td>
-      <td>mean</td>
-      <td>23.131705971590126</td>
-      <td>23.02027306578403</td>
-      <td>23.416689655172412</td>
-      <td>product_views</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>product_views__max</td>
-      <td>max</td>
-      <td>409</td>
-      <td>987</td>
-      <td>927</td>
-      <td>product_views</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>product_clicks__mean</td>
-      <td>mean</td>
-      <td>0.6723210591642532</td>
-      <td>0.6779754516618397</td>
-      <td>0.68</td>
-      <td>product_clicks</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>product_clicks__max</td>
-      <td>max</td>
-      <td>50</td>
-      <td>46</td>
-      <td>79</td>
-      <td>product_clicks</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>pageviews__mean</td>
-      <td>mean</td>
-      <td>5.332919597296924</td>
-      <td>5.475796441870087</td>
-      <td>5.373931034482759</td>
-      <td>pageviews</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>pageviews__max</td>
-      <td>max</td>
-      <td>101</td>
-      <td>466</td>
-      <td>156</td>
-      <td>pageviews</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>revenue__mean</td>
-      <td>mean</td>
-      <td>179.17071533203125</td>
-      <td>197.68919372558594</td>
-      <td>172.9597930908203</td>
-      <td>revenue</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>revenue__max</td>
-      <td>max</td>
-      <td>1468.800048828125</td>
-      <td>3829.800048828125</td>
-      <td>3027.10009765625</td>
-      <td>revenue</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>23</th>
-      <td>added_to_cart__mean</td>
-      <td>mean</td>
-      <td>0.18880154461453594</td>
-      <td>0.2017652737553441</td>
-      <td>0.19917241379310344</td>
-      <td>added_to_cart</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>24</th>
-      <td>added_to_cart__max</td>
-      <td>max</td>
-      <td>22</td>
-      <td>25</td>
-      <td>22</td>
-      <td>added_to_cart</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>last_action_added_to_cart</td>
-      <td>behavior</td>
-      <td>5.033788442973383</td>
-      <td>4.909667632050752</td>
-      <td>5.3517241379310345</td>
-      <td>last_action</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>26</th>
-      <td>last_action_completed_purchase</td>
-      <td>behavior</td>
-      <td>3.3236794924837954</td>
-      <td>3.5995035167563096</td>
-      <td>3.310344827586207</td>
-      <td>last_action</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>27</th>
-      <td>last_action_check_out</td>
-      <td>behavior</td>
-      <td>1.130878499517308</td>
-      <td>1.5584057371397049</td>
-      <td>1.393103448275862</td>
-      <td>last_action</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>28</th>
-      <td>last_action_removed_products_from_cart</td>
-      <td>behavior</td>
-      <td>0.9102192800992966</td>
-      <td>0.7723072679630396</td>
-      <td>0.7448275862068966</td>
-      <td>last_action</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>29</th>
-      <td>last_action_clicked_through_product_lists</td>
-      <td>behavior</td>
-      <td>0.04137360364087712</td>
-      <td>0.04137360364087712</td>
-      <td>0.08275862068965517</td>
-      <td>last_action</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>30</th>
-      <td>used_referral</td>
-      <td>behavior</td>
-      <td>24.520755757826507</td>
-      <td>24.562129361467385</td>
-      <td>23.986206896551725</td>
-      <td>medium</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>31</th>
-      <td>added_gt_1_to_cart</td>
-      <td>behavior</td>
-      <td>4.068404358019584</td>
-      <td>3.944283547096952</td>
-      <td>3.8758620689655174</td>
-      <td>added_to_cart</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>32</th>
-      <td>weekend_visitors</td>
-      <td>behavior</td>
-      <td>18.92152806509447</td>
-      <td>17.08729830368225</td>
-      <td>18.02758620689655</td>
-      <td>day_of_week</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>33</th>
-      <td>bounce_rate</td>
-      <td>behavior</td>
-      <td>33.6919045648876</td>
-      <td>32.80926768721556</td>
-      <td>33.57241379310345</td>
-      <td>bounces</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>34</th>
-      <td>num_observations</td>
-      <td>behavior</td>
-      <td>7251</td>
-      <td>7251</td>
-      <td>7250</td>
-      <td>all</td>
       <td>1</td>
     </tr>
   </tbody>
@@ -16846,7 +16346,7 @@ Get inference data month from filepath
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
 <span class="n">df_development</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">fpath_development</span><span class="p">)</span>
-<span class="n">df_development</span>
+<span class="n">df_development</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
      </div>
@@ -16861,7 +16361,7 @@ Get inference data month from filepath
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[17]:</div>
 
 
@@ -16911,232 +16411,16 @@ Get inference data month from filepath
   <tbody>
     <tr>
       <th>0</th>
-      <td>9087168862193205669</td>
-      <td>1481619204</td>
+      <td>9825248834764914907</td>
+      <td>1476553596</td>
       <td>1</td>
-      <td>2016-12-13 00:53:24</td>
-      <td>4</td>
-      <td>12</td>
-      <td>13</td>
-      <td>3</td>
-      <td>0</td>
-      <td>53</td>
-      <td>...</td>
-      <td>Chrome</td>
-      <td>Android</td>
-      <td>mobile</td>
-      <td>0</td>
-      <td>&lt;NA&gt;</td>
-      <td>0</td>
-      <td>train_val</td>
-      <td>0.092378</td>
-      <td>True</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>6192138532399050704</td>
-      <td>1475630300</td>
-      <td>1</td>
-      <td>2016-10-04 18:18:20</td>
+      <td>2016-10-15 10:46:36</td>
       <td>4</td>
       <td>10</td>
-      <td>4</td>
-      <td>3</td>
-      <td>18</td>
-      <td>18</td>
-      <td>...</td>
-      <td>Chrome</td>
-      <td>Macintosh</td>
-      <td>desktop</td>
-      <td>0</td>
-      <td>&lt;NA&gt;</td>
-      <td>0</td>
-      <td>train_val</td>
-      <td>0.190694</td>
-      <td>True</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>9191817357533988982</td>
-      <td>1476824267</td>
-      <td>1</td>
-      <td>2016-10-18 13:57:47</td>
-      <td>4</td>
-      <td>10</td>
-      <td>18</td>
-      <td>3</td>
-      <td>13</td>
-      <td>57</td>
-      <td>...</td>
-      <td>Chrome</td>
-      <td>Macintosh</td>
-      <td>desktop</td>
-      <td>3</td>
-      <td>&lt;NA&gt;</td>
-      <td>0</td>
-      <td>train_val</td>
-      <td>0.005013</td>
-      <td>True</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>7461857486231186491</td>
-      <td>1481823417</td>
-      <td>1</td>
-      <td>2016-12-15 09:36:57</td>
-      <td>4</td>
-      <td>12</td>
       <td>15</td>
-      <td>5</td>
-      <td>9</td>
-      <td>36</td>
-      <td>...</td>
-      <td>Chrome</td>
-      <td>Macintosh</td>
-      <td>desktop</td>
-      <td>0</td>
-      <td>&lt;NA&gt;</td>
-      <td>0</td>
-      <td>train_val</td>
-      <td>0.0547</td>
-      <td>True</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>6554145498187044905</td>
-      <td>1484077523</td>
-      <td>1</td>
-      <td>2017-01-10 11:45:23</td>
-      <td>1</td>
-      <td>1</td>
+      <td>7</td>
       <td>10</td>
-      <td>3</td>
-      <td>11</td>
-      <td>45</td>
-      <td>...</td>
-      <td>Chrome</td>
-      <td>Macintosh</td>
-      <td>desktop</td>
-      <td>0</td>
-      <td>&lt;NA&gt;</td>
-      <td>0</td>
-      <td>train_val</td>
-      <td>0.279794</td>
-      <td>True</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>133887</th>
-      <td>2859155514259411479</td>
-      <td>1486248414</td>
-      <td>1</td>
-      <td>2017-02-04 14:46:54</td>
-      <td>1</td>
-      <td>2</td>
-      <td>4</td>
-      <td>7</td>
-      <td>14</td>
       <td>46</td>
-      <td>...</td>
-      <td>Chrome</td>
-      <td>Android</td>
-      <td>mobile</td>
-      <td>0</td>
-      <td>&lt;NA&gt;</td>
-      <td>0</td>
-      <td>test</td>
-      <td>0.058196</td>
-      <td>True</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>133888</th>
-      <td>460482791086125299</td>
-      <td>1486859939</td>
-      <td>1</td>
-      <td>2017-02-11 16:38:59</td>
-      <td>1</td>
-      <td>2</td>
-      <td>11</td>
-      <td>7</td>
-      <td>16</td>
-      <td>38</td>
-      <td>...</td>
-      <td>Safari</td>
-      <td>iOS</td>
-      <td>mobile</td>
-      <td>0</td>
-      <td>&lt;NA&gt;</td>
-      <td>0</td>
-      <td>test</td>
-      <td>0.028381</td>
-      <td>True</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>133889</th>
-      <td>1197241994723568470</td>
-      <td>1487107604</td>
-      <td>1</td>
-      <td>2017-02-14 13:26:44</td>
-      <td>1</td>
-      <td>2</td>
-      <td>14</td>
-      <td>3</td>
-      <td>13</td>
-      <td>26</td>
-      <td>...</td>
-      <td>Chrome</td>
-      <td>Windows</td>
-      <td>desktop</td>
-      <td>0</td>
-      <td>&lt;NA&gt;</td>
-      <td>0</td>
-      <td>test</td>
-      <td>0.082862</td>
-      <td>True</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>133890</th>
-      <td>91736817749198966</td>
-      <td>1488142038</td>
-      <td>1</td>
-      <td>2017-02-26 12:47:18</td>
-      <td>1</td>
-      <td>2</td>
-      <td>26</td>
-      <td>1</td>
-      <td>12</td>
-      <td>47</td>
       <td>...</td>
       <td>Chrome</td>
       <td>Chrome OS</td>
@@ -17144,38 +16428,110 @@ Get inference data month from filepath
       <td>0</td>
       <td>&lt;NA&gt;</td>
       <td>0</td>
-      <td>test</td>
-      <td>0.005692</td>
+      <td>train_val</td>
+      <td>0.08047</td>
       <td>True</td>
       <td>0</td>
     </tr>
     <tr>
-      <th>133891</th>
-      <td>4990910589525036851</td>
-      <td>1486257216</td>
+      <th>1</th>
+      <td>5056863508248407677</td>
+      <td>1478647282</td>
       <td>1</td>
-      <td>2017-02-04 17:13:36</td>
-      <td>1</td>
-      <td>2</td>
+      <td>2016-11-08 15:21:22</td>
       <td>4</td>
-      <td>7</td>
-      <td>17</td>
-      <td>13</td>
+      <td>11</td>
+      <td>8</td>
+      <td>3</td>
+      <td>15</td>
+      <td>21</td>
       <td>...</td>
-      <td>Edge</td>
+      <td>Chrome</td>
+      <td>Linux</td>
+      <td>desktop</td>
+      <td>0</td>
+      <td>&lt;NA&gt;</td>
+      <td>0</td>
+      <td>train_val</td>
+      <td>0.169332</td>
+      <td>True</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>8458455338011744844</td>
+      <td>1480442988</td>
+      <td>1</td>
+      <td>2016-11-29 10:09:48</td>
+      <td>4</td>
+      <td>11</td>
+      <td>29</td>
+      <td>3</td>
+      <td>10</td>
+      <td>9</td>
+      <td>...</td>
+      <td>Chrome</td>
+      <td>Macintosh</td>
+      <td>desktop</td>
+      <td>1</td>
+      <td>&lt;NA&gt;</td>
+      <td>0</td>
+      <td>train_val</td>
+      <td>0.003096</td>
+      <td>True</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1513972423387111118</td>
+      <td>1478028014</td>
+      <td>1</td>
+      <td>2016-11-01 12:20:14</td>
+      <td>4</td>
+      <td>11</td>
+      <td>1</td>
+      <td>3</td>
+      <td>12</td>
+      <td>20</td>
+      <td>...</td>
+      <td>Safari</td>
+      <td>iOS</td>
+      <td>mobile</td>
+      <td>0</td>
+      <td>&lt;NA&gt;</td>
+      <td>0</td>
+      <td>train_val</td>
+      <td>0.042589</td>
+      <td>True</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>3861070950942855450</td>
+      <td>1485365615</td>
+      <td>1</td>
+      <td>2017-01-25 09:33:35</td>
+      <td>1</td>
+      <td>1</td>
+      <td>25</td>
+      <td>4</td>
+      <td>9</td>
+      <td>33</td>
+      <td>...</td>
+      <td>Chrome</td>
       <td>Windows</td>
       <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
       <td>0</td>
-      <td>test</td>
-      <td>0.201073</td>
+      <td>train_val</td>
+      <td>0.253123</td>
       <td>True</td>
       <td>0</td>
     </tr>
   </tbody>
 </table>
-<p>133892 rows × 33 columns</p>
+<p>5 rows × 33 columns</p>
 </div>
 </div>
 
@@ -17263,7 +16619,7 @@ Get inference data month from filepath
 </div>
 </div>
 </div>
-</div><div id="cell-id=6db239d7-6683-4c7a-b907-bb86f2289a06" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div id="cell-id=6db239d7-6683-4c7a-b907-bb86f2289a06" class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -17281,11 +16637,182 @@ Get inference data month from filepath
         <span class="p">)</span>
     <span class="p">)</span>
 <span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_feats</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_feats</span><span class="o">.</span><span class="n">tail</span><span class="p">())</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>audience_strategy</th>
+      <th>num_observations</th>
+      <th>stat</th>
+      <th>maudience</th>
+      <th>value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>500</td>
+      <td>medium = cpc</td>
+      <td>High</td>
+      <td>0.855569</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>500</td>
+      <td>os = FreeBSD</td>
+      <td>High</td>
+      <td>0.771953</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>500</td>
+      <td>browser = other</td>
+      <td>High</td>
+      <td>0.70914</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>500</td>
+      <td>os = Nokia</td>
+      <td>High</td>
+      <td>0.68788</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>500</td>
+      <td>hits</td>
+      <td>High</td>
+      <td>0.686577</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+<div class="jp-OutputArea-child">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>audience_strategy</th>
+      <th>num_observations</th>
+      <th>stat</th>
+      <th>maudience</th>
+      <th>value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>25</th>
+      <td>1</td>
+      <td>500</td>
+      <td>bounces = True</td>
+      <td>Low</td>
+      <td>0.708115</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>1</td>
+      <td>500</td>
+      <td>os = BlackBerry</td>
+      <td>Low</td>
+      <td>0.572242</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>1</td>
+      <td>500</td>
+      <td>medium = (not set)</td>
+      <td>Low</td>
+      <td>0.433122</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>1</td>
+      <td>500</td>
+      <td>os = Nokia</td>
+      <td>Low</td>
+      <td>0.200427</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>1</td>
+      <td>500</td>
+      <td>source = google</td>
+      <td>Low</td>
+      <td>0.144921</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -17307,7 +16834,8 @@ Get inference data month from filepath
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_profile_sliced</span> <span class="o">=</span> <span class="p">(</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="n">df_profile_sliced</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">df_profile</span>
     <span class="c1"># get behavioral and (average) descriptive statistics</span>
     <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;(stat_type == &#39;behavior&#39;) | (stat.str.endswith(&#39;mean&#39;))&quot;</span><span class="p">)</span>
@@ -17356,7 +16884,7 @@ Get inference data month from filepath
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[21]:</div>
 
 
@@ -17392,153 +16920,153 @@ Get inference data month from filepath
       <th>0</th>
       <td>1</td>
       <td>Hour (Mean)</td>
-      <td>12.969797</td>
-      <td>13.038344</td>
-      <td>13.023583</td>
+      <td>13.043304</td>
+      <td>12.969241</td>
+      <td>13.025514</td>
     </tr>
     <tr>
       <th>1</th>
       <td>1</td>
       <td>Day Of Week (Mean)</td>
-      <td>3.986347</td>
-      <td>4.027034</td>
-      <td>3.999172</td>
+      <td>4.00924</td>
+      <td>4.009931</td>
+      <td>3.992139</td>
     </tr>
     <tr>
       <th>2</th>
       <td>1</td>
       <td>Hits (Mean)</td>
-      <td>6.290581</td>
-      <td>6.348414</td>
-      <td>6.426148</td>
+      <td>6.214315</td>
+      <td>6.356552</td>
+      <td>6.497587</td>
     </tr>
     <tr>
       <th>3</th>
       <td>1</td>
       <td>Promos Displayed (Mean)</td>
-      <td>8.506</td>
-      <td>8.530759</td>
-      <td>8.667356</td>
+      <td>8.550683</td>
+      <td>8.541931</td>
+      <td>8.612743</td>
     </tr>
     <tr>
       <th>4</th>
       <td>1</td>
       <td>Promos Clicked (Mean)</td>
       <td>0.0</td>
-      <td>0.000138</td>
       <td>0.0</td>
+      <td>0.000138</td>
     </tr>
     <tr>
       <th>5</th>
       <td>1</td>
       <td>Product Views (Mean)</td>
-      <td>23.131706</td>
-      <td>23.416689</td>
-      <td>23.020273</td>
+      <td>22.395256</td>
+      <td>23.241379</td>
+      <td>23.932423</td>
     </tr>
     <tr>
       <th>6</th>
       <td>1</td>
       <td>Product Clicks (Mean)</td>
-      <td>0.672321</td>
-      <td>0.68</td>
-      <td>0.677975</td>
+      <td>0.647083</td>
+      <td>0.679448</td>
+      <td>0.704455</td>
     </tr>
     <tr>
       <th>7</th>
       <td>1</td>
       <td>Pageviews (Mean)</td>
-      <td>5.33292</td>
-      <td>5.373931</td>
-      <td>5.475796</td>
+      <td>5.287409</td>
+      <td>5.405241</td>
+      <td>5.49207</td>
     </tr>
     <tr>
       <th>8</th>
       <td>1</td>
       <td>Revenue (Mean)</td>
-      <td>179.170715</td>
-      <td>172.959793</td>
-      <td>197.689194</td>
+      <td>179.237625</td>
+      <td>178.182846</td>
+      <td>193.435837</td>
     </tr>
     <tr>
       <th>9</th>
       <td>1</td>
       <td>Added To Cart (Mean)</td>
-      <td>0.188802</td>
-      <td>0.199172</td>
-      <td>0.201765</td>
+      <td>0.19487</td>
+      <td>0.201241</td>
+      <td>0.19418</td>
     </tr>
     <tr>
       <th>10</th>
       <td>1</td>
       <td>Last Action Added To Cart</td>
-      <td>5.033789</td>
-      <td>5.351724</td>
-      <td>4.909667</td>
+      <td>5.254447</td>
+      <td>5.034483</td>
+      <td>5.019997</td>
     </tr>
     <tr>
       <th>11</th>
       <td>1</td>
       <td>Last Action Completed Purchase</td>
-      <td>3.323679</td>
-      <td>3.310345</td>
-      <td>3.599504</td>
+      <td>3.737416</td>
+      <td>3.186207</td>
+      <td>3.282306</td>
     </tr>
     <tr>
       <th>12</th>
       <td>1</td>
       <td>Last Action Check Out</td>
-      <td>1.130878</td>
-      <td>1.393103</td>
-      <td>1.558406</td>
+      <td>1.323955</td>
+      <td>1.462069</td>
+      <td>1.310164</td>
     </tr>
     <tr>
       <th>13</th>
       <td>1</td>
       <td>Last Action Removed Products From Cart</td>
-      <td>0.910219</td>
-      <td>0.744828</td>
       <td>0.772307</td>
+      <td>0.772414</td>
+      <td>0.882637</td>
     </tr>
     <tr>
       <th>14</th>
       <td>1</td>
       <td>Last Action Clicked Through Product Lists</td>
-      <td>0.041374</td>
-      <td>0.082759</td>
-      <td>0.041374</td>
+      <td>0.027582</td>
+      <td>0.068966</td>
+      <td>0.068956</td>
     </tr>
     <tr>
       <th>15</th>
       <td>1</td>
       <td>Used Referral</td>
-      <td>24.520756</td>
-      <td>23.986206</td>
-      <td>24.56213</td>
+      <td>24.865536</td>
+      <td>24.151724</td>
+      <td>24.051855</td>
     </tr>
     <tr>
       <th>16</th>
       <td>1</td>
       <td>Added Gt 1 To Cart</td>
-      <td>4.068404</td>
-      <td>3.875862</td>
-      <td>3.944283</td>
+      <td>3.778789</td>
+      <td>4.151724</td>
+      <td>3.985657</td>
     </tr>
     <tr>
       <th>17</th>
       <td>1</td>
       <td>Weekend Visitors</td>
-      <td>18.921528</td>
-      <td>18.027586</td>
-      <td>17.087297</td>
+      <td>17.887188</td>
+      <td>18.151724</td>
+      <td>17.997517</td>
     </tr>
     <tr>
       <th>18</th>
       <td>1</td>
       <td>Bounce Rate</td>
-      <td>33.691906</td>
-      <td>33.572414</td>
-      <td>32.809269</td>
+      <td>33.016136</td>
+      <td>34.08276</td>
+      <td>32.974762</td>
     </tr>
     <tr>
       <th>19</th>
@@ -17595,7 +17123,8 @@ Get inference data month from filepath
 <span class="n">col</span> <span class="o">=</span> <span class="n">df_cohorts</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;infer_month&quot;</span><span class="p">)</span>
 <span class="n">df_cohorts</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
 <span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
-    <span class="n">display</span><span class="p">(</span><span class="n">df_cohorts</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">df_cohorts</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">df_cohorts</span><span class="o">.</span><span class="n">tail</span><span class="p">())</span>
 </pre></div>
 
      </div>
@@ -17610,7 +17139,7 @@ Get inference data month from filepath
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -17676,35 +17205,35 @@ Get inference data month from filepath
     <tr>
       <th>0</th>
       <td>March</td>
-      <td>1089841380502674759</td>
-      <td>1490136731</td>
+      <td>9725965720822289910</td>
+      <td>1490389872</td>
       <td>1</td>
-      <td>2017-03-21 15:52:11</td>
+      <td>2017-03-24 14:11:12</td>
       <td>1</td>
       <td>3</td>
-      <td>21</td>
-      <td>3</td>
-      <td>15</td>
-      <td>52</td>
+      <td>24</td>
+      <td>6</td>
+      <td>14</td>
       <td>11</td>
-      <td>google</td>
-      <td>organic</td>
-      <td>Organic Search</td>
-      <td>1</td>
-      <td>1</td>
-      <td>Unknown</td>
+      <td>12</td>
+      <td>mall.googleplex.com</td>
+      <td>referral</td>
+      <td>Referral</td>
+      <td>4</td>
       <td>0</td>
+      <td>Unknown</td>
+      <td>18</td>
       <td>0</td>
       <td>12</td>
       <td>0</td>
-      <td>1</td>
-      <td>0</td>
+      <td>4</td>
+      <td>66</td>
       <td>Chrome</td>
-      <td>Windows</td>
+      <td>Linux</td>
       <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.962094</td>
+      <td>0.960677</td>
       <td>False</td>
       <td>High</td>
       <td>Control</td>
@@ -17715,35 +17244,35 @@ Get inference data month from filepath
     <tr>
       <th>1</th>
       <td>March</td>
-      <td>7602795256647724660</td>
-      <td>1489465336</td>
+      <td>1262291561527945490</td>
+      <td>1490385910</td>
       <td>1</td>
-      <td>2017-03-13 21:22:16</td>
+      <td>2017-03-24 13:05:10</td>
       <td>1</td>
       <td>3</td>
+      <td>24</td>
+      <td>6</td>
       <td>13</td>
-      <td>2</td>
-      <td>21</td>
-      <td>22</td>
-      <td>16</td>
+      <td>5</td>
+      <td>10</td>
       <td>(direct)</td>
       <td>(none)</td>
       <td>Direct</td>
-      <td>11</td>
+      <td>5</td>
       <td>0</td>
       <td>Unknown</td>
-      <td>9</td>
+      <td>18</td>
       <td>0</td>
-      <td>92</td>
+      <td>25</td>
       <td>0</td>
-      <td>11</td>
-      <td>124</td>
+      <td>5</td>
+      <td>99</td>
       <td>Chrome</td>
-      <td>Macintosh</td>
-      <td>desktop</td>
+      <td>iOS</td>
+      <td>mobile</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.9324</td>
+      <td>0.879824</td>
       <td>False</td>
       <td>High</td>
       <td>Control</td>
@@ -17754,35 +17283,35 @@ Get inference data month from filepath
     <tr>
       <th>2</th>
       <td>March</td>
-      <td>2420015317690803901</td>
-      <td>1490906576</td>
+      <td>9189040746503498111</td>
+      <td>1488898168</td>
       <td>1</td>
-      <td>2017-03-30 13:42:56</td>
+      <td>2017-03-07 06:49:28</td>
       <td>1</td>
       <td>3</td>
-      <td>30</td>
-      <td>5</td>
-      <td>13</td>
-      <td>42</td>
-      <td>56</td>
-      <td>mall.googleplex.com</td>
-      <td>referral</td>
-      <td>Referral</td>
+      <td>7</td>
+      <td>3</td>
+      <td>6</td>
+      <td>49</td>
+      <td>28</td>
+      <td>(direct)</td>
+      <td>(none)</td>
+      <td>Direct</td>
       <td>1</td>
       <td>1</td>
       <td>Unknown</td>
-      <td>9</td>
+      <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>1</td>
       <td>0</td>
       <td>Chrome</td>
-      <td>Linux</td>
-      <td>desktop</td>
+      <td>Android</td>
+      <td>mobile</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.890133</td>
+      <td>0.867118</td>
       <td>False</td>
       <td>High</td>
       <td>Control</td>
@@ -17793,36 +17322,36 @@ Get inference data month from filepath
     <tr>
       <th>3</th>
       <td>March</td>
-      <td>9155224690531283117</td>
-      <td>1488840618</td>
+      <td>1844223110946928452</td>
+      <td>1490399038</td>
       <td>1</td>
-      <td>2017-03-06 14:50:18</td>
+      <td>2017-03-24 16:43:58</td>
       <td>1</td>
       <td>3</td>
+      <td>24</td>
       <td>6</td>
-      <td>2</td>
-      <td>14</td>
-      <td>50</td>
-      <td>18</td>
+      <td>16</td>
+      <td>43</td>
+      <td>58</td>
       <td>google</td>
       <td>organic</td>
       <td>Organic Search</td>
-      <td>1</td>
-      <td>1</td>
-      <td>Unknown</td>
+      <td>20</td>
       <td>0</td>
+      <td>Add product(s) to cart</td>
+      <td>9</td>
       <td>0</td>
-      <td>12</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
+      <td>90</td>
+      <td>3</td>
+      <td>15</td>
+      <td>414</td>
       <td>Chrome</td>
-      <td>Windows</td>
+      <td>Macintosh</td>
       <td>desktop</td>
-      <td>0</td>
+      <td>2</td>
       <td>&lt;NA&gt;</td>
-      <td>0.884398</td>
-      <td>False</td>
+      <td>0.864372</td>
+      <td>True</td>
       <td>High</td>
       <td>Control</td>
       <td>1</td>
@@ -17832,35 +17361,35 @@ Get inference data month from filepath
     <tr>
       <th>4</th>
       <td>March</td>
-      <td>2205802376622271952</td>
-      <td>1489757220</td>
+      <td>5443907013787165361</td>
+      <td>1490637573</td>
       <td>1</td>
-      <td>2017-03-17 06:27:00</td>
+      <td>2017-03-27 10:59:33</td>
       <td>1</td>
       <td>3</td>
-      <td>17</td>
-      <td>6</td>
-      <td>6</td>
       <td>27</td>
-      <td>0</td>
+      <td>2</td>
+      <td>10</td>
+      <td>59</td>
+      <td>33</td>
       <td>google</td>
       <td>organic</td>
       <td>Organic Search</td>
-      <td>1</td>
-      <td>1</td>
+      <td>7</td>
+      <td>0</td>
       <td>Unknown</td>
+      <td>9</td>
       <td>0</td>
+      <td>47</td>
       <td>0</td>
-      <td>12</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
+      <td>7</td>
+      <td>41</td>
       <td>Chrome</td>
-      <td>Android</td>
-      <td>mobile</td>
+      <td>Macintosh</td>
+      <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.882623</td>
+      <td>0.860614</td>
       <td>False</td>
       <td>High</td>
       <td>Control</td>
@@ -17868,75 +17397,106 @@ Get inference data month from filepath
       <td>&lt;NA&gt;</td>
       <td>infer</td>
     </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+<div class="jp-OutputArea-child">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>infer_month</th>
+      <th>fullvisitorid</th>
+      <th>visitId</th>
+      <th>visitNumber</th>
+      <th>visitStartTime</th>
+      <th>quarter</th>
+      <th>month</th>
+      <th>day_of_month</th>
+      <th>day_of_week</th>
+      <th>hour</th>
+      <th>minute</th>
+      <th>second</th>
+      <th>source</th>
+      <th>medium</th>
+      <th>channelGrouping</th>
+      <th>hits</th>
+      <th>bounces</th>
+      <th>last_action</th>
+      <th>promos_displayed</th>
+      <th>promos_clicked</th>
+      <th>product_views</th>
+      <th>product_clicks</th>
+      <th>pageviews</th>
+      <th>time_on_site</th>
+      <th>browser</th>
+      <th>os</th>
+      <th>deviceCategory</th>
+      <th>added_to_cart</th>
+      <th>revenue</th>
+      <th>score</th>
+      <th>predicted_score_label</th>
+      <th>maudience</th>
+      <th>cohort</th>
+      <th>audience_strategy</th>
+      <th>made_purchase_on_future_visit</th>
+      <th>split_type</th>
     </tr>
+  </thead>
+  <tbody>
     <tr>
       <th>21747</th>
       <td>March</td>
-      <td>1484841107186174333</td>
-      <td>1490739877</td>
+      <td>5476993230782741357</td>
+      <td>1490986341</td>
       <td>1</td>
-      <td>2017-03-28 15:24:37</td>
+      <td>2017-03-31 11:52:21</td>
       <td>1</td>
       <td>3</td>
-      <td>28</td>
+      <td>31</td>
+      <td>6</td>
+      <td>11</td>
+      <td>52</td>
+      <td>21</td>
+      <td>(direct)</td>
+      <td>(none)</td>
+      <td>Direct</td>
+      <td>18</td>
+      <td>0</td>
+      <td>Add product(s) to cart</td>
+      <td>0</td>
+      <td>0</td>
+      <td>107</td>
       <td>3</td>
-      <td>15</td>
-      <td>24</td>
-      <td>37</td>
-      <td>yahoo</td>
-      <td>organic</td>
-      <td>Organic Search</td>
-      <td>12</td>
-      <td>0</td>
-      <td>Product detail views</td>
-      <td>9</td>
-      <td>0</td>
-      <td>27</td>
-      <td>4</td>
-      <td>8</td>
-      <td>1157</td>
-      <td>Firefox</td>
-      <td>Macintosh</td>
+      <td>14</td>
+      <td>551</td>
+      <td>Chrome</td>
+      <td>Linux</td>
       <td>desktop</td>
-      <td>0</td>
+      <td>1</td>
       <td>&lt;NA&gt;</td>
       <td>0.0</td>
       <td>False</td>
@@ -17949,32 +17509,32 @@ Get inference data month from filepath
     <tr>
       <th>21748</th>
       <td>March</td>
-      <td>8767089865026337607</td>
-      <td>1488650631</td>
+      <td>6629693276913663746</td>
+      <td>1488520182</td>
       <td>1</td>
-      <td>2017-03-04 10:03:51</td>
+      <td>2017-03-02 21:49:42</td>
       <td>1</td>
       <td>3</td>
-      <td>4</td>
-      <td>7</td>
-      <td>10</td>
-      <td>3</td>
-      <td>51</td>
-      <td>youtube.com</td>
-      <td>referral</td>
-      <td>Social</td>
+      <td>2</td>
+      <td>5</td>
+      <td>21</td>
+      <td>49</td>
+      <td>42</td>
+      <td>google</td>
+      <td>organic</td>
+      <td>Organic Search</td>
       <td>3</td>
       <td>0</td>
       <td>Unknown</td>
       <td>9</td>
       <td>0</td>
-      <td>5</td>
+      <td>12</td>
       <td>0</td>
       <td>3</td>
-      <td>73</td>
-      <td>Safari</td>
-      <td>iOS</td>
-      <td>tablet</td>
+      <td>19</td>
+      <td>Chrome</td>
+      <td>Macintosh</td>
+      <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
       <td>0.0</td>
@@ -17988,29 +17548,29 @@ Get inference data month from filepath
     <tr>
       <th>21749</th>
       <td>March</td>
-      <td>1315146560525958752</td>
-      <td>1490744665</td>
+      <td>7820592629354691307</td>
+      <td>1489762686</td>
       <td>1</td>
-      <td>2017-03-28 16:44:25</td>
+      <td>2017-03-17 07:58:06</td>
       <td>1</td>
       <td>3</td>
-      <td>28</td>
-      <td>3</td>
-      <td>16</td>
-      <td>44</td>
-      <td>25</td>
-      <td>siliconvalley.about.com</td>
-      <td>referral</td>
-      <td>Referral</td>
-      <td>4</td>
+      <td>17</td>
+      <td>6</td>
+      <td>7</td>
+      <td>58</td>
+      <td>6</td>
+      <td>google</td>
+      <td>organic</td>
+      <td>Organic Search</td>
+      <td>2</td>
       <td>0</td>
       <td>Unknown</td>
       <td>9</td>
       <td>0</td>
-      <td>17</td>
       <td>0</td>
-      <td>4</td>
-      <td>85</td>
+      <td>0</td>
+      <td>2</td>
+      <td>8</td>
       <td>Chrome</td>
       <td>Windows</td>
       <td>desktop</td>
@@ -18027,31 +17587,31 @@ Get inference data month from filepath
     <tr>
       <th>21750</th>
       <td>March</td>
-      <td>8672023061064502362</td>
-      <td>1490737601</td>
+      <td>9113372584810915471</td>
+      <td>1489627383</td>
       <td>1</td>
-      <td>2017-03-28 14:46:41</td>
+      <td>2017-03-15 18:23:03</td>
       <td>1</td>
       <td>3</td>
-      <td>28</td>
-      <td>3</td>
-      <td>14</td>
-      <td>46</td>
-      <td>41</td>
-      <td>google</td>
-      <td>organic</td>
-      <td>Organic Search</td>
+      <td>15</td>
       <td>4</td>
+      <td>18</td>
+      <td>23</td>
+      <td>3</td>
+      <td>youtube.com</td>
+      <td>referral</td>
+      <td>Social</td>
+      <td>6</td>
       <td>0</td>
       <td>Unknown</td>
-      <td>9</td>
+      <td>36</td>
       <td>0</td>
-      <td>12</td>
+      <td>24</td>
       <td>0</td>
-      <td>4</td>
-      <td>79</td>
-      <td>Safari</td>
-      <td>iOS</td>
+      <td>6</td>
+      <td>880</td>
+      <td>Chrome</td>
+      <td>Android</td>
       <td>mobile</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
@@ -18066,36 +17626,36 @@ Get inference data month from filepath
     <tr>
       <th>21751</th>
       <td>March</td>
-      <td>9083000558898885481</td>
-      <td>1488403381</td>
+      <td>8899670647171745453</td>
+      <td>1488901570</td>
       <td>1</td>
-      <td>2017-03-01 13:23:01</td>
+      <td>2017-03-07 07:46:10</td>
       <td>1</td>
       <td>3</td>
-      <td>1</td>
-      <td>4</td>
-      <td>13</td>
-      <td>23</td>
-      <td>1</td>
+      <td>7</td>
+      <td>3</td>
+      <td>7</td>
+      <td>46</td>
+      <td>10</td>
       <td>google</td>
       <td>organic</td>
       <td>Organic Search</td>
-      <td>21</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Unknown</td>
       <td>0</td>
-      <td>Product detail views</td>
-      <td>9</td>
       <td>0</td>
-      <td>106</td>
-      <td>3</td>
-      <td>18</td>
-      <td>1943</td>
+      <td>12</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
       <td>Chrome</td>
-      <td>Chrome OS</td>
+      <td>Windows</td>
       <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
       <td>0.0</td>
-      <td>False</td>
+      <td>True</td>
       <td>Low</td>
       <td>&lt;NA&gt;</td>
       <td>1</td>
@@ -18104,7 +17664,6 @@ Get inference data month from filepath
     </tr>
   </tbody>
 </table>
-<p>21752 rows × 36 columns</p>
 </div>
 </div>
 
@@ -18147,7 +17706,8 @@ Insert inference month and audience strategy columns
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[23]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_conv_rates</span> <span class="o">=</span> <span class="p">(</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="n">df_conv_rates</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">df_conv_rates</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">infer_month</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="n">infer_month_conv_rates</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">audience_strategy</span><span class="o">=</span><span class="n">audience_strategy</span><span class="p">)</span>
@@ -18190,7 +17750,7 @@ Insert inference month and audience strategy columns
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[23]:</div>
 
 
@@ -18235,16 +17795,16 @@ Insert inference month and audience strategy columns
       <td>1</td>
       <td>&lt;NA&gt;</td>
       <td>High</td>
-      <td>1289</td>
+      <td>1125</td>
       <td>6722</td>
-      <td>0.164389</td>
-      <td>142</td>
+      <td>0.140977</td>
+      <td>165</td>
       <td>Development</td>
       <td>20164</td>
-      <td>2.112467</td>
+      <td>2.454627</td>
       <td>2.30609</td>
-      <td>19.17584</td>
-      <td>6.392581</td>
+      <td>16.73609</td>
+      <td>5.57925</td>
     </tr>
     <tr>
       <th>1</th>
@@ -18254,13 +17814,13 @@ Insert inference month and audience strategy columns
       <td>0</td>
       <td>6721</td>
       <td>0.0</td>
-      <td>161</td>
+      <td>147</td>
       <td>Development</td>
       <td>20164</td>
-      <td>2.395477</td>
+      <td>2.187175</td>
       <td>2.30609</td>
       <td>0.0</td>
-      <td>6.392581</td>
+      <td>5.57925</td>
     </tr>
     <tr>
       <th>2</th>
@@ -18269,30 +17829,30 @@ Insert inference month and audience strategy columns
       <td>Medium</td>
       <td>0</td>
       <td>6721</td>
-      <td>0.031337</td>
-      <td>162</td>
+      <td>0.022545</td>
+      <td>153</td>
       <td>Development</td>
       <td>20164</td>
-      <td>2.410356</td>
+      <td>2.276447</td>
       <td>2.30609</td>
       <td>0.0</td>
-      <td>6.392581</td>
+      <td>5.57925</td>
     </tr>
     <tr>
       <th>3</th>
       <td>1</td>
       <td>March</td>
       <td>High</td>
-      <td>1408</td>
+      <td>1243</td>
       <td>7251</td>
-      <td>0.164693</td>
+      <td>0.143627</td>
       <td>0</td>
       <td>Inference</td>
       <td>21752</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>19.418011</td>
-      <td>6.472968</td>
+      <td>17.142464</td>
+      <td>5.714417</td>
     </tr>
     <tr>
       <th>4</th>
@@ -18308,7 +17868,7 @@ Insert inference month and audience strategy columns
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>6.472968</td>
+      <td>5.714417</td>
     </tr>
     <tr>
       <th>5</th>
@@ -18317,14 +17877,14 @@ Insert inference month and audience strategy columns
       <td>Medium</td>
       <td>0</td>
       <td>7250</td>
-      <td>0.031879</td>
+      <td>0.022746</td>
       <td>0</td>
       <td>Inference</td>
       <td>21752</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>6.472968</td>
+      <td>5.714417</td>
     </tr>
   </tbody>
 </table>
@@ -18348,7 +17908,7 @@ Insert inference month and audience strategy columns
 </div>
 </div>
 </div>
-</div><div id="cell-id=32cbeb69-e91a-4972-8691-d01db56e5b5b" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div id="cell-id=32cbeb69-e91a-4972-8691-d01db56e5b5b" class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -18356,7 +17916,8 @@ Insert inference month and audience strategy columns
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[24]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_conv_rates_by_aud</span> <span class="o">=</span> <span class="p">(</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="n">df_conv_rates_by_aud</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">df_conv_rates</span><span class="p">[[</span><span class="s1">&#39;maudience&#39;</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">,</span> <span class="s1">&#39;true_conv_rate&#39;</span><span class="p">,</span> <span class="s1">&#39;pred_conv_rate&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
         <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;maudience&#39;</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">],</span>
         <span class="n">value_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;true_conv_rate&#39;</span><span class="p">,</span> <span class="s1">&#39;pred_conv_rate&#39;</span><span class="p">],</span>
@@ -18373,11 +17934,145 @@ Insert inference month and audience strategy columns
         <span class="p">}</span>
     <span class="p">)</span>
 <span class="p">)</span>
+<span class="n">df_conv_rates_by_aud</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[24]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>maudience</th>
+      <th>data_type</th>
+      <th>var</th>
+      <th>value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>High</td>
+      <td>Development</td>
+      <td>true</td>
+      <td>2.454627</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Low</td>
+      <td>Development</td>
+      <td>true</td>
+      <td>2.187175</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Medium</td>
+      <td>Development</td>
+      <td>true</td>
+      <td>2.276447</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>High</td>
+      <td>Inference</td>
+      <td>true</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Low</td>
+      <td>Inference</td>
+      <td>true</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Medium</td>
+      <td>Inference</td>
+      <td>true</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>High</td>
+      <td>Development</td>
+      <td>pred</td>
+      <td>16.73609</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Low</td>
+      <td>Development</td>
+      <td>pred</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Medium</td>
+      <td>Development</td>
+      <td>pred</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>High</td>
+      <td>Inference</td>
+      <td>pred</td>
+      <td>17.142464</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Low</td>
+      <td>Inference</td>
+      <td>pred</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Medium</td>
+      <td>Inference</td>
+      <td>pred</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -18391,7 +18086,7 @@ Insert inference month and audience strategy columns
 </div>
 </div>
 </div>
-</div><div id="cell-id=45130205-9ffe-48a6-bdba-9f6b204fe328" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div id="cell-id=45130205-9ffe-48a6-bdba-9f6b204fe328" class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -18399,7 +18094,8 @@ Insert inference month and audience strategy columns
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[25]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_conv_rates_overall</span> <span class="o">=</span> <span class="p">(</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="n">df_conv_rates_overall</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">df_conv_rates</span><span class="p">[[</span><span class="s1">&#39;data_type&#39;</span><span class="p">,</span> <span class="s1">&#39;overall_true_conv_rate&#39;</span><span class="p">,</span> <span class="s1">&#39;overall_pred_conv_rate&#39;</span><span class="p">,</span> <span class="s1">&#39;data_size&#39;</span><span class="p">]]</span>
     <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;data_type&#39;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
     <span class="o">.</span><span class="n">melt</span><span class="p">(</span>
@@ -18419,11 +18115,103 @@ Insert inference month and audience strategy columns
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">maudience</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
     <span class="o">.</span><span class="n">astype</span><span class="p">({</span><span class="s2">&quot;maudience&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">()})</span>
 <span class="p">)</span>
+<span class="n">df_conv_rates_overall</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[25]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>data_type</th>
+      <th>var</th>
+      <th>value</th>
+      <th>maudience</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Development</td>
+      <td>Overall Pred Conv Rate</td>
+      <td>5.57925</td>
+      <td>&lt;NA&gt;</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Inference</td>
+      <td>Overall Pred Conv Rate</td>
+      <td>5.714417</td>
+      <td>&lt;NA&gt;</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Development</td>
+      <td>Overall True Conv Rate</td>
+      <td>2.30609</td>
+      <td>&lt;NA&gt;</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Inference</td>
+      <td>Overall True Conv Rate</td>
+      <td>0.0</td>
+      <td>&lt;NA&gt;</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Development</td>
+      <td>Data Size</td>
+      <td>20164.0</td>
+      <td>&lt;NA&gt;</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Inference</td>
+      <td>Data Size</td>
+      <td>21752.0</td>
+      <td>&lt;NA&gt;</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -18482,7 +18270,7 @@ Combine overall and per-audience conversion rates data
 </div>
 </div>
 </div>
-</div><div id="cell-id=a6b6a508-5b9f-4819-a391-773ecd417a04" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div id="cell-id=a6b6a508-5b9f-4819-a391-773ecd417a04" class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -18490,12 +18278,189 @@ Combine overall and per-audience conversion rates data
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[27]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_conv_rates_agg_combo</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_conv_rates_by_aud</span><span class="p">,</span> <span class="n">df_conv_rates_overall</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="n">df_conv_rates_agg_combo</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_conv_rates_by_aud</span><span class="p">,</span> <span class="n">df_conv_rates_overall</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df_conv_rates_agg_combo</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[27]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>maudience</th>
+      <th>data_type</th>
+      <th>var</th>
+      <th>value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>High</td>
+      <td>Development</td>
+      <td>true</td>
+      <td>2.454627</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Low</td>
+      <td>Development</td>
+      <td>true</td>
+      <td>2.187175</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Medium</td>
+      <td>Development</td>
+      <td>true</td>
+      <td>2.276447</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>High</td>
+      <td>Inference</td>
+      <td>true</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Low</td>
+      <td>Inference</td>
+      <td>true</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Medium</td>
+      <td>Inference</td>
+      <td>true</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>High</td>
+      <td>Development</td>
+      <td>pred</td>
+      <td>16.73609</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Low</td>
+      <td>Development</td>
+      <td>pred</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Medium</td>
+      <td>Development</td>
+      <td>pred</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>High</td>
+      <td>Inference</td>
+      <td>pred</td>
+      <td>17.142464</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Low</td>
+      <td>Inference</td>
+      <td>pred</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Medium</td>
+      <td>Inference</td>
+      <td>pred</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>&lt;NA&gt;</td>
+      <td>Development</td>
+      <td>Overall Pred Conv Rate</td>
+      <td>5.57925</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>&lt;NA&gt;</td>
+      <td>Inference</td>
+      <td>Overall Pred Conv Rate</td>
+      <td>5.714417</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>&lt;NA&gt;</td>
+      <td>Development</td>
+      <td>Overall True Conv Rate</td>
+      <td>2.30609</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>&lt;NA&gt;</td>
+      <td>Inference</td>
+      <td>Overall True Conv Rate</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>&lt;NA&gt;</td>
+      <td>Development</td>
+      <td>Data Size</td>
+      <td>20164.0</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>&lt;NA&gt;</td>
+      <td>Inference</td>
+      <td>Data Size</td>
+      <td>21752.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -18523,7 +18488,7 @@ Insert inference month and audience strategy columns
 </div>
 </div>
 </div>
-</div><div id="cell-id=1fd5a86e-0fe3-43ec-9358-efd78c90da35" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div id="cell-id=1fd5a86e-0fe3-43ec-9358-efd78c90da35" class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -18531,7 +18496,8 @@ Insert inference month and audience strategy columns
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[28]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_sa_frac</span> <span class="o">=</span> <span class="p">(</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="n">df_sa_frac</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">df_sa_frac</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">infer_month</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span><span class="o">*</span><span class="mi">6</span> <span class="o">+</span> <span class="p">[</span><span class="n">infer_month_frac</span><span class="p">]</span><span class="o">*</span><span class="mi">6</span><span class="p">)</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">audience_strategy</span><span class="o">=</span><span class="n">audience_strategy</span><span class="p">)</span>
@@ -18546,11 +18512,262 @@ Insert inference month and audience strategy columns
 <span class="n">df_sa_frac</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
 <span class="n">col</span> <span class="o">=</span> <span class="n">df_sa_frac</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;audience_strategy&quot;</span><span class="p">)</span>
 <span class="n">df_sa_frac</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+<span class="n">df_sa_frac</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[28]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>audience_strategy</th>
+      <th>infer_month</th>
+      <th>maudience</th>
+      <th>cohort</th>
+      <th>size</th>
+      <th>group_size</th>
+      <th>uplift</th>
+      <th>power</th>
+      <th>ci_level</th>
+      <th>samp_to_aud_frac</th>
+      <th>size_type</th>
+      <th>data_type</th>
+      <th>data_size</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>&lt;NA&gt;</td>
+      <td>High</td>
+      <td>Test</td>
+      <td>1933</td>
+      <td>6721</td>
+      <td>10</td>
+      <td>55</td>
+      <td>55</td>
+      <td>28.760601</td>
+      <td>required</td>
+      <td>development</td>
+      <td>20164</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>&lt;NA&gt;</td>
+      <td>High</td>
+      <td>Control</td>
+      <td>1933</td>
+      <td>6721</td>
+      <td>10</td>
+      <td>55</td>
+      <td>55</td>
+      <td>28.760601</td>
+      <td>required</td>
+      <td>development</td>
+      <td>20164</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>&lt;NA&gt;</td>
+      <td>Medium</td>
+      <td>Test</td>
+      <td>2088</td>
+      <td>6721</td>
+      <td>10</td>
+      <td>55</td>
+      <td>55</td>
+      <td>31.066805</td>
+      <td>required</td>
+      <td>development</td>
+      <td>20164</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>&lt;NA&gt;</td>
+      <td>Medium</td>
+      <td>Control</td>
+      <td>2088</td>
+      <td>6721</td>
+      <td>10</td>
+      <td>55</td>
+      <td>55</td>
+      <td>31.066805</td>
+      <td>required</td>
+      <td>development</td>
+      <td>20164</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>&lt;NA&gt;</td>
+      <td>Low</td>
+      <td>Test</td>
+      <td>2176</td>
+      <td>6722</td>
+      <td>10</td>
+      <td>55</td>
+      <td>55</td>
+      <td>32.371319</td>
+      <td>required</td>
+      <td>development</td>
+      <td>20164</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1</td>
+      <td>&lt;NA&gt;</td>
+      <td>Low</td>
+      <td>Control</td>
+      <td>2176</td>
+      <td>6722</td>
+      <td>10</td>
+      <td>55</td>
+      <td>55</td>
+      <td>32.371319</td>
+      <td>required</td>
+      <td>development</td>
+      <td>20164</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>1</td>
+      <td>March</td>
+      <td>High</td>
+      <td>Control</td>
+      <td>2085</td>
+      <td>7251</td>
+      <td>10</td>
+      <td>55</td>
+      <td>55</td>
+      <td>28.754654</td>
+      <td>randomly selected</td>
+      <td>inference</td>
+      <td>21752</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>1</td>
+      <td>March</td>
+      <td>High</td>
+      <td>Test</td>
+      <td>2085</td>
+      <td>7251</td>
+      <td>10</td>
+      <td>55</td>
+      <td>55</td>
+      <td>28.754654</td>
+      <td>randomly selected</td>
+      <td>inference</td>
+      <td>21752</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>1</td>
+      <td>March</td>
+      <td>Low</td>
+      <td>Control</td>
+      <td>2347</td>
+      <td>7251</td>
+      <td>10</td>
+      <td>55</td>
+      <td>55</td>
+      <td>32.36795</td>
+      <td>randomly selected</td>
+      <td>inference</td>
+      <td>21752</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>1</td>
+      <td>March</td>
+      <td>Low</td>
+      <td>Test</td>
+      <td>2347</td>
+      <td>7251</td>
+      <td>10</td>
+      <td>55</td>
+      <td>55</td>
+      <td>32.36795</td>
+      <td>randomly selected</td>
+      <td>inference</td>
+      <td>21752</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>1</td>
+      <td>March</td>
+      <td>Medium</td>
+      <td>Control</td>
+      <td>2252</td>
+      <td>7250</td>
+      <td>10</td>
+      <td>55</td>
+      <td>55</td>
+      <td>31.062069</td>
+      <td>randomly selected</td>
+      <td>inference</td>
+      <td>21752</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>1</td>
+      <td>March</td>
+      <td>Medium</td>
+      <td>Test</td>
+      <td>2252</td>
+      <td>7250</td>
+      <td>10</td>
+      <td>55</td>
+      <td>55</td>
+      <td>31.062069</td>
+      <td>randomly selected</td>
+      <td>inference</td>
+      <td>21752</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -18617,7 +18834,8 @@ Insert inference month and audience strategy columns
 <span class="n">col</span> <span class="o">=</span> <span class="n">df_development</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;infer_month&quot;</span><span class="p">)</span>
 <span class="n">df_development</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
 <span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
-    <span class="n">display</span><span class="p">(</span><span class="n">df_development</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">df_development</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">df_development</span><span class="o">.</span><span class="n">tail</span><span class="p">())</span>
 </pre></div>
 
      </div>
@@ -18632,7 +18850,7 @@ Insert inference month and audience strategy columns
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -18698,37 +18916,37 @@ Insert inference month and audience strategy columns
     <tr>
       <th>0</th>
       <td>&lt;NA&gt;</td>
-      <td>9087168862193205669</td>
-      <td>1481619204</td>
+      <td>9825248834764914907</td>
+      <td>1476553596</td>
       <td>1</td>
-      <td>2016-12-13 00:53:24</td>
+      <td>2016-10-15 10:46:36</td>
       <td>4</td>
-      <td>12</td>
-      <td>13</td>
-      <td>3</td>
-      <td>0</td>
-      <td>53</td>
-      <td>24</td>
+      <td>10</td>
+      <td>15</td>
+      <td>7</td>
+      <td>10</td>
+      <td>46</td>
+      <td>36</td>
       <td>google</td>
-      <td>cpc</td>
-      <td>Paid Search</td>
-      <td>6</td>
+      <td>organic</td>
+      <td>Organic Search</td>
+      <td>8</td>
       <td>0</td>
       <td>Unknown</td>
       <td>9</td>
-      <td>1</td>
-      <td>36</td>
       <td>0</td>
-      <td>5</td>
-      <td>86</td>
+      <td>70</td>
+      <td>0</td>
+      <td>8</td>
+      <td>102</td>
       <td>Chrome</td>
-      <td>Android</td>
-      <td>mobile</td>
+      <td>Chrome OS</td>
+      <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
       <td>0</td>
       <td>train_val</td>
-      <td>0.092378</td>
+      <td>0.08047</td>
       <td>True</td>
       <td>&lt;NA&gt;</td>
       <td>&lt;NA&gt;</td>
@@ -18737,37 +18955,37 @@ Insert inference month and audience strategy columns
     <tr>
       <th>1</th>
       <td>&lt;NA&gt;</td>
-      <td>6192138532399050704</td>
-      <td>1475630300</td>
+      <td>5056863508248407677</td>
+      <td>1478647282</td>
       <td>1</td>
-      <td>2016-10-04 18:18:20</td>
+      <td>2016-11-08 15:21:22</td>
       <td>4</td>
-      <td>10</td>
-      <td>4</td>
+      <td>11</td>
+      <td>8</td>
       <td>3</td>
-      <td>18</td>
-      <td>18</td>
-      <td>20</td>
+      <td>15</td>
+      <td>21</td>
+      <td>22</td>
       <td>mall.googleplex.com</td>
       <td>referral</td>
       <td>Referral</td>
-      <td>6</td>
+      <td>7</td>
       <td>0</td>
       <td>Unknown</td>
       <td>18</td>
-      <td>1</td>
-      <td>34</td>
       <td>0</td>
-      <td>5</td>
-      <td>40</td>
+      <td>42</td>
+      <td>0</td>
+      <td>7</td>
+      <td>46</td>
       <td>Chrome</td>
-      <td>Macintosh</td>
+      <td>Linux</td>
       <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
       <td>0</td>
       <td>train_val</td>
-      <td>0.190694</td>
+      <td>0.169332</td>
       <td>True</td>
       <td>&lt;NA&gt;</td>
       <td>&lt;NA&gt;</td>
@@ -18776,37 +18994,37 @@ Insert inference month and audience strategy columns
     <tr>
       <th>2</th>
       <td>&lt;NA&gt;</td>
-      <td>9191817357533988982</td>
-      <td>1476824267</td>
+      <td>8458455338011744844</td>
+      <td>1480442988</td>
       <td>1</td>
-      <td>2016-10-18 13:57:47</td>
+      <td>2016-11-29 10:09:48</td>
       <td>4</td>
-      <td>10</td>
-      <td>18</td>
+      <td>11</td>
+      <td>29</td>
       <td>3</td>
-      <td>13</td>
-      <td>57</td>
-      <td>47</td>
+      <td>10</td>
+      <td>9</td>
+      <td>48</td>
       <td>mall.googleplex.com</td>
       <td>referral</td>
       <td>Referral</td>
-      <td>21</td>
+      <td>24</td>
       <td>0</td>
-      <td>Check out</td>
-      <td>27</td>
-      <td>0</td>
-      <td>78</td>
-      <td>1</td>
-      <td>17</td>
-      <td>640</td>
+      <td>Remove product(s) from cart</td>
+      <td>18</td>
+      <td>2</td>
+      <td>62</td>
+      <td>5</td>
+      <td>15</td>
+      <td>1578</td>
       <td>Chrome</td>
       <td>Macintosh</td>
       <td>desktop</td>
-      <td>3</td>
+      <td>1</td>
       <td>&lt;NA&gt;</td>
       <td>0</td>
       <td>train_val</td>
-      <td>0.005013</td>
+      <td>0.003096</td>
       <td>True</td>
       <td>&lt;NA&gt;</td>
       <td>&lt;NA&gt;</td>
@@ -18815,37 +19033,37 @@ Insert inference month and audience strategy columns
     <tr>
       <th>3</th>
       <td>&lt;NA&gt;</td>
-      <td>7461857486231186491</td>
-      <td>1481823417</td>
+      <td>1513972423387111118</td>
+      <td>1478028014</td>
       <td>1</td>
-      <td>2016-12-15 09:36:57</td>
+      <td>2016-11-01 12:20:14</td>
       <td>4</td>
+      <td>11</td>
+      <td>1</td>
+      <td>3</td>
       <td>12</td>
-      <td>15</td>
-      <td>5</td>
-      <td>9</td>
-      <td>36</td>
-      <td>57</td>
-      <td>mall.googleplex.com</td>
-      <td>referral</td>
-      <td>Referral</td>
+      <td>20</td>
+      <td>14</td>
+      <td>(direct)</td>
+      <td>(none)</td>
+      <td>Direct</td>
       <td>1</td>
       <td>1</td>
       <td>Unknown</td>
-      <td>9</td>
+      <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>1</td>
       <td>0</td>
-      <td>Chrome</td>
-      <td>Macintosh</td>
-      <td>desktop</td>
+      <td>Safari</td>
+      <td>iOS</td>
+      <td>mobile</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
       <td>0</td>
       <td>train_val</td>
-      <td>0.0547</td>
+      <td>0.042589</td>
       <td>True</td>
       <td>&lt;NA&gt;</td>
       <td>&lt;NA&gt;</td>
@@ -18854,81 +19072,112 @@ Insert inference month and audience strategy columns
     <tr>
       <th>4</th>
       <td>&lt;NA&gt;</td>
-      <td>6554145498187044905</td>
-      <td>1484077523</td>
+      <td>3861070950942855450</td>
+      <td>1485365615</td>
       <td>1</td>
-      <td>2017-01-10 11:45:23</td>
+      <td>2017-01-25 09:33:35</td>
       <td>1</td>
       <td>1</td>
-      <td>10</td>
-      <td>3</td>
-      <td>11</td>
-      <td>45</td>
-      <td>23</td>
-      <td>google</td>
-      <td>organic</td>
-      <td>Organic Search</td>
+      <td>25</td>
+      <td>4</td>
+      <td>9</td>
+      <td>33</td>
+      <td>35</td>
+      <td>groups.google.com</td>
+      <td>referral</td>
+      <td>Social</td>
       <td>3</td>
       <td>0</td>
       <td>Unknown</td>
       <td>9</td>
       <td>0</td>
-      <td>12</td>
+      <td>11</td>
       <td>0</td>
       <td>3</td>
-      <td>20</td>
+      <td>21</td>
       <td>Chrome</td>
-      <td>Macintosh</td>
+      <td>Windows</td>
       <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
       <td>0</td>
       <td>train_val</td>
-      <td>0.279794</td>
+      <td>0.253123</td>
       <td>True</td>
       <td>&lt;NA&gt;</td>
       <td>&lt;NA&gt;</td>
       <td>&lt;NA&gt;</td>
     </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+<div class="jp-OutputArea-child">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>infer_month</th>
+      <th>fullvisitorid</th>
+      <th>visitId</th>
+      <th>visitNumber</th>
+      <th>visitStartTime</th>
+      <th>quarter</th>
+      <th>month</th>
+      <th>day_of_month</th>
+      <th>day_of_week</th>
+      <th>hour</th>
+      <th>minute</th>
+      <th>second</th>
+      <th>source</th>
+      <th>medium</th>
+      <th>channelGrouping</th>
+      <th>hits</th>
+      <th>bounces</th>
+      <th>last_action</th>
+      <th>promos_displayed</th>
+      <th>promos_clicked</th>
+      <th>product_views</th>
+      <th>product_clicks</th>
+      <th>pageviews</th>
+      <th>time_on_site</th>
+      <th>browser</th>
+      <th>os</th>
+      <th>deviceCategory</th>
+      <th>added_to_cart</th>
+      <th>revenue</th>
+      <th>made_purchase_on_future_visit</th>
+      <th>split_type</th>
+      <th>score</th>
+      <th>predicted_score_label</th>
+      <th>maudience</th>
+      <th>cohort</th>
+      <th>audience_strategy</th>
     </tr>
+  </thead>
+  <tbody>
     <tr>
       <th>133887</th>
       <td>&lt;NA&gt;</td>
@@ -18962,7 +19211,7 @@ Insert inference month and audience strategy columns
       <td>&lt;NA&gt;</td>
       <td>0</td>
       <td>test</td>
-      <td>0.058196</td>
+      <td>0.495976</td>
       <td>True</td>
       <td>&lt;NA&gt;</td>
       <td>&lt;NA&gt;</td>
@@ -19001,7 +19250,7 @@ Insert inference month and audience strategy columns
       <td>&lt;NA&gt;</td>
       <td>0</td>
       <td>test</td>
-      <td>0.028381</td>
+      <td>0.070427</td>
       <td>True</td>
       <td>&lt;NA&gt;</td>
       <td>&lt;NA&gt;</td>
@@ -19040,7 +19289,7 @@ Insert inference month and audience strategy columns
       <td>&lt;NA&gt;</td>
       <td>0</td>
       <td>test</td>
-      <td>0.082862</td>
+      <td>0.169552</td>
       <td>True</td>
       <td>&lt;NA&gt;</td>
       <td>&lt;NA&gt;</td>
@@ -19079,7 +19328,7 @@ Insert inference month and audience strategy columns
       <td>&lt;NA&gt;</td>
       <td>0</td>
       <td>test</td>
-      <td>0.005692</td>
+      <td>0.096793</td>
       <td>True</td>
       <td>&lt;NA&gt;</td>
       <td>&lt;NA&gt;</td>
@@ -19118,7 +19367,7 @@ Insert inference month and audience strategy columns
       <td>&lt;NA&gt;</td>
       <td>0</td>
       <td>test</td>
-      <td>0.201073</td>
+      <td>0.00032</td>
       <td>True</td>
       <td>&lt;NA&gt;</td>
       <td>&lt;NA&gt;</td>
@@ -19126,7 +19375,6 @@ Insert inference month and audience strategy columns
     </tr>
   </tbody>
 </table>
-<p>133892 rows × 36 columns</p>
 </div>
 </div>
 
@@ -19216,7 +19464,8 @@ Combine development and cohorts data
     <span class="p">)</span>
 <span class="p">)</span>
 <span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
-    <span class="n">display</span><span class="p">(</span><span class="n">df_dev_cohorts</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">df_dev_cohorts</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">df_dev_cohorts</span><span class="o">.</span><span class="n">tail</span><span class="p">())</span>
 </pre></div>
 
      </div>
@@ -19231,7 +19480,7 @@ Combine development and cohorts data
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -19297,35 +19546,35 @@ Combine development and cohorts data
     <tr>
       <th>0</th>
       <td>&lt;NA&gt;</td>
-      <td>9087168862193205669</td>
-      <td>1481619204</td>
+      <td>9825248834764914907</td>
+      <td>1476553596</td>
       <td>1</td>
-      <td>2016-12-13 00:53:24</td>
+      <td>2016-10-15 10:46:36</td>
       <td>4</td>
-      <td>12</td>
-      <td>13</td>
-      <td>3</td>
-      <td>0</td>
-      <td>53</td>
-      <td>24</td>
+      <td>10</td>
+      <td>15</td>
+      <td>7</td>
+      <td>10</td>
+      <td>46</td>
+      <td>36</td>
       <td>google</td>
-      <td>cpc</td>
-      <td>Paid Search</td>
-      <td>6</td>
+      <td>organic</td>
+      <td>Organic Search</td>
+      <td>8</td>
       <td>0</td>
       <td>Unknown</td>
       <td>9</td>
-      <td>1</td>
-      <td>36</td>
       <td>0</td>
-      <td>5</td>
-      <td>86</td>
+      <td>70</td>
+      <td>0</td>
+      <td>8</td>
+      <td>102</td>
       <td>Chrome</td>
-      <td>Android</td>
-      <td>mobile</td>
+      <td>Chrome OS</td>
+      <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.092378</td>
+      <td>0.08047</td>
       <td>True</td>
       <td>&lt;NA&gt;</td>
       <td>&lt;NA&gt;</td>
@@ -19336,35 +19585,35 @@ Combine development and cohorts data
     <tr>
       <th>1</th>
       <td>&lt;NA&gt;</td>
-      <td>6192138532399050704</td>
-      <td>1475630300</td>
+      <td>5056863508248407677</td>
+      <td>1478647282</td>
       <td>1</td>
-      <td>2016-10-04 18:18:20</td>
+      <td>2016-11-08 15:21:22</td>
       <td>4</td>
-      <td>10</td>
-      <td>4</td>
+      <td>11</td>
+      <td>8</td>
       <td>3</td>
-      <td>18</td>
-      <td>18</td>
-      <td>20</td>
+      <td>15</td>
+      <td>21</td>
+      <td>22</td>
       <td>mall.googleplex.com</td>
       <td>referral</td>
       <td>Referral</td>
-      <td>6</td>
+      <td>7</td>
       <td>0</td>
       <td>Unknown</td>
       <td>18</td>
-      <td>1</td>
-      <td>34</td>
       <td>0</td>
-      <td>5</td>
-      <td>40</td>
+      <td>42</td>
+      <td>0</td>
+      <td>7</td>
+      <td>46</td>
       <td>Chrome</td>
-      <td>Macintosh</td>
+      <td>Linux</td>
       <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.190694</td>
+      <td>0.169332</td>
       <td>True</td>
       <td>&lt;NA&gt;</td>
       <td>&lt;NA&gt;</td>
@@ -19375,35 +19624,35 @@ Combine development and cohorts data
     <tr>
       <th>2</th>
       <td>&lt;NA&gt;</td>
-      <td>9191817357533988982</td>
-      <td>1476824267</td>
+      <td>8458455338011744844</td>
+      <td>1480442988</td>
       <td>1</td>
-      <td>2016-10-18 13:57:47</td>
+      <td>2016-11-29 10:09:48</td>
       <td>4</td>
-      <td>10</td>
-      <td>18</td>
+      <td>11</td>
+      <td>29</td>
       <td>3</td>
-      <td>13</td>
-      <td>57</td>
-      <td>47</td>
+      <td>10</td>
+      <td>9</td>
+      <td>48</td>
       <td>mall.googleplex.com</td>
       <td>referral</td>
       <td>Referral</td>
-      <td>21</td>
+      <td>24</td>
       <td>0</td>
-      <td>Check out</td>
-      <td>27</td>
-      <td>0</td>
-      <td>78</td>
-      <td>1</td>
-      <td>17</td>
-      <td>640</td>
+      <td>Remove product(s) from cart</td>
+      <td>18</td>
+      <td>2</td>
+      <td>62</td>
+      <td>5</td>
+      <td>15</td>
+      <td>1578</td>
       <td>Chrome</td>
       <td>Macintosh</td>
       <td>desktop</td>
-      <td>3</td>
+      <td>1</td>
       <td>&lt;NA&gt;</td>
-      <td>0.005013</td>
+      <td>0.003096</td>
       <td>True</td>
       <td>&lt;NA&gt;</td>
       <td>&lt;NA&gt;</td>
@@ -19414,35 +19663,35 @@ Combine development and cohorts data
     <tr>
       <th>3</th>
       <td>&lt;NA&gt;</td>
-      <td>7461857486231186491</td>
-      <td>1481823417</td>
+      <td>1513972423387111118</td>
+      <td>1478028014</td>
       <td>1</td>
-      <td>2016-12-15 09:36:57</td>
+      <td>2016-11-01 12:20:14</td>
       <td>4</td>
+      <td>11</td>
+      <td>1</td>
+      <td>3</td>
       <td>12</td>
-      <td>15</td>
-      <td>5</td>
-      <td>9</td>
-      <td>36</td>
-      <td>57</td>
-      <td>mall.googleplex.com</td>
-      <td>referral</td>
-      <td>Referral</td>
+      <td>20</td>
+      <td>14</td>
+      <td>(direct)</td>
+      <td>(none)</td>
+      <td>Direct</td>
       <td>1</td>
       <td>1</td>
       <td>Unknown</td>
-      <td>9</td>
+      <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
       <td>1</td>
       <td>0</td>
-      <td>Chrome</td>
-      <td>Macintosh</td>
-      <td>desktop</td>
+      <td>Safari</td>
+      <td>iOS</td>
+      <td>mobile</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.0547</td>
+      <td>0.042589</td>
       <td>True</td>
       <td>&lt;NA&gt;</td>
       <td>&lt;NA&gt;</td>
@@ -19453,35 +19702,35 @@ Combine development and cohorts data
     <tr>
       <th>4</th>
       <td>&lt;NA&gt;</td>
-      <td>6554145498187044905</td>
-      <td>1484077523</td>
+      <td>3861070950942855450</td>
+      <td>1485365615</td>
       <td>1</td>
-      <td>2017-01-10 11:45:23</td>
+      <td>2017-01-25 09:33:35</td>
       <td>1</td>
       <td>1</td>
-      <td>10</td>
-      <td>3</td>
-      <td>11</td>
-      <td>45</td>
-      <td>23</td>
-      <td>google</td>
-      <td>organic</td>
-      <td>Organic Search</td>
+      <td>25</td>
+      <td>4</td>
+      <td>9</td>
+      <td>33</td>
+      <td>35</td>
+      <td>groups.google.com</td>
+      <td>referral</td>
+      <td>Social</td>
       <td>3</td>
       <td>0</td>
       <td>Unknown</td>
       <td>9</td>
       <td>0</td>
-      <td>12</td>
+      <td>11</td>
       <td>0</td>
       <td>3</td>
-      <td>20</td>
+      <td>21</td>
       <td>Chrome</td>
-      <td>Macintosh</td>
+      <td>Windows</td>
       <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.279794</td>
+      <td>0.253123</td>
       <td>True</td>
       <td>&lt;NA&gt;</td>
       <td>&lt;NA&gt;</td>
@@ -19489,75 +19738,106 @@ Combine development and cohorts data
       <td>False</td>
       <td>train_val</td>
     </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+<div class="jp-OutputArea-child">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>infer_month</th>
+      <th>fullvisitorid</th>
+      <th>visitId</th>
+      <th>visitNumber</th>
+      <th>visitStartTime</th>
+      <th>quarter</th>
+      <th>month</th>
+      <th>day_of_month</th>
+      <th>day_of_week</th>
+      <th>hour</th>
+      <th>minute</th>
+      <th>second</th>
+      <th>source</th>
+      <th>medium</th>
+      <th>channelGrouping</th>
+      <th>hits</th>
+      <th>bounces</th>
+      <th>last_action</th>
+      <th>promos_displayed</th>
+      <th>promos_clicked</th>
+      <th>product_views</th>
+      <th>product_clicks</th>
+      <th>pageviews</th>
+      <th>time_on_site</th>
+      <th>browser</th>
+      <th>os</th>
+      <th>deviceCategory</th>
+      <th>added_to_cart</th>
+      <th>revenue</th>
+      <th>score</th>
+      <th>predicted_score_label</th>
+      <th>maudience</th>
+      <th>cohort</th>
+      <th>audience_strategy</th>
+      <th>made_purchase_on_future_visit</th>
+      <th>split_type</th>
     </tr>
+  </thead>
+  <tbody>
     <tr>
       <th>21747</th>
       <td>March</td>
-      <td>1484841107186174333</td>
-      <td>1490739877</td>
+      <td>5476993230782741357</td>
+      <td>1490986341</td>
       <td>1</td>
-      <td>2017-03-28 15:24:37</td>
+      <td>2017-03-31 11:52:21</td>
       <td>1</td>
       <td>3</td>
-      <td>28</td>
+      <td>31</td>
+      <td>6</td>
+      <td>11</td>
+      <td>52</td>
+      <td>21</td>
+      <td>(direct)</td>
+      <td>(none)</td>
+      <td>Direct</td>
+      <td>18</td>
+      <td>0</td>
+      <td>Add product(s) to cart</td>
+      <td>0</td>
+      <td>0</td>
+      <td>107</td>
       <td>3</td>
-      <td>15</td>
-      <td>24</td>
-      <td>37</td>
-      <td>yahoo</td>
-      <td>organic</td>
-      <td>Organic Search</td>
-      <td>12</td>
-      <td>0</td>
-      <td>Product detail views</td>
-      <td>9</td>
-      <td>0</td>
-      <td>27</td>
-      <td>4</td>
-      <td>8</td>
-      <td>1157</td>
-      <td>Firefox</td>
-      <td>Macintosh</td>
+      <td>14</td>
+      <td>551</td>
+      <td>Chrome</td>
+      <td>Linux</td>
       <td>desktop</td>
-      <td>0</td>
+      <td>1</td>
       <td>&lt;NA&gt;</td>
       <td>0.0</td>
       <td>False</td>
@@ -19570,32 +19850,32 @@ Combine development and cohorts data
     <tr>
       <th>21748</th>
       <td>March</td>
-      <td>8767089865026337607</td>
-      <td>1488650631</td>
+      <td>6629693276913663746</td>
+      <td>1488520182</td>
       <td>1</td>
-      <td>2017-03-04 10:03:51</td>
+      <td>2017-03-02 21:49:42</td>
       <td>1</td>
       <td>3</td>
-      <td>4</td>
-      <td>7</td>
-      <td>10</td>
-      <td>3</td>
-      <td>51</td>
-      <td>youtube.com</td>
-      <td>referral</td>
-      <td>Social</td>
+      <td>2</td>
+      <td>5</td>
+      <td>21</td>
+      <td>49</td>
+      <td>42</td>
+      <td>google</td>
+      <td>organic</td>
+      <td>Organic Search</td>
       <td>3</td>
       <td>0</td>
       <td>Unknown</td>
       <td>9</td>
       <td>0</td>
-      <td>5</td>
+      <td>12</td>
       <td>0</td>
       <td>3</td>
-      <td>73</td>
-      <td>Safari</td>
-      <td>iOS</td>
-      <td>tablet</td>
+      <td>19</td>
+      <td>Chrome</td>
+      <td>Macintosh</td>
+      <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
       <td>0.0</td>
@@ -19609,29 +19889,29 @@ Combine development and cohorts data
     <tr>
       <th>21749</th>
       <td>March</td>
-      <td>1315146560525958752</td>
-      <td>1490744665</td>
+      <td>7820592629354691307</td>
+      <td>1489762686</td>
       <td>1</td>
-      <td>2017-03-28 16:44:25</td>
+      <td>2017-03-17 07:58:06</td>
       <td>1</td>
       <td>3</td>
-      <td>28</td>
-      <td>3</td>
-      <td>16</td>
-      <td>44</td>
-      <td>25</td>
-      <td>siliconvalley.about.com</td>
-      <td>referral</td>
-      <td>Referral</td>
-      <td>4</td>
+      <td>17</td>
+      <td>6</td>
+      <td>7</td>
+      <td>58</td>
+      <td>6</td>
+      <td>google</td>
+      <td>organic</td>
+      <td>Organic Search</td>
+      <td>2</td>
       <td>0</td>
       <td>Unknown</td>
       <td>9</td>
       <td>0</td>
-      <td>17</td>
       <td>0</td>
-      <td>4</td>
-      <td>85</td>
+      <td>0</td>
+      <td>2</td>
+      <td>8</td>
       <td>Chrome</td>
       <td>Windows</td>
       <td>desktop</td>
@@ -19648,31 +19928,31 @@ Combine development and cohorts data
     <tr>
       <th>21750</th>
       <td>March</td>
-      <td>8672023061064502362</td>
-      <td>1490737601</td>
+      <td>9113372584810915471</td>
+      <td>1489627383</td>
       <td>1</td>
-      <td>2017-03-28 14:46:41</td>
+      <td>2017-03-15 18:23:03</td>
       <td>1</td>
       <td>3</td>
-      <td>28</td>
-      <td>3</td>
-      <td>14</td>
-      <td>46</td>
-      <td>41</td>
-      <td>google</td>
-      <td>organic</td>
-      <td>Organic Search</td>
+      <td>15</td>
       <td>4</td>
+      <td>18</td>
+      <td>23</td>
+      <td>3</td>
+      <td>youtube.com</td>
+      <td>referral</td>
+      <td>Social</td>
+      <td>6</td>
       <td>0</td>
       <td>Unknown</td>
-      <td>9</td>
+      <td>36</td>
       <td>0</td>
-      <td>12</td>
+      <td>24</td>
       <td>0</td>
-      <td>4</td>
-      <td>79</td>
-      <td>Safari</td>
-      <td>iOS</td>
+      <td>6</td>
+      <td>880</td>
+      <td>Chrome</td>
+      <td>Android</td>
       <td>mobile</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
@@ -19687,36 +19967,36 @@ Combine development and cohorts data
     <tr>
       <th>21751</th>
       <td>March</td>
-      <td>9083000558898885481</td>
-      <td>1488403381</td>
+      <td>8899670647171745453</td>
+      <td>1488901570</td>
       <td>1</td>
-      <td>2017-03-01 13:23:01</td>
+      <td>2017-03-07 07:46:10</td>
       <td>1</td>
       <td>3</td>
-      <td>1</td>
-      <td>4</td>
-      <td>13</td>
-      <td>23</td>
-      <td>1</td>
+      <td>7</td>
+      <td>3</td>
+      <td>7</td>
+      <td>46</td>
+      <td>10</td>
       <td>google</td>
       <td>organic</td>
       <td>Organic Search</td>
-      <td>21</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Unknown</td>
       <td>0</td>
-      <td>Product detail views</td>
-      <td>9</td>
       <td>0</td>
-      <td>106</td>
-      <td>3</td>
-      <td>18</td>
-      <td>1943</td>
+      <td>12</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
       <td>Chrome</td>
-      <td>Chrome OS</td>
+      <td>Windows</td>
       <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
       <td>0.0</td>
-      <td>False</td>
+      <td>True</td>
       <td>Low</td>
       <td>&lt;NA&gt;</td>
       <td>1</td>
@@ -19725,7 +20005,6 @@ Combine development and cohorts data
     </tr>
   </tbody>
 </table>
-<p>155644 rows × 36 columns</p>
 </div>
 </div>
 
@@ -19766,7 +20045,8 @@ Combine development and cohorts data
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[32]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_aud_hmap</span> <span class="o">=</span> <span class="p">(</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="n">df_aud_hmap</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">trh</span><span class="o">.</span><span class="n">perform_custom_aggregation</span><span class="p">(</span>
         <span class="p">(</span>
             <span class="n">df_dev_cohorts</span>
@@ -19827,7 +20107,8 @@ Combine development and cohorts data
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">agg_type</span><span class="o">=</span><span class="s1">&#39;audience_group&#39;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">astype</span><span class="p">({</span><span class="s2">&quot;agg_type&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">()})</span>
 <span class="p">)</span>
-<span class="n">df_aud_hmap</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_aud_hmap</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_aud_hmap</span><span class="o">.</span><span class="n">tail</span><span class="p">())</span>
 </pre></div>
 
      </div>
@@ -19841,13 +20122,13 @@ Combine development and cohorts data
 
 
 <div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputArea-child">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[32]:</div>
 
 
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -19894,17 +20175,17 @@ Combine development and cohorts data
       <td>Development</td>
       <td>21</td>
       <td>824.710022</td>
-      <td>719</td>
+      <td>718</td>
       <td>180</td>
-      <td>4895</td>
-      <td>3.083542</td>
+      <td>4894</td>
+      <td>3.087837</td>
       <td>53001</td>
       <td>892</td>
-      <td>203</td>
+      <td>202</td>
       <td>1</td>
-      <td>28.233658</td>
+      <td>28.133705</td>
       <td>1.682987</td>
-      <td>25.034771</td>
+      <td>25.069637</td>
       <td>return_purchasers</td>
       <td>audience_group</td>
     </tr>
@@ -19915,17 +20196,17 @@ Combine development and cohorts data
       <td>Development</td>
       <td>16</td>
       <td>1087.579956</td>
-      <td>637</td>
+      <td>636</td>
       <td>125</td>
-      <td>4314</td>
-      <td>3.171245</td>
-      <td>49597</td>
-      <td>817</td>
+      <td>4311</td>
+      <td>3.174974</td>
+      <td>49580</td>
+      <td>816</td>
       <td>193</td>
       <td>1</td>
-      <td>30.298273</td>
-      <td>1.647277</td>
-      <td>19.623234</td>
+      <td>30.345911</td>
+      <td>1.645825</td>
+      <td>19.654089</td>
       <td>return_purchasers</td>
       <td>audience_group</td>
     </tr>
@@ -19936,17 +20217,17 @@ Combine development and cohorts data
       <td>Development</td>
       <td>3</td>
       <td>514.880005</td>
-      <td>386</td>
+      <td>387</td>
       <td>80</td>
-      <td>2349</td>
-      <td>2.391839</td>
-      <td>25702</td>
+      <td>2355</td>
+      <td>2.39186</td>
+      <td>25808</td>
       <td>466</td>
       <td>124</td>
       <td>1</td>
-      <td>32.124352</td>
-      <td>1.813088</td>
-      <td>20.725389</td>
+      <td>32.041344</td>
+      <td>1.805642</td>
+      <td>20.671835</td>
       <td>return_purchasers</td>
       <td>audience_group</td>
     </tr>
@@ -19957,17 +20238,17 @@ Combine development and cohorts data
       <td>Development</td>
       <td>7</td>
       <td>163.350006</td>
-      <td>350</td>
+      <td>349</td>
       <td>66</td>
-      <td>2145</td>
-      <td>2.963476</td>
-      <td>25647</td>
-      <td>356</td>
+      <td>2136</td>
+      <td>2.962273</td>
+      <td>25532</td>
+      <td>353</td>
       <td>114</td>
       <td>1</td>
-      <td>32.57143</td>
-      <td>1.388077</td>
-      <td>18.857143</td>
+      <td>32.664757</td>
+      <td>1.382579</td>
+      <td>18.911175</td>
       <td>return_purchasers</td>
       <td>audience_group</td>
     </tr>
@@ -19992,45 +20273,76 @@ Combine development and cohorts data
       <td>return_purchasers</td>
       <td>audience_group</td>
     </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+<div class="jp-OutputArea-child">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>month</th>
+      <th>date</th>
+      <th>maudience</th>
+      <th>return_purchasers</th>
+      <th>revenue</th>
+      <th>visitors</th>
+      <th>add_to_cart</th>
+      <th>pageviews</th>
+      <th>time_on_site</th>
+      <th>product_views</th>
+      <th>product_clicks</th>
+      <th>bounces</th>
+      <th>audience_strategy</th>
+      <th>bounce_rate</th>
+      <th>product_clicks_rate</th>
+      <th>add_to_cart_rate</th>
+      <th>visitor_type</th>
+      <th>agg_type</th>
     </tr>
+  </thead>
+  <tbody>
     <tr>
       <th>269</th>
       <td>March</td>
       <td>2017-03-30</td>
-      <td>Low</td>
+      <td>High</td>
       <td>0</td>
-      <td>832.950012</td>
+      <td>2129.51001</td>
       <td>336</td>
-      <td>55</td>
-      <td>1622</td>
-      <td>2.727579</td>
-      <td>7271</td>
-      <td>186</td>
-      <td>136</td>
+      <td>56</td>
+      <td>1619</td>
+      <td>2.871478</td>
+      <td>6749</td>
+      <td>204</td>
+      <td>122</td>
       <td>1</td>
-      <td>40.476189</td>
-      <td>2.558108</td>
-      <td>16.369047</td>
+      <td>36.309525</td>
+      <td>3.02267</td>
+      <td>16.666666</td>
       <td>all_visitors</td>
       <td>audience_group</td>
     </tr>
@@ -20038,20 +20350,20 @@ Combine development and cohorts data
       <th>270</th>
       <td>March</td>
       <td>2017-03-30</td>
-      <td>High</td>
+      <td>Medium</td>
       <td>0</td>
-      <td>1356.719971</td>
-      <td>316</td>
-      <td>42</td>
-      <td>1490</td>
-      <td>3.068249</td>
-      <td>6316</td>
-      <td>193</td>
-      <td>122</td>
+      <td>0.0</td>
+      <td>331</td>
+      <td>40</td>
+      <td>1366</td>
+      <td>2.371299</td>
+      <td>6053</td>
+      <td>209</td>
+      <td>149</td>
       <td>1</td>
-      <td>38.607594</td>
-      <td>3.055732</td>
-      <td>13.29114</td>
+      <td>45.015106</td>
+      <td>3.452833</td>
+      <td>12.084592</td>
       <td>all_visitors</td>
       <td>audience_group</td>
     </tr>
@@ -20061,18 +20373,18 @@ Combine development and cohorts data
       <td>2017-03-31</td>
       <td>Low</td>
       <td>0</td>
-      <td>2896.25</td>
-      <td>264</td>
-      <td>28</td>
-      <td>1429</td>
-      <td>3.5262</td>
-      <td>6117</td>
-      <td>186</td>
-      <td>85</td>
+      <td>891.940002</td>
+      <td>270</td>
+      <td>40</td>
+      <td>1337</td>
+      <td>3.308272</td>
+      <td>5599</td>
+      <td>165</td>
+      <td>100</td>
       <td>1</td>
-      <td>32.196968</td>
-      <td>3.040706</td>
-      <td>10.606061</td>
+      <td>37.037037</td>
+      <td>2.946955</td>
+      <td>14.814815</td>
       <td>all_visitors</td>
       <td>audience_group</td>
     </tr>
@@ -20080,20 +20392,20 @@ Combine development and cohorts data
       <th>272</th>
       <td>March</td>
       <td>2017-03-31</td>
-      <td>Medium</td>
+      <td>High</td>
       <td>0</td>
-      <td>579.890015</td>
-      <td>263</td>
-      <td>56</td>
-      <td>1273</td>
-      <td>2.841382</td>
-      <td>4870</td>
-      <td>145</td>
-      <td>90</td>
+      <td>1045.080078</td>
+      <td>267</td>
+      <td>47</td>
+      <td>1349</td>
+      <td>2.470787</td>
+      <td>5348</td>
+      <td>170</td>
+      <td>87</td>
       <td>1</td>
-      <td>34.220531</td>
-      <td>2.977413</td>
-      <td>21.292776</td>
+      <td>32.58427</td>
+      <td>3.178758</td>
+      <td>17.602997</td>
       <td>all_visitors</td>
       <td>audience_group</td>
     </tr>
@@ -20101,26 +20413,25 @@ Combine development and cohorts data
       <th>273</th>
       <td>March</td>
       <td>2017-03-31</td>
-      <td>High</td>
+      <td>Medium</td>
       <td>0</td>
-      <td>597.98999</td>
-      <td>272</td>
-      <td>40</td>
-      <td>1381</td>
-      <td>2.73799</td>
-      <td>6239</td>
-      <td>163</td>
-      <td>97</td>
+      <td>2137.109863</td>
+      <td>262</td>
+      <td>37</td>
+      <td>1397</td>
+      <td>3.320611</td>
+      <td>6279</td>
+      <td>159</td>
+      <td>85</td>
       <td>1</td>
-      <td>35.661766</td>
-      <td>2.612598</td>
-      <td>14.705882</td>
+      <td>32.442749</td>
+      <td>2.53225</td>
+      <td>14.122137</td>
       <td>all_visitors</td>
       <td>audience_group</td>
     </tr>
   </tbody>
 </table>
-<p>274 rows × 18 columns</p>
 </div>
 </div>
 
@@ -20191,7 +20502,9 @@ Verify that there are no duplicated dates, since the stats were aggregated daily
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[34]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_hmap</span> <span class="o">=</span> <span class="p">(</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: false</span>
+<span class="c1">#| output: true</span>
+<span class="n">df_hmap</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">trh</span><span class="o">.</span><span class="n">perform_custom_aggregation</span><span class="p">(</span>
         <span class="p">(</span>
             <span class="n">df_dev_cohorts</span>
@@ -20291,11 +20604,12 @@ Verify that there are no duplicated dates, since the stats were aggregated daily
                 <span class="p">)</span>
             <span class="p">)</span>
         <span class="p">)</span>
-
+        
     <span class="p">)</span>
     <span class="o">.</span><span class="n">astype</span><span class="p">({</span><span class="s2">&quot;agg_type&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span> <span class="s1">&#39;maudience&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">()})</span>
 <span class="p">)</span>
-<span class="n">df_hmap</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_hmap</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_hmap</span><span class="o">.</span><span class="n">tail</span><span class="p">())</span>
 </pre></div>
 
      </div>
@@ -20309,13 +20623,13 @@ Verify that there are no duplicated dates, since the stats were aggregated daily
 
 
 <div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputArea-child">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[34]:</div>
 
 
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -20361,17 +20675,17 @@ Verify that there are no duplicated dates, since the stats were aggregated daily
       <td>2016-09-01</td>
       <td>21</td>
       <td>824.710022</td>
-      <td>719</td>
+      <td>718</td>
       <td>180</td>
-      <td>4895</td>
-      <td>3.083542</td>
+      <td>4894</td>
+      <td>3.087837</td>
       <td>53001</td>
       <td>892</td>
-      <td>203</td>
+      <td>202</td>
       <td>1</td>
-      <td>28.233658</td>
+      <td>28.133705</td>
       <td>1.682987</td>
-      <td>25.034771</td>
+      <td>25.069637</td>
       <td>return_purchasers</td>
       <td>overall</td>
       <td>Development</td>
@@ -20382,17 +20696,17 @@ Verify that there are no duplicated dates, since the stats were aggregated daily
       <td>2016-09-02</td>
       <td>16</td>
       <td>1087.579956</td>
-      <td>637</td>
+      <td>636</td>
       <td>125</td>
-      <td>4314</td>
-      <td>3.171245</td>
-      <td>49597</td>
-      <td>817</td>
+      <td>4311</td>
+      <td>3.174974</td>
+      <td>49580</td>
+      <td>816</td>
       <td>193</td>
       <td>1</td>
-      <td>30.298273</td>
-      <td>1.647277</td>
-      <td>19.623234</td>
+      <td>30.345911</td>
+      <td>1.645825</td>
+      <td>19.654089</td>
       <td>return_purchasers</td>
       <td>overall</td>
       <td>Development</td>
@@ -20403,17 +20717,17 @@ Verify that there are no duplicated dates, since the stats were aggregated daily
       <td>2016-09-03</td>
       <td>3</td>
       <td>514.880005</td>
-      <td>386</td>
+      <td>387</td>
       <td>80</td>
-      <td>2349</td>
-      <td>2.391839</td>
-      <td>25702</td>
+      <td>2355</td>
+      <td>2.39186</td>
+      <td>25808</td>
       <td>466</td>
       <td>124</td>
       <td>1</td>
-      <td>32.124352</td>
-      <td>1.813088</td>
-      <td>20.725389</td>
+      <td>32.041344</td>
+      <td>1.805642</td>
+      <td>20.671835</td>
       <td>return_purchasers</td>
       <td>overall</td>
       <td>Development</td>
@@ -20424,17 +20738,17 @@ Verify that there are no duplicated dates, since the stats were aggregated daily
       <td>2016-09-04</td>
       <td>7</td>
       <td>163.350006</td>
-      <td>350</td>
+      <td>349</td>
       <td>66</td>
-      <td>2145</td>
-      <td>2.963476</td>
-      <td>25647</td>
-      <td>356</td>
+      <td>2136</td>
+      <td>2.962273</td>
+      <td>25532</td>
+      <td>353</td>
       <td>114</td>
       <td>1</td>
-      <td>32.57143</td>
-      <td>1.388077</td>
-      <td>18.857143</td>
+      <td>32.664757</td>
+      <td>1.382579</td>
+      <td>18.911175</td>
       <td>return_purchasers</td>
       <td>overall</td>
       <td>Development</td>
@@ -20460,27 +20774,58 @@ Verify that there are no duplicated dates, since the stats were aggregated daily
       <td>overall</td>
       <td>Development</td>
     </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+<div class="jp-OutputArea-child">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>month</th>
+      <th>date</th>
+      <th>return_purchasers</th>
+      <th>revenue</th>
+      <th>visitors</th>
+      <th>add_to_cart</th>
+      <th>pageviews</th>
+      <th>time_on_site</th>
+      <th>product_views</th>
+      <th>product_clicks</th>
+      <th>bounces</th>
+      <th>audience_strategy</th>
+      <th>bounce_rate</th>
+      <th>product_clicks_rate</th>
+      <th>add_to_cart_rate</th>
+      <th>visitor_type</th>
+      <th>agg_type</th>
+      <th>maudience</th>
     </tr>
+  </thead>
+  <tbody>
     <tr>
       <th>207</th>
       <td>March</td>
@@ -20508,17 +20853,17 @@ Verify that there are no duplicated dates, since the stats were aggregated daily
       <td>2017-03-28</td>
       <td>0</td>
       <td>6920.870117</td>
-      <td>853</td>
-      <td>112</td>
-      <td>4178</td>
-      <td>3.079367</td>
-      <td>17562</td>
-      <td>526</td>
+      <td>854</td>
+      <td>114</td>
+      <td>4192</td>
+      <td>3.085851</td>
+      <td>17574</td>
+      <td>527</td>
       <td>315</td>
       <td>1</td>
-      <td>36.928486</td>
-      <td>2.995103</td>
-      <td>13.130129</td>
+      <td>36.885246</td>
+      <td>2.998748</td>
+      <td>13.348947</td>
       <td>all_visitors</td>
       <td>overall</td>
       <td>Inference</td>
@@ -20528,18 +20873,18 @@ Verify that there are no duplicated dates, since the stats were aggregated daily
       <td>March</td>
       <td>2017-03-29</td>
       <td>0</td>
-      <td>5265.200195</td>
-      <td>840</td>
+      <td>5109.200195</td>
+      <td>839</td>
       <td>168</td>
-      <td>4582</td>
-      <td>3.235536</td>
+      <td>4579</td>
+      <td>3.238836</td>
       <td>18880</td>
       <td>683</td>
       <td>274</td>
       <td>1</td>
-      <td>32.619049</td>
+      <td>32.657925</td>
       <td>3.617585</td>
-      <td>20.0</td>
+      <td>20.023838</td>
       <td>all_visitors</td>
       <td>overall</td>
       <td>Inference</td>
@@ -20588,7 +20933,6 @@ Verify that there are no duplicated dates, since the stats were aggregated daily
     </tr>
   </tbody>
 </table>
-<p>212 rows × 18 columns</p>
 </div>
 </div>
 
@@ -20692,8 +21036,10 @@ Combine daily performance summary data
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[37]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_hmap_combo</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_aud_hmap</span><span class="p">,</span> <span class="n">df_hmap</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">df_hmap_combo</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="n">df_hmap_combo</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_aud_hmap</span><span class="p">,</span> <span class="n">df_hmap</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_hmap_combo</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_hmap_combo</span><span class="o">.</span><span class="n">tail</span><span class="p">())</span>
 </pre></div>
 
      </div>
@@ -20707,13 +21053,13 @@ Combine daily performance summary data
 
 
 <div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputArea-child">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[37]:</div>
 
 
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -20760,17 +21106,17 @@ Combine daily performance summary data
       <td>Development</td>
       <td>21</td>
       <td>824.710022</td>
-      <td>719</td>
+      <td>718</td>
       <td>180</td>
-      <td>4895</td>
-      <td>3.083542</td>
+      <td>4894</td>
+      <td>3.087837</td>
       <td>53001</td>
       <td>892</td>
-      <td>203</td>
+      <td>202</td>
       <td>1</td>
-      <td>28.233658</td>
+      <td>28.133705</td>
       <td>1.682987</td>
-      <td>25.034771</td>
+      <td>25.069637</td>
       <td>return_purchasers</td>
       <td>audience_group</td>
     </tr>
@@ -20781,17 +21127,17 @@ Combine daily performance summary data
       <td>Development</td>
       <td>16</td>
       <td>1087.579956</td>
-      <td>637</td>
+      <td>636</td>
       <td>125</td>
-      <td>4314</td>
-      <td>3.171245</td>
-      <td>49597</td>
-      <td>817</td>
+      <td>4311</td>
+      <td>3.174974</td>
+      <td>49580</td>
+      <td>816</td>
       <td>193</td>
       <td>1</td>
-      <td>30.298273</td>
-      <td>1.647277</td>
-      <td>19.623234</td>
+      <td>30.345911</td>
+      <td>1.645825</td>
+      <td>19.654089</td>
       <td>return_purchasers</td>
       <td>audience_group</td>
     </tr>
@@ -20802,17 +21148,17 @@ Combine daily performance summary data
       <td>Development</td>
       <td>3</td>
       <td>514.880005</td>
-      <td>386</td>
+      <td>387</td>
       <td>80</td>
-      <td>2349</td>
-      <td>2.391839</td>
-      <td>25702</td>
+      <td>2355</td>
+      <td>2.39186</td>
+      <td>25808</td>
       <td>466</td>
       <td>124</td>
       <td>1</td>
-      <td>32.124352</td>
-      <td>1.813088</td>
-      <td>20.725389</td>
+      <td>32.041344</td>
+      <td>1.805642</td>
+      <td>20.671835</td>
       <td>return_purchasers</td>
       <td>audience_group</td>
     </tr>
@@ -20823,17 +21169,17 @@ Combine daily performance summary data
       <td>Development</td>
       <td>7</td>
       <td>163.350006</td>
-      <td>350</td>
+      <td>349</td>
       <td>66</td>
-      <td>2145</td>
-      <td>2.963476</td>
-      <td>25647</td>
-      <td>356</td>
+      <td>2136</td>
+      <td>2.962273</td>
+      <td>25532</td>
+      <td>353</td>
       <td>114</td>
       <td>1</td>
-      <td>32.57143</td>
-      <td>1.388077</td>
-      <td>18.857143</td>
+      <td>32.664757</td>
+      <td>1.382579</td>
+      <td>18.911175</td>
       <td>return_purchasers</td>
       <td>audience_group</td>
     </tr>
@@ -20858,27 +21204,58 @@ Combine daily performance summary data
       <td>return_purchasers</td>
       <td>audience_group</td>
     </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+<div class="jp-OutputArea-child">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>month</th>
+      <th>date</th>
+      <th>maudience</th>
+      <th>return_purchasers</th>
+      <th>revenue</th>
+      <th>visitors</th>
+      <th>add_to_cart</th>
+      <th>pageviews</th>
+      <th>time_on_site</th>
+      <th>product_views</th>
+      <th>product_clicks</th>
+      <th>bounces</th>
+      <th>audience_strategy</th>
+      <th>bounce_rate</th>
+      <th>product_clicks_rate</th>
+      <th>add_to_cart_rate</th>
+      <th>visitor_type</th>
+      <th>agg_type</th>
     </tr>
+  </thead>
+  <tbody>
     <tr>
       <th>481</th>
       <td>March</td>
@@ -20907,17 +21284,17 @@ Combine daily performance summary data
       <td>Inference</td>
       <td>0</td>
       <td>6920.870117</td>
-      <td>853</td>
-      <td>112</td>
-      <td>4178</td>
-      <td>3.079367</td>
-      <td>17562</td>
-      <td>526</td>
+      <td>854</td>
+      <td>114</td>
+      <td>4192</td>
+      <td>3.085851</td>
+      <td>17574</td>
+      <td>527</td>
       <td>315</td>
       <td>1</td>
-      <td>36.928486</td>
-      <td>2.995103</td>
-      <td>13.130129</td>
+      <td>36.885246</td>
+      <td>2.998748</td>
+      <td>13.348947</td>
       <td>all_visitors</td>
       <td>overall</td>
     </tr>
@@ -20927,18 +21304,18 @@ Combine daily performance summary data
       <td>2017-03-29</td>
       <td>Inference</td>
       <td>0</td>
-      <td>5265.200195</td>
-      <td>840</td>
+      <td>5109.200195</td>
+      <td>839</td>
       <td>168</td>
-      <td>4582</td>
-      <td>3.235536</td>
+      <td>4579</td>
+      <td>3.238836</td>
       <td>18880</td>
       <td>683</td>
       <td>274</td>
       <td>1</td>
-      <td>32.619049</td>
+      <td>32.657925</td>
       <td>3.617585</td>
-      <td>20.0</td>
+      <td>20.023838</td>
       <td>all_visitors</td>
       <td>overall</td>
     </tr>
@@ -20986,7 +21363,6 @@ Combine daily performance summary data
     </tr>
   </tbody>
 </table>
-<p>486 rows × 18 columns</p>
 </div>
 </div>
 
@@ -21024,10 +21400,12 @@ Combine daily performance summary data
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[39]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[38]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_summary</span> <span class="o">=</span> <span class="n">trh</span><span class="o">.</span><span class="n">perform_custom_aggregation</span><span class="p">(</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: false</span>
+<span class="c1">#| output: true</span>
+<span class="n">df_summary</span> <span class="o">=</span> <span class="n">trh</span><span class="o">.</span><span class="n">perform_custom_aggregation</span><span class="p">(</span>
     <span class="n">df_dev_cohorts</span><span class="p">,</span>
     <span class="n">groupby_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;split_type&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">],</span>
     <span class="n">agg_dict</span><span class="o">=</span><span class="p">{</span>
@@ -21124,7 +21502,8 @@ Combine daily performance summary data
     <span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 <span class="p">):</span>
     <span class="n">df_summary</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s2">_gt_0&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_summary</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">BooleanDtype</span><span class="p">())</span>
-<span class="n">df_summary</span>
+<span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">df_summary</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -21138,13 +21517,13 @@ Combine daily performance summary data
 
 
 <div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputArea-child">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[39]:</div>
 
 
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -21173,7 +21552,19 @@ Combine daily performance summary data
       <th>channelGrouping</th>
       <th>deviceCategory</th>
       <th>browser</th>
-      <th>...</th>
+      <th>os</th>
+      <th>audience_strategy</th>
+      <th>bounce_rate</th>
+      <th>product_clicks_rate</th>
+      <th>add_to_cart_rate</th>
+      <th>visitor_type</th>
+      <th>conversion_rate</th>
+      <th>visitors_pct_change</th>
+      <th>revenue_pct_change</th>
+      <th>pageviews_pct_change</th>
+      <th>time_on_site_pct_change</th>
+      <th>bounce_rate_pct_change</th>
+      <th>conversion_rate_pct_change</th>
       <th>product_clicks_rate_pct_change</th>
       <th>add_to_cart_rate_pct_change</th>
       <th>visitors_pct_change_gt_0</th>
@@ -21193,13 +21584,25 @@ Combine daily performance summary data
       <td>Train+Val</td>
       <td>515</td>
       <td>25347.169922</td>
-      <td>18610</td>
-      <td>122036</td>
-      <td>3.158059</td>
+      <td>18612</td>
+      <td>122012</td>
+      <td>3.155372</td>
       <td>Organic Search</td>
       <td>desktop</td>
       <td>Chrome</td>
-      <td>...</td>
+      <td>Windows</td>
+      <td>1</td>
+      <td>30.217064</td>
+      <td>1.754417</td>
+      <td>20.470665</td>
+      <td>return_purchasers</td>
+      <td>2.767032</td>
+      <td>&lt;NA&gt;</td>
+      <td>&lt;NA&gt;</td>
+      <td>&lt;NA&gt;</td>
+      <td>&lt;NA&gt;</td>
+      <td>&lt;NA&gt;</td>
+      <td>&lt;NA&gt;</td>
       <td>&lt;NA&gt;</td>
       <td>&lt;NA&gt;</td>
       <td>False</td>
@@ -21216,16 +21619,28 @@ Combine daily performance summary data
       <td>10</td>
       <td>Train+Val</td>
       <td>744</td>
-      <td>57754.410156</td>
-      <td>22605</td>
-      <td>137957</td>
-      <td>3.200277</td>
+      <td>56828.398438</td>
+      <td>22603</td>
+      <td>137467</td>
+      <td>3.180688</td>
       <td>Organic Search</td>
       <td>desktop</td>
       <td>Chrome</td>
-      <td>...</td>
-      <td>69.909203</td>
-      <td>-10.501069</td>
+      <td>Macintosh</td>
+      <td>1</td>
+      <td>30.67292</td>
+      <td>2.973817</td>
+      <td>18.134762</td>
+      <td>return_purchasers</td>
+      <td>3.291599</td>
+      <td>21.443155</td>
+      <td>124.20018</td>
+      <td>12.666787</td>
+      <td>0.802328</td>
+      <td>1.508602</td>
+      <td>18.957729</td>
+      <td>69.504578</td>
+      <td>-11.410979</td>
       <td>True</td>
       <td>True</td>
       <td>True</td>
@@ -21240,16 +21655,28 @@ Combine daily performance summary data
       <td>11</td>
       <td>Train+Val</td>
       <td>1651</td>
-      <td>212317.96875</td>
+      <td>212099.9375</td>
       <td>24400</td>
-      <td>162392</td>
-      <td>3.521526</td>
+      <td>162391</td>
+      <td>3.522282</td>
       <td>Organic Search</td>
       <td>desktop</td>
       <td>Chrome</td>
-      <td>...</td>
-      <td>10.178357</td>
-      <td>37.701744</td>
+      <td>Macintosh</td>
+      <td>1</td>
+      <td>27.090164</td>
+      <td>3.284731</td>
+      <td>25.233606</td>
+      <td>return_purchasers</td>
+      <td>6.766394</td>
+      <td>7.950272</td>
+      <td>273.22879</td>
+      <td>18.130898</td>
+      <td>10.739615</td>
+      <td>-11.680517</td>
+      <td>105.565582</td>
+      <td>10.455062</td>
+      <td>39.144966</td>
       <td>True</td>
       <td>True</td>
       <td>True</td>
@@ -21264,16 +21691,28 @@ Combine daily performance summary data
       <td>12</td>
       <td>Train+Val</td>
       <td>1340</td>
-      <td>188854.984375</td>
+      <td>188476.625</td>
       <td>26936</td>
-      <td>168867</td>
-      <td>3.386282</td>
+      <td>168928</td>
+      <td>3.386973</td>
       <td>Organic Search</td>
       <td>desktop</td>
       <td>Chrome</td>
-      <td>...</td>
-      <td>-4.66746</td>
-      <td>-6.678822</td>
+      <td>Macintosh</td>
+      <td>1</td>
+      <td>29.287941</td>
+      <td>3.132498</td>
+      <td>23.514999</td>
+      <td>return_purchasers</td>
+      <td>4.974755</td>
+      <td>10.393442</td>
+      <td>-11.137819</td>
+      <td>4.025469</td>
+      <td>-3.841523</td>
+      <td>8.112826</td>
+      <td>-26.478485</td>
+      <td>-4.634573</td>
+      <td>-6.810791</td>
       <td>True</td>
       <td>False</td>
       <td>True</td>
@@ -21288,16 +21727,28 @@ Combine daily performance summary data
       <td>1</td>
       <td>Train+Val</td>
       <td>722</td>
-      <td>148284.265625</td>
+      <td>148537.96875</td>
       <td>21177</td>
-      <td>125336</td>
-      <td>3.238997</td>
+      <td>125278</td>
+      <td>3.237079</td>
       <td>Organic Search</td>
       <td>desktop</td>
       <td>Chrome</td>
-      <td>...</td>
-      <td>-1.049209</td>
-      <td>-11.481061</td>
+      <td>Macintosh</td>
+      <td>1</td>
+      <td>33.035839</td>
+      <td>3.095364</td>
+      <td>20.805592</td>
+      <td>return_purchasers</td>
+      <td>3.409359</td>
+      <td>-21.380308</td>
+      <td>-21.190245</td>
+      <td>-25.839411</td>
+      <td>-4.425606</td>
+      <td>12.79673</td>
+      <td>-31.466791</td>
+      <td>-1.185452</td>
+      <td>-11.52204</td>
       <td>False</td>
       <td>False</td>
       <td>False</td>
@@ -21312,16 +21763,28 @@ Combine daily performance summary data
       <td>2</td>
       <td>Test</td>
       <td>465</td>
-      <td>111282.46875</td>
+      <td>110950.46875</td>
       <td>20164</td>
-      <td>106447</td>
-      <td>2.979854</td>
+      <td>106469</td>
+      <td>2.980083</td>
       <td>Organic Search</td>
       <td>desktop</td>
       <td>Chrome</td>
-      <td>...</td>
-      <td>-12.988386</td>
-      <td>-9.225178</td>
+      <td>Macintosh</td>
+      <td>1</td>
+      <td>35.226147</td>
+      <td>2.697536</td>
+      <td>18.944654</td>
+      <td>return_purchasers</td>
+      <td>2.30609</td>
+      <td>-4.783492</td>
+      <td>-25.304979</td>
+      <td>-15.013809</td>
+      <td>-7.939141</td>
+      <td>6.630086</td>
+      <td>-32.360016</td>
+      <td>-12.852382</td>
+      <td>-8.944409</td>
       <td>False</td>
       <td>False</td>
       <td>False</td>
@@ -21336,16 +21799,28 @@ Combine daily performance summary data
       <td>3</td>
       <td>Infer</td>
       <td>&lt;NA&gt;</td>
-      <td>136287.375</td>
+      <td>135771.375</td>
       <td>21752</td>
-      <td>117335</td>
-      <td>3.199188</td>
+      <td>117350</td>
+      <td>3.199325</td>
       <td>Organic Search</td>
       <td>desktop</td>
       <td>Chrome</td>
-      <td>...</td>
-      <td>8.22617</td>
-      <td>3.873992</td>
+      <td>Macintosh</td>
+      <td>1</td>
+      <td>33.357853</td>
+      <td>2.919381</td>
+      <td>19.676352</td>
+      <td>all_visitors</td>
+      <td>&lt;NA&gt;</td>
+      <td>7.875422</td>
+      <td>22.371161</td>
+      <td>10.219876</td>
+      <td>7.356926</td>
+      <td>-5.303712</td>
+      <td>0.0</td>
+      <td>8.223991</td>
+      <td>3.862292</td>
       <td>True</td>
       <td>True</td>
       <td>True</td>
@@ -21357,7 +21832,6 @@ Combine daily performance summary data
     </tr>
   </tbody>
 </table>
-<p>7 rows × 33 columns</p>
 </div>
 </div>
 
@@ -21383,10 +21857,12 @@ Combine daily performance summary data
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[40]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[39]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">infer_month</span> <span class="o">=</span> <span class="n">df_cohorts</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: false</span>
+<span class="c1">#| output: true</span>
+<span class="n">infer_month</span> <span class="o">=</span> <span class="n">df_cohorts</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">df_development_grouped</span> <span class="o">=</span> <span class="n">df_development</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;month==</span><span class="si">{</span><span class="n">infer_month</span><span class="o">-</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">dfs_development_agg</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">categorical_features</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
@@ -21479,7 +21955,7 @@ Combine daily performance summary data
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -21529,7 +22005,7 @@ Combine daily performance summary data
       <td>20164</td>
       <td>browser</td>
       <td>Chrome</td>
-      <td>2.877512</td>
+      <td>2.878088</td>
       <td>3.009088</td>
     </tr>
     <tr>
@@ -21549,7 +22025,7 @@ Combine daily performance summary data
       <td>20164</td>
       <td>browser</td>
       <td>other</td>
-      <td>2.301302</td>
+      <td>2.30855</td>
       <td>0.310945</td>
     </tr>
     <tr>
@@ -21569,7 +22045,7 @@ Combine daily performance summary data
       <td>20164</td>
       <td>channelGrouping</td>
       <td>Direct</td>
-      <td>3.606626</td>
+      <td>3.610331</td>
       <td>3.855422</td>
     </tr>
     <tr>
@@ -21589,7 +22065,7 @@ Combine daily performance summary data
       <td>20164</td>
       <td>channelGrouping</td>
       <td>Organic Search</td>
-      <td>2.343026</td>
+      <td>2.342916</td>
       <td>0.826806</td>
     </tr>
     <tr>
@@ -21609,7 +22085,7 @@ Combine daily performance summary data
       <td>20164</td>
       <td>channelGrouping</td>
       <td>Referral</td>
-      <td>3.10793</td>
+      <td>3.109836</td>
       <td>6.850829</td>
     </tr>
     <tr>
@@ -21629,7 +22105,7 @@ Combine daily performance summary data
       <td>20164</td>
       <td>deviceCategory</td>
       <td>desktop</td>
-      <td>3.007032</td>
+      <td>3.008399</td>
       <td>3.186766</td>
     </tr>
     <tr>
@@ -21639,7 +22115,7 @@ Combine daily performance summary data
       <td>20164</td>
       <td>deviceCategory</td>
       <td>mobile</td>
-      <td>1.890462</td>
+      <td>1.890257</td>
       <td>0.333519</td>
     </tr>
     <tr>
@@ -21659,8 +22135,8 @@ Combine daily performance summary data
       <td>20164</td>
       <td>last_action</td>
       <td>Add product(s) to cart</td>
-      <td>4.90444</td>
-      <td>12.092131</td>
+      <td>4.904552</td>
+      <td>12.080537</td>
     </tr>
     <tr>
       <th>14</th>
@@ -21669,8 +22145,8 @@ Combine daily performance summary data
       <td>20164</td>
       <td>last_action</td>
       <td>Check out</td>
-      <td>4.863487</td>
-      <td>20.19544</td>
+      <td>4.872328</td>
+      <td>20.064724</td>
     </tr>
     <tr>
       <th>15</th>
@@ -21690,7 +22166,7 @@ Combine daily performance summary data
       <td>last_action</td>
       <td>Completed purchase</td>
       <td>5.215002</td>
-      <td>5.589124</td>
+      <td>5.606061</td>
     </tr>
     <tr>
       <th>17</th>
@@ -21699,8 +22175,8 @@ Combine daily performance summary data
       <td>20164</td>
       <td>last_action</td>
       <td>Product detail views</td>
-      <td>5.385278</td>
-      <td>3.47432</td>
+      <td>5.385543</td>
+      <td>3.473009</td>
     </tr>
     <tr>
       <th>18</th>
@@ -21720,7 +22196,7 @@ Combine daily performance summary data
       <td>last_action</td>
       <td>Unknown</td>
       <td>0.0</td>
-      <td>0.807607</td>
+      <td>0.807712</td>
     </tr>
     <tr>
       <th>20</th>
@@ -21729,7 +22205,7 @@ Combine daily performance summary data
       <td>20164</td>
       <td>medium</td>
       <td>(none)</td>
-      <td>3.606626</td>
+      <td>3.610331</td>
       <td>3.855422</td>
     </tr>
     <tr>
@@ -21769,7 +22245,7 @@ Combine daily performance summary data
       <td>20164</td>
       <td>medium</td>
       <td>organic</td>
-      <td>2.343026</td>
+      <td>2.342916</td>
       <td>0.826806</td>
     </tr>
     <tr>
@@ -21779,7 +22255,7 @@ Combine daily performance summary data
       <td>20164</td>
       <td>medium</td>
       <td>referral</td>
-      <td>2.870841</td>
+      <td>2.872402</td>
       <td>4.219601</td>
     </tr>
     <tr>
@@ -21799,7 +22275,7 @@ Combine daily performance summary data
       <td>20164</td>
       <td>os</td>
       <td>Android</td>
-      <td>1.999182</td>
+      <td>1.998737</td>
       <td>0.478998</td>
     </tr>
     <tr>
@@ -21839,7 +22315,7 @@ Combine daily performance summary data
       <td>20164</td>
       <td>os</td>
       <td>Macintosh</td>
-      <td>3.306577</td>
+      <td>3.307882</td>
       <td>4.969716</td>
     </tr>
     <tr>
@@ -21859,7 +22335,7 @@ Combine daily performance summary data
       <td>20164</td>
       <td>os</td>
       <td>Windows</td>
-      <td>2.517362</td>
+      <td>2.519136</td>
       <td>1.111111</td>
     </tr>
     <tr>
@@ -21879,7 +22355,7 @@ Combine daily performance summary data
       <td>20164</td>
       <td>source</td>
       <td>(direct)</td>
-      <td>3.606626</td>
+      <td>3.610331</td>
       <td>3.855422</td>
     </tr>
     <tr>
@@ -21889,7 +22365,7 @@ Combine daily performance summary data
       <td>20164</td>
       <td>source</td>
       <td>google</td>
-      <td>2.36618</td>
+      <td>2.366076</td>
       <td>0.778286</td>
     </tr>
     <tr>
@@ -21899,7 +22375,7 @@ Combine daily performance summary data
       <td>20164</td>
       <td>source</td>
       <td>other</td>
-      <td>2.806525</td>
+      <td>2.807983</td>
       <td>3.93476</td>
     </tr>
   </tbody>
@@ -21954,7 +22430,7 @@ Show summary DataFrame with feature importances (see the second item within #1. 
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[41]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[40]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| output: false</span>
@@ -21973,7 +22449,7 @@ Show summary DataFrame with feature importances (see the second item within #1. 
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -22063,7 +22539,7 @@ Define BigQuery Table Schema
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[42]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[41]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">job_config_feats_imp</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
@@ -22102,7 +22578,7 @@ Create BigQuery table (if it does not exist) and populate
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[43]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[42]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_table_fully_resolved_feats_imp</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
@@ -22123,7 +22599,7 @@ Create BigQuery table (if it does not exist) and populate
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -22169,7 +22645,7 @@ Show summary DataFrame with audience profile (see the first item within #1. from
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[44]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[43]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| output: false</span>
@@ -22188,7 +22664,7 @@ Show summary DataFrame with audience profile (see the first item within #1. from
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -22278,7 +22754,7 @@ Define BigQuery Table Schema
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[45]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[44]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">job_config_profiles</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
@@ -22317,7 +22793,7 @@ Create BigQuery table (if it does not exist) and populate
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[46]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[45]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_table_fully_resolved_profiles</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
@@ -22338,7 +22814,7 @@ Create BigQuery table (if it does not exist) and populate
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -22384,7 +22860,7 @@ Show summary <code>DataFrame</code> with inference data and predicted audience c
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[47]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[46]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| output: false</span>
@@ -22403,7 +22879,7 @@ Show summary <code>DataFrame</code> with inference data and predicted audience c
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -22605,7 +23081,7 @@ Show summary <code>DataFrame</code> with inference data and predicted audience c
       <th>28</th>
       <td>revenue</td>
       <td>Float32</td>
-      <td>150301</td>
+      <td>150307</td>
     </tr>
     <tr>
       <th>29</th>
@@ -22629,7 +23105,7 @@ Show summary <code>DataFrame</code> with inference data and predicted audience c
       <th>32</th>
       <td>cohort</td>
       <td>string[python]</td>
-      <td>142258</td>
+      <td>142276</td>
     </tr>
     <tr>
       <th>33</th>
@@ -22679,7 +23155,7 @@ Define BigQuery Table Schema
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[48]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[47]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">job_config_cohorts</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
@@ -22749,7 +23225,7 @@ Create BigQuery table (if it does not exist) and populate
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[49]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[48]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_table_fully_resolved_cohorts</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
@@ -22770,7 +23246,7 @@ Create BigQuery table (if it does not exist) and populate
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -22816,7 +23292,7 @@ Show summary <code>DataFrame</code> with monthly summary statistics for the infe
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[50]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[49]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| output: false</span>
@@ -22835,7 +23311,7 @@ Show summary <code>DataFrame</code> with monthly summary statistics for the infe
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -23093,7 +23569,7 @@ Define BigQuery Table Schema
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[55]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[50]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">job_config_summary</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
@@ -23160,7 +23636,7 @@ Create BigQuery table (if it does not exist) and populate
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[56]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[51]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_summary_table_id_fully_resolved</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
@@ -23181,7 +23657,7 @@ Create BigQuery table (if it does not exist) and populate
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -23227,7 +23703,7 @@ Show <code>DataFrame</code> with conversion rates (see #4. from the <strong>Abou
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[57]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[52]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| output: false</span>
@@ -23246,7 +23722,7 @@ Show <code>DataFrame</code> with conversion rates (see #4. from the <strong>Abou
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -23384,7 +23860,7 @@ Define BigQuery Table Schema
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[58]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[53]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">job_config_conv_rates</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
@@ -23431,7 +23907,7 @@ Create BigQuery table (if it does not exist) and populate
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[59]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[54]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_conv_rates_table_id_fully_resolved</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
@@ -23452,7 +23928,7 @@ Create BigQuery table (if it does not exist) and populate
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -23498,7 +23974,7 @@ Show <code>DataFrame</code> with cohort-to-audience fractions (see #5. from the 
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[60]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[55]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| output: false</span>
@@ -23517,7 +23993,7 @@ Show <code>DataFrame</code> with cohort-to-audience fractions (see #5. from the 
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -23655,7 +24131,7 @@ Define BigQuery Table Schema
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[61]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[56]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">job_config_sa_frac</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
@@ -23702,7 +24178,7 @@ Create BigQuery table (if it does not exist) and populate
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[62]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[57]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_sa_fracs_table_id_fully_resolved</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
@@ -23723,7 +24199,7 @@ Create BigQuery table (if it does not exist) and populate
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -23769,7 +24245,7 @@ Show <code>DataFrame</code> with combined aggregated conversion rates (see #6. f
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[63]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[58]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| output: false</span>
@@ -23788,7 +24264,7 @@ Show <code>DataFrame</code> with combined aggregated conversion rates (see #6. f
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -23872,7 +24348,7 @@ Define BigQuery Table Schema
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[64]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[59]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">job_config_conv_rates_combo</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
@@ -23910,7 +24386,7 @@ Create BigQuery table (if it does not exist) and populate
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[65]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[60]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_conv_rates_combo_table_id_fully_resolved</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
@@ -23934,7 +24410,7 @@ Create BigQuery table (if it does not exist) and populate
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -23980,7 +24456,7 @@ Show <code>DataFrame</code> with combined daily performance summary (see #7. fro
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[66]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[61]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| output: false</span>
@@ -23999,7 +24475,7 @@ Show <code>DataFrame</code> with combined daily performance summary (see #7. fro
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -24167,7 +24643,7 @@ Define BigQuery Table Schema
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[67]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[62]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">job_config_daily_perf_combo</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
@@ -24219,7 +24695,7 @@ Create BigQuery table (if it does not exist) and populate
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[68]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[63]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_daily_perf_combo_table_id_fully_resolved</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
@@ -24243,7 +24719,7 @@ Create BigQuery table (if it does not exist) and populate
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -24289,7 +24765,7 @@ Show summary DataFrame with categorical feature KPIs (see the second item within
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[69]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[64]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| output: false</span>
@@ -24308,7 +24784,7 @@ Show summary DataFrame with categorical feature KPIs (see the second item within
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -24410,7 +24886,7 @@ Define BigQuery Table Schema
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[70]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[65]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">job_config_cat_feats_kpis</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
@@ -24451,7 +24927,7 @@ Create BigQuery table (if it does not exist) and populate
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[71]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[66]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_table_fully_resolved_cat_feat_kpis</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
@@ -24475,7 +24951,7 @@ Create BigQuery table (if it does not exist) and populate
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 

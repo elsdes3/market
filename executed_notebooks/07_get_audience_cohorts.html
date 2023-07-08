@@ -4968,7 +4968,7 @@ form{
   .bp3-running-text table th, table.bp3-html-table th{
     color:#182026;
     font-weight:600; }
-
+  
   .bp3-running-text table td,
   table.bp3-html-table td{
     color:#182026; }
@@ -15372,7 +15372,7 @@ Import custom Python modules
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -15696,7 +15696,7 @@ Get path to data sub-folders
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -15989,12 +15989,12 @@ Create a mapping between action type integer and label, in order to get meaningf
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Query execution start time = 2023-07-02 15:43:31.430...done at 2023-07-02 15:43:36.526 (5.097 seconds).
+<pre>Query execution start time = 2023-07-07 14:57:03.815...done at 2023-07-07 14:57:09.852 (6.037 seconds).
 Query returned 21,768 rows
 Got 21,752 rows and 28 columns after dropping duplicates
 Transformed data has 21,752 rows &amp; 28 columns
@@ -16099,26 +16099,26 @@ Transformed data has 21,752 rows &amp; 28 columns
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>2023/07/02 19:43:36 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
-2023/07/02 19:43:36 INFO mlflow.store.db.utils: Updating database tables
+<pre>2023/07/07 18:57:10 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
+2023/07/07 18:57:10 INFO mlflow.store.db.utils: Updating database tables
 INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
 INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
 INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
 INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
-2023/07/02 19:43:36 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
-2023/07/02 19:43:36 INFO mlflow.store.db.utils: Updating database tables
+2023/07/07 18:57:10 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
+2023/07/07 18:57:10 INFO mlflow.store.db.utils: Updating database tables
 INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
 INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
 </pre>
 </div>
 </div>
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -16153,12 +16153,12 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
   <tbody>
     <tr>
       <th>0</th>
-      <td>BetaDistClassifier_20160901_20170228_133892_feats__20230702_193622</td>
-      <td>Best Model based on fbeta2 score of 0.4876148105</td>
-      <td>6a38156c7fbb4c289d7e4d1ba6b149b5</td>
+      <td>BetaDistClassifier_20160901_20170228_133892_feats__20230707_185443</td>
+      <td>Best Model based on fbeta2 score of 0.4962024987</td>
+      <td>d5407876ef45489192743e6899207ca5</td>
       <td>{'deployment-candidate': 'yes'}</td>
       <td>2</td>
-      <td>0.487615</td>
+      <td>0.496202</td>
     </tr>
   </tbody>
 </table>
@@ -16209,7 +16209,7 @@ Load best deployment candidate model object
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[17]:</div>
 
 
@@ -16232,6 +16232,7 @@ Load best deployment candidate model object
                                                    &#x27;product_views&#x27;,
                                                    &#x27;product_clicks&#x27;,
                                                    &#x27;page...
+                                                                  (&#x27;dummy&#x27;,
                                                                    OneHotEncoder(drop=&#x27;first&#x27;,
                                                                                  dtype=&lt;class &#x27;int&#x27;&gt;,
                                                                                  handle_unknown=&#x27;ignore&#x27;))]),
@@ -16242,7 +16243,7 @@ Load best deployment candidate model object
                 (&#x27;select&#x27;, DropCorrelatedFeatures(threshold=0.7)),
                 (&#x27;resampler&#x27;,
                  RandomOverSampler(random_state=88, sampling_strategy=0.1)),
-                [&#x27;clf&#x27;, BetaDistClassifier(a=0.45, b=2.5, random_state=88)]])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
+                [&#x27;clf&#x27;, BetaDistClassifier(a=0.4, b=2.5, random_state=88)]])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
                  ColumnTransformer(transformers=[(&#x27;num&#x27;,
                                                   Pipeline(steps=[(&#x27;aboveavg&#x27;,
                                                                    AboveAveragePagePromoEngager(cols=[&#x27;hits&#x27;,
@@ -16259,6 +16260,7 @@ Load best deployment candidate model object
                                                    &#x27;product_views&#x27;,
                                                    &#x27;product_clicks&#x27;,
                                                    &#x27;page...
+                                                                  (&#x27;dummy&#x27;,
                                                                    OneHotEncoder(drop=&#x27;first&#x27;,
                                                                                  dtype=&lt;class &#x27;int&#x27;&gt;,
                                                                                  handle_unknown=&#x27;ignore&#x27;))]),
@@ -16269,7 +16271,7 @@ Load best deployment candidate model object
                 (&#x27;select&#x27;, DropCorrelatedFeatures(threshold=0.7)),
                 (&#x27;resampler&#x27;,
                  RandomOverSampler(random_state=88, sampling_strategy=0.1)),
-                [&#x27;clf&#x27;, BetaDistClassifier(a=0.45, b=2.5, random_state=88)]])</pre></div></div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">preprocessor: ColumnTransformer</label><div class="sk-toggleable__content"><pre>ColumnTransformer(transformers=[(&#x27;num&#x27;,
+                [&#x27;clf&#x27;, BetaDistClassifier(a=0.4, b=2.5, random_state=88)]])</pre></div></div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">preprocessor: ColumnTransformer</label><div class="sk-toggleable__content"><pre>ColumnTransformer(transformers=[(&#x27;num&#x27;,
                                  Pipeline(steps=[(&#x27;aboveavg&#x27;,
                                                   AboveAveragePagePromoEngager(cols=[&#x27;hits&#x27;,
                                                                                      &#x27;promos_displayed&#x27;,
@@ -16315,7 +16317,7 @@ Load best deployment candidate model object
                                  [&#x27;bounces&#x27;, &#x27;last_action&#x27;, &#x27;source&#x27;, &#x27;medium&#x27;,
                                   &#x27;channelGrouping&#x27;, &#x27;browser&#x27;, &#x27;os&#x27;,
                                   &#x27;deviceCategory&#x27;])])</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox" ><label for="sk-estimator-id-8" class="sk-toggleable__label sk-toggleable__label-arrow">fe</label><div class="sk-toggleable__content"><pre>[&#x27;bounces&#x27;, &#x27;last_action&#x27;, &#x27;source&#x27;, &#x27;medium&#x27;, &#x27;channelGrouping&#x27;, &#x27;browser&#x27;, &#x27;os&#x27;, &#x27;deviceCategory&#x27;]</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-9" type="checkbox" ><label for="sk-estimator-id-9" class="sk-toggleable__label sk-toggleable__label-arrow">RareLabelEncoder</label><div class="sk-toggleable__content"><pre>RareLabelEncoder(ignore_format=True, n_categories=1, replace_with=&#x27;other&#x27;,
-                 tol=0.1, variables=[&#x27;source&#x27;, &#x27;browser&#x27;])</pre></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-10" type="checkbox" ><label for="sk-estimator-id-10" class="sk-toggleable__label sk-toggleable__label-arrow">remainder</label><div class="sk-toggleable__content"><pre></pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-11" type="checkbox" ><label for="sk-estimator-id-11" class="sk-toggleable__label sk-toggleable__label-arrow">passthrough</label><div class="sk-toggleable__content"><pre>passthrough</pre></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-12" type="checkbox" ><label for="sk-estimator-id-12" class="sk-toggleable__label sk-toggleable__label-arrow">OneHotEncoder</label><div class="sk-toggleable__content"><pre>OneHotEncoder(drop=&#x27;first&#x27;, dtype=&lt;class &#x27;int&#x27;&gt;, handle_unknown=&#x27;ignore&#x27;)</pre></div></div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-13" type="checkbox" ><label for="sk-estimator-id-13" class="sk-toggleable__label sk-toggleable__label-arrow">DropCorrelatedFeatures</label><div class="sk-toggleable__content"><pre>DropCorrelatedFeatures(threshold=0.7)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-14" type="checkbox" ><label for="sk-estimator-id-14" class="sk-toggleable__label sk-toggleable__label-arrow">RandomOverSampler</label><div class="sk-toggleable__content"><pre>RandomOverSampler(random_state=88, sampling_strategy=0.1)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-15" type="checkbox" ><label for="sk-estimator-id-15" class="sk-toggleable__label sk-toggleable__label-arrow">BetaDistClassifier</label><div class="sk-toggleable__content"><pre>BetaDistClassifier(a=0.45, b=2.5, random_state=88)</pre></div></div></div></div></div></div></div>
+                 tol=0.1, variables=[&#x27;source&#x27;, &#x27;browser&#x27;])</pre></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-10" type="checkbox" ><label for="sk-estimator-id-10" class="sk-toggleable__label sk-toggleable__label-arrow">remainder</label><div class="sk-toggleable__content"><pre></pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-11" type="checkbox" ><label for="sk-estimator-id-11" class="sk-toggleable__label sk-toggleable__label-arrow">passthrough</label><div class="sk-toggleable__content"><pre>passthrough</pre></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-12" type="checkbox" ><label for="sk-estimator-id-12" class="sk-toggleable__label sk-toggleable__label-arrow">OneHotEncoder</label><div class="sk-toggleable__content"><pre>OneHotEncoder(drop=&#x27;first&#x27;, dtype=&lt;class &#x27;int&#x27;&gt;, handle_unknown=&#x27;ignore&#x27;)</pre></div></div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-13" type="checkbox" ><label for="sk-estimator-id-13" class="sk-toggleable__label sk-toggleable__label-arrow">DropCorrelatedFeatures</label><div class="sk-toggleable__content"><pre>DropCorrelatedFeatures(threshold=0.7)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-14" type="checkbox" ><label for="sk-estimator-id-14" class="sk-toggleable__label sk-toggleable__label-arrow">RandomOverSampler</label><div class="sk-toggleable__content"><pre>RandomOverSampler(random_state=88, sampling_strategy=0.1)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-15" type="checkbox" ><label for="sk-estimator-id-15" class="sk-toggleable__label sk-toggleable__label-arrow">BetaDistClassifier</label><div class="sk-toggleable__content"><pre>BetaDistClassifier(a=0.4, b=2.5, random_state=88)</pre></div></div></div></div></div></div></div>
 </div>
 
 </div>
@@ -16469,7 +16471,7 @@ Perform sanity checks on features in inference data
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -16529,69 +16531,69 @@ Perform sanity checks on features in inference data
   <tbody>
     <tr>
       <th>113728</th>
-      <td>4779737702674310083</td>
-      <td>1487736287</td>
+      <td>3225758523107532105</td>
+      <td>1487872041</td>
       <td>1</td>
-      <td>2017-02-21 20:04:47</td>
+      <td>2017-02-23 09:47:21</td>
       <td>1</td>
       <td>2</td>
-      <td>21</td>
-      <td>3</td>
-      <td>20</td>
-      <td>4</td>
+      <td>23</td>
+      <td>5</td>
+      <td>9</td>
       <td>47</td>
+      <td>21</td>
       <td>google</td>
       <td>organic</td>
       <td>Organic Search</td>
-      <td>4</td>
+      <td>6</td>
       <td>0</td>
       <td>Unknown</td>
       <td>9</td>
       <td>0</td>
       <td>12</td>
       <td>0</td>
-      <td>4</td>
-      <td>54</td>
-      <td>Chrome</td>
-      <td>Macintosh</td>
-      <td>desktop</td>
+      <td>3</td>
+      <td>74</td>
+      <td>Safari</td>
+      <td>iOS</td>
+      <td>mobile</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.089659</td>
+      <td>0.013569</td>
       <td>True</td>
       <td>0</td>
     </tr>
     <tr>
       <th>113729</th>
-      <td>9671083913773424047</td>
-      <td>1487184533</td>
+      <td>0753877334773522710</td>
+      <td>1488039933</td>
       <td>1</td>
-      <td>2017-02-15 10:48:53</td>
+      <td>2017-02-25 08:25:33</td>
       <td>1</td>
       <td>2</td>
-      <td>15</td>
-      <td>4</td>
-      <td>10</td>
-      <td>48</td>
-      <td>53</td>
+      <td>25</td>
+      <td>7</td>
+      <td>8</td>
+      <td>25</td>
+      <td>33</td>
       <td>google</td>
       <td>organic</td>
       <td>Organic Search</td>
       <td>6</td>
       <td>0</td>
-      <td>Unknown</td>
-      <td>18</td>
+      <td>Product detail views</td>
+      <td>9</td>
       <td>0</td>
+      <td>12</td>
+      <td>1</td>
       <td>5</td>
-      <td>0</td>
-      <td>6</td>
-      <td>97</td>
-      <td>Chrome</td>
-      <td>Macintosh</td>
-      <td>desktop</td>
+      <td>638</td>
+      <td>Safari</td>
+      <td>iOS</td>
+      <td>mobile</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.076696</td>
+      <td>0.000021</td>
       <td>True</td>
       <td>0</td>
     </tr>
@@ -16602,7 +16604,7 @@ Perform sanity checks on features in inference data
 
 </div>
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -16690,7 +16692,7 @@ Perform sanity checks on features in inference data
       <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.005692</td>
+      <td>0.096793</td>
       <td>True</td>
       <td>0</td>
     </tr>
@@ -16724,7 +16726,7 @@ Perform sanity checks on features in inference data
       <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.201073</td>
+      <td>0.00032</td>
       <td>True</td>
       <td>0</td>
     </tr>
@@ -16793,7 +16795,7 @@ Perform sanity checks on features in inference data
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -16838,11 +16840,11 @@ Perform sanity checks on features in inference data
       <td>hits</td>
       <td>104</td>
       <td>112</td>
-      <td>-2.780131</td>
-      <td>-15.663082</td>
-      <td>-0.1719</td>
-      <td>-1.516563</td>
-      <td>0.220158</td>
+      <td>-2.771598</td>
+      <td>-15.667526</td>
+      <td>-0.171416</td>
+      <td>-1.517043</td>
+      <td>0.221298</td>
       <td>1</td>
       <td>False</td>
       <td>Wasserstein</td>
@@ -16853,11 +16855,11 @@ Perform sanity checks on features in inference data
       <td>pageviews</td>
       <td>78</td>
       <td>94</td>
-      <td>-2.181352</td>
-      <td>-18.05175</td>
-      <td>-0.115155</td>
-      <td>-1.336889</td>
-      <td>0.159072</td>
+      <td>-2.173298</td>
+      <td>-18.054321</td>
+      <td>-0.114753</td>
+      <td>-1.337115</td>
+      <td>0.159628</td>
       <td>1</td>
       <td>False</td>
       <td>Wasserstein</td>
@@ -16868,11 +16870,11 @@ Perform sanity checks on features in inference data
       <td>promos_displayed</td>
       <td>21</td>
       <td>18</td>
-      <td>-9.698937</td>
-      <td>2.97979</td>
-      <td>-0.757536</td>
-      <td>0.314995</td>
-      <td>0.788913</td>
+      <td>-9.68543</td>
+      <td>2.987956</td>
+      <td>-0.756611</td>
+      <td>0.31588</td>
+      <td>0.787988</td>
       <td>1</td>
       <td>False</td>
       <td>Wasserstein</td>
@@ -16883,11 +16885,11 @@ Perform sanity checks on features in inference data
       <td>product_views</td>
       <td>273</td>
       <td>286</td>
-      <td>1.213926</td>
-      <td>-5.456722</td>
-      <td>0.284963</td>
-      <td>-1.950397</td>
-      <td>0.709329</td>
+      <td>1.224816</td>
+      <td>-5.455951</td>
+      <td>0.287553</td>
+      <td>-1.950144</td>
+      <td>0.711919</td>
       <td>1</td>
       <td>False</td>
       <td>Wasserstein</td>
@@ -16898,11 +16900,11 @@ Perform sanity checks on features in inference data
       <td>product_clicks</td>
       <td>30</td>
       <td>35</td>
-      <td>-6.912383</td>
-      <td>-13.700511</td>
-      <td>-0.043756</td>
-      <td>-0.249357</td>
-      <td>0.043756</td>
+      <td>-6.898446</td>
+      <td>-13.712772</td>
+      <td>-0.043688</td>
+      <td>-0.249589</td>
+      <td>0.043688</td>
       <td>1</td>
       <td>False</td>
       <td>Wasserstein</td>
@@ -16912,12 +16914,12 @@ Perform sanity checks on features in inference data
       <td>numerical</td>
       <td>time_on_site</td>
       <td>1583</td>
-      <td>1702</td>
-      <td>-7.360568</td>
-      <td>-6.518361</td>
-      <td>-13.160053</td>
-      <td>-25.687965</td>
-      <td>13.524775</td>
+      <td>1701</td>
+      <td>-7.356926</td>
+      <td>-6.516892</td>
+      <td>-13.154549</td>
+      <td>-25.681883</td>
+      <td>13.519271</td>
       <td>1</td>
       <td>True</td>
       <td>Wasserstein</td>
@@ -16928,11 +16930,11 @@ Perform sanity checks on features in inference data
       <td>revenue</td>
       <td>361</td>
       <td>414</td>
-      <td>-13.52888</td>
-      <td>-31.814381</td>
-      <td>-0.746641</td>
-      <td>-13.851818</td>
-      <td>0.756292</td>
+      <td>-13.437476</td>
+      <td>-31.792927</td>
+      <td>-0.739384</td>
+      <td>-13.830475</td>
+      <td>0.748835</td>
       <td>1</td>
       <td>False</td>
       <td>Wasserstein</td>
@@ -17052,17 +17054,17 @@ Perform sanity checks on features in inference data
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Test suite start time = 2023-07-02 15:43:37.693...done at 2023-07-02 15:43:42.340 (4.647 seconds).
+<pre>Test suite start time = 2023-07-07 14:57:11.086...done at 2023-07-07 14:57:15.742 (4.657 seconds).
 </pre>
 </div>
 </div>
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[23]:</div>
 
 
@@ -17185,16 +17187,7 @@ Perform sanity checks on features in inference data
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
-<span class="c1">#| output: false</span>
 <span class="n">y_infer_pred</span><span class="p">,</span> <span class="n">y_infer_pred_proba</span> <span class="o">=</span> <span class="n">modh</span><span class="o">.</span><span class="n">make_inference</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_infer</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
-<span class="n">display</span><span class="p">(</span>
-    <span class="n">y_infer_pred</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;proportion&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
-        <span class="n">y_infer_pred</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;number&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(),</span>
-        <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-<span class="p">)</span>
 </pre></div>
 
      </div>
@@ -17209,7 +17202,7 @@ Perform sanity checks on features in inference data
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -17222,7 +17215,7 @@ Perform sanity checks on features in inference data
 </div>
 </div>
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -17255,14 +17248,14 @@ Perform sanity checks on features in inference data
     <tr>
       <th>0</th>
       <td>0</td>
-      <td>0.936879</td>
-      <td>20379</td>
+      <td>0.944327</td>
+      <td>20541</td>
     </tr>
     <tr>
       <th>1</th>
       <td>1</td>
-      <td>0.063121</td>
-      <td>1373</td>
+      <td>0.055673</td>
+      <td>1211</td>
     </tr>
   </tbody>
 </table>
@@ -17273,6 +17266,31 @@ Perform sanity checks on features in inference data
 
 </div>
 
+</div>
+
+</div><div id="cell-id=a1679d41-2bc5-4ec5-aec9-ff2a802238ad" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: false</span>
+<span class="c1">#| output: true</span>
+<span class="n">display</span><span class="p">(</span>
+    <span class="n">y_infer_pred</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;proportion&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+        <span class="n">y_infer_pred</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;number&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(),</span>
+        <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
 </div>
 
 </div>
@@ -17362,7 +17380,7 @@ Perform sanity checks on features in inference data
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -17372,7 +17390,7 @@ Perform sanity checks on features in inference data
 </div>
 </div>
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -17432,88 +17450,53 @@ Perform sanity checks on features in inference data
   </thead>
   <tbody>
     <tr>
-      <th>10526</th>
-      <td>1089841380502674759</td>
-      <td>1490136731</td>
+      <th>16646</th>
+      <td>9725965720822289910</td>
+      <td>1490389872</td>
       <td>1</td>
-      <td>2017-03-21 15:52:11</td>
+      <td>2017-03-24 14:11:12</td>
       <td>1</td>
       <td>3</td>
-      <td>21</td>
-      <td>3</td>
-      <td>15</td>
-      <td>52</td>
+      <td>24</td>
+      <td>6</td>
+      <td>14</td>
       <td>11</td>
-      <td>google</td>
-      <td>organic</td>
-      <td>Organic Search</td>
-      <td>1</td>
-      <td>1</td>
-      <td>Unknown</td>
+      <td>12</td>
+      <td>mall.googleplex.com</td>
+      <td>referral</td>
+      <td>Referral</td>
+      <td>4</td>
       <td>0</td>
+      <td>Unknown</td>
+      <td>18</td>
       <td>0</td>
       <td>12</td>
       <td>0</td>
-      <td>1</td>
-      <td>0</td>
+      <td>4</td>
+      <td>66</td>
       <td>Chrome</td>
-      <td>Windows</td>
+      <td>Linux</td>
       <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.962094</td>
+      <td>0.960677</td>
       <td>False</td>
       <td>0</td>
       <td>0</td>
     </tr>
     <tr>
-      <th>11744</th>
-      <td>7497175875994815624</td>
-      <td>1490799934</td>
+      <th>18188</th>
+      <td>8392249560404039006</td>
+      <td>1490821978</td>
       <td>1</td>
-      <td>2017-03-29 08:05:34</td>
+      <td>2017-03-29 14:12:58</td>
       <td>1</td>
       <td>3</td>
       <td>29</td>
       <td>4</td>
-      <td>8</td>
-      <td>5</td>
-      <td>34</td>
-      <td>(direct)</td>
-      <td>(none)</td>
-      <td>Direct</td>
-      <td>16</td>
-      <td>0</td>
-      <td>Completed purchase</td>
-      <td>9</td>
-      <td>0</td>
+      <td>14</td>
       <td>12</td>
-      <td>1</td>
-      <td>13</td>
-      <td>461</td>
-      <td>Chrome</td>
-      <td>Linux</td>
-      <td>desktop</td>
-      <td>2</td>
-      <td>122.0</td>
-      <td>0.95769</td>
-      <td>False</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>18144</th>
-      <td>2375083666352246421</td>
-      <td>1490233047</td>
-      <td>1</td>
-      <td>2017-03-22 18:37:27</td>
-      <td>1</td>
-      <td>3</td>
-      <td>22</td>
-      <td>4</td>
-      <td>18</td>
-      <td>37</td>
-      <td>27</td>
+      <td>58</td>
       <td>google</td>
       <td>organic</td>
       <td>Organic Search</td>
@@ -17522,86 +17505,121 @@ Perform sanity checks on features in inference data
       <td>Unknown</td>
       <td>9</td>
       <td>0</td>
-      <td>2</td>
+      <td>9</td>
       <td>0</td>
       <td>3</td>
-      <td>16</td>
+      <td>23</td>
       <td>Chrome</td>
       <td>Macintosh</td>
       <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.951394</td>
+      <td>0.951298</td>
       <td>False</td>
-      <td>2</td>
+      <td>1</td>
       <td>0</td>
     </tr>
     <tr>
-      <th>18397</th>
-      <td>5413497526864769809</td>
-      <td>1490993900</td>
+      <th>9795</th>
+      <td>313217151141291631</td>
+      <td>1489403662</td>
       <td>1</td>
-      <td>2017-03-31 13:58:20</td>
+      <td>2017-03-13 04:14:22</td>
       <td>1</td>
       <td>3</td>
-      <td>31</td>
-      <td>6</td>
       <td>13</td>
-      <td>58</td>
-      <td>20</td>
-      <td>mall.googleplex.com</td>
+      <td>2</td>
+      <td>4</td>
+      <td>14</td>
+      <td>22</td>
+      <td>youtube.com</td>
       <td>referral</td>
-      <td>Referral</td>
+      <td>Social</td>
+      <td>2</td>
+      <td>0</td>
+      <td>Unknown</td>
+      <td>18</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>162</td>
+      <td>Internet Explorer</td>
+      <td>Windows</td>
+      <td>desktop</td>
+      <td>0</td>
+      <td>&lt;NA&gt;</td>
+      <td>0.948568</td>
+      <td>False</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4772</th>
+      <td>9450880163672825185</td>
+      <td>1488558390</td>
+      <td>1</td>
+      <td>2017-03-03 08:26:30</td>
+      <td>1</td>
       <td>3</td>
+      <td>3</td>
+      <td>6</td>
+      <td>8</td>
+      <td>26</td>
+      <td>30</td>
+      <td>(direct)</td>
+      <td>(none)</td>
+      <td>Direct</td>
+      <td>2</td>
       <td>0</td>
       <td>Unknown</td>
       <td>9</td>
       <td>0</td>
-      <td>24</td>
+      <td>12</td>
       <td>0</td>
-      <td>3</td>
-      <td>227</td>
+      <td>2</td>
+      <td>15</td>
       <td>Chrome</td>
       <td>Macintosh</td>
       <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.938781</td>
-      <td>False</td>
+      <td>0.940251</td>
+      <td>True</td>
       <td>3</td>
       <td>0</td>
     </tr>
     <tr>
-      <th>4218</th>
-      <td>850212279804049015</td>
-      <td>1490995934</td>
+      <th>16109</th>
+      <td>7646742387349147197</td>
+      <td>1490898449</td>
       <td>1</td>
-      <td>2017-03-31 14:32:14</td>
+      <td>2017-03-30 11:27:29</td>
       <td>1</td>
       <td>3</td>
-      <td>31</td>
-      <td>6</td>
-      <td>14</td>
-      <td>32</td>
-      <td>14</td>
-      <td>mall.googleplex.com</td>
-      <td>referral</td>
-      <td>Referral</td>
+      <td>30</td>
+      <td>5</td>
+      <td>11</td>
+      <td>27</td>
+      <td>29</td>
+      <td>google</td>
+      <td>organic</td>
+      <td>Organic Search</td>
+      <td>3</td>
+      <td>0</td>
+      <td>Product detail views</td>
+      <td>0</td>
+      <td>0</td>
+      <td>12</td>
       <td>1</td>
-      <td>1</td>
-      <td>Unknown</td>
-      <td>9</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
+      <td>2</td>
+      <td>69</td>
       <td>Chrome</td>
-      <td>Macintosh</td>
-      <td>desktop</td>
+      <td>Android</td>
+      <td>mobile</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.938111</td>
+      <td>0.937846</td>
       <td>False</td>
       <td>4</td>
       <td>0</td>
@@ -17642,34 +17660,34 @@ Perform sanity checks on features in inference data
       <td>...</td>
     </tr>
     <tr>
-      <th>21486</th>
-      <td>9563358471095861018</td>
-      <td>1489537209</td>
+      <th>2902</th>
+      <td>8373850394906049133</td>
+      <td>1489794933</td>
       <td>1</td>
-      <td>2017-03-14 17:20:09</td>
+      <td>2017-03-17 16:55:33</td>
       <td>1</td>
-      <td>3</td>
-      <td>14</td>
       <td>3</td>
       <td>17</td>
-      <td>20</td>
-      <td>9</td>
+      <td>6</td>
+      <td>16</td>
+      <td>55</td>
+      <td>33</td>
       <td>google</td>
       <td>organic</td>
       <td>Organic Search</td>
+      <td>11</td>
+      <td>0</td>
+      <td>Remove product(s) from cart</td>
+      <td>9</td>
+      <td>0</td>
+      <td>15</td>
       <td>1</td>
-      <td>1</td>
-      <td>Unknown</td>
-      <td>0</td>
-      <td>0</td>
-      <td>3</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
+      <td>8</td>
+      <td>979</td>
       <td>Chrome</td>
-      <td>Android</td>
-      <td>mobile</td>
-      <td>0</td>
+      <td>Windows</td>
+      <td>desktop</td>
+      <td>1</td>
       <td>&lt;NA&gt;</td>
       <td>0.0</td>
       <td>False</td>
@@ -17677,67 +17695,67 @@ Perform sanity checks on features in inference data
       <td>2</td>
     </tr>
     <tr>
-      <th>13583</th>
-      <td>3520574210856495188</td>
-      <td>1489181287</td>
+      <th>2748</th>
+      <td>0175368039527423961</td>
+      <td>1489773964</td>
       <td>1</td>
-      <td>2017-03-10 13:28:07</td>
+      <td>2017-03-17 11:06:04</td>
       <td>1</td>
       <td>3</td>
-      <td>10</td>
+      <td>17</td>
       <td>6</td>
-      <td>13</td>
-      <td>28</td>
-      <td>7</td>
+      <td>11</td>
+      <td>6</td>
+      <td>4</td>
       <td>google</td>
       <td>organic</td>
       <td>Organic Search</td>
-      <td>3</td>
+      <td>5</td>
       <td>0</td>
       <td>Unknown</td>
-      <td>0</td>
+      <td>9</td>
       <td>0</td>
       <td>36</td>
       <td>0</td>
-      <td>3</td>
-      <td>75</td>
+      <td>5</td>
+      <td>145</td>
       <td>Chrome</td>
       <td>Windows</td>
       <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
       <td>0.0</td>
-      <td>True</td>
+      <td>False</td>
       <td>21748</td>
       <td>2</td>
     </tr>
     <tr>
-      <th>11259</th>
-      <td>8672023061064502362</td>
-      <td>1490737601</td>
+      <th>14072</th>
+      <td>9113372584810915471</td>
+      <td>1489627383</td>
       <td>1</td>
-      <td>2017-03-28 14:46:41</td>
+      <td>2017-03-15 18:23:03</td>
       <td>1</td>
       <td>3</td>
-      <td>28</td>
-      <td>3</td>
-      <td>14</td>
-      <td>46</td>
-      <td>41</td>
-      <td>google</td>
-      <td>organic</td>
-      <td>Organic Search</td>
+      <td>15</td>
       <td>4</td>
+      <td>18</td>
+      <td>23</td>
+      <td>3</td>
+      <td>youtube.com</td>
+      <td>referral</td>
+      <td>Social</td>
+      <td>6</td>
       <td>0</td>
       <td>Unknown</td>
-      <td>9</td>
+      <td>36</td>
       <td>0</td>
-      <td>12</td>
+      <td>24</td>
       <td>0</td>
-      <td>4</td>
-      <td>79</td>
-      <td>Safari</td>
-      <td>iOS</td>
+      <td>6</td>
+      <td>880</td>
+      <td>Chrome</td>
+      <td>Android</td>
       <td>mobile</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
@@ -17747,72 +17765,72 @@ Perform sanity checks on features in inference data
       <td>2</td>
     </tr>
     <tr>
-      <th>8604</th>
-      <td>1110401747577425092</td>
-      <td>1490811943</td>
+      <th>18553</th>
+      <td>8899670647171745453</td>
+      <td>1488901570</td>
       <td>1</td>
-      <td>2017-03-29 11:25:43</td>
+      <td>2017-03-07 07:46:10</td>
       <td>1</td>
       <td>3</td>
-      <td>29</td>
-      <td>4</td>
-      <td>11</td>
-      <td>25</td>
-      <td>43</td>
-      <td>mall.googleplex.com</td>
-      <td>referral</td>
-      <td>Referral</td>
-      <td>5</td>
+      <td>7</td>
+      <td>3</td>
+      <td>7</td>
+      <td>46</td>
+      <td>10</td>
+      <td>google</td>
+      <td>organic</td>
+      <td>Organic Search</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Unknown</td>
       <td>0</td>
+      <td>0</td>
+      <td>12</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>Chrome</td>
+      <td>Windows</td>
+      <td>desktop</td>
+      <td>0</td>
+      <td>&lt;NA&gt;</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>21750</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>17648</th>
+      <td>256240431480773031</td>
+      <td>1488545314</td>
+      <td>1</td>
+      <td>2017-03-03 04:48:34</td>
+      <td>1</td>
+      <td>3</td>
+      <td>3</td>
+      <td>6</td>
+      <td>4</td>
+      <td>48</td>
+      <td>34</td>
+      <td>(direct)</td>
+      <td>(none)</td>
+      <td>Direct</td>
+      <td>1</td>
+      <td>1</td>
       <td>Unknown</td>
       <td>9</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
-      <td>5</td>
-      <td>39</td>
+      <td>1</td>
+      <td>0</td>
       <td>Chrome</td>
-      <td>Macintosh</td>
-      <td>desktop</td>
+      <td>Android</td>
+      <td>mobile</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
       <td>0.0</td>
-      <td>False</td>
-      <td>21750</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>16547</th>
-      <td>9083000558898885481</td>
-      <td>1488403381</td>
-      <td>1</td>
-      <td>2017-03-01 13:23:01</td>
-      <td>1</td>
-      <td>3</td>
-      <td>1</td>
-      <td>4</td>
-      <td>13</td>
-      <td>23</td>
-      <td>1</td>
-      <td>google</td>
-      <td>organic</td>
-      <td>Organic Search</td>
-      <td>21</td>
-      <td>0</td>
-      <td>Product detail views</td>
-      <td>9</td>
-      <td>0</td>
-      <td>106</td>
-      <td>3</td>
-      <td>18</td>
-      <td>1943</td>
-      <td>Chrome</td>
-      <td>Chrome OS</td>
-      <td>desktop</td>
-      <td>0</td>
-      <td>&lt;NA&gt;</td>
-      <td>0.0</td>
-      <td>False</td>
+      <td>True</td>
       <td>21751</td>
       <td>2</td>
     </tr>
@@ -17882,7 +17900,7 @@ Show datatypes of columns in inference predictions data
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -18057,21 +18075,21 @@ Show datatypes of columns in inference predictions data
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>audience=0: High, size=7,251,  excluded=2,389, wanted=2,431, control=2,431, test=2,431
-audience=1: Medium, size=7,250,  excluded=3,000, wanted=2,125, control=2,125, test=2,125
-audience=2: Low, size=7,251,  excluded=2,977, wanted=2,137, control=2,137, test=2,137
+<pre>audience=0: High, size=7,251,  excluded=3,081, wanted=2,085, control=2,085, test=2,085
+audience=1: Medium, size=7,250,  excluded=2,746, wanted=2,252, control=2,252, test=2,252
+audience=2: Low, size=7,251,  excluded=2,557, wanted=2,347, control=2,347, test=2,347
 Found suitable sample sizes and generated cohorts.
 Set all specified datatypes.
 </pre>
 </div>
 </div>
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -18133,35 +18151,35 @@ Set all specified datatypes.
   <tbody>
     <tr>
       <th>0</th>
-      <td>1089841380502674759</td>
-      <td>1490136731</td>
+      <td>9725965720822289910</td>
+      <td>1490389872</td>
       <td>1</td>
-      <td>2017-03-21 15:52:11</td>
+      <td>2017-03-24 14:11:12</td>
       <td>1</td>
       <td>3</td>
-      <td>21</td>
-      <td>3</td>
-      <td>15</td>
-      <td>52</td>
+      <td>24</td>
+      <td>6</td>
+      <td>14</td>
       <td>11</td>
-      <td>google</td>
-      <td>organic</td>
-      <td>Organic Search</td>
-      <td>1</td>
-      <td>1</td>
-      <td>Unknown</td>
+      <td>12</td>
+      <td>mall.googleplex.com</td>
+      <td>referral</td>
+      <td>Referral</td>
+      <td>4</td>
       <td>0</td>
+      <td>Unknown</td>
+      <td>18</td>
       <td>0</td>
       <td>12</td>
       <td>0</td>
-      <td>1</td>
-      <td>0</td>
+      <td>4</td>
+      <td>66</td>
       <td>Chrome</td>
-      <td>Windows</td>
+      <td>Linux</td>
       <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.962094</td>
+      <td>0.960677</td>
       <td>False</td>
       <td>High</td>
       <td>Control</td>
@@ -18169,35 +18187,35 @@ Set all specified datatypes.
     </tr>
     <tr>
       <th>1</th>
-      <td>7602795256647724660</td>
-      <td>1489465336</td>
+      <td>1262291561527945490</td>
+      <td>1490385910</td>
       <td>1</td>
-      <td>2017-03-13 21:22:16</td>
+      <td>2017-03-24 13:05:10</td>
       <td>1</td>
       <td>3</td>
+      <td>24</td>
+      <td>6</td>
       <td>13</td>
-      <td>2</td>
-      <td>21</td>
-      <td>22</td>
-      <td>16</td>
+      <td>5</td>
+      <td>10</td>
       <td>(direct)</td>
       <td>(none)</td>
       <td>Direct</td>
-      <td>11</td>
+      <td>5</td>
       <td>0</td>
       <td>Unknown</td>
-      <td>9</td>
+      <td>18</td>
       <td>0</td>
-      <td>92</td>
+      <td>25</td>
       <td>0</td>
-      <td>11</td>
-      <td>124</td>
+      <td>5</td>
+      <td>99</td>
       <td>Chrome</td>
-      <td>Macintosh</td>
-      <td>desktop</td>
+      <td>iOS</td>
+      <td>mobile</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.9324</td>
+      <td>0.879824</td>
       <td>False</td>
       <td>High</td>
       <td>Control</td>
@@ -18205,98 +18223,26 @@ Set all specified datatypes.
     </tr>
     <tr>
       <th>2</th>
-      <td>2420015317690803901</td>
-      <td>1490906576</td>
+      <td>9189040746503498111</td>
+      <td>1488898168</td>
       <td>1</td>
-      <td>2017-03-30 13:42:56</td>
+      <td>2017-03-07 06:49:28</td>
       <td>1</td>
       <td>3</td>
-      <td>30</td>
-      <td>5</td>
-      <td>13</td>
-      <td>42</td>
-      <td>56</td>
-      <td>mall.googleplex.com</td>
-      <td>referral</td>
-      <td>Referral</td>
-      <td>1</td>
-      <td>1</td>
-      <td>Unknown</td>
-      <td>9</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>Chrome</td>
-      <td>Linux</td>
-      <td>desktop</td>
-      <td>0</td>
-      <td>&lt;NA&gt;</td>
-      <td>0.890133</td>
-      <td>False</td>
-      <td>High</td>
-      <td>Control</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>9155224690531283117</td>
-      <td>1488840618</td>
-      <td>1</td>
-      <td>2017-03-06 14:50:18</td>
-      <td>1</td>
+      <td>7</td>
       <td>3</td>
       <td>6</td>
-      <td>2</td>
-      <td>14</td>
-      <td>50</td>
-      <td>18</td>
-      <td>google</td>
-      <td>organic</td>
-      <td>Organic Search</td>
+      <td>49</td>
+      <td>28</td>
+      <td>(direct)</td>
+      <td>(none)</td>
+      <td>Direct</td>
       <td>1</td>
       <td>1</td>
       <td>Unknown</td>
       <td>0</td>
       <td>0</td>
-      <td>12</td>
       <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>Chrome</td>
-      <td>Windows</td>
-      <td>desktop</td>
-      <td>0</td>
-      <td>&lt;NA&gt;</td>
-      <td>0.884398</td>
-      <td>False</td>
-      <td>High</td>
-      <td>Control</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>2205802376622271952</td>
-      <td>1489757220</td>
-      <td>1</td>
-      <td>2017-03-17 06:27:00</td>
-      <td>1</td>
-      <td>3</td>
-      <td>17</td>
-      <td>6</td>
-      <td>6</td>
-      <td>27</td>
-      <td>0</td>
-      <td>google</td>
-      <td>organic</td>
-      <td>Organic Search</td>
-      <td>1</td>
-      <td>1</td>
-      <td>Unknown</td>
-      <td>0</td>
-      <td>0</td>
-      <td>12</td>
       <td>0</td>
       <td>1</td>
       <td>0</td>
@@ -18305,7 +18251,79 @@ Set all specified datatypes.
       <td>mobile</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.882623</td>
+      <td>0.867118</td>
+      <td>False</td>
+      <td>High</td>
+      <td>Control</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1844223110946928452</td>
+      <td>1490399038</td>
+      <td>1</td>
+      <td>2017-03-24 16:43:58</td>
+      <td>1</td>
+      <td>3</td>
+      <td>24</td>
+      <td>6</td>
+      <td>16</td>
+      <td>43</td>
+      <td>58</td>
+      <td>google</td>
+      <td>organic</td>
+      <td>Organic Search</td>
+      <td>20</td>
+      <td>0</td>
+      <td>Add product(s) to cart</td>
+      <td>9</td>
+      <td>0</td>
+      <td>90</td>
+      <td>3</td>
+      <td>15</td>
+      <td>414</td>
+      <td>Chrome</td>
+      <td>Macintosh</td>
+      <td>desktop</td>
+      <td>2</td>
+      <td>&lt;NA&gt;</td>
+      <td>0.864372</td>
+      <td>True</td>
+      <td>High</td>
+      <td>Control</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5443907013787165361</td>
+      <td>1490637573</td>
+      <td>1</td>
+      <td>2017-03-27 10:59:33</td>
+      <td>1</td>
+      <td>3</td>
+      <td>27</td>
+      <td>2</td>
+      <td>10</td>
+      <td>59</td>
+      <td>33</td>
+      <td>google</td>
+      <td>organic</td>
+      <td>Organic Search</td>
+      <td>7</td>
+      <td>0</td>
+      <td>Unknown</td>
+      <td>9</td>
+      <td>0</td>
+      <td>47</td>
+      <td>0</td>
+      <td>7</td>
+      <td>41</td>
+      <td>Chrome</td>
+      <td>Macintosh</td>
+      <td>desktop</td>
+      <td>0</td>
+      <td>&lt;NA&gt;</td>
+      <td>0.860614</td>
       <td>False</td>
       <td>High</td>
       <td>Control</td>
@@ -18349,30 +18367,66 @@ Set all specified datatypes.
     </tr>
     <tr>
       <th>21747</th>
-      <td>1484841107186174333</td>
-      <td>1490739877</td>
+      <td>5476993230782741357</td>
+      <td>1490986341</td>
       <td>1</td>
-      <td>2017-03-28 15:24:37</td>
+      <td>2017-03-31 11:52:21</td>
       <td>1</td>
       <td>3</td>
-      <td>28</td>
+      <td>31</td>
+      <td>6</td>
+      <td>11</td>
+      <td>52</td>
+      <td>21</td>
+      <td>(direct)</td>
+      <td>(none)</td>
+      <td>Direct</td>
+      <td>18</td>
+      <td>0</td>
+      <td>Add product(s) to cart</td>
+      <td>0</td>
+      <td>0</td>
+      <td>107</td>
       <td>3</td>
-      <td>15</td>
-      <td>24</td>
-      <td>37</td>
-      <td>yahoo</td>
+      <td>14</td>
+      <td>551</td>
+      <td>Chrome</td>
+      <td>Linux</td>
+      <td>desktop</td>
+      <td>1</td>
+      <td>&lt;NA&gt;</td>
+      <td>0.0</td>
+      <td>False</td>
+      <td>Low</td>
+      <td>&lt;NA&gt;</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>21748</th>
+      <td>6629693276913663746</td>
+      <td>1488520182</td>
+      <td>1</td>
+      <td>2017-03-02 21:49:42</td>
+      <td>1</td>
+      <td>3</td>
+      <td>2</td>
+      <td>5</td>
+      <td>21</td>
+      <td>49</td>
+      <td>42</td>
+      <td>google</td>
       <td>organic</td>
       <td>Organic Search</td>
-      <td>12</td>
+      <td>3</td>
       <td>0</td>
-      <td>Product detail views</td>
+      <td>Unknown</td>
       <td>9</td>
       <td>0</td>
-      <td>27</td>
-      <td>4</td>
-      <td>8</td>
-      <td>1157</td>
-      <td>Firefox</td>
+      <td>12</td>
+      <td>0</td>
+      <td>3</td>
+      <td>19</td>
+      <td>Chrome</td>
       <td>Macintosh</td>
       <td>desktop</td>
       <td>0</td>
@@ -18384,66 +18438,30 @@ Set all specified datatypes.
       <td>1</td>
     </tr>
     <tr>
-      <th>21748</th>
-      <td>8767089865026337607</td>
-      <td>1488650631</td>
-      <td>1</td>
-      <td>2017-03-04 10:03:51</td>
-      <td>1</td>
-      <td>3</td>
-      <td>4</td>
-      <td>7</td>
-      <td>10</td>
-      <td>3</td>
-      <td>51</td>
-      <td>youtube.com</td>
-      <td>referral</td>
-      <td>Social</td>
-      <td>3</td>
-      <td>0</td>
-      <td>Unknown</td>
-      <td>9</td>
-      <td>0</td>
-      <td>5</td>
-      <td>0</td>
-      <td>3</td>
-      <td>73</td>
-      <td>Safari</td>
-      <td>iOS</td>
-      <td>tablet</td>
-      <td>0</td>
-      <td>&lt;NA&gt;</td>
-      <td>0.0</td>
-      <td>False</td>
-      <td>Low</td>
-      <td>&lt;NA&gt;</td>
-      <td>1</td>
-    </tr>
-    <tr>
       <th>21749</th>
-      <td>1315146560525958752</td>
-      <td>1490744665</td>
+      <td>7820592629354691307</td>
+      <td>1489762686</td>
       <td>1</td>
-      <td>2017-03-28 16:44:25</td>
+      <td>2017-03-17 07:58:06</td>
       <td>1</td>
       <td>3</td>
-      <td>28</td>
-      <td>3</td>
-      <td>16</td>
-      <td>44</td>
-      <td>25</td>
-      <td>siliconvalley.about.com</td>
-      <td>referral</td>
-      <td>Referral</td>
-      <td>4</td>
+      <td>17</td>
+      <td>6</td>
+      <td>7</td>
+      <td>58</td>
+      <td>6</td>
+      <td>google</td>
+      <td>organic</td>
+      <td>Organic Search</td>
+      <td>2</td>
       <td>0</td>
       <td>Unknown</td>
       <td>9</td>
       <td>0</td>
-      <td>17</td>
       <td>0</td>
-      <td>4</td>
-      <td>85</td>
+      <td>0</td>
+      <td>2</td>
+      <td>8</td>
       <td>Chrome</td>
       <td>Windows</td>
       <td>desktop</td>
@@ -18457,31 +18475,31 @@ Set all specified datatypes.
     </tr>
     <tr>
       <th>21750</th>
-      <td>8672023061064502362</td>
-      <td>1490737601</td>
+      <td>9113372584810915471</td>
+      <td>1489627383</td>
       <td>1</td>
-      <td>2017-03-28 14:46:41</td>
+      <td>2017-03-15 18:23:03</td>
       <td>1</td>
       <td>3</td>
-      <td>28</td>
-      <td>3</td>
-      <td>14</td>
-      <td>46</td>
-      <td>41</td>
-      <td>google</td>
-      <td>organic</td>
-      <td>Organic Search</td>
+      <td>15</td>
       <td>4</td>
+      <td>18</td>
+      <td>23</td>
+      <td>3</td>
+      <td>youtube.com</td>
+      <td>referral</td>
+      <td>Social</td>
+      <td>6</td>
       <td>0</td>
       <td>Unknown</td>
-      <td>9</td>
+      <td>36</td>
       <td>0</td>
-      <td>12</td>
+      <td>24</td>
       <td>0</td>
-      <td>4</td>
-      <td>79</td>
-      <td>Safari</td>
-      <td>iOS</td>
+      <td>6</td>
+      <td>880</td>
+      <td>Chrome</td>
+      <td>Android</td>
       <td>mobile</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
@@ -18493,36 +18511,36 @@ Set all specified datatypes.
     </tr>
     <tr>
       <th>21751</th>
-      <td>9083000558898885481</td>
-      <td>1488403381</td>
+      <td>8899670647171745453</td>
+      <td>1488901570</td>
       <td>1</td>
-      <td>2017-03-01 13:23:01</td>
+      <td>2017-03-07 07:46:10</td>
       <td>1</td>
       <td>3</td>
-      <td>1</td>
-      <td>4</td>
-      <td>13</td>
-      <td>23</td>
-      <td>1</td>
+      <td>7</td>
+      <td>3</td>
+      <td>7</td>
+      <td>46</td>
+      <td>10</td>
       <td>google</td>
       <td>organic</td>
       <td>Organic Search</td>
-      <td>21</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Unknown</td>
       <td>0</td>
-      <td>Product detail views</td>
-      <td>9</td>
       <td>0</td>
-      <td>106</td>
-      <td>3</td>
-      <td>18</td>
-      <td>1943</td>
+      <td>12</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
       <td>Chrome</td>
-      <td>Chrome OS</td>
+      <td>Windows</td>
       <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
       <td>0.0</td>
-      <td>False</td>
+      <td>True</td>
       <td>Low</td>
       <td>&lt;NA&gt;</td>
       <td>1</td>
@@ -18592,7 +18610,7 @@ Set all specified datatypes.
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[28]:</div>
 
 
@@ -18630,91 +18648,91 @@ Set all specified datatypes.
       <th>0</th>
       <td>High</td>
       <td>Control</td>
-      <td>2431</td>
-      <td>0.164775</td>
-      <td>0.355874</td>
-      <td>0.308467</td>
-      <td>0.962094</td>
+      <td>2085</td>
+      <td>0.143627</td>
+      <td>0.33644</td>
+      <td>0.289434</td>
+      <td>0.960677</td>
     </tr>
     <tr>
       <th>1</th>
       <td>High</td>
       <td>Test</td>
-      <td>2431</td>
-      <td>0.164693</td>
-      <td>0.361409</td>
-      <td>0.317408</td>
-      <td>0.95769</td>
+      <td>2085</td>
+      <td>0.143641</td>
+      <td>0.339942</td>
+      <td>0.294693</td>
+      <td>0.93025</td>
     </tr>
     <tr>
       <th>2</th>
       <td>High</td>
       <td>&lt;NA&gt;</td>
-      <td>2389</td>
-      <td>0.164704</td>
-      <td>0.366237</td>
-      <td>0.32165</td>
-      <td>0.951394</td>
+      <td>3081</td>
+      <td>0.143653</td>
+      <td>0.337462</td>
+      <td>0.287273</td>
+      <td>0.951298</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Low</td>
       <td>Control</td>
-      <td>2137</td>
+      <td>2347</td>
       <td>0.0</td>
-      <td>0.009483</td>
-      <td>0.006444</td>
-      <td>0.031874</td>
+      <td>0.006123</td>
+      <td>0.003496</td>
+      <td>0.022739</td>
     </tr>
     <tr>
       <th>4</th>
       <td>Low</td>
       <td>Test</td>
-      <td>2137</td>
+      <td>2347</td>
       <td>0.0</td>
-      <td>0.009594</td>
-      <td>0.006536</td>
-      <td>0.031806</td>
+      <td>0.006452</td>
+      <td>0.003985</td>
+      <td>0.022735</td>
     </tr>
     <tr>
       <th>5</th>
       <td>Low</td>
       <td>&lt;NA&gt;</td>
-      <td>2977</td>
+      <td>2557</td>
       <td>0.0</td>
-      <td>0.009781</td>
-      <td>0.00667</td>
-      <td>0.031868</td>
+      <td>0.006335</td>
+      <td>0.003881</td>
+      <td>0.022698</td>
     </tr>
     <tr>
       <th>6</th>
       <td>Medium</td>
       <td>Control</td>
-      <td>2125</td>
-      <td>0.0319</td>
-      <td>0.085171</td>
-      <td>0.07819</td>
-      <td>0.164649</td>
+      <td>2252</td>
+      <td>0.022746</td>
+      <td>0.070208</td>
+      <td>0.063056</td>
+      <td>0.14358</td>
     </tr>
     <tr>
       <th>7</th>
       <td>Medium</td>
       <td>Test</td>
-      <td>2125</td>
-      <td>0.031889</td>
-      <td>0.084812</td>
-      <td>0.078362</td>
-      <td>0.164643</td>
+      <td>2252</td>
+      <td>0.0228</td>
+      <td>0.071192</td>
+      <td>0.064267</td>
+      <td>0.143521</td>
     </tr>
     <tr>
       <th>8</th>
       <td>Medium</td>
       <td>&lt;NA&gt;</td>
-      <td>3000</td>
-      <td>0.031879</td>
-      <td>0.085988</td>
-      <td>0.079279</td>
-      <td>0.164632</td>
+      <td>2746</td>
+      <td>0.022846</td>
+      <td>0.069557</td>
+      <td>0.062974</td>
+      <td>0.143544</td>
     </tr>
   </tbody>
 </table>
@@ -18866,7 +18884,7 @@ Set all specified datatypes.
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -18877,7 +18895,7 @@ Set all specified datatypes.
 </div>
 </div>
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -18915,9 +18933,9 @@ Set all specified datatypes.
       <th>0</th>
       <td>hour__mean</td>
       <td>mean</td>
-      <td>12.969797269342159</td>
-      <td>13.0235829540753</td>
-      <td>13.038344827586206</td>
+      <td>13.043304371810784</td>
+      <td>13.025513722245208</td>
+      <td>12.969241379310345</td>
       <td>hour</td>
       <td>1</td>
     </tr>
@@ -18925,9 +18943,9 @@ Set all specified datatypes.
       <th>1</th>
       <td>day_of_week__mean</td>
       <td>mean</td>
-      <td>3.9863467107985104</td>
-      <td>3.9991725279271826</td>
-      <td>4.027034482758621</td>
+      <td>4.009240104813129</td>
+      <td>3.9921390153082332</td>
+      <td>4.009931034482759</td>
       <td>day_of_week</td>
       <td>1</td>
     </tr>
@@ -19005,9 +19023,9 @@ Set all specified datatypes.
       <th>9</th>
       <td>hits__mean</td>
       <td>mean</td>
-      <td>6.290580609571093</td>
-      <td>6.426148117501034</td>
-      <td>6.3484137931034486</td>
+      <td>6.214315266859743</td>
+      <td>6.497586539787616</td>
+      <td>6.3565517241379315</td>
       <td>hits</td>
       <td>1</td>
     </tr>
@@ -19015,9 +19033,9 @@ Set all specified datatypes.
       <th>10</th>
       <td>hits__max</td>
       <td>max</td>
-      <td>157</td>
+      <td>216</td>
       <td>500</td>
-      <td>246</td>
+      <td>386</td>
       <td>hits</td>
       <td>1</td>
     </tr>
@@ -19025,9 +19043,9 @@ Set all specified datatypes.
       <th>11</th>
       <td>promos_displayed__mean</td>
       <td>mean</td>
-      <td>8.505999172527927</td>
-      <td>8.667356226727348</td>
-      <td>8.530758620689655</td>
+      <td>8.550682664460075</td>
+      <td>8.61274306992139</td>
+      <td>8.541931034482758</td>
       <td>promos_displayed</td>
       <td>1</td>
     </tr>
@@ -19035,8 +19053,8 @@ Set all specified datatypes.
       <th>12</th>
       <td>promos_displayed__max</td>
       <td>max</td>
-      <td>171</td>
       <td>189</td>
+      <td>171</td>
       <td>189</td>
       <td>promos_displayed</td>
       <td>1</td>
@@ -19046,8 +19064,8 @@ Set all specified datatypes.
       <td>promos_clicked__mean</td>
       <td>mean</td>
       <td>0.0</td>
+      <td>0.00013791201213625708</td>
       <td>0.0</td>
-      <td>0.00013793103448275863</td>
       <td>promos_clicked</td>
       <td>1</td>
     </tr>
@@ -19056,8 +19074,8 @@ Set all specified datatypes.
       <td>promos_clicked__max</td>
       <td>max</td>
       <td>0</td>
-      <td>0</td>
       <td>1</td>
+      <td>0</td>
       <td>promos_clicked</td>
       <td>1</td>
     </tr>
@@ -19065,9 +19083,9 @@ Set all specified datatypes.
       <th>15</th>
       <td>product_views__mean</td>
       <td>mean</td>
-      <td>23.131705971590126</td>
-      <td>23.02027306578403</td>
-      <td>23.416689655172412</td>
+      <td>22.395255826782513</td>
+      <td>23.932423114053233</td>
+      <td>23.24137931034483</td>
       <td>product_views</td>
       <td>1</td>
     </tr>
@@ -19075,9 +19093,9 @@ Set all specified datatypes.
       <th>16</th>
       <td>product_views__max</td>
       <td>max</td>
-      <td>409</td>
+      <td>367</td>
       <td>987</td>
-      <td>927</td>
+      <td>573</td>
       <td>product_views</td>
       <td>1</td>
     </tr>
@@ -19085,9 +19103,9 @@ Set all specified datatypes.
       <th>17</th>
       <td>product_clicks__mean</td>
       <td>mean</td>
-      <td>0.6723210591642532</td>
-      <td>0.6779754516618397</td>
-      <td>0.68</td>
+      <td>0.6470831609433182</td>
+      <td>0.7044545579920011</td>
+      <td>0.679448275862069</td>
       <td>product_clicks</td>
       <td>1</td>
     </tr>
@@ -19095,8 +19113,8 @@ Set all specified datatypes.
       <th>18</th>
       <td>product_clicks__max</td>
       <td>max</td>
-      <td>50</td>
-      <td>46</td>
+      <td>27</td>
+      <td>48</td>
       <td>79</td>
       <td>product_clicks</td>
       <td>1</td>
@@ -19105,9 +19123,9 @@ Set all specified datatypes.
       <th>19</th>
       <td>pageviews__mean</td>
       <td>mean</td>
-      <td>5.332919597296924</td>
-      <td>5.475796441870087</td>
-      <td>5.373931034482759</td>
+      <td>5.287408633291959</td>
+      <td>5.492070059302165</td>
+      <td>5.405241379310345</td>
       <td>pageviews</td>
       <td>1</td>
     </tr>
@@ -19115,9 +19133,9 @@ Set all specified datatypes.
       <th>20</th>
       <td>pageviews__max</td>
       <td>max</td>
-      <td>101</td>
+      <td>176</td>
       <td>466</td>
-      <td>156</td>
+      <td>343</td>
       <td>pageviews</td>
       <td>1</td>
     </tr>
@@ -19125,9 +19143,9 @@ Set all specified datatypes.
       <th>21</th>
       <td>revenue__mean</td>
       <td>mean</td>
-      <td>179.17071533203125</td>
-      <td>197.68919372558594</td>
-      <td>172.9597930908203</td>
+      <td>179.2376251220703</td>
+      <td>193.4358367919922</td>
+      <td>178.18284606933594</td>
       <td>revenue</td>
       <td>1</td>
     </tr>
@@ -19135,9 +19153,9 @@ Set all specified datatypes.
       <th>22</th>
       <td>revenue__max</td>
       <td>max</td>
-      <td>1468.800048828125</td>
-      <td>3829.800048828125</td>
+      <td>1352.6300048828125</td>
       <td>3027.10009765625</td>
+      <td>3829.800048828125</td>
       <td>revenue</td>
       <td>1</td>
     </tr>
@@ -19145,9 +19163,9 @@ Set all specified datatypes.
       <th>23</th>
       <td>added_to_cart__mean</td>
       <td>mean</td>
-      <td>0.18880154461453594</td>
-      <td>0.2017652737553441</td>
-      <td>0.19917241379310344</td>
+      <td>0.19486967314853124</td>
+      <td>0.19418011308784996</td>
+      <td>0.20124137931034483</td>
       <td>added_to_cart</td>
       <td>1</td>
     </tr>
@@ -19155,9 +19173,9 @@ Set all specified datatypes.
       <th>24</th>
       <td>added_to_cart__max</td>
       <td>max</td>
-      <td>22</td>
       <td>25</td>
-      <td>22</td>
+      <td>20</td>
+      <td>23</td>
       <td>added_to_cart</td>
       <td>1</td>
     </tr>
@@ -19165,9 +19183,9 @@ Set all specified datatypes.
       <th>25</th>
       <td>last_action_added_to_cart</td>
       <td>behavior</td>
-      <td>5.033788442973383</td>
-      <td>4.909667632050752</td>
-      <td>5.3517241379310345</td>
+      <td>5.254447662391394</td>
+      <td>5.019997241759757</td>
+      <td>5.0344827586206895</td>
       <td>last_action</td>
       <td>1</td>
     </tr>
@@ -19175,9 +19193,9 @@ Set all specified datatypes.
       <th>26</th>
       <td>last_action_completed_purchase</td>
       <td>behavior</td>
-      <td>3.3236794924837954</td>
-      <td>3.5995035167563096</td>
-      <td>3.310344827586207</td>
+      <td>3.7374155288925666</td>
+      <td>3.2823058888429184</td>
+      <td>3.1862068965517243</td>
       <td>last_action</td>
       <td>1</td>
     </tr>
@@ -19185,9 +19203,9 @@ Set all specified datatypes.
       <th>27</th>
       <td>last_action_check_out</td>
       <td>behavior</td>
-      <td>1.130878499517308</td>
-      <td>1.5584057371397049</td>
-      <td>1.393103448275862</td>
+      <td>1.3239553165080677</td>
+      <td>1.310164115294442</td>
+      <td>1.4620689655172414</td>
       <td>last_action</td>
       <td>1</td>
     </tr>
@@ -19195,9 +19213,9 @@ Set all specified datatypes.
       <th>28</th>
       <td>last_action_removed_products_from_cart</td>
       <td>behavior</td>
-      <td>0.9102192800992966</td>
       <td>0.7723072679630396</td>
-      <td>0.7448275862068966</td>
+      <td>0.8826368776720452</td>
+      <td>0.7724137931034483</td>
       <td>last_action</td>
       <td>1</td>
     </tr>
@@ -19205,9 +19223,9 @@ Set all specified datatypes.
       <th>29</th>
       <td>last_action_clicked_through_product_lists</td>
       <td>behavior</td>
-      <td>0.04137360364087712</td>
-      <td>0.04137360364087712</td>
-      <td>0.08275862068965517</td>
+      <td>0.027582402427251414</td>
+      <td>0.06895600606812853</td>
+      <td>0.06896551724137931</td>
       <td>last_action</td>
       <td>1</td>
     </tr>
@@ -19215,9 +19233,9 @@ Set all specified datatypes.
       <th>30</th>
       <td>used_referral</td>
       <td>behavior</td>
-      <td>24.520755757826507</td>
-      <td>24.562129361467385</td>
-      <td>23.986206896551725</td>
+      <td>24.86553578816715</td>
+      <td>24.051854916563233</td>
+      <td>24.151724137931033</td>
       <td>medium</td>
       <td>1</td>
     </tr>
@@ -19225,9 +19243,9 @@ Set all specified datatypes.
       <th>31</th>
       <td>added_gt_1_to_cart</td>
       <td>behavior</td>
-      <td>4.068404358019584</td>
-      <td>3.944283547096952</td>
-      <td>3.8758620689655174</td>
+      <td>3.7787891325334435</td>
+      <td>3.985657150737829</td>
+      <td>4.151724137931034</td>
       <td>added_to_cart</td>
       <td>1</td>
     </tr>
@@ -19235,9 +19253,9 @@ Set all specified datatypes.
       <th>32</th>
       <td>weekend_visitors</td>
       <td>behavior</td>
-      <td>18.92152806509447</td>
-      <td>17.08729830368225</td>
-      <td>18.02758620689655</td>
+      <td>17.887187974072543</td>
+      <td>17.997517583781548</td>
+      <td>18.151724137931033</td>
       <td>day_of_week</td>
       <td>1</td>
     </tr>
@@ -19245,9 +19263,9 @@ Set all specified datatypes.
       <th>33</th>
       <td>bounce_rate</td>
       <td>behavior</td>
-      <td>33.6919045648876</td>
-      <td>32.80926768721556</td>
-      <td>33.57241379310345</td>
+      <td>33.01613570541994</td>
+      <td>32.97476210177906</td>
+      <td>34.08275862068965</td>
       <td>bounces</td>
       <td>1</td>
     </tr>
@@ -19405,7 +19423,7 @@ Set all specified datatypes.
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[31]:</div>
 
 
@@ -19448,16 +19466,16 @@ Set all specified datatypes.
       <th>0</th>
       <td>1</td>
       <td>High</td>
-      <td>1289</td>
+      <td>1125</td>
       <td>6722</td>
-      <td>0.164389</td>
-      <td>142</td>
+      <td>0.140977</td>
+      <td>165</td>
       <td>development</td>
       <td>20164</td>
-      <td>2.112467</td>
+      <td>2.454627</td>
       <td>2.30609</td>
-      <td>19.17584</td>
-      <td>6.392581</td>
+      <td>16.73609</td>
+      <td>5.57925</td>
     </tr>
     <tr>
       <th>1</th>
@@ -19466,13 +19484,13 @@ Set all specified datatypes.
       <td>0</td>
       <td>6721</td>
       <td>0.0</td>
-      <td>161</td>
+      <td>147</td>
       <td>development</td>
       <td>20164</td>
-      <td>2.395477</td>
+      <td>2.187175</td>
       <td>2.30609</td>
       <td>0.0</td>
-      <td>6.392581</td>
+      <td>5.57925</td>
     </tr>
     <tr>
       <th>2</th>
@@ -19480,29 +19498,29 @@ Set all specified datatypes.
       <td>Medium</td>
       <td>0</td>
       <td>6721</td>
-      <td>0.031337</td>
-      <td>162</td>
+      <td>0.022545</td>
+      <td>153</td>
       <td>development</td>
       <td>20164</td>
-      <td>2.410356</td>
+      <td>2.276447</td>
       <td>2.30609</td>
       <td>0.0</td>
-      <td>6.392581</td>
+      <td>5.57925</td>
     </tr>
     <tr>
       <th>3</th>
       <td>1</td>
       <td>High</td>
-      <td>1408</td>
+      <td>1243</td>
       <td>7251</td>
-      <td>0.164693</td>
+      <td>0.143627</td>
       <td>&lt;NA&gt;</td>
       <td>inference</td>
       <td>21752</td>
       <td>&lt;NA&gt;</td>
       <td>&lt;NA&gt;</td>
-      <td>19.418011</td>
-      <td>6.472968</td>
+      <td>17.142464</td>
+      <td>5.714417</td>
     </tr>
     <tr>
       <th>4</th>
@@ -19517,7 +19535,7 @@ Set all specified datatypes.
       <td>&lt;NA&gt;</td>
       <td>&lt;NA&gt;</td>
       <td>0.0</td>
-      <td>6.472968</td>
+      <td>5.714417</td>
     </tr>
     <tr>
       <th>5</th>
@@ -19525,14 +19543,14 @@ Set all specified datatypes.
       <td>Medium</td>
       <td>0</td>
       <td>7250</td>
-      <td>0.031879</td>
+      <td>0.022746</td>
       <td>&lt;NA&gt;</td>
       <td>inference</td>
       <td>21752</td>
       <td>&lt;NA&gt;</td>
       <td>&lt;NA&gt;</td>
       <td>0.0</td>
-      <td>6.472968</td>
+      <td>5.714417</td>
     </tr>
   </tbody>
 </table>
@@ -19694,7 +19712,7 @@ Set all specified datatypes.
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[32]:</div>
 
 
@@ -19736,12 +19754,12 @@ Set all specified datatypes.
       <th>0</th>
       <td>High</td>
       <td>Test</td>
-      <td>2254</td>
+      <td>1933</td>
       <td>6721</td>
       <td>10</td>
       <td>55</td>
       <td>55</td>
-      <td>33.536674</td>
+      <td>28.760601</td>
       <td>required</td>
       <td>development</td>
       <td>20164</td>
@@ -19750,12 +19768,12 @@ Set all specified datatypes.
       <th>1</th>
       <td>High</td>
       <td>Control</td>
-      <td>2254</td>
+      <td>1933</td>
       <td>6721</td>
       <td>10</td>
       <td>55</td>
       <td>55</td>
-      <td>33.536674</td>
+      <td>28.760601</td>
       <td>required</td>
       <td>development</td>
       <td>20164</td>
@@ -19764,12 +19782,12 @@ Set all specified datatypes.
       <th>2</th>
       <td>Medium</td>
       <td>Test</td>
-      <td>1970</td>
+      <td>2088</td>
       <td>6721</td>
       <td>10</td>
       <td>55</td>
       <td>55</td>
-      <td>29.311115</td>
+      <td>31.066805</td>
       <td>required</td>
       <td>development</td>
       <td>20164</td>
@@ -19778,12 +19796,12 @@ Set all specified datatypes.
       <th>3</th>
       <td>Medium</td>
       <td>Control</td>
-      <td>1970</td>
+      <td>2088</td>
       <td>6721</td>
       <td>10</td>
       <td>55</td>
       <td>55</td>
-      <td>29.311115</td>
+      <td>31.066805</td>
       <td>required</td>
       <td>development</td>
       <td>20164</td>
@@ -19792,12 +19810,12 @@ Set all specified datatypes.
       <th>4</th>
       <td>Low</td>
       <td>Test</td>
-      <td>1982</td>
+      <td>2176</td>
       <td>6722</td>
       <td>10</td>
       <td>55</td>
       <td>55</td>
-      <td>29.485271</td>
+      <td>32.371319</td>
       <td>required</td>
       <td>development</td>
       <td>20164</td>
@@ -19806,12 +19824,12 @@ Set all specified datatypes.
       <th>5</th>
       <td>Low</td>
       <td>Control</td>
-      <td>1982</td>
+      <td>2176</td>
       <td>6722</td>
       <td>10</td>
       <td>55</td>
       <td>55</td>
-      <td>29.485271</td>
+      <td>32.371319</td>
       <td>required</td>
       <td>development</td>
       <td>20164</td>
@@ -19820,12 +19838,12 @@ Set all specified datatypes.
       <th>6</th>
       <td>High</td>
       <td>Control</td>
-      <td>2431</td>
+      <td>2085</td>
       <td>7251</td>
       <td>10</td>
       <td>55</td>
       <td>55</td>
-      <td>33.526409</td>
+      <td>28.754654</td>
       <td>randomly selected</td>
       <td>inference</td>
       <td>21752</td>
@@ -19834,12 +19852,12 @@ Set all specified datatypes.
       <th>7</th>
       <td>High</td>
       <td>Test</td>
-      <td>2431</td>
+      <td>2085</td>
       <td>7251</td>
       <td>10</td>
       <td>55</td>
       <td>55</td>
-      <td>33.526409</td>
+      <td>28.754654</td>
       <td>randomly selected</td>
       <td>inference</td>
       <td>21752</td>
@@ -19848,12 +19866,12 @@ Set all specified datatypes.
       <th>8</th>
       <td>Low</td>
       <td>Control</td>
-      <td>2137</td>
+      <td>2347</td>
       <td>7251</td>
       <td>10</td>
       <td>55</td>
       <td>55</td>
-      <td>29.471798</td>
+      <td>32.36795</td>
       <td>randomly selected</td>
       <td>inference</td>
       <td>21752</td>
@@ -19862,12 +19880,12 @@ Set all specified datatypes.
       <th>9</th>
       <td>Low</td>
       <td>Test</td>
-      <td>2137</td>
+      <td>2347</td>
       <td>7251</td>
       <td>10</td>
       <td>55</td>
       <td>55</td>
-      <td>29.471798</td>
+      <td>32.36795</td>
       <td>randomly selected</td>
       <td>inference</td>
       <td>21752</td>
@@ -19876,12 +19894,12 @@ Set all specified datatypes.
       <th>10</th>
       <td>Medium</td>
       <td>Control</td>
-      <td>2125</td>
+      <td>2252</td>
       <td>7250</td>
       <td>10</td>
       <td>55</td>
       <td>55</td>
-      <td>29.310345</td>
+      <td>31.062069</td>
       <td>randomly selected</td>
       <td>inference</td>
       <td>21752</td>
@@ -19890,12 +19908,12 @@ Set all specified datatypes.
       <th>11</th>
       <td>Medium</td>
       <td>Test</td>
-      <td>2125</td>
+      <td>2252</td>
       <td>7250</td>
       <td>10</td>
       <td>55</td>
       <td>55</td>
-      <td>29.310345</td>
+      <td>31.062069</td>
       <td>randomly selected</td>
       <td>inference</td>
       <td>21752</td>
@@ -20016,7 +20034,7 @@ Show summary of <code>DataFrame</code> with audience cohorts
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -20212,7 +20230,7 @@ Show summary of <code>DataFrame</code> with audience cohorts
       <th>27</th>
       <td>revenue</td>
       <td>Float32</td>
-      <td>21010</td>
+      <td>21012</td>
     </tr>
     <tr>
       <th>28</th>
@@ -20236,7 +20254,7 @@ Show summary of <code>DataFrame</code> with audience cohorts
       <th>31</th>
       <td>cohort</td>
       <td>string[python]</td>
-      <td>8366</td>
+      <td>8384</td>
     </tr>
     <tr>
       <th>32</th>
@@ -20322,13 +20340,13 @@ Show summary of <code>DataFrame</code> with audience cohorts
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Exported inference audience cohorts for March to file audience_cohorts__run_6a38156c7fbb4c289d7e4d1ba6b149b5__infer_month_March__20230702_194343.parquet.gzip
-Logged inference audience cohorts for March as artifact in file audience_cohorts__run_6a38156c7fbb4c289d7e4d1ba6b149b5__infer_month_March__20230702_194343.parquet.gzip
+<pre>Exported inference audience cohorts for March to file audience_cohorts__run_d5407876ef45489192743e6899207ca5__infer_month_March__20230707_185716.parquet.gzip
+Logged inference audience cohorts for March as artifact in file audience_cohorts__run_d5407876ef45489192743e6899207ca5__infer_month_March__20230707_185716.parquet.gzip
 </pre>
 </div>
 </div>
@@ -20386,7 +20404,7 @@ Show summary <code>DataFrame</code> with audience profiles
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -20536,13 +20554,13 @@ Show summary <code>DataFrame</code> with audience profiles
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Exported inference audience profiles for March to file audience_profiles__run_6a38156c7fbb4c289d7e4d1ba6b149b5__infer_month_March__20230702_194343.parquet.gzip
-Logged inference audience profiles for March as artifact in file audience_profiles__run_6a38156c7fbb4c289d7e4d1ba6b149b5__infer_month_March__20230702_194343.parquet.gzip
+<pre>Exported inference audience profiles for March to file audience_profiles__run_d5407876ef45489192743e6899207ca5__infer_month_March__20230707_185716.parquet.gzip
+Logged inference audience profiles for March as artifact in file audience_profiles__run_d5407876ef45489192743e6899207ca5__infer_month_March__20230707_185716.parquet.gzip
 </pre>
 </div>
 </div>
@@ -20600,7 +20618,7 @@ Show summary <code>DataFrame</code> with overall and per-audience conversion rat
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -20764,13 +20782,13 @@ Show summary <code>DataFrame</code> with overall and per-audience conversion rat
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Exported inference and development conversion rates for March to file audience_development_inference_conversion_rates__run_6a38156c7fbb4c289d7e4d1ba6b149b5__infer_month_March__20230702_194343.parquet.gzip
-Logged inference and development conversion rates for March as artifact in file audience_development_inference_conversion_rates__run_6a38156c7fbb4c289d7e4d1ba6b149b5__infer_month_March__20230702_194343.parquet.gzip
+<pre>Exported inference and development conversion rates for March to file audience_development_inference_conversion_rates__run_d5407876ef45489192743e6899207ca5__infer_month_March__20230707_185717.parquet.gzip
+Logged inference and development conversion rates for March as artifact in file audience_development_inference_conversion_rates__run_d5407876ef45489192743e6899207ca5__infer_month_March__20230707_185717.parquet.gzip
 </pre>
 </div>
 </div>
@@ -20828,7 +20846,7 @@ Show summary <code>DataFrame</code> with cohort fractions
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -20986,13 +21004,13 @@ Show summary <code>DataFrame</code> with cohort fractions
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-
+    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Exported inference and development cohort-to-audience fractions for March to file cohort_audience_fractions__run_6a38156c7fbb4c289d7e4d1ba6b149b5__infer_month_March__20230702_194343.parquet.gzip
-Logged inference and development cohort-to-audience fractions for March as artifact in file cohort_audience_fractions__run_6a38156c7fbb4c289d7e4d1ba6b149b5__infer_month_March__20230702_194343.parquet.gzip
+<pre>Exported inference and development cohort-to-audience fractions for March to file cohort_audience_fractions__run_d5407876ef45489192743e6899207ca5__infer_month_March__20230707_185717.parquet.gzip
+Logged inference and development cohort-to-audience fractions for March as artifact in file cohort_audience_fractions__run_d5407876ef45489192743e6899207ca5__infer_month_March__20230707_185717.parquet.gzip
 </pre>
 </div>
 </div>

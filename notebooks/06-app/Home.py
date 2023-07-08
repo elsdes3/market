@@ -12,7 +12,7 @@ from typing import List
 import pandas as pd
 import streamlit as st
 
-import src.st_utils as ut
+import src.utils.st_utils as ut
 from src.data.data import export_to_xlsx, get_data
 from src.metrics.st_metrics import show_streamlit_metrics
 
