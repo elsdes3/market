@@ -209,7 +209,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/06-cleanup/notebooks/13_cleanup_gcloud.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../notebooks/07-cleanup/notebooks/13_cleanup_gcloud.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Clean GCloud</span></a>
   </div>
 </li>
@@ -332,46 +332,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <div class="cell" data-editable="true" data-slideshow="{&quot;slide_type&quot;:&quot;&quot;}" data-tags="[&quot;parameters&quot;]" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. </span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>best_run_id <span class="op">=</span> <span class="st">"742cf152d5094be0b686edf910c7d398"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>best_run_id <span class="op">=</span> <span class="st">"d5407876ef45489192743e6899207ca5"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. label column</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>label <span class="op">=</span> <span class="st">"made_purchase_on_future_visit"</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. categorical columns</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>categorical_features <span class="op">=</span> [</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'bounces'</span>,</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'source'</span>,</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'medium'</span>,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'channelGrouping'</span>,</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'last_action'</span>,</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'browser'</span>,</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">'os'</span>,</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">'deviceCategory'</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bounces"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"last_action"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"source"</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"medium"</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"channelGrouping"</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"browser"</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"os"</span>,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"deviceCategory"</span>,</span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>]</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. numerical columns</span></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>numerical_features <span class="op">=</span> [</span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">'hits'</span>,</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">'pageviews'</span>,</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">'promos_displayed'</span>,</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">'product_views'</span>,</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">'product_clicks'</span>,</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">'time_on_site'</span>,</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. number of SHAP observations to be explained</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>num_shap_obs <span class="op">=</span> <span class="dv">500</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. number of top-performing SHAP features to be kept</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>num_features_shap <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co"># 7. mapping dictionaries</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>audience_groups_strategies <span class="op">=</span> {</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>: [<span class="st">"High"</span>, <span class="st">"Medium"</span>, <span class="st">"Low"</span>], <span class="dv">2</span>: [<span class="st">"High"</span>, <span class="st">"High-Medium"</span>, <span class="st">"High-Medium-Low"</span>],</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="co"># 8. type of audience strategy to use when creating groups</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>audience_strategy <span class="op">=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"promos_displayed"</span>,</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"promos_clicked"</span>,</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"product_views"</span>,</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"product_clicks"</span>,</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"pageviews"</span>,</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"time_on_site"</span>,</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. number of SHAP observations to be explained</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>num_obs_explain_shap <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. number of top-performing SHAP features to be kept</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>num_features_shap <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co"># 7. mapping dictionaries</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>audience_groups_strategies <span class="op">=</span> {</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>: [<span class="st">"High"</span>, <span class="st">"Medium"</span>, <span class="st">"Low"</span>], <span class="dv">2</span>: [<span class="st">"High"</span>, <span class="st">"High-Medium"</span>, <span class="st">"High-Medium-Low"</span>],</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="co"># 8. type of audience strategy to use when creating groups</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>audience_strategy <span class="op">=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="get-data" class="level2">
@@ -425,7 +426,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="get-inference-data-with-audience-assignments" class="level3">
 <h3 class="anchored" data-anchor-id="get-inference-data-with-audience-assignments">Get Inference Data with Audience Assignments</h3>
 <p>Load inference data with audience and cohort assignments</p>
-<div class="cell" data-execution_count="48">
+<div class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_infer_with_audience <span class="op">=</span> (</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    pd.read_parquet(</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        audience_filepath,</span>
@@ -439,7 +440,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    .reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>df_infer_with_audience</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="48">
+<div class="cell-output cell-output-display" data-execution_count="16">
 <div>
 
 
@@ -473,23 +474,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>0680963722765513682</td>
-<td>1490246407</td>
+<td>9725965720822289910</td>
+<td>1490389872</td>
 <td>1</td>
 <td>1</td>
 <td>3</td>
-<td>22</td>
-<td>4</td>
-<td>22</td>
-<td>20</td>
-<td>7</td>
+<td>24</td>
+<td>6</td>
+<td>14</td>
+<td>11</td>
+<td>12</td>
 <td>...</td>
 <td>12</td>
-<td>2</td>
-<td>8</td>
-<td>127</td>
+<td>0</td>
+<td>4</td>
+<td>66</td>
 <td>Chrome</td>
-<td>Macintosh</td>
+<td>Linux</td>
 <td>0</td>
 <td>desktop</td>
 <td>High</td>
@@ -497,97 +498,97 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>3339620488023808675</td>
-<td>1489208703</td>
+<td>1262291561527945490</td>
+<td>1490385910</td>
 <td>1</td>
 <td>1</td>
 <td>3</td>
-<td>10</td>
+<td>24</td>
 <td>6</td>
-<td>21</td>
+<td>13</td>
 <td>5</td>
-<td>3</td>
+<td>10</td>
 <td>...</td>
-<td>12</td>
-<td>2</td>
-<td>4</td>
-<td>34</td>
-<td>Safari</td>
+<td>25</td>
+<td>0</td>
+<td>5</td>
+<td>99</td>
+<td>Chrome</td>
 <td>iOS</td>
 <td>0</td>
-<td>tablet</td>
+<td>mobile</td>
 <td>High</td>
 <td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>4352137968854306424</td>
-<td>1489597665</td>
+<td>9189040746503498111</td>
+<td>1488898168</td>
 <td>1</td>
 <td>1</td>
 <td>3</td>
-<td>15</td>
-<td>4</td>
-<td>10</td>
 <td>7</td>
-<td>45</td>
+<td>3</td>
+<td>6</td>
+<td>49</td>
+<td>28</td>
 <td>...</td>
 <td>0</td>
 <td>0</td>
-<td>2</td>
-<td>7</td>
-<td>Safari</td>
-<td>Macintosh</td>
+<td>1</td>
 <td>0</td>
-<td>desktop</td>
+<td>Chrome</td>
+<td>Android</td>
+<td>0</td>
+<td>mobile</td>
 <td>High</td>
 <td>1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>415961985355681274</td>
-<td>1489621178</td>
+<td>1844223110946928452</td>
+<td>1490399038</td>
 <td>1</td>
 <td>1</td>
 <td>3</td>
-<td>15</td>
-<td>4</td>
+<td>24</td>
+<td>6</td>
 <td>16</td>
-<td>39</td>
-<td>38</td>
+<td>43</td>
+<td>58</td>
 <td>...</td>
-<td>39</td>
-<td>0</td>
-<td>4</td>
 <td>90</td>
+<td>3</td>
+<td>15</td>
+<td>414</td>
 <td>Chrome</td>
-<td>Windows</td>
-<td>0</td>
+<td>Macintosh</td>
+<td>2</td>
 <td>desktop</td>
 <td>High</td>
 <td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>8333492141906527532</td>
-<td>1490084582</td>
+<td>5443907013787165361</td>
+<td>1490637573</td>
 <td>1</td>
 <td>1</td>
 <td>3</td>
-<td>21</td>
-<td>3</td>
-<td>1</td>
-<td>23</td>
+<td>27</td>
 <td>2</td>
+<td>10</td>
+<td>59</td>
+<td>33</td>
 <td>...</td>
+<td>47</td>
 <td>0</td>
+<td>7</td>
+<td>41</td>
+<td>Chrome</td>
+<td>Macintosh</td>
 <td>0</td>
-<td>1</td>
-<td>0</td>
-<td>Safari</td>
-<td>iOS</td>
-<td>0</td>
-<td>tablet</td>
+<td>desktop</td>
 <td>High</td>
 <td>1</td>
 </tr>
@@ -616,118 +617,118 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">12407</td>
-<td>3468175352212463876</td>
-<td>1489255537</td>
+<td data-quarto-table-cell-role="th">13363</td>
+<td>4181986378937620294</td>
+<td>1488845732</td>
 <td>1</td>
 <td>1</td>
 <td>3</td>
-<td>11</td>
-<td>7</td>
-<td>10</td>
-<td>5</td>
-<td>37</td>
-<td>...</td>
-<td>7</td>
-<td>1</td>
+<td>6</td>
 <td>2</td>
 <td>16</td>
-<td>Chrome</td>
+<td>15</td>
+<td>32</td>
+<td>...</td>
+<td>36</td>
+<td>0</td>
+<td>6</td>
+<td>1828</td>
+<td>Safari</td>
+<td>iOS</td>
+<td>0</td>
+<td>tablet</td>
+<td>Low</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13364</td>
+<td>3163310578952238459</td>
+<td>1490638905</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>27</td>
+<td>2</td>
+<td>11</td>
+<td>21</td>
+<td>45</td>
+<td>...</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+<td>56</td>
+<td>Firefox</td>
 <td>Macintosh</td>
 <td>0</td>
 <td>desktop</td>
 <td>Low</td>
 <td>1</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">12408</td>
-<td>2297134143716418806</td>
-<td>1489463792</td>
-<td>1</td>
-<td>1</td>
-<td>3</td>
-<td>13</td>
-<td>2</td>
-<td>20</td>
-<td>56</td>
-<td>32</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>Chrome</td>
-<td>Android</td>
-<td>0</td>
-<td>mobile</td>
-<td>Low</td>
-<td>1</td>
-</tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">12409</td>
-<td>4875088489598899615</td>
-<td>1489358551</td>
+<td data-quarto-table-cell-role="th">13365</td>
+<td>8572102797289270121</td>
+<td>1490244684</td>
 <td>1</td>
 <td>1</td>
 <td>3</td>
-<td>12</td>
-<td>1</td>
-<td>15</td>
-<td>42</td>
-<td>31</td>
+<td>22</td>
+<td>4</td>
+<td>21</td>
+<td>51</td>
+<td>24</td>
 <td>...</td>
-<td>72</td>
+<td>27</td>
 <td>0</td>
-<td>8</td>
-<td>677</td>
+<td>4</td>
+<td>95</td>
 <td>Chrome</td>
-<td>Android</td>
-<td>0</td>
-<td>mobile</td>
-<td>Low</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">12410</td>
-<td>504996867976621481</td>
-<td>1488752321</td>
-<td>1</td>
-<td>1</td>
-<td>3</td>
-<td>5</td>
-<td>1</td>
-<td>14</td>
-<td>18</td>
-<td>41</td>
-<td>...</td>
-<td>37</td>
-<td>1</td>
-<td>11</td>
-<td>898</td>
-<td>Chrome</td>
-<td>Chrome OS</td>
+<td>Windows</td>
 <td>0</td>
 <td>desktop</td>
 <td>Low</td>
 <td>1</td>
 </tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">12411</td>
-<td>5311563555589439877</td>
-<td>1488382048</td>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13366</td>
+<td>7398194644987278977</td>
+<td>1490184576</td>
 <td>1</td>
 <td>1</td>
 <td>3</td>
-<td>1</td>
+<td>22</td>
 <td>4</td>
-<td>7</td>
-<td>27</td>
-<td>28</td>
+<td>5</td>
+<td>9</td>
+<td>36</td>
 <td>...</td>
-<td>24</td>
+<td>12</td>
 <td>0</td>
+<td>2</td>
+<td>6</td>
+<td>Chrome</td>
+<td>iOS</td>
+<td>0</td>
+<td>mobile</td>
+<td>Low</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">13367</td>
+<td>0175368039527423961</td>
+<td>1489773964</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>17</td>
+<td>6</td>
+<td>11</td>
+<td>6</td>
 <td>4</td>
-<td>66</td>
+<td>...</td>
+<td>36</td>
+<td>0</td>
+<td>5</td>
+<td>145</td>
 <td>Chrome</td>
 <td>Windows</td>
 <td>0</td>
@@ -738,12 +739,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 
-<p>12412 rows × 28 columns</p>
+<p>13368 rows × 28 columns</p>
 </div>
 </div>
 </div>
 <p>Get features from inference data</p>
-<div class="cell" data-execution_count="30">
+<div class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>X_infer_with_audience <span class="op">=</span> (</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    df_infer_with_audience.drop(columns<span class="op">=</span>[<span class="st">'maudience'</span>, <span class="st">'audience_strategy'</span>])</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -752,108 +753,108 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="ml-evaluation-from-pipeline" class="level2">
 <h2 class="anchored" data-anchor-id="ml-evaluation-from-pipeline">ML Evaluation From <code>Pipeline</code></h2>
-<div class="cell" data-execution_count="34">
+<div class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display">
 <style type="text/css">
-#T_99818_row0_col0, #T_99818_row1_col0, #T_99818_row2_col0, #T_99818_row3_col0, #T_99818_row4_col0, #T_99818_row5_col0, #T_99818_row6_col0, #T_99818_row7_col0, #T_99818_row8_col0, #T_99818_row9_col0 {
+#T_d69ab_row0_col0, #T_d69ab_row1_col0, #T_d69ab_row2_col0, #T_d69ab_row3_col0, #T_d69ab_row4_col0, #T_d69ab_row5_col0, #T_d69ab_row6_col0, #T_d69ab_row7_col0, #T_d69ab_row8_col0, #T_d69ab_row9_col0 {
   font-size: 14px;
 }
-#T_99818_row0_col1, #T_99818_row0_col2 {
+#T_d69ab_row0_col1, #T_d69ab_row0_col2 {
   background-color: #800026;
   color: #f1f1f1;
   font-size: 14px;
 }
-#T_99818_row1_col1, #T_99818_row3_col1, #T_99818_row4_col1, #T_99818_row5_col1, #T_99818_row6_col1, #T_99818_row7_col1 {
-  background-color: #fd8239;
+#T_d69ab_row1_col1, #T_d69ab_row3_col1, #T_d69ab_row4_col1, #T_d69ab_row5_col1, #T_d69ab_row6_col1, #T_d69ab_row7_col1 {
+  background-color: #fd7c37;
   color: #f1f1f1;
   font-size: 14px;
 }
-#T_99818_row1_col2, #T_99818_row3_col2, #T_99818_row4_col2, #T_99818_row5_col2, #T_99818_row6_col2, #T_99818_row7_col2 {
-  background-color: #fd8439;
+#T_d69ab_row1_col2, #T_d69ab_row3_col2, #T_d69ab_row4_col2, #T_d69ab_row6_col2 {
+  background-color: #fd7e38;
   color: #f1f1f1;
   font-size: 14px;
 }
-#T_99818_row2_col1 {
-  background-color: #fffecb;
-  color: #000000;
-  font-size: 14px;
-}
-#T_99818_row2_col2, #T_99818_row8_col1, #T_99818_row8_col2, #T_99818_row9_col1, #T_99818_row9_col2 {
+#T_d69ab_row2_col1, #T_d69ab_row2_col2, #T_d69ab_row8_col1, #T_d69ab_row8_col2, #T_d69ab_row9_col1, #T_d69ab_row9_col2 {
   background-color: #ffffcc;
   color: #000000;
   font-size: 14px;
 }
+#T_d69ab_row5_col2, #T_d69ab_row7_col2 {
+  background-color: #fd8038;
+  color: #f1f1f1;
+  font-size: 14px;
+}
 </style>
 
-<table id="T_99818" data-quarto-postprocess="true" class="table table-sm table-striped small">
+<table id="T_d69ab" data-quarto-postprocess="true" class="table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th class="index_name level0" data-quarto-table-cell-role="th">split</th>
-<th id="T_99818_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">metric</th>
-<th id="T_99818_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">train_val</th>
-<th id="T_99818_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">test</th>
+<th id="T_d69ab_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">metric</th>
+<th id="T_d69ab_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">train_val</th>
+<th id="T_d69ab_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">test</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_99818_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">0</td>
-<td id="T_99818_row0_col0" class="data row0 col0">accuracy</td>
-<td id="T_99818_row0_col1" class="data row0 col1">0.919483</td>
-<td id="T_99818_row0_col2" class="data row0 col2">0.940538</td>
+<td id="T_d69ab_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">0</td>
+<td id="T_d69ab_row0_col0" class="data row0 col0">accuracy</td>
+<td id="T_d69ab_row0_col1" class="data row0 col1">0.905107</td>
+<td id="T_d69ab_row0_col2" class="data row0 col2">0.923626</td>
 </tr>
 <tr class="even">
-<td id="T_99818_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">1</td>
-<td id="T_99818_row1_col0" class="data row1 col0">balanced_accuracy</td>
-<td id="T_99818_row1_col1" class="data row1 col1">0.501968</td>
-<td id="T_99818_row1_col2" class="data row1 col2">0.499218</td>
+<td id="T_d69ab_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">1</td>
+<td id="T_d69ab_row1_col0" class="data row1 col0">balanced_accuracy</td>
+<td id="T_d69ab_row1_col1" class="data row1 col1">0.502320</td>
+<td id="T_d69ab_row1_col2" class="data row1 col2">0.498962</td>
 </tr>
 <tr class="odd">
-<td id="T_99818_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">2</td>
-<td id="T_99818_row2_col0" class="data row2 col0">precision</td>
-<td id="T_99818_row2_col1" class="data row2 col1">0.047763</td>
-<td id="T_99818_row2_col2" class="data row2 col2">0.022135</td>
+<td id="T_d69ab_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">2</td>
+<td id="T_d69ab_row2_col0" class="data row2 col0">precision</td>
+<td id="T_d69ab_row2_col1" class="data row2 col1">0.047152</td>
+<td id="T_d69ab_row2_col2" class="data row2 col2">0.022222</td>
 </tr>
 <tr class="even">
-<td id="T_99818_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">3</td>
-<td id="T_99818_row3_col0" class="data row3 col0">recall</td>
-<td id="T_99818_row3_col1" class="data row3 col1">0.501968</td>
-<td id="T_99818_row3_col2" class="data row3 col2">0.499218</td>
+<td id="T_d69ab_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">3</td>
+<td id="T_d69ab_row3_col0" class="data row3 col0">recall</td>
+<td id="T_d69ab_row3_col1" class="data row3 col1">0.502320</td>
+<td id="T_d69ab_row3_col2" class="data row3 col2">0.498962</td>
 </tr>
 <tr class="odd">
-<td id="T_99818_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">4</td>
-<td id="T_99818_row4_col0" class="data row4 col0">roc_auc</td>
-<td id="T_99818_row4_col1" class="data row4 col1">0.501968</td>
-<td id="T_99818_row4_col2" class="data row4 col2">0.499218</td>
+<td id="T_d69ab_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">4</td>
+<td id="T_d69ab_row4_col0" class="data row4 col0">roc_auc</td>
+<td id="T_d69ab_row4_col1" class="data row4 col1">0.502320</td>
+<td id="T_d69ab_row4_col2" class="data row4 col2">0.498962</td>
 </tr>
 <tr class="even">
-<td id="T_99818_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">5</td>
-<td id="T_99818_row5_col0" class="data row5 col0">f1</td>
-<td id="T_99818_row5_col1" class="data row5 col1">0.502007</td>
-<td id="T_99818_row5_col2" class="data row5 col2">0.498453</td>
+<td id="T_d69ab_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">5</td>
+<td id="T_d69ab_row5_col0" class="data row5 col0">f1</td>
+<td id="T_d69ab_row5_col1" class="data row5 col1">0.501609</td>
+<td id="T_d69ab_row5_col2" class="data row5 col2">0.495846</td>
 </tr>
 <tr class="odd">
-<td id="T_99818_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">6</td>
-<td id="T_99818_row6_col0" class="data row6 col0">fbeta05</td>
-<td id="T_99818_row6_col1" class="data row6 col1">0.502060</td>
-<td id="T_99818_row6_col2" class="data row6 col2">0.498946</td>
+<td id="T_d69ab_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">6</td>
+<td id="T_d69ab_row6_col0" class="data row6 col0">fbeta05</td>
+<td id="T_d69ab_row6_col1" class="data row6 col1">0.501645</td>
+<td id="T_d69ab_row6_col2" class="data row6 col2">0.497670</td>
 </tr>
 <tr class="even">
-<td id="T_99818_level0_row7" class="row_heading level0 row7" data-quarto-table-cell-role="th">7</td>
-<td id="T_99818_row7_col0" class="data row7 col0">fbeta2</td>
-<td id="T_99818_row7_col1" class="data row7 col1">0.501977</td>
-<td id="T_99818_row7_col2" class="data row7 col2">0.498594</td>
+<td id="T_d69ab_level0_row7" class="row_heading level0 row7" data-quarto-table-cell-role="th">7</td>
+<td id="T_d69ab_row7_col0" class="data row7 col0">fbeta2</td>
+<td id="T_d69ab_row7_col1" class="data row7 col1">0.501902</td>
+<td id="T_d69ab_row7_col2" class="data row7 col2">0.496202</td>
 </tr>
 <tr class="odd">
-<td id="T_99818_level0_row8" class="row_heading level0 row8" data-quarto-table-cell-role="th">8</td>
-<td id="T_99818_row8_col0" class="data row8 col0">pr_auc</td>
-<td id="T_99818_row8_col1" class="data row8 col1">0.043754</td>
-<td id="T_99818_row8_col2" class="data row8 col2">0.023227</td>
+<td id="T_d69ab_level0_row8" class="row_heading level0 row8" data-quarto-table-cell-role="th">8</td>
+<td id="T_d69ab_row8_col0" class="data row8 col0">pr_auc</td>
+<td id="T_d69ab_row8_col1" class="data row8 col1">0.044149</td>
+<td id="T_d69ab_row8_col2" class="data row8 col2">0.023794</td>
 </tr>
 <tr class="even">
-<td id="T_99818_level0_row9" class="row_heading level0 row9" data-quarto-table-cell-role="th">9</td>
-<td id="T_99818_row9_col0" class="data row9 col0">avg_precision</td>
-<td id="T_99818_row9_col1" class="data row9 col1">0.043898</td>
-<td id="T_99818_row9_col2" class="data row9 col2">0.023027</td>
+<td id="T_d69ab_level0_row9" class="row_heading level0 row9" data-quarto-table-cell-role="th">9</td>
+<td id="T_d69ab_row9_col0" class="data row9 col0">avg_precision</td>
+<td id="T_d69ab_row9_col1" class="data row9 col1">0.043928</td>
+<td id="T_d69ab_row9_col2" class="data row9 col2">0.023016</td>
 </tr>
 </tbody>
 </table>
@@ -903,7 +904,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 </ul></li>
 </ol>
-<div class="cell" data-execution_count="35">
+<div class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'Under'</span> <span class="kw">in</span> <span class="bu">type</span>(pipe.named_steps[<span class="st">'resampler'</span>]).<span class="va">__name__</span>:</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    resampling_approach <span class="op">=</span> <span class="st">'us'</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    pipe_resample_trans <span class="op">=</span> meh.get_preprocessor_pipeline(pipe, <span class="st">'us'</span>)</span>
@@ -936,108 +937,108 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="ml-evaluation-using-transformed-data" class="level3">
 <h3 class="anchored" data-anchor-id="ml-evaluation-using-transformed-data">ML Evaluation Using Transformed Data</h3>
-<div class="cell" data-execution_count="40">
+<div class="cell" data-execution_count="27">
 <div class="cell-output cell-output-display">
 <style type="text/css">
-#T_15b21_row0_col0, #T_15b21_row1_col0, #T_15b21_row2_col0, #T_15b21_row3_col0, #T_15b21_row4_col0, #T_15b21_row5_col0, #T_15b21_row6_col0, #T_15b21_row7_col0, #T_15b21_row8_col0, #T_15b21_row9_col0 {
+#T_12ea4_row0_col0, #T_12ea4_row1_col0, #T_12ea4_row2_col0, #T_12ea4_row3_col0, #T_12ea4_row4_col0, #T_12ea4_row5_col0, #T_12ea4_row6_col0, #T_12ea4_row7_col0, #T_12ea4_row8_col0, #T_12ea4_row9_col0 {
   font-size: 14px;
 }
-#T_15b21_row0_col1, #T_15b21_row0_col2 {
+#T_12ea4_row0_col1, #T_12ea4_row0_col2 {
   background-color: #800026;
   color: #f1f1f1;
   font-size: 14px;
 }
-#T_15b21_row1_col1, #T_15b21_row3_col1, #T_15b21_row4_col1, #T_15b21_row5_col1, #T_15b21_row6_col1, #T_15b21_row7_col1 {
-  background-color: #fd8239;
+#T_12ea4_row1_col1, #T_12ea4_row3_col1, #T_12ea4_row4_col1, #T_12ea4_row5_col1, #T_12ea4_row6_col1, #T_12ea4_row7_col1 {
+  background-color: #fd7c37;
   color: #f1f1f1;
   font-size: 14px;
 }
-#T_15b21_row1_col2, #T_15b21_row3_col2, #T_15b21_row4_col2, #T_15b21_row5_col2, #T_15b21_row6_col2, #T_15b21_row7_col2 {
-  background-color: #fd8439;
+#T_12ea4_row1_col2, #T_12ea4_row3_col2, #T_12ea4_row4_col2, #T_12ea4_row6_col2 {
+  background-color: #fd7e38;
   color: #f1f1f1;
   font-size: 14px;
 }
-#T_15b21_row2_col1 {
-  background-color: #fffecb;
-  color: #000000;
-  font-size: 14px;
-}
-#T_15b21_row2_col2, #T_15b21_row8_col1, #T_15b21_row8_col2, #T_15b21_row9_col1, #T_15b21_row9_col2 {
+#T_12ea4_row2_col1, #T_12ea4_row2_col2, #T_12ea4_row8_col1, #T_12ea4_row8_col2, #T_12ea4_row9_col1, #T_12ea4_row9_col2 {
   background-color: #ffffcc;
   color: #000000;
   font-size: 14px;
 }
+#T_12ea4_row5_col2, #T_12ea4_row7_col2 {
+  background-color: #fd8038;
+  color: #f1f1f1;
+  font-size: 14px;
+}
 </style>
 
-<table id="T_15b21" data-quarto-postprocess="true" class="table table-sm table-striped small">
+<table id="T_12ea4" data-quarto-postprocess="true" class="table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th class="index_name level0" data-quarto-table-cell-role="th">split</th>
-<th id="T_15b21_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">metric</th>
-<th id="T_15b21_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">train_val</th>
-<th id="T_15b21_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">test</th>
+<th id="T_12ea4_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">metric</th>
+<th id="T_12ea4_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">train_val</th>
+<th id="T_12ea4_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">test</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_15b21_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">0</td>
-<td id="T_15b21_row0_col0" class="data row0 col0">accuracy</td>
-<td id="T_15b21_row0_col1" class="data row0 col1">0.919483</td>
-<td id="T_15b21_row0_col2" class="data row0 col2">0.940538</td>
+<td id="T_12ea4_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">0</td>
+<td id="T_12ea4_row0_col0" class="data row0 col0">accuracy</td>
+<td id="T_12ea4_row0_col1" class="data row0 col1">0.905107</td>
+<td id="T_12ea4_row0_col2" class="data row0 col2">0.923626</td>
 </tr>
 <tr class="even">
-<td id="T_15b21_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">1</td>
-<td id="T_15b21_row1_col0" class="data row1 col0">balanced_accuracy</td>
-<td id="T_15b21_row1_col1" class="data row1 col1">0.501968</td>
-<td id="T_15b21_row1_col2" class="data row1 col2">0.499218</td>
+<td id="T_12ea4_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">1</td>
+<td id="T_12ea4_row1_col0" class="data row1 col0">balanced_accuracy</td>
+<td id="T_12ea4_row1_col1" class="data row1 col1">0.502320</td>
+<td id="T_12ea4_row1_col2" class="data row1 col2">0.498962</td>
 </tr>
 <tr class="odd">
-<td id="T_15b21_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">2</td>
-<td id="T_15b21_row2_col0" class="data row2 col0">precision</td>
-<td id="T_15b21_row2_col1" class="data row2 col1">0.047763</td>
-<td id="T_15b21_row2_col2" class="data row2 col2">0.022135</td>
+<td id="T_12ea4_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">2</td>
+<td id="T_12ea4_row2_col0" class="data row2 col0">precision</td>
+<td id="T_12ea4_row2_col1" class="data row2 col1">0.047152</td>
+<td id="T_12ea4_row2_col2" class="data row2 col2">0.022222</td>
 </tr>
 <tr class="even">
-<td id="T_15b21_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">3</td>
-<td id="T_15b21_row3_col0" class="data row3 col0">recall</td>
-<td id="T_15b21_row3_col1" class="data row3 col1">0.501968</td>
-<td id="T_15b21_row3_col2" class="data row3 col2">0.499218</td>
+<td id="T_12ea4_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">3</td>
+<td id="T_12ea4_row3_col0" class="data row3 col0">recall</td>
+<td id="T_12ea4_row3_col1" class="data row3 col1">0.502320</td>
+<td id="T_12ea4_row3_col2" class="data row3 col2">0.498962</td>
 </tr>
 <tr class="odd">
-<td id="T_15b21_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">4</td>
-<td id="T_15b21_row4_col0" class="data row4 col0">roc_auc</td>
-<td id="T_15b21_row4_col1" class="data row4 col1">0.501968</td>
-<td id="T_15b21_row4_col2" class="data row4 col2">0.499218</td>
+<td id="T_12ea4_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">4</td>
+<td id="T_12ea4_row4_col0" class="data row4 col0">roc_auc</td>
+<td id="T_12ea4_row4_col1" class="data row4 col1">0.502320</td>
+<td id="T_12ea4_row4_col2" class="data row4 col2">0.498962</td>
 </tr>
 <tr class="even">
-<td id="T_15b21_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">5</td>
-<td id="T_15b21_row5_col0" class="data row5 col0">f1</td>
-<td id="T_15b21_row5_col1" class="data row5 col1">0.502007</td>
-<td id="T_15b21_row5_col2" class="data row5 col2">0.498453</td>
+<td id="T_12ea4_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">5</td>
+<td id="T_12ea4_row5_col0" class="data row5 col0">f1</td>
+<td id="T_12ea4_row5_col1" class="data row5 col1">0.501609</td>
+<td id="T_12ea4_row5_col2" class="data row5 col2">0.495846</td>
 </tr>
 <tr class="odd">
-<td id="T_15b21_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">6</td>
-<td id="T_15b21_row6_col0" class="data row6 col0">fbeta05</td>
-<td id="T_15b21_row6_col1" class="data row6 col1">0.502060</td>
-<td id="T_15b21_row6_col2" class="data row6 col2">0.498946</td>
+<td id="T_12ea4_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">6</td>
+<td id="T_12ea4_row6_col0" class="data row6 col0">fbeta05</td>
+<td id="T_12ea4_row6_col1" class="data row6 col1">0.501645</td>
+<td id="T_12ea4_row6_col2" class="data row6 col2">0.497670</td>
 </tr>
 <tr class="even">
-<td id="T_15b21_level0_row7" class="row_heading level0 row7" data-quarto-table-cell-role="th">7</td>
-<td id="T_15b21_row7_col0" class="data row7 col0">fbeta2</td>
-<td id="T_15b21_row7_col1" class="data row7 col1">0.501977</td>
-<td id="T_15b21_row7_col2" class="data row7 col2">0.498594</td>
+<td id="T_12ea4_level0_row7" class="row_heading level0 row7" data-quarto-table-cell-role="th">7</td>
+<td id="T_12ea4_row7_col0" class="data row7 col0">fbeta2</td>
+<td id="T_12ea4_row7_col1" class="data row7 col1">0.501902</td>
+<td id="T_12ea4_row7_col2" class="data row7 col2">0.496202</td>
 </tr>
 <tr class="odd">
-<td id="T_15b21_level0_row8" class="row_heading level0 row8" data-quarto-table-cell-role="th">8</td>
-<td id="T_15b21_row8_col0" class="data row8 col0">pr_auc</td>
-<td id="T_15b21_row8_col1" class="data row8 col1">0.043754</td>
-<td id="T_15b21_row8_col2" class="data row8 col2">0.023227</td>
+<td id="T_12ea4_level0_row8" class="row_heading level0 row8" data-quarto-table-cell-role="th">8</td>
+<td id="T_12ea4_row8_col0" class="data row8 col0">pr_auc</td>
+<td id="T_12ea4_row8_col1" class="data row8 col1">0.044149</td>
+<td id="T_12ea4_row8_col2" class="data row8 col2">0.023794</td>
 </tr>
 <tr class="even">
-<td id="T_15b21_level0_row9" class="row_heading level0 row9" data-quarto-table-cell-role="th">9</td>
-<td id="T_15b21_row9_col0" class="data row9 col0">avg_precision</td>
-<td id="T_15b21_row9_col1" class="data row9 col1">0.043898</td>
-<td id="T_15b21_row9_col2" class="data row9 col2">0.023027</td>
+<td id="T_12ea4_level0_row9" class="row_heading level0 row9" data-quarto-table-cell-role="th">9</td>
+<td id="T_12ea4_row9_col0" class="data row9 col0">avg_precision</td>
+<td id="T_12ea4_row9_col1" class="data row9 col1">0.043928</td>
+<td id="T_12ea4_row9_col2" class="data row9 col2">0.023016</td>
 </tr>
 </tbody>
 </table>
@@ -1051,12 +1052,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="transformed-data" class="level3">
 <h3 class="anchored" data-anchor-id="transformed-data">Transformed Data</h3>
 <p>Verify agreement between predictions of training data split</p>
-<div class="cell" data-execution_count="41">
+<div class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> y_train_pred.equals(y_train_pred_m)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> y_train_pred_proba.equals(y_train_pred_proba_m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Verify agreement between predictions of test data split</p>
-<div class="cell" data-execution_count="42">
+<div class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> y_test_pred.reset_index(drop<span class="op">=</span><span class="va">True</span>).equals(y_test_pred_m)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> y_test_pred_proba.reset_index(drop<span class="op">=</span><span class="va">True</span>).equals(y_test_pred_proba_m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1064,7 +1065,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="evaluation-metrics" class="level3">
 <h3 class="anchored" data-anchor-id="evaluation-metrics">Evaluation Metrics</h3>
 <p>Verify agreement between ML model evaluation metrics using the test data split</p>
-<div class="cell" data-execution_count="43">
+<div class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> df_metrics.equals(df_metrics_m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This section has verified that the manual approach to transforming features and using them to make and evaluate predictions of test data observations gives the same classification metrics as using the self-contained end-to-end <code>Pipeline</code> to make and evaluate predictions.</p>
@@ -1080,7 +1081,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>overall data used during ML development (combination of train+val and test)</li>
 <li>inference data</li>
 </ol>
-<div class="cell" data-execution_count="49">
+<div class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'Under'</span> <span class="kw">in</span> <span class="bu">type</span>(pipe.named_steps[<span class="st">'resampler'</span>]).<span class="va">__name__</span>:</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    resampling_approach <span class="op">=</span> <span class="st">'us'</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    pipe_resample_trans <span class="op">=</span> meh.get_preprocessor_pipeline(pipe, <span class="st">'us'</span>)</span>
@@ -1111,7 +1112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Append the audience group name and strategy to the transformed inference data</p>
-<div class="cell" data-execution_count="51">
+<div class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df_infer_trans <span class="op">=</span> (</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    X_infer_trans.assign(maudience<span class="op">=</span>df_infer_with_audience[<span class="st">'maudience'</span>])</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    .assign(audience_strategy<span class="op">=</span>df_infer_with_audience[<span class="st">'audience_strategy'</span>])</span>
@@ -1127,60 +1128,422 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>append metadata about the selected slice of inference data</li>
 </ol>
 <p>The above process is repeated for all audience groups. This is shown below</p>
-<div class="cell" data-execution_count="52">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dfs_shap_values <span class="op">=</span> []</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> maudience <span class="kw">in</span> audience_groups_strategies[audience_strategy]:</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1. Get SHAP training data for audience group</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    df_infer_shap_train <span class="op">=</span> df_infer_trans.sample(n<span class="op">=</span>num_shap_obs)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Randomly sliced </span><span class="sc">{</span>num_shap_obs<span class="sc">:,}</span><span class="ss"> observations "</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"from </span><span class="sc">{</span>maudience<span class="sc">}</span><span class="ss"> audience group in inference data"</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2. Get SHAP values</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    start_time <span class="op">=</span> datetime.now(pytz.timezone(<span class="st">"US/Eastern"</span>))</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    start_time_str <span class="op">=</span> start_time.strftime(<span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st"> %H:%M:%S.</span><span class="sc">%f</span><span class="st">"</span>)</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Query execution start time = </span><span class="sc">{</span>start_time_str[:<span class="op">-</span><span class="dv">3</span>]<span class="sc">}</span><span class="ss">..."</span>, end<span class="op">=</span><span class="st">""</span>)</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># shap_means = np.abs(shap_values).mean(axis=0)</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    shap_means <span class="op">=</span> np.random.rand(num_features_shap, <span class="dv">1</span>)</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    end_time <span class="op">=</span> datetime.now(pytz.timezone(<span class="st">"US/Eastern"</span>))</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    end_time_str <span class="op">=</span> end_time.strftime(<span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st"> %H:%M:%S.</span><span class="sc">%f</span><span class="st">"</span>)</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    duration <span class="op">=</span> end_time <span class="op">-</span> start_time</span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    duration <span class="op">=</span> duration.seconds <span class="op">+</span> (duration.microseconds <span class="op">/</span> <span class="dv">1_000_000</span>)</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"done at </span><span class="sc">{</span>end_time_str[:<span class="op">-</span><span class="dv">3</span>]<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span>duration<span class="sc">:.3f}</span><span class="ss"> seconds)."</span>)</span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(</span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Retrieved SHAP values using </span><span class="sc">{</span>num_shap_obs<span class="sc">:,}</span><span class="ss"> observations "</span></span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"from </span><span class="sc">{</span>maudience<span class="sc">}</span><span class="ss"> group in inference data"</span></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3. Log SHAP values and metadata</span></span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>    df_shap_values <span class="op">=</span> (</span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>        pd.DataFrame.from_dict(</span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>            {</span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>                <span class="st">'feature'</span>: <span class="bu">list</span>(X_trans_rs)[:num_features_shap],</span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>                <span class="st">'value'</span>: shap_means.squeeze(),</span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>            },</span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>            orient<span class="op">=</span><span class="st">'index'</span></span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>        ).transpose()</span>
-<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>        .sort_values(by<span class="op">=</span><span class="st">'value'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>        .reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>        .assign(infer_month<span class="op">=</span>month_name[X_infer_with_audience[<span class="st">'month'</span>].squeeze()[<span class="dv">0</span>]])</span>
-<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>        .assign(maudience<span class="op">=</span>maudience)</span>
-<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>        .assign(audience_strategy<span class="op">=</span>audience_strategy)</span>
-<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>        .assign(num_observations<span class="op">=</span>num_shap_obs)</span>
-<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>        .assign(stat<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">'feature'</span>])</span>
-<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>        .assign(stat_type<span class="op">=</span><span class="st">'feature_importance'</span>)</span>
-<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>        .assign(feature<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">'stat'</span>].<span class="bu">str</span>.split(<span class="st">"__"</span>, expand<span class="op">=</span><span class="va">True</span>)[<span class="dv">0</span>])</span>
-<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>    dfs_shap_values.append(df_shap_values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">122807528840384100672342137672332424406</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>dfs_shap_values <span class="op">=</span> []</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> maudience <span class="kw">in</span> audience_groups_strategies[audience_strategy]:</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1. Get SHAP training data for audience group</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    df_infer_shap_train <span class="op">=</span> df_infer_trans.sample(n<span class="op">=</span>num_shap_obs)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Randomly sliced </span><span class="sc">{</span>num_shap_obs<span class="sc">:,}</span><span class="ss"> observations "</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"from </span><span class="sc">{</span>maudience<span class="sc">}</span><span class="ss"> audience group in inference data"</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2. Get SHAP values</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    start_time <span class="op">=</span> datetime.now(pytz.timezone(<span class="st">"US/Eastern"</span>))</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    start_time_str <span class="op">=</span> start_time.strftime(<span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st"> %H:%M:%S.</span><span class="sc">%f</span><span class="st">"</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Query execution start time = </span><span class="sc">{</span>start_time_str[:<span class="op">-</span><span class="dv">3</span>]<span class="sc">}</span><span class="ss">..."</span>, end<span class="op">=</span><span class="st">""</span>)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># # actual SHAP values (to be done)</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># explainer = shap.TreeExplainer(pipe_clf)</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># shap_values = explainer.shap_values(X_infer_trans[:num_obs_explain_shap])</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># shap_means = np.abs(shap_values).mean(axis=0)</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># # randomly generated SHAP values</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    shap_means <span class="op">=</span> np.random.rand(num_features_shap, <span class="dv">1</span>)</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    end_time <span class="op">=</span> datetime.now(pytz.timezone(<span class="st">"US/Eastern"</span>))</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    end_time_str <span class="op">=</span> end_time.strftime(<span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st"> %H:%M:%S.</span><span class="sc">%f</span><span class="st">"</span>)</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    duration <span class="op">=</span> end_time <span class="op">-</span> start_time</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    duration <span class="op">=</span> duration.seconds <span class="op">+</span> (duration.microseconds <span class="op">/</span> <span class="dv">1_000_000</span>)</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"done at </span><span class="sc">{</span>end_time_str[:<span class="op">-</span><span class="dv">3</span>]<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span>duration<span class="sc">:.3f}</span><span class="ss"> seconds)."</span>)</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Retrieved SHAP values using </span><span class="sc">{</span>num_shap_obs<span class="sc">:,}</span><span class="ss"> observations "</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"from </span><span class="sc">{</span>maudience<span class="sc">}</span><span class="ss"> group in inference data"</span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3. Log SHAP values and metadata</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>    df_shap_values <span class="op">=</span> (</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>        pd.DataFrame.from_dict(</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>            {</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>                <span class="co"># 'feature': list(X_infer_trans)[:num_features_shap],</span></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>                <span class="st">'feature'</span>: rng.choice(<span class="bu">list</span>(X_infer_trans), num_features_shap, replace<span class="op">=</span><span class="va">False</span>),</span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>                <span class="st">'value'</span>: shap_means.squeeze(),</span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>            },</span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>            orient<span class="op">=</span><span class="st">'index'</span></span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>        ).transpose()</span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>        .sort_values(by<span class="op">=</span><span class="st">'value'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>        .reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>        .assign(infer_month<span class="op">=</span>month_name[X_infer_with_audience[<span class="st">'month'</span>].squeeze()[<span class="dv">0</span>]])</span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>        .assign(maudience<span class="op">=</span>maudience)</span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>        .assign(audience_strategy<span class="op">=</span>audience_strategy)</span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>        .assign(num_observations<span class="op">=</span>num_shap_obs)</span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>        .assign(stat<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">'feature'</span>])</span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>        .assign(stat_type<span class="op">=</span><span class="st">'feature_importance'</span>)</span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>        .assign(feature<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">'stat'</span>].<span class="bu">str</span>.split(<span class="st">"__"</span>, expand<span class="op">=</span><span class="va">True</span>)[<span class="dv">0</span>])</span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>    dfs_shap_values.append(df_shap_values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Convert the feature importances and metadata into a single <code>DataFrame</code></p>
+<div class="cell" data-execution_count="35">
+<div class="cell-output cell-output-display" data-execution_count="35">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">feature</th>
+<th data-quarto-table-cell-role="th">value</th>
+<th data-quarto-table-cell-role="th">infer_month</th>
+<th data-quarto-table-cell-role="th">maudience</th>
+<th data-quarto-table-cell-role="th">audience_strategy</th>
+<th data-quarto-table-cell-role="th">num_observations</th>
+<th data-quarto-table-cell-role="th">stat</th>
+<th data-quarto-table-cell-role="th">stat_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>medium</td>
+<td>0.855569</td>
+<td>March</td>
+<td>High</td>
+<td>1</td>
+<td>500</td>
+<td>medium__cpc</td>
+<td>feature_importance</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>os</td>
+<td>0.771953</td>
+<td>March</td>
+<td>High</td>
+<td>1</td>
+<td>500</td>
+<td>os__FreeBSD</td>
+<td>feature_importance</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>browser</td>
+<td>0.70914</td>
+<td>March</td>
+<td>High</td>
+<td>1</td>
+<td>500</td>
+<td>browser__other</td>
+<td>feature_importance</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>os</td>
+<td>0.68788</td>
+<td>March</td>
+<td>High</td>
+<td>1</td>
+<td>500</td>
+<td>os__Nokia</td>
+<td>feature_importance</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>hits</td>
+<td>0.686577</td>
+<td>March</td>
+<td>High</td>
+<td>1</td>
+<td>500</td>
+<td>hits</td>
+<td>feature_importance</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>last_action</td>
+<td>0.441305</td>
+<td>March</td>
+<td>High</td>
+<td>1</td>
+<td>500</td>
+<td>last_action__Click through of product lists</td>
+<td>feature_importance</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>promos_displayed</td>
+<td>0.384212</td>
+<td>March</td>
+<td>High</td>
+<td>1</td>
+<td>500</td>
+<td>promos_displayed</td>
+<td>feature_importance</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>os</td>
+<td>0.335544</td>
+<td>March</td>
+<td>High</td>
+<td>1</td>
+<td>500</td>
+<td>os__Samsung</td>
+<td>feature_importance</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>os</td>
+<td>0.167403</td>
+<td>March</td>
+<td>High</td>
+<td>1</td>
+<td>500</td>
+<td>os__Windows</td>
+<td>feature_importance</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>medium</td>
+<td>0.130821</td>
+<td>March</td>
+<td>High</td>
+<td>1</td>
+<td>500</td>
+<td>medium__(not set)</td>
+<td>feature_importance</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>hits</td>
+<td>0.913902</td>
+<td>March</td>
+<td>Medium</td>
+<td>1</td>
+<td>500</td>
+<td>hits</td>
+<td>feature_importance</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>os</td>
+<td>0.86229</td>
+<td>March</td>
+<td>Medium</td>
+<td>1</td>
+<td>500</td>
+<td>os__Macintosh</td>
+<td>feature_importance</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12</td>
+<td>os</td>
+<td>0.792859</td>
+<td>March</td>
+<td>Medium</td>
+<td>1</td>
+<td>500</td>
+<td>os__Chrome OS</td>
+<td>feature_importance</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13</td>
+<td>os</td>
+<td>0.756083</td>
+<td>March</td>
+<td>Medium</td>
+<td>1</td>
+<td>500</td>
+<td>os__Nintendo Wii</td>
+<td>feature_importance</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">14</td>
+<td>medium</td>
+<td>0.661574</td>
+<td>March</td>
+<td>Medium</td>
+<td>1</td>
+<td>500</td>
+<td>medium__(not set)</td>
+<td>feature_importance</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>source</td>
+<td>0.537849</td>
+<td>March</td>
+<td>Medium</td>
+<td>1</td>
+<td>500</td>
+<td>source__google</td>
+<td>feature_importance</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td>os</td>
+<td>0.429133</td>
+<td>March</td>
+<td>Medium</td>
+<td>1</td>
+<td>500</td>
+<td>os__Firefox OS</td>
+<td>feature_importance</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17</td>
+<td>medium</td>
+<td>0.387819</td>
+<td>March</td>
+<td>Medium</td>
+<td>1</td>
+<td>500</td>
+<td>medium__affiliate</td>
+<td>feature_importance</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>os</td>
+<td>0.024187</td>
+<td>March</td>
+<td>Medium</td>
+<td>1</td>
+<td>500</td>
+<td>os__Windows Phone</td>
+<td>feature_importance</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19</td>
+<td>bounces</td>
+<td>0.022516</td>
+<td>March</td>
+<td>Medium</td>
+<td>1</td>
+<td>500</td>
+<td>bounces__1</td>
+<td>feature_importance</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">20</td>
+<td>last_action</td>
+<td>0.919674</td>
+<td>March</td>
+<td>Low</td>
+<td>1</td>
+<td>500</td>
+<td>last_action__Remove product(s) from cart</td>
+<td>feature_importance</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">21</td>
+<td>os</td>
+<td>0.877424</td>
+<td>March</td>
+<td>Low</td>
+<td>1</td>
+<td>500</td>
+<td>os__SunOS</td>
+<td>feature_importance</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">22</td>
+<td>os</td>
+<td>0.846469</td>
+<td>March</td>
+<td>Low</td>
+<td>1</td>
+<td>500</td>
+<td>os__Macintosh</td>
+<td>feature_importance</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">23</td>
+<td>source</td>
+<td>0.793359</td>
+<td>March</td>
+<td>Low</td>
+<td>1</td>
+<td>500</td>
+<td>source__other</td>
+<td>feature_importance</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">24</td>
+<td>medium</td>
+<td>0.773727</td>
+<td>March</td>
+<td>Low</td>
+<td>1</td>
+<td>500</td>
+<td>medium__affiliate</td>
+<td>feature_importance</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">25</td>
+<td>bounces</td>
+<td>0.708115</td>
+<td>March</td>
+<td>Low</td>
+<td>1</td>
+<td>500</td>
+<td>bounces__1</td>
+<td>feature_importance</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">26</td>
+<td>os</td>
+<td>0.572242</td>
+<td>March</td>
+<td>Low</td>
+<td>1</td>
+<td>500</td>
+<td>os__BlackBerry</td>
+<td>feature_importance</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">27</td>
+<td>medium</td>
+<td>0.433122</td>
+<td>March</td>
+<td>Low</td>
+<td>1</td>
+<td>500</td>
+<td>medium__(not set)</td>
+<td>feature_importance</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">28</td>
+<td>os</td>
+<td>0.200427</td>
+<td>March</td>
+<td>Low</td>
+<td>1</td>
+<td>500</td>
+<td>os__Nokia</td>
+<td>feature_importance</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">29</td>
+<td>source</td>
+<td>0.144921</td>
+<td>March</td>
+<td>Low</td>
+<td>1</td>
+<td>500</td>
+<td>source__google</td>
+<td>feature_importance</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="export-to-disk" class="level2">
 <h2 class="anchored" data-anchor-id="export-to-disk">Export To Disk</h2>
 <p>Export <code>DataFrame</code> with audience profiles, based on feature importances, to disk</p>
-<div class="cell" data-execution_count="55">
+<div class="cell" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df_audience_explored.to_parquet(</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    os.path.join(</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        processed_data_dir,</span>
