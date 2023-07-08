@@ -122,7 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../notebooks/04-upload/notebooks/09_upload.html">Upload Audience</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../notebooks/04-upload/notebooks/09_upload.html">Upload Data</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -186,7 +186,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../notebooks/04-upload/notebooks/09_upload.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Upload Audience</span></a>
+ <span class="menu-text">Upload Data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -5292,92 +5292,291 @@ are different between the test split (during ML model development) and inference
 <h2 class="anchored" data-anchor-id="upload-to-bigquery-tables">Upload to BigQuery Tables</h2>
 <section id="audience-feature-importances" class="level3">
 <h3 class="anchored" data-anchor-id="audience-feature-importances">Audience Feature Importances</h3>
-<div class="cell" data-execution_count="42">
-<div class="cell-output cell-output-stdout">
-<pre><code>Created table named demoabc-381618.mydemo2asdf.audience_feats_imp
-Completed upload
-Found 30 rows and 5 columns in table mydemo2asdf.audience_feats_imp</code></pre>
+<p>Define BigQuery Table Schema</p>
+<div class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>job_config_feats_imp <span class="op">=</span> bigquery.LoadJobConfig(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    schema<span class="op">=</span>[</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"audience_strategy"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"num_observations"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"stat"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"maudience"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"value"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>job_config_feats_imp.write_disposition <span class="op">=</span> <span class="st">'WRITE_APPEND'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Create BigQuery table (if it does not exist) and populate</p>
+<div class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>bquh.create_bq_table(gbq_table_fully_resolved_feats_imp, client)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>bquh.append_df_to_bq_table(</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    df_feats, job_config_feats_imp, gbq_table_fully_resolved_feats_imp, client</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="audience-profile-1" class="level3">
 <h3 class="anchored" data-anchor-id="audience-profile-1">Audience Profile</h3>
-<div class="cell" data-execution_count="45">
-<div class="cell-output cell-output-stdout">
-<pre><code>Created table named demoabc-381618.mydemo2asdf.audience_profiles
-Completed upload
-Found 20 rows and 5 columns in table mydemo2asdf.audience_profiles</code></pre>
+<div class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>job_config_profiles <span class="op">=</span> bigquery.LoadJobConfig(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    schema<span class="op">=</span>[</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"Audience_Strategy"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"Stat_Expanded"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"High"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"Medium"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"Low"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>job_config_profiles.write_disposition <span class="op">=</span> <span class="st">'WRITE_APPEND'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>bquh.create_bq_table(gbq_table_fully_resolved_profiles, client)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>bquh.append_df_to_bq_table(</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    df_profile_sliced, job_config_profiles, gbq_table_fully_resolved_profiles, client</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="audience-cohorts-2" class="level3">
 <h3 class="anchored" data-anchor-id="audience-cohorts-2">Audience Cohorts</h3>
-<div class="cell" data-execution_count="48">
-<div class="cell-output cell-output-stdout">
-<pre><code>Created table named demoabc-381618.mydemo2asdf.audience_cohorts
-Completed upload
-Found 155,644 rows and 36 columns in table mydemo2asdf.audience_cohorts</code></pre>
+<div class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>job_config_cohorts <span class="op">=</span> bigquery.LoadJobConfig(</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    schema<span class="op">=</span>[</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"infer_month"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"fullvisitorid"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"visitId"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"visitNumber"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"visitStartTime"</span>, <span class="st">"DATETIME"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"quarter"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"month"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"day_of_month"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"day_of_week"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"hour"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"minute"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"second"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"source"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"medium"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"channelGrouping"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"hits"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"bounces"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"last_action"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"promos_displayed"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"promos_clicked"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"product_views"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"product_clicks"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"pageviews"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"time_on_site"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"browser"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"os"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"deviceCategory"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"added_to_cart"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"revenue"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"score"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"predicted_score_label"</span>, <span class="st">"BOOLEAN"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"maudience"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"cohort"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"audience_strategy"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"made_purchase_on_future_visit"</span>, <span class="st">"BOOLEAN"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-38"><a href="#cb25-38" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"split_type"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb25-39"><a href="#cb25-39" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb25-40"><a href="#cb25-40" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-41"><a href="#cb25-41" aria-hidden="true" tabindex="-1"></a>job_config_cohorts.write_disposition <span class="op">=</span> <span class="st">'WRITE_APPEND'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>bquh.create_bq_table(gbq_table_fully_resolved_cohorts, client)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>bquh.append_df_to_bq_table(</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    df_dev_cohorts, job_config_cohorts, gbq_table_fully_resolved_cohorts, client</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="monthly-performance-summary" class="level3">
 <h3 class="anchored" data-anchor-id="monthly-performance-summary">Monthly Performance Summary</h3>
-<div class="cell" data-execution_count="51">
-<div class="cell-output cell-output-stdout">
-<pre><code>Created table named demoabc-381618.mydemo2asdf.monthly_summary
-Completed upload
-Found 7 rows and 33 columns in table mydemo2asdf.monthly_summary</code></pre>
+<div class="cell" data-execution_count="50">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>job_config_summary <span class="op">=</span> bigquery.LoadJobConfig(</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    schema<span class="op">=</span>[</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"month"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"split_type"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"return_purchasers"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"revenue"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"visitors"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"pageviews"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"time_on_site"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"channelGrouping"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"deviceCategory"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"browser"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"os"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"audience_strategy"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"bounce_rate"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"product_clicks_rate"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"add_to_cart_rate"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"visitor_type"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"conversion_rate"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"visitors_pct_change"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"revenue_pct_change"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"pageviews_pct_change"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"time_on_site_pct_change"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"bounce_rate_pct_change"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"conversion_rate_pct_change"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"product_clicks_rate_pct_change"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"add_to_cart_rate_pct_change"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"visitors_pct_change_gt_0"</span>, <span class="st">"BOOLEAN"</span>, mode<span class="op">=</span><span class="st">'REQUIRED'</span>),</span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"revenue_pct_change_gt_0"</span>, <span class="st">"BOOLEAN"</span>, mode<span class="op">=</span><span class="st">'REQUIRED'</span>),</span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"pageviews_pct_change_gt_0"</span>, <span class="st">"BOOLEAN"</span>, mode<span class="op">=</span><span class="st">'REQUIRED'</span>),</span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"time_on_site_pct_change_gt_0"</span>, <span class="st">"BOOLEAN"</span>, mode<span class="op">=</span><span class="st">'REQUIRED'</span>),</span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"bounce_rate_pct_change_gt_0"</span>, <span class="st">"BOOLEAN"</span>, mode<span class="op">=</span><span class="st">'REQUIRED'</span>),</span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"conversion_rate_pct_change_gt_0"</span>, <span class="st">"BOOLEAN"</span>, mode<span class="op">=</span><span class="st">'REQUIRED'</span>),</span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"product_clicks_rate_pct_change_gt_0"</span>, <span class="st">"BOOLEAN"</span>, mode<span class="op">=</span><span class="st">'REQUIRED'</span>),</span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"add_to_cart_rate_pct_change_gt_0"</span>, <span class="st">"BOOLEAN"</span>, mode<span class="op">=</span><span class="st">'REQUIRED'</span>),</span>
+<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a>job_config_summary.write_disposition <span class="op">=</span> <span class="st">'WRITE_APPEND'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell" data-execution_count="51">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>bquh.create_bq_table(gbq_summary_table_id_fully_resolved, client)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>bquh.append_df_to_bq_table(</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    df_summary, job_config_summary, gbq_summary_table_id_fully_resolved, client</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="conversion-rates-in-development-and-inference-2" class="level3">
 <h3 class="anchored" data-anchor-id="conversion-rates-in-development-and-inference-2">Conversion Rates in Development and Inference</h3>
-<div class="cell" data-execution_count="54">
-<div class="cell-output cell-output-stdout">
-<pre><code>Created table named demoabc-381618.mydemo2asdf.audience_conversion_rates
-Completed upload
-Found 6 rows and 13 columns in table mydemo2asdf.audience_conversion_rates</code></pre>
+<div class="cell" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>job_config_conv_rates <span class="op">=</span> bigquery.LoadJobConfig(</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    schema<span class="op">=</span>[</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"audience_strategy"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"infer_month"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"maudience"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"pred_conversions"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"total_visitors"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"min_score"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"true_conversions"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"data_type"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"data_size"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"true_conv_rate"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"overall_true_conv_rate"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"pred_conv_rate"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"overall_pred_conv_rate"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>job_config_conv_rates.write_disposition <span class="op">=</span> <span class="st">'WRITE_APPEND'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell" data-execution_count="54">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>bquh.create_bq_table(gbq_conv_rates_table_id_fully_resolved, client)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>bquh.append_df_to_bq_table(</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    df_conv_rates, job_config_conv_rates, gbq_conv_rates_table_id_fully_resolved, client</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="estimated-and-actual-cohort-to-audience-fractions-2" class="level3">
 <h3 class="anchored" data-anchor-id="estimated-and-actual-cohort-to-audience-fractions-2">Estimated and Actual Cohort to Audience Fractions</h3>
-<div class="cell" data-execution_count="57">
-<div class="cell-output cell-output-stdout">
-<pre><code>Created table named demoabc-381618.mydemo2asdf.cohort_audience_fractions
-Completed upload
-Found 12 rows and 13 columns in table mydemo2asdf.cohort_audience_fractions</code></pre>
+<div class="cell" data-execution_count="56">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>job_config_sa_frac <span class="op">=</span> bigquery.LoadJobConfig(</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    schema<span class="op">=</span>[</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"audience_strategy"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"infer_month"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"maudience"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"cohort"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"size"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"group_size"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"uplift"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"power"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"ci_level"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"samp_to_aud_frac"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"size_type"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"data_type"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"data_size"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>job_config_sa_frac.write_disposition <span class="op">=</span> <span class="st">'WRITE_APPEND'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell" data-execution_count="57">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>bquh.create_bq_table(gbq_sa_fracs_table_id_fully_resolved, client)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>bquh.append_df_to_bq_table(</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    df_sa_frac, job_config_sa_frac, gbq_sa_fracs_table_id_fully_resolved, client</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="aggregated-conversion-rates" class="level3">
 <h3 class="anchored" data-anchor-id="aggregated-conversion-rates">Aggregated Conversion Rates</h3>
-<div class="cell" data-execution_count="60">
-<div class="cell-output cell-output-stdout">
-<pre><code>Created table named demoabc-381618.mydemo2asdf.conversion_rates_aggregated
-Completed upload
-Found 18 rows and 4 columns in table mydemo2asdf.conversion_rates_aggregated</code></pre>
+<div class="cell" data-execution_count="59">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>job_config_conv_rates_combo <span class="op">=</span> bigquery.LoadJobConfig(</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    schema<span class="op">=</span>[</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"maudience"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"data_type"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"var"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"value"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>job_config_conv_rates_combo.write_disposition <span class="op">=</span> <span class="st">'WRITE_APPEND'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell" data-execution_count="60">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>bquh.create_bq_table(gbq_conv_rates_combo_table_id_fully_resolved, client)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>bquh.append_df_to_bq_table(</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    df_conv_rates_agg_combo,</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    job_config_conv_rates_combo,</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    gbq_conv_rates_combo_table_id_fully_resolved,</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    client</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="daily-performance-summary" class="level3">
 <h3 class="anchored" data-anchor-id="daily-performance-summary">Daily Performance Summary</h3>
-<div class="cell" data-execution_count="63">
-<div class="cell-output cell-output-stdout">
-<pre><code>Created table named demoabc-381618.mydemo2asdf.daily_summary
-Completed upload
-Found 486 rows and 18 columns in table mydemo2asdf.daily_summary</code></pre>
+<div class="cell" data-execution_count="62">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>job_config_daily_perf_combo <span class="op">=</span> bigquery.LoadJobConfig(</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    schema<span class="op">=</span>[</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"month"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"date"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"maudience"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"return_purchasers"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"revenue"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"visitors"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"add_to_cart"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"pageviews"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"time_on_site"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"product_views"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"product_clicks"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"bounces"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"audience_strategy"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"bounce_rate"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"product_clicks_rate"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"add_to_cart_rate"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"visitor_type"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"agg_type"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a>job_config_daily_perf_combo.write_disposition <span class="op">=</span> <span class="st">'WRITE_APPEND'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell" data-execution_count="63">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>bquh.create_bq_table(gbq_daily_perf_combo_table_id_fully_resolved, client)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>bquh.append_df_to_bq_table(</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    df_hmap_combo,</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    job_config_daily_perf_combo,</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    gbq_daily_perf_combo_table_id_fully_resolved,</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    client</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="categorical-feature-kpis-1" class="level3">
 <h3 class="anchored" data-anchor-id="categorical-feature-kpis-1">Categorical Feature KPIs</h3>
-<div class="cell" data-execution_count="66">
-<div class="cell-output cell-output-stdout">
-<pre><code>Created table named demoabc-381618.mydemo2asdf.categorical_features_kpis
-Completed upload
-Found 304 rows and 7 columns in table mydemo2asdf.categorical_features_kpis</code></pre>
+<div class="cell" data-execution_count="65">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>job_config_cat_feats_kpis <span class="op">=</span> bigquery.LoadJobConfig(</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    schema<span class="op">=</span>[</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"feature_name"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"feature_category"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"variable"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"value"</span>, <span class="st">"FLOAT64"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"audience_strategy"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"historical_data_month"</span>, <span class="st">"STRING"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>        bigquery.SchemaField(<span class="st">"historical_data_size"</span>, <span class="st">"INTEGER"</span>, mode<span class="op">=</span><span class="st">'NULLABLE'</span>),</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>job_config_cat_feats_kpis.write_disposition <span class="op">=</span> <span class="st">'WRITE_APPEND'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell" data-execution_count="66">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>bquh.create_bq_table(gbq_table_fully_resolved_cat_feat_kpis, client)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>bquh.append_df_to_bq_table(</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    df_development_agg,</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    job_config_cat_feats_kpis,</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    gbq_table_fully_resolved_cat_feat_kpis,</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    client,</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>

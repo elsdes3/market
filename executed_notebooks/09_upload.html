@@ -22527,9 +22527,7 @@ Show summary DataFrame with feature importances (see the second item within #1. 
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>::: {.content-hidden}
-Define BigQuery Table Schema
-:::</p>
+<p>Define BigQuery Table Schema</p>
 
 </div>
 </div>
@@ -22542,7 +22540,8 @@ Define BigQuery Table Schema
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[41]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">job_config_feats_imp</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="n">job_config_feats_imp</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
     <span class="n">schema</span><span class="o">=</span><span class="p">[</span>
         <span class="n">bigquery</span><span class="o">.</span><span class="n">SchemaField</span><span class="p">(</span><span class="s2">&quot;audience_strategy&quot;</span><span class="p">,</span> <span class="s2">&quot;INTEGER&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;NULLABLE&#39;</span><span class="p">),</span>
         <span class="n">bigquery</span><span class="o">.</span><span class="n">SchemaField</span><span class="p">(</span><span class="s2">&quot;num_observations&quot;</span><span class="p">,</span> <span class="s2">&quot;INTEGER&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;NULLABLE&#39;</span><span class="p">),</span>
@@ -22566,9 +22565,7 @@ Define BigQuery Table Schema
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>::: {.content-hidden}
-Create BigQuery table (if it does not exist) and populate
-:::</p>
+<p>Create BigQuery table (if it does not exist) and populate</p>
 
 </div>
 </div>
@@ -22581,7 +22578,9 @@ Create BigQuery table (if it does not exist) and populate
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[42]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_table_fully_resolved_feats_imp</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="c1">#| output: false</span>
+<span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_table_fully_resolved_feats_imp</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
 <span class="n">bquh</span><span class="o">.</span><span class="n">append_df_to_bq_table</span><span class="p">(</span>
     <span class="n">df_feats</span><span class="p">,</span> <span class="n">job_config_feats_imp</span><span class="p">,</span> <span class="n">gbq_table_fully_resolved_feats_imp</span><span class="p">,</span> <span class="n">client</span>
 <span class="p">)</span>
@@ -22757,7 +22756,8 @@ Define BigQuery Table Schema
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[44]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">job_config_profiles</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="n">job_config_profiles</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
     <span class="n">schema</span><span class="o">=</span><span class="p">[</span>
         <span class="n">bigquery</span><span class="o">.</span><span class="n">SchemaField</span><span class="p">(</span><span class="s2">&quot;Audience_Strategy&quot;</span><span class="p">,</span> <span class="s2">&quot;INTEGER&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;NULLABLE&#39;</span><span class="p">),</span>
         <span class="n">bigquery</span><span class="o">.</span><span class="n">SchemaField</span><span class="p">(</span><span class="s2">&quot;Stat_Expanded&quot;</span><span class="p">,</span> <span class="s2">&quot;STRING&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;NULLABLE&#39;</span><span class="p">),</span>
@@ -22796,7 +22796,9 @@ Create BigQuery table (if it does not exist) and populate
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[45]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_table_fully_resolved_profiles</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="c1">#| output: false</span>
+<span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_table_fully_resolved_profiles</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
 <span class="n">bquh</span><span class="o">.</span><span class="n">append_df_to_bq_table</span><span class="p">(</span>
     <span class="n">df_profile_sliced</span><span class="p">,</span> <span class="n">job_config_profiles</span><span class="p">,</span> <span class="n">gbq_table_fully_resolved_profiles</span><span class="p">,</span> <span class="n">client</span>
 <span class="p">)</span>
@@ -23158,7 +23160,8 @@ Define BigQuery Table Schema
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[47]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">job_config_cohorts</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="n">job_config_cohorts</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
     <span class="n">schema</span><span class="o">=</span><span class="p">[</span>
         <span class="n">bigquery</span><span class="o">.</span><span class="n">SchemaField</span><span class="p">(</span><span class="s2">&quot;infer_month&quot;</span><span class="p">,</span> <span class="s2">&quot;STRING&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;NULLABLE&#39;</span><span class="p">),</span>
         <span class="n">bigquery</span><span class="o">.</span><span class="n">SchemaField</span><span class="p">(</span><span class="s2">&quot;fullvisitorid&quot;</span><span class="p">,</span> <span class="s2">&quot;STRING&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;NULLABLE&#39;</span><span class="p">),</span>
@@ -23228,7 +23231,9 @@ Create BigQuery table (if it does not exist) and populate
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[48]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_table_fully_resolved_cohorts</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="c1">#| output: false</span>
+<span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_table_fully_resolved_cohorts</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
 <span class="n">bquh</span><span class="o">.</span><span class="n">append_df_to_bq_table</span><span class="p">(</span>
     <span class="n">df_dev_cohorts</span><span class="p">,</span> <span class="n">job_config_cohorts</span><span class="p">,</span> <span class="n">gbq_table_fully_resolved_cohorts</span><span class="p">,</span> <span class="n">client</span>
 <span class="p">)</span>
@@ -23572,7 +23577,8 @@ Define BigQuery Table Schema
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[50]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">job_config_summary</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="n">job_config_summary</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
     <span class="n">schema</span><span class="o">=</span><span class="p">[</span>
         <span class="n">bigquery</span><span class="o">.</span><span class="n">SchemaField</span><span class="p">(</span><span class="s2">&quot;month&quot;</span><span class="p">,</span> <span class="s2">&quot;INTEGER&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;NULLABLE&#39;</span><span class="p">),</span>
         <span class="n">bigquery</span><span class="o">.</span><span class="n">SchemaField</span><span class="p">(</span><span class="s2">&quot;split_type&quot;</span><span class="p">,</span> <span class="s2">&quot;STRING&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;NULLABLE&#39;</span><span class="p">),</span>
@@ -23639,7 +23645,9 @@ Create BigQuery table (if it does not exist) and populate
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[51]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_summary_table_id_fully_resolved</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="c1">#| output: false</span>
+<span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_summary_table_id_fully_resolved</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
 <span class="n">bquh</span><span class="o">.</span><span class="n">append_df_to_bq_table</span><span class="p">(</span>
     <span class="n">df_summary</span><span class="p">,</span> <span class="n">job_config_summary</span><span class="p">,</span> <span class="n">gbq_summary_table_id_fully_resolved</span><span class="p">,</span> <span class="n">client</span>
 <span class="p">)</span>
@@ -23863,7 +23871,8 @@ Define BigQuery Table Schema
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[53]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">job_config_conv_rates</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="n">job_config_conv_rates</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
     <span class="n">schema</span><span class="o">=</span><span class="p">[</span>
         <span class="n">bigquery</span><span class="o">.</span><span class="n">SchemaField</span><span class="p">(</span><span class="s2">&quot;audience_strategy&quot;</span><span class="p">,</span> <span class="s2">&quot;INTEGER&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;NULLABLE&#39;</span><span class="p">),</span>
         <span class="n">bigquery</span><span class="o">.</span><span class="n">SchemaField</span><span class="p">(</span><span class="s2">&quot;infer_month&quot;</span><span class="p">,</span> <span class="s2">&quot;STRING&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;NULLABLE&#39;</span><span class="p">),</span>
@@ -23910,7 +23919,9 @@ Create BigQuery table (if it does not exist) and populate
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[54]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_conv_rates_table_id_fully_resolved</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="c1">#| output: false</span>
+<span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_conv_rates_table_id_fully_resolved</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
 <span class="n">bquh</span><span class="o">.</span><span class="n">append_df_to_bq_table</span><span class="p">(</span>
     <span class="n">df_conv_rates</span><span class="p">,</span> <span class="n">job_config_conv_rates</span><span class="p">,</span> <span class="n">gbq_conv_rates_table_id_fully_resolved</span><span class="p">,</span> <span class="n">client</span>
 <span class="p">)</span>
@@ -24134,7 +24145,8 @@ Define BigQuery Table Schema
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[56]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">job_config_sa_frac</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="n">job_config_sa_frac</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
     <span class="n">schema</span><span class="o">=</span><span class="p">[</span>
         <span class="n">bigquery</span><span class="o">.</span><span class="n">SchemaField</span><span class="p">(</span><span class="s2">&quot;audience_strategy&quot;</span><span class="p">,</span> <span class="s2">&quot;INTEGER&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;NULLABLE&#39;</span><span class="p">),</span>
         <span class="n">bigquery</span><span class="o">.</span><span class="n">SchemaField</span><span class="p">(</span><span class="s2">&quot;infer_month&quot;</span><span class="p">,</span> <span class="s2">&quot;STRING&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;NULLABLE&#39;</span><span class="p">),</span>
@@ -24181,7 +24193,9 @@ Create BigQuery table (if it does not exist) and populate
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[57]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_sa_fracs_table_id_fully_resolved</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="c1">#| output: false</span>
+<span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_sa_fracs_table_id_fully_resolved</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
 <span class="n">bquh</span><span class="o">.</span><span class="n">append_df_to_bq_table</span><span class="p">(</span>
     <span class="n">df_sa_frac</span><span class="p">,</span> <span class="n">job_config_sa_frac</span><span class="p">,</span> <span class="n">gbq_sa_fracs_table_id_fully_resolved</span><span class="p">,</span> <span class="n">client</span>
 <span class="p">)</span>
@@ -24351,7 +24365,8 @@ Define BigQuery Table Schema
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[59]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">job_config_conv_rates_combo</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="n">job_config_conv_rates_combo</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
     <span class="n">schema</span><span class="o">=</span><span class="p">[</span>
         <span class="n">bigquery</span><span class="o">.</span><span class="n">SchemaField</span><span class="p">(</span><span class="s2">&quot;maudience&quot;</span><span class="p">,</span> <span class="s2">&quot;STRING&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;NULLABLE&#39;</span><span class="p">),</span>
         <span class="n">bigquery</span><span class="o">.</span><span class="n">SchemaField</span><span class="p">(</span><span class="s2">&quot;data_type&quot;</span><span class="p">,</span> <span class="s2">&quot;STRING&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;NULLABLE&#39;</span><span class="p">),</span>
@@ -24389,7 +24404,9 @@ Create BigQuery table (if it does not exist) and populate
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[60]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_conv_rates_combo_table_id_fully_resolved</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="c1">#| output: false</span>
+<span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_conv_rates_combo_table_id_fully_resolved</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
 <span class="n">bquh</span><span class="o">.</span><span class="n">append_df_to_bq_table</span><span class="p">(</span>
     <span class="n">df_conv_rates_agg_combo</span><span class="p">,</span>
     <span class="n">job_config_conv_rates_combo</span><span class="p">,</span>
@@ -24646,7 +24663,8 @@ Define BigQuery Table Schema
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[62]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">job_config_daily_perf_combo</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="n">job_config_daily_perf_combo</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
     <span class="n">schema</span><span class="o">=</span><span class="p">[</span>
         <span class="n">bigquery</span><span class="o">.</span><span class="n">SchemaField</span><span class="p">(</span><span class="s2">&quot;month&quot;</span><span class="p">,</span> <span class="s2">&quot;STRING&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;NULLABLE&#39;</span><span class="p">),</span>
         <span class="n">bigquery</span><span class="o">.</span><span class="n">SchemaField</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;STRING&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;NULLABLE&#39;</span><span class="p">),</span>
@@ -24698,7 +24716,9 @@ Create BigQuery table (if it does not exist) and populate
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[63]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_daily_perf_combo_table_id_fully_resolved</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="c1">#| output: false</span>
+<span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_daily_perf_combo_table_id_fully_resolved</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
 <span class="n">bquh</span><span class="o">.</span><span class="n">append_df_to_bq_table</span><span class="p">(</span>
     <span class="n">df_hmap_combo</span><span class="p">,</span>
     <span class="n">job_config_daily_perf_combo</span><span class="p">,</span>
@@ -24889,7 +24909,8 @@ Define BigQuery Table Schema
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[65]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">job_config_cat_feats_kpis</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="n">job_config_cat_feats_kpis</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">LoadJobConfig</span><span class="p">(</span>
     <span class="n">schema</span><span class="o">=</span><span class="p">[</span>
         <span class="n">bigquery</span><span class="o">.</span><span class="n">SchemaField</span><span class="p">(</span><span class="s2">&quot;feature_name&quot;</span><span class="p">,</span> <span class="s2">&quot;STRING&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;NULLABLE&#39;</span><span class="p">),</span>
         <span class="n">bigquery</span><span class="o">.</span><span class="n">SchemaField</span><span class="p">(</span><span class="s2">&quot;feature_category&quot;</span><span class="p">,</span> <span class="s2">&quot;STRING&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;NULLABLE&#39;</span><span class="p">),</span>
@@ -24930,7 +24951,9 @@ Create BigQuery table (if it does not exist) and populate
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[66]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_table_fully_resolved_cat_feat_kpis</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
+<span class="c1">#| output: false</span>
+<span class="n">bquh</span><span class="o">.</span><span class="n">create_bq_table</span><span class="p">(</span><span class="n">gbq_table_fully_resolved_cat_feat_kpis</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
 <span class="n">bquh</span><span class="o">.</span><span class="n">append_df_to_bq_table</span><span class="p">(</span>
     <span class="n">df_development_agg</span><span class="p">,</span>
     <span class="n">job_config_cat_feats_kpis</span><span class="p">,</span>

@@ -53,7 +53,7 @@ website:
       - href: notebooks/03-explore/notebooks/08_explore_best_model.ipynb
         text: Vital Features
       - href: notebooks/04-upload/notebooks/09_upload.ipynb
-        text: Upload Audience
+        text: Upload Data
       - href: notebooks/05-dash/notebooks/10_dash.ipynb
         text: Dashboard
       - href: notebooks/02-train/notebooks/11_analyze_campaign_outputs.ipynb
