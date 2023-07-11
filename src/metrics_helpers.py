@@ -181,7 +181,9 @@ def calculate_metrics(
         )
         .set_index("split")
         .transpose()
+        .astype(pd.Float64Dtype())
         .reset_index()
         .rename(columns={"index": "metric"})
+        .astype({"metric": pd.StringDtype()})
     )
     return df_metrics

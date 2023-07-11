@@ -115,7 +115,7 @@ def get_threshold_stats(df: pd.DataFrame):
         .reset_index()
         .rename(columns={"index": "metric"})
     )
-    df_threshold_stats = (
+    df_threshold = (
         df.drop(columns=["t"])
         .describe()
         .transpose()
@@ -123,8 +123,12 @@ def get_threshold_stats(df: pd.DataFrame):
         .drop(columns=["count"])
         .rename(columns={"index": "metric"})
     )
-    df_combo_stats = df_default_threshold.merge(
-        df_threshold_stats, on="metric", how="inner"
+    df_combo_stats = (
+        df_default_threshold.merge(df_threshold, on="metric", how="inner")
+        .set_index("metric")
+        .astype(pd.Float64Dtype())
+        .reset_index()
+        .astype({"metric": pd.StringDtype()})
     )
     return df_combo_stats
 
@@ -143,41 +147,42 @@ def get_threshold_tuning_scores(
             "t": t,
             "accuracy": skm.accuracy_score(
                 y_true,
-                (y_pred_proba.squeeze() >= t).astype(pd.Int8Dtype()),
+                # (y_pred_proba.squeeze() >= t).astype(pd.Int8Dtype()),
+                (y_pred_proba.squeeze() >= t).astype(pd.Int64Dtype()),
             ),
             "balanced_accuracy": skm.balanced_accuracy_score(
                 y_true,
-                (y_pred_proba.squeeze() >= t).astype(pd.Int8Dtype()),
+                (y_pred_proba.squeeze() >= t).astype(pd.Int64Dtype()),
             ),
             "precision": skm.precision_score(
                 y_true,
-                (y_pred_proba.squeeze() >= t).astype(pd.Int8Dtype()),
+                (y_pred_proba.squeeze() >= t).astype(pd.Int64Dtype()),
                 zero_division=zero_division,
                 sample_weight=sample_weight,
             ),
             "recall": skm.recall_score(
                 y_true,
-                (y_pred_proba.squeeze() >= t).astype(pd.Int8Dtype()),
+                (y_pred_proba.squeeze() >= t).astype(pd.Int64Dtype()),
                 average=average,
                 zero_division=zero_division,
                 sample_weight=sample_weight,
             ),
             "roc_auc": skm.roc_auc_score(
                 y_true,
-                (y_pred_proba.squeeze() >= t).astype(pd.Int8Dtype()),
+                (y_pred_proba.squeeze() >= t).astype(pd.Int64Dtype()),
                 average=average,
                 sample_weight=sample_weight,
             ),
             "f1": skm.f1_score(
                 y_true,
-                (y_pred_proba.squeeze() >= t).astype(pd.Int8Dtype()),
+                (y_pred_proba.squeeze() >= t).astype(pd.Int64Dtype()),
                 average=average,
                 zero_division=zero_division,
                 sample_weight=sample_weight,
             ),
             "fbeta05": skm.fbeta_score(
                 y_true,
-                (y_pred_proba.squeeze() >= t).astype(pd.Int8Dtype()),
+                (y_pred_proba.squeeze() >= t).astype(pd.Int64Dtype()),
                 average=average,
                 zero_division=zero_division,
                 sample_weight=sample_weight,
@@ -185,7 +190,7 @@ def get_threshold_tuning_scores(
             ),
             "fbeta2": skm.fbeta_score(
                 y_true,
-                (y_pred_proba.squeeze() >= t).astype(pd.Int8Dtype()),
+                (y_pred_proba.squeeze() >= t).astype(pd.Int64Dtype()),
                 average=average,
                 zero_division=zero_division,
                 sample_weight=sample_weight,
@@ -193,7 +198,7 @@ def get_threshold_tuning_scores(
             ),
             "avg_precision": skm.average_precision_score(
                 y_true,
-                (y_pred_proba.squeeze() >= t).astype(pd.Int8Dtype()),
+                (y_pred_proba.squeeze() >= t).astype(pd.Int64Dtype()),
                 average=average,
                 sample_weight=sample_weight,
             ),

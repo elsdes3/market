@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>05_get_best_model</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>01_extract_raw_data</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -4968,7 +4968,7 @@ form{
   .bp3-running-text table th, table.bp3-html-table th{
     color:#182026;
     font-weight:600; }
-  
+
   .bp3-running-text table td,
   table.bp3-html-table td{
     color:#182026; }
@@ -15101,129 +15101,20 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
     }
     init_mathjax();
     </script>
-    <!-- End of mathjax configuration --><script type="module">
-  document.addEventListener("DOMContentLoaded", async () => {
-    const diagrams = document.querySelectorAll(".jp-Mermaid > pre.mermaid");
-    // do not load mermaidjs if not needed
-    if (!diagrams.length) {
-      return;
-    }
-    const mermaid = (await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.2.3/mermaid.esm.min.mjs")).default;
-
-    mermaid.initialize({
-      maxTextSize: 100000,
-      startOnLoad: false,
-      fontFamily: window
-        .getComputedStyle(document.body)
-        .getPropertyValue("--jp-ui-font-family"),
-      theme: document.querySelector("body[data-jp-theme-light='true']")
-        ? "default"
-        : "dark",
-    });
-
-    let _nextMermaidId = 0;
-
-    function makeMermaidImage(svg) {
-      const img = document.createElement('img');
-      const maxWidth = svg.match(/max-width: (\d+)/);
-      if (maxWidth && maxWidth[1]) {
-        const width = parseInt(maxWidth[1]);
-        if (width && !Number.isNaN(width) && Number.isFinite(width)) {
-          img.width = width;
-        }
-      }
-      img.setAttribute('src', `data:image/svg+xml,${encodeURIComponent(svg)}`);
-      return img;
-    }
-
-    async function makeMermaidError(text) {
-      let errorMessage = '';
-      try {
-        await mermaid.parse(text);
-      } catch (err) {
-        errorMessage = `${err}`;
-      }
-
-      const result = document.createElement('details');
-      const summary = document.createElement('summary');
-      const pre = document.createElement('pre');
-      const code = document.createElement('code');
-      code.innerText = text;
-      pre.appendChild(code);
-      summary.appendChild(pre);
-      result.appendChild(summary);
-
-      const warning = document.createElement('pre');
-      warning.innerText = errorMessage;
-      result.appendChild(warning);
-      return result;
-    }
-
-    async function renderOneMarmaid(src) {
-      const id = `jp-mermaid-${_nextMermaidId++}`;
-      const parent = src.parentNode;
-      let raw = src.textContent.trim();
-      const el = document.createElement("div");
-      el.style.visibility = "hidden";
-      document.body.appendChild(el);
-      let result = null;
-      try {
-        const { svg } = await mermaid.render(id, raw, el);
-        result = makeMermaidImage(svg);
-      } catch (err) {
-        parent.classList.add("jp-mod-warning");
-        result = await makeMermaidError(raw);
-      } finally {
-        el.remove();
-      }
-      parent.classList.add("jp-RenderedMermaid");
-      parent.appendChild(result);
-    }
-
-    void Promise.all([...diagrams].map(renderOneMarmaid));
-  });
-</script>
-<style>
-  .jp-RenderedMarkdown .jp-Mermaid:not(.jp-RenderedMermaid) {
-    display: none;
-  }
-  .jp-RenderedMarkdown .jp-RenderedMermaid.jp-mod-warning {
-    width: auto;
-    padding: 10px;
-    border: var(--jp-border-width) solid var(--jp-warn-color2);
-    border-radius: var(--jp-border-radius);
-    color: var(--jp-ui-font-color1);
-    font-size: var(--jp-ui-font-size1);
-    white-space: pre-wrap;
-    word-wrap: break-word;
-  }
-  .jp-RenderedMarkdown .jp-RenderedMermaid.jp-mod-warning details > pre {
-    margin-top: 1em;
-  }
-  .jp-RenderedMarkdown .jp-RenderedMermaid.jp-mod-warning summary {
-    color: var(--jp-warn-color2);
-  }
-  .jp-RenderedMarkdown .jp-RenderedMermaid.jp-mod-warning summary > pre {
-    display: inline-block;
-  }
-  .jp-RenderedMermaid > .mermaid {
-    display: none;
-  }
-</style>
-<!-- End of mermaid configuration --></head>
+    <!-- End of mathjax configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 
-<div id="cell-id=35ed23c8-b4b8-4bdc-8554-b342d4506e07" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div id="cell-id=a160770f-7e3f-480f-a2a5-94638d20735d" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Register-Best-Model-in-MLFlow-Model-Registry">Register Best Model in MLFlow Model Registry<a class="anchor-link" href="#Register-Best-Model-in-MLFlow-Model-Registry">&#182;</a></h1>
+<h1 id="Get-Raw-GA360-Data">Get Raw GA360 Data<a class="anchor-link" href="#Get-Raw-GA360-Data">&#182;</a></h1>
 </div>
 </div>
 </div>
-</div><div id="cell-id=cd6a17b2-b3e9-42a8-9f45-841e4c32710c" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div id="cell-id=2c5d8464-86bf-457e-8d4c-da61ccab0e96" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -15241,7 +15132,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 
 </div>
-<div id="cell-id=508236cd-a260-4ecf-a012-fafca3c01b67" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div id="cell-id=0e8175b1-3fbd-4535-9c9b-367dd8cd0819" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -15254,7 +15145,7 @@ Import necessary Python modules
 </div>
 </div>
 </div>
-</div><div id="cell-id=4931e3e9-3c6e-4fa5-a97f-421f8a992fdb" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div id="cell-id=2dc9985c-89fa-40a0-b28c-cf50d4d73561" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -15262,14 +15153,12 @@ Import necessary Python modules
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">os</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
 
-<span class="kn">import</span> <span class="nn">mlflow.sklearn</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">mlflow</span> <span class="kn">import</span> <span class="n">MlflowClient</span>
+<span class="kn">import</span> <span class="nn">pytz</span>
 </pre></div>
 
      </div>
@@ -15278,7 +15167,7 @@ Import necessary Python modules
 </div>
 
 </div>
-<div id="cell-id=b9d65b5b-ae46-4555-ab0b-65c406729aa6" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div id="cell-id=9089bc09-b5be-41cb-85c1-4881a3ababed" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -15291,7 +15180,7 @@ Get relative path to project root directory
 </div>
 </div>
 </div>
-</div><div id="cell-id=6d21e1b9-0372-4600-9c2e-9be0216ab019" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div id="cell-id=c8e5da0f-0c93-4472-aeb6-75e1a65e4ad6" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -15310,7 +15199,7 @@ Get relative path to project root directory
 </div>
 
 </div>
-<div id="cell-id=a5075c97-f4f1-44f8-b9cc-aaf9c4aca2e9" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div id="cell-id=523d0ec0-0da1-4d78-9ac5-b02606d930fb" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -15323,7 +15212,7 @@ Import custom Python modules
 </div>
 </div>
 </div>
-</div><div id="cell-id=9188d881-f6b0-405c-995c-22c16c8c4454" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div id="cell-id=70d5b5df-a5bf-4cde-bfa0-217b3bbbe653" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -15331,8 +15220,14 @@ Import custom Python modules
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">aimport</span> model_helpers
-<span class="kn">import</span> <span class="nn">model_helpers</span> <span class="k">as</span> <span class="nn">modh</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">aimport</span> bigquery_auth_helpers
+<span class="kn">from</span> <span class="nn">bigquery_auth_helpers</span> <span class="kn">import</span> <span class="n">auth_to_bigquery</span>
+
+<span class="o">%</span><span class="k">aimport</span> sql_helpers
+<span class="kn">import</span> <span class="nn">sql_helpers</span> <span class="k">as</span> <span class="nn">sqlh</span>
+
+<span class="o">%</span><span class="k">aimport</span> transform_helpers
+<span class="kn">import</span> <span class="nn">transform_helpers</span> <span class="k">as</span> <span class="nn">th</span>
 </pre></div>
 
      </div>
@@ -15341,7 +15236,7 @@ Import custom Python modules
 </div>
 
 </div>
-<div id="cell-id=9e16325c-f4d9-4e4b-9586-8f269b71aecd" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div id="cell-id=0aad7ad4-63c1-4de6-b9e5-9a98b109eaca" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -15352,19 +15247,19 @@ Import custom Python modules
 </div>
 </div>
 </div>
-<div id="cell-id=cacf7b47-d8e7-4b34-9811-0d6817e7ebd0" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div id="cell-id=9b4fd497-7449-492e-b335-ce5435d90447" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>This step retrieves the best ML model across all the MLFlow experiment runs that were tracked during ML development. This best model is then registered in the MLFlow Model Registry.</p>
+<p>Retrieve GA360 tracking data from public <a href="https://support.google.com/analytics/answer/7586738?hl=en&amp;ref_topic=3416089&amp;sjid=2689173516056332244-NA#zippy=%2Cin-this-article">sample data of Google merchandise store transactions</a> and upload to BigQuery dataset table in personal Google Clout account.</p>
 
 </div>
 </div>
 </div>
 </div>
-<div id="cell-id=7edc9af5-473a-4980-8ed7-32bdb8a7369b" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div id="cell-id=7a0184d6-aab1-4580-9d8a-8d0e18d076c8" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -15375,18 +15270,22 @@ Import custom Python modules
 </div>
 </div>
 </div>
-<div id="cell-id=c6b92f9e-ee85-42f2-82bc-ae15566ba456" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div id="cell-id=e056eecf-2f71-4dde-b877-c7eae45617cc" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Define the primary ML scoring metric</p>
+<p>Define the following</p>
+<ol>
+<li>start date and the number of days following this date for which raw data should be queried</li>
+<li>list of nested columns in raw GA360 tracking data that is accessible in the sample merchandise store dataset</li>
+</ol>
 
 </div>
 </div>
 </div>
-</div><div id="cell-id=a2a4262a-05be-4b1c-84ba-fce714385434" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs   celltag_parameters">
+</div><div id="cell-id=a4b03fc3-60e2-408d-80e1-0ac7993dce5d" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs   celltag_parameters">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -15395,7 +15294,19 @@ Import custom Python modules
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
-<span class="n">primary_metric</span> <span class="o">=</span> <span class="s2">&quot;fbeta2&quot;</span>
+<span class="c1"># 1. start date and number of following days</span>
+<span class="n">date_start</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">29</span><span class="p">)</span>
+<span class="n">num_days</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="c1"># 2. list of nested columns in raw data</span>
+<span class="n">nested_cols</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;totals&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;trafficSource&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;device&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;geoNetwork&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;customDimensions&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;hits&#39;</span><span class="p">,</span>
+<span class="p">]</span>
 </pre></div>
 
      </div>
@@ -15404,7 +15315,36 @@ Import custom Python modules
 </div>
 
 </div>
-<div id="cell-id=a94b6015-f968-4246-a913-e209bbc3dad1" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div id="cell-id=dd903d1a-dedb-4455-81da-8959811048fd" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Get end date for which raw data should be queried</p>
+
+</div>
+</div>
+</div>
+</div><div id="cell-id=4b08d8ae-c1e0-47e2-a299-51ba4faf69d1" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">date_start_str</span> <span class="o">=</span> <span class="n">date_start</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">date_end_str</span> <span class="o">=</span> <span class="p">(</span><span class="n">date_start</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">num_days</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div id="cell-id=1a4d2404-7e23-40cd-a047-a368903b7b07" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -15417,12 +15357,12 @@ Get path to data sub-folders
 </div>
 </div>
 </div>
-</div><div id="cell-id=1eae1d64-1375-4a6a-85cb-772bf814868d" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div id="cell-id=2db30c41-008d-4abb-a179-14dd5d40ef3f" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">data_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PROJ_ROOT_DIR</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">)</span>
@@ -15435,51 +15375,18 @@ Get path to data sub-folders
 </div>
 
 </div>
-<div id="cell-id=48de7d84-eda0-4634-8d23-adfe52c0e6b7" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div id="cell-id=a9637c9d-9d31-4b40-8858-e481e62e5dcc" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>::: {.content-hidden}
-Define MLFlow storage paths
-:::</p>
+<p>Set datatypes for non-nested fields in raw GA360 tracking data</p>
 
 </div>
 </div>
 </div>
-</div><div id="cell-id=b378be54-f9ac-4fed-820c-190103090520" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mlruns_db_fpath</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">raw_data_dir</span><span class="si">}</span><span class="s2">/mlruns.db&quot;</span>
-<span class="n">mlflow</span><span class="o">.</span><span class="n">set_tracking_uri</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sqlite:///</span><span class="si">{</span><span class="n">mlruns_db_fpath</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div>
-<div id="cell-id=17c250e4-7277-4a75-b688-9d832b26abda" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>::: {.content-hidden}
-Set environment variable to silence MLFlow <code>git</code> warning messsage
-:::</p>
-
-</div>
-</div>
-</div>
-</div><div id="cell-id=4afe93df-1e62-4756-9f98-8302d33cd345" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div id="cell-id=72c8f5c8-74ed-441a-a17c-2076150c7c51" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -15487,7 +15394,17 @@ Set environment variable to silence MLFlow <code>git</code> warning messsage
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;GIT_PYTHON_REFRESH&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;quiet&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dtypes_dict_raw</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;visitorId&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>
+    <span class="s2">&quot;visitNumber&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>
+    <span class="s2">&quot;visitId&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>
+    <span class="s2">&quot;visitStartTime&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>
+    <span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
+    <span class="s2">&quot;fullVisitorId&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
+    <span class="s2">&quot;userId&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
+    <span class="s2">&quot;channelGrouping&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
+    <span class="s2">&quot;socialEngagementType&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
+<span class="p">}</span>
 </pre></div>
 
      </div>
@@ -15496,40 +15413,22 @@ Set environment variable to silence MLFlow <code>git</code> warning messsage
 </div>
 
 </div>
-<div id="cell-id=11d6a38a-f1f2-42ec-9bcc-cbb4831cfbf2" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div id="cell-id=4e825018-a8dd-48db-8c14-9e820660a98c" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Manage-ML-Experiments">Manage ML Experiments<a class="anchor-link" href="#Manage-ML-Experiments">&#182;</a></h2>
-</div>
-</div>
-</div>
-</div>
-<div id="cell-id=d018741c-3125-4635-b81d-90d2902f61a0" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Inspect-Experiment-Run-Outputs">Inspect Experiment Run Outputs<a class="anchor-link" href="#Inspect-Experiment-Run-Outputs">&#182;</a></h3>
-</div>
-</div>
-</div>
-</div>
-<div id="cell-id=ae07712b-4b3e-4fbd-ba89-d6dfa6aaaee1" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Get all runs of all experiments</p>
+<p>Define helper functions to</p>
+<ol>
+<li>show datatypes and number of missing values in a <code>DataFrame</code></li>
+<li>export a <code>DataFrame</code> to a local <code>parquet</code> file with <code>gzip</code> compression</li>
+</ol>
 
 </div>
 </div>
 </div>
-</div><div id="cell-id=7f953110-c027-40de-920f-ea21e94afac0" class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div id="cell-id=df80b327-9a5c-4f2f-a416-e06e894f0313" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -15537,8 +15436,25 @@ Set environment variable to silence MLFlow <code>git</code> warning messsage
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
-<span class="n">df_expt_runs</span> <span class="o">=</span> <span class="n">modh</span><span class="o">.</span><span class="n">get_all_experiment_runs</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">fpath</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Save DataFrame to parquet file.&quot;&quot;&quot;</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="n">fpath</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="s1">&#39;gzip&#39;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;pyarrow&#39;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">summarize_df</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Show datatypes and count missing values in columns of DataFrame.&quot;&quot;&quot;</span>
+    <span class="n">display</span><span class="p">(</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;dtype&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;missing&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(),</span>
+            <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;column&quot;</span><span class="p">})</span>
+    <span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15546,33 +15462,20 @@ Set environment variable to silence MLFlow <code>git</code> warning messsage
 </div>
 </div>
 
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
+<div id="cell-id=9bb8c3f3-08dc-47bc-8745-eefb9d2e244e" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>::: {.content-hidden}</p>
+<h2 id="Authenticate-to-BigQuery">Authenticate to <code>BigQuery</code><a class="anchor-link" href="#Authenticate-to-BigQuery">&#182;</a></h2><p>:::</p>
 
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>2023/07/10 18:58:19 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
-2023/07/10 18:58:19 INFO mlflow.store.db.utils: Updating database tables
-INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
-INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
-INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
-INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
-</pre>
 </div>
 </div>
-
 </div>
-
-</div>
-
-</div><div id="cell-id=c4532a39-1b93-42f5-a83b-39920bc18e98" class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div id="cell-id=bbb22e4a-ce04-4407-939a-e93e56eb388d" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -15580,9 +15483,7 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| output: false</span>
-<span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s2">&quot;display.max_columns&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
-    <span class="n">display</span><span class="p">(</span><span class="n">df_expt_runs</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;params&quot;</span><span class="p">,</span> <span class="s2">&quot;column_names&quot;</span><span class="p">]))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">gcp_auth_dict</span> <span class="o">=</span> <span class="n">auth_to_bigquery</span><span class="p">(</span><span class="n">raw_data_dir</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15590,1404 +15491,30 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
 </div>
 </div>
 
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>resampling_approach</th>
-      <th>clf</th>
-      <th>param_clf__a</th>
-      <th>param_clf__b</th>
-      <th>param_preprocessor__cat__rarecats__fe__ignore_format</th>
-      <th>param_preprocessor__cat__rarecats__fe__n_categories</th>
-      <th>param_preprocessor__cat__rarecats__fe__replace_with</th>
-      <th>param_preprocessor__cat__rarecats__fe__tol</th>
-      <th>param_resampler__sampling_strategy</th>
-      <th>param_select__threshold</th>
-      <th>test_accuracy</th>
-      <th>test_balanced_accuracy</th>
-      <th>test_precision</th>
-      <th>test_recall</th>
-      <th>test_roc_auc</th>
-      <th>test_f1</th>
-      <th>test_fbeta05</th>
-      <th>test_fbeta2</th>
-      <th>test_pr_auc</th>
-      <th>test_avg_precision</th>
-      <th>fit_time</th>
-      <th>score_time</th>
-      <th>experiment_run_type</th>
-      <th>train_val_accuracy</th>
-      <th>train_val_balanced_accuracy</th>
-      <th>train_val_precision</th>
-      <th>train_val_recall</th>
-      <th>train_val_roc_auc</th>
-      <th>train_val_f1</th>
-      <th>train_val_fbeta05</th>
-      <th>train_val_fbeta2</th>
-      <th>train_val_pr_auc</th>
-      <th>train_val_avg_precision</th>
-      <th>train_start_date</th>
-      <th>test_end_date</th>
-      <th>num_observations</th>
-      <th>num_columns</th>
-      <th>experiment_id</th>
-      <th>run_id</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.2</td>
-      <td>2.31</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.937904</td>
-      <td>0.501539</td>
-      <td>0.501726</td>
-      <td>0.501539</td>
-      <td>0.501539</td>
-      <td>0.501568</td>
-      <td>0.501646</td>
-      <td>0.501536</td>
-      <td>0.035103</td>
-      <td>0.034205</td>
-      <td>0.809488</td>
-      <td>0.123062</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.2</td>
-      <td>2.25</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.935732</td>
-      <td>0.497742</td>
-      <td>0.497604</td>
-      <td>0.497742</td>
-      <td>0.497742</td>
-      <td>0.497659</td>
-      <td>0.497622</td>
-      <td>0.497705</td>
-      <td>0.034681</td>
-      <td>0.033965</td>
-      <td>0.805559</td>
-      <td>0.12235</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.2</td>
-      <td>2.35</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.938707</td>
-      <td>0.499282</td>
-      <td>0.499163</td>
-      <td>0.499282</td>
-      <td>0.499282</td>
-      <td>0.499125</td>
-      <td>0.499121</td>
-      <td>0.499198</td>
-      <td>0.032796</td>
-      <td>0.034049</td>
-      <td>0.805286</td>
-      <td>0.121149</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.2</td>
-      <td>2.4</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.940549</td>
-      <td>0.504244</td>
-      <td>0.505168</td>
-      <td>0.504244</td>
-      <td>0.504244</td>
-      <td>0.504495</td>
-      <td>0.50484</td>
-      <td>0.504301</td>
-      <td>0.035744</td>
-      <td>0.034455</td>
-      <td>0.803107</td>
-      <td>0.122443</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.2</td>
-      <td>2.5</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.942532</td>
-      <td>0.499926</td>
-      <td>0.4999</td>
-      <td>0.499926</td>
-      <td>0.499926</td>
-      <td>0.499561</td>
-      <td>0.499658</td>
-      <td>0.499713</td>
-      <td>0.032515</td>
-      <td>0.034089</td>
-      <td>0.801959</td>
-      <td>0.121958</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.3</td>
-      <td>2.31</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.919866</td>
-      <td>0.498214</td>
-      <td>0.498741</td>
-      <td>0.498214</td>
-      <td>0.498214</td>
-      <td>0.497814</td>
-      <td>0.498251</td>
-      <td>0.497846</td>
-      <td>0.034976</td>
-      <td>0.033984</td>
-      <td>0.803779</td>
-      <td>0.122666</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.3</td>
-      <td>2.25</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.91741</td>
-      <td>0.498947</td>
-      <td>0.499295</td>
-      <td>0.498947</td>
-      <td>0.498947</td>
-      <td>0.498194</td>
-      <td>0.498695</td>
-      <td>0.498343</td>
-      <td>0.033065</td>
-      <td>0.034027</td>
-      <td>0.81925</td>
-      <td>0.122459</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.3</td>
-      <td>2.35</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.921471</td>
-      <td>0.499713</td>
-      <td>0.499792</td>
-      <td>0.499713</td>
-      <td>0.499713</td>
-      <td>0.499173</td>
-      <td>0.499437</td>
-      <td>0.499319</td>
-      <td>0.035574</td>
-      <td>0.034075</td>
-      <td>0.802816</td>
-      <td>0.122655</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.3</td>
-      <td>2.4</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.925296</td>
-      <td>0.509042</td>
-      <td>0.506949</td>
-      <td>0.509042</td>
-      <td>0.509042</td>
-      <td>0.50747</td>
-      <td>0.507056</td>
-      <td>0.508258</td>
-      <td>0.034781</td>
-      <td>0.034921</td>
-      <td>0.802461</td>
-      <td>0.12219</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.3</td>
-      <td>2.5</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.92728</td>
-      <td>0.497375</td>
-      <td>0.497806</td>
-      <td>0.497375</td>
-      <td>0.497375</td>
-      <td>0.497442</td>
-      <td>0.497629</td>
-      <td>0.49736</td>
-      <td>0.034528</td>
-      <td>0.033942</td>
-      <td>0.802324</td>
-      <td>0.122535</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.4</td>
-      <td>2.31</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.905511</td>
-      <td>0.50214</td>
-      <td>0.501158</td>
-      <td>0.50214</td>
-      <td>0.50214</td>
-      <td>0.498943</td>
-      <td>0.499882</td>
-      <td>0.499831</td>
-      <td>0.032523</td>
-      <td>0.034243</td>
-      <td>0.805459</td>
-      <td>0.123924</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.4</td>
-      <td>2.25</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.901969</td>
-      <td>0.505651</td>
-      <td>0.502881</td>
-      <td>0.505651</td>
-      <td>0.505651</td>
-      <td>0.500615</td>
-      <td>0.501476</td>
-      <td>0.502187</td>
-      <td>0.034332</td>
-      <td>0.034524</td>
-      <td>0.811444</td>
-      <td>0.124512</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.4</td>
-      <td>2.35</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.907919</td>
-      <td>0.502719</td>
-      <td>0.501525</td>
-      <td>0.502719</td>
-      <td>0.502719</td>
-      <td>0.499736</td>
-      <td>0.500456</td>
-      <td>0.50064</td>
-      <td>0.037026</td>
-      <td>0.034288</td>
-      <td>0.803777</td>
-      <td>0.122974</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.4</td>
-      <td>2.4</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.909619</td>
-      <td>0.49625</td>
-      <td>0.497806</td>
-      <td>0.49625</td>
-      <td>0.49625</td>
-      <td>0.495386</td>
-      <td>0.496584</td>
-      <td>0.495315</td>
-      <td>0.032283</td>
-      <td>0.033876</td>
-      <td>0.802748</td>
-      <td>0.123793</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.4</td>
-      <td>2.5</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.914247</td>
-      <td>0.499981</td>
-      <td>0.499988</td>
-      <td>0.499981</td>
-      <td>0.499981</td>
-      <td>0.498654</td>
-      <td>0.499237</td>
-      <td>0.498996</td>
-      <td>0.033059</td>
-      <td>0.034092</td>
-      <td>0.801397</td>
-      <td>0.123114</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.35</td>
-      <td>2.31</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.914294</td>
-      <td>0.504682</td>
-      <td>0.502914</td>
-      <td>0.504682</td>
-      <td>0.504682</td>
-      <td>0.502182</td>
-      <td>0.50236</td>
-      <td>0.503125</td>
-      <td>0.037819</td>
-      <td>0.034452</td>
-      <td>0.80261</td>
-      <td>0.122525</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.35</td>
-      <td>2.25</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.910186</td>
-      <td>0.496543</td>
-      <td>0.49796</td>
-      <td>0.496543</td>
-      <td>0.496543</td>
-      <td>0.495658</td>
-      <td>0.496791</td>
-      <td>0.49562</td>
-      <td>0.032837</td>
-      <td>0.033892</td>
-      <td>0.803887</td>
-      <td>0.122805</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.35</td>
-      <td>2.35</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.915097</td>
-      <td>0.498417</td>
-      <td>0.498985</td>
-      <td>0.498417</td>
-      <td>0.498417</td>
-      <td>0.497558</td>
-      <td>0.498224</td>
-      <td>0.497688</td>
-      <td>0.033328</td>
-      <td>0.033995</td>
-      <td>0.813213</td>
-      <td>0.123105</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.35</td>
-      <td>2.4</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.916324</td>
-      <td>0.492372</td>
-      <td>0.494916</td>
-      <td>0.492372</td>
-      <td>0.492372</td>
-      <td>0.492925</td>
-      <td>0.493995</td>
-      <td>0.492359</td>
-      <td>0.032488</td>
-      <td>0.033733</td>
-      <td>0.803372</td>
-      <td>0.123793</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.35</td>
-      <td>2.5</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.920055</td>
-      <td>0.490963</td>
-      <td>0.493478</td>
-      <td>0.490963</td>
-      <td>0.490963</td>
-      <td>0.491824</td>
-      <td>0.492743</td>
-      <td>0.491186</td>
-      <td>0.034802</td>
-      <td>0.033715</td>
-      <td>0.809016</td>
-      <td>0.123184</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.15</td>
-      <td>2.31</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.943996</td>
-      <td>0.496007</td>
-      <td>0.494135</td>
-      <td>0.496007</td>
-      <td>0.496007</td>
-      <td>0.494694</td>
-      <td>0.494238</td>
-      <td>0.495415</td>
-      <td>0.035475</td>
-      <td>0.033919</td>
-      <td>0.806123</td>
-      <td>0.12071</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.15</td>
-      <td>2.25</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.94291</td>
-      <td>0.496113</td>
-      <td>0.494564</td>
-      <td>0.496113</td>
-      <td>0.496113</td>
-      <td>0.495032</td>
-      <td>0.494656</td>
-      <td>0.495624</td>
-      <td>0.033018</td>
-      <td>0.033917</td>
-      <td>0.803947</td>
-      <td>0.121289</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.15</td>
-      <td>2.35</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.945554</td>
-      <td>0.498818</td>
-      <td>0.498164</td>
-      <td>0.498818</td>
-      <td>0.498818</td>
-      <td>0.497852</td>
-      <td>0.497825</td>
-      <td>0.498325</td>
-      <td>0.031906</td>
-      <td>0.034024</td>
-      <td>0.811426</td>
-      <td>0.124769</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>23</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.15</td>
-      <td>2.4</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.945979</td>
-      <td>0.493693</td>
-      <td>0.489654</td>
-      <td>0.493693</td>
-      <td>0.493693</td>
-      <td>0.491306</td>
-      <td>0.490188</td>
-      <td>0.492679</td>
-      <td>0.03449</td>
-      <td>0.033925</td>
-      <td>0.80539</td>
-      <td>0.121918</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>24</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.15</td>
-      <td>2.5</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.94801</td>
-      <td>0.495412</td>
-      <td>0.491705</td>
-      <td>0.495412</td>
-      <td>0.495412</td>
-      <td>0.492929</td>
-      <td>0.491961</td>
-      <td>0.494325</td>
-      <td>0.031851</td>
-      <td>0.033936</td>
-      <td>0.803261</td>
-      <td>0.122052</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.45</td>
-      <td>2.31</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.894319</td>
-      <td>0.499019</td>
-      <td>0.499544</td>
-      <td>0.499019</td>
-      <td>0.499019</td>
-      <td>0.495048</td>
-      <td>0.497207</td>
-      <td>0.495651</td>
-      <td>0.033661</td>
-      <td>0.034031</td>
-      <td>0.804827</td>
-      <td>0.122843</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>26</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.45</td>
-      <td>2.25</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.890872</td>
-      <td>0.500575</td>
-      <td>0.500256</td>
-      <td>0.500575</td>
-      <td>0.500575</td>
-      <td>0.495348</td>
-      <td>0.497672</td>
-      <td>0.496287</td>
-      <td>0.032565</td>
-      <td>0.034132</td>
-      <td>0.805194</td>
-      <td>0.123328</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>27</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.45</td>
-      <td>2.35</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.89635</td>
-      <td>0.492053</td>
-      <td>0.496158</td>
-      <td>0.492053</td>
-      <td>0.492053</td>
-      <td>0.491043</td>
-      <td>0.493705</td>
-      <td>0.4904</td>
-      <td>0.036357</td>
-      <td>0.033679</td>
-      <td>0.805729</td>
-      <td>0.123224</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>28</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.45</td>
-      <td>2.4</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.901119</td>
-      <td>0.502539</td>
-      <td>0.501286</td>
-      <td>0.502539</td>
-      <td>0.502539</td>
-      <td>0.498447</td>
-      <td>0.499679</td>
-      <td>0.499523</td>
-      <td>0.034183</td>
-      <td>0.034273</td>
-      <td>0.812191</td>
-      <td>0.123645</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>29</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.45</td>
-      <td>2.5</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.907352</td>
-      <td>0.501089</td>
-      <td>0.500608</td>
-      <td>0.501089</td>
-      <td>0.501089</td>
-      <td>0.498516</td>
-      <td>0.499426</td>
-      <td>0.499192</td>
-      <td>0.033904</td>
-      <td>0.034168</td>
-      <td>0.803499</td>
-      <td>0.122829</td>
-      <td>nested</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-    <tr>
-      <th>30</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.3</td>
-      <td>2.4</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>0.936669</td>
-      <td>0.499338</td>
-      <td>0.022353</td>
-      <td>0.499338</td>
-      <td>0.499338</td>
-      <td>0.498082</td>
-      <td>0.498804</td>
-      <td>0.498315</td>
-      <td>0.023243</td>
-      <td>0.023032</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>parent</td>
-      <td>0.915096</td>
-      <td>0.49881</td>
-      <td>0.041504</td>
-      <td>0.49881</td>
-      <td>0.49881</td>
-      <td>0.498821</td>
-      <td>0.498832</td>
-      <td>0.498814</td>
-      <td>0.043402</td>
-      <td>0.043624</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div id="cell-id=72137e20-a221-45ee-88f0-be1de3108a8a" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div id="cell-id=bebdedfb-3c6a-401a-b8dc-6d964e6be2d1" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Get-Outputs-of-Best-Experiment-Run">Get Outputs of Best Experiment Run<a class="anchor-link" href="#Get-Outputs-of-Best-Experiment-Run">&#182;</a></h3>
+<h2 id="Get-Data">Get Data<a class="anchor-link" href="#Get-Data">&#182;</a></h2>
 </div>
 </div>
 </div>
-</div><div id="cell-id=fb834fb6-1971-438e-8ec2-bdda3136b2d6" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div>
+<div id="cell-id=3524b705-db03-4af3-93b7-db2ff59ccc39" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Check number of observations in the single batch of raw GA360 tracking data that covers the start and end dates defined above</p>
+
+</div>
+</div>
+</div>
+</div><div id="cell-id=ebc15aa6-0450-4be0-b1b7-a873dfce672d" class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -16995,10 +15522,16 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
-<span class="n">df_best_expt_run</span> <span class="o">=</span> <span class="n">modh</span><span class="o">.</span><span class="n">get_best_experiment_run</span><span class="p">(</span>
-    <span class="n">df_expt_runs</span><span class="p">,</span> <span class="s2">&quot;experiment_run_type == &#39;parent&#39;&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;test_</span><span class="si">{</span><span class="n">primary_metric</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">query_infer</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">              SELECT COUNT(fullVisitorId) AS num_visitors,</span>
+<span class="s2">                     COUNT(visitId) AS num_visits,</span>
+<span class="s2">                     COUNT(visitNumber) AS num_visitNumbers,</span>
+<span class="s2">                     COUNT(visitStartTime) AS num_visitStartTime</span>
+<span class="s2">              FROM `data-to-insights.ecommerce.web_analytics`</span>
+<span class="s2">              WHERE date BETWEEN &#39;</span><span class="si">{</span><span class="n">date_start_str</span><span class="si">}</span><span class="s2">&#39; AND &#39;</span><span class="si">{</span><span class="n">date_end_str</span><span class="si">}</span><span class="s2">&#39;</span>
+<span class="s2">              &quot;&quot;&quot;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">th</span><span class="o">.</span><span class="n">extract_data</span><span class="p">(</span><span class="n">query_infer</span><span class="p">,</span> <span class="n">gcp_auth_dict</span><span class="p">)</span>
+<span class="n">df</span>
 </pre></div>
 
      </div>
@@ -17006,7 +15539,91 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
 </div>
 </div>
 
-</div><div id="cell-id=5222facf-202b-4c5d-a9df-a227cbc4ea13" class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Query execution start time = 2023-06-11 20:15:03.646...done at 2023-06-11 20:15:05.826 (2.180 seconds).
+Query returned 1 rows
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[11]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>num_visitors</th>
+      <th>num_visits</th>
+      <th>num_visitNumbers</th>
+      <th>num_visitStartTime</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>8352</td>
+      <td>8352</td>
+      <td>8352</td>
+      <td>8352</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div id="cell-id=7b05db0f-7efe-4b5d-bb60-987cae5bc7f7" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Read single batch of raw GA360 tracking data using a simple ETL workflow</p>
+<ol>
+<li>extract raw data covering the start and end dates defined above</li>
+<li>transform raw data by changing datatypes</li>
+<li>export transformed data to local disk</li>
+</ol>
+
+</div>
+</div>
+</div>
+</div><div id="cell-id=d63b2095-803d-43fe-9f50-59481ac86542" class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -17014,9 +15631,50 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| output: false</span>
-<span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s2">&quot;display.max_columns&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
-    <span class="n">display</span><span class="p">(</span><span class="n">df_best_expt_run</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">query_infer</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">              SELECT visitorId,</span>
+<span class="s2">                     visitNumber,</span>
+<span class="s2">                     visitId,</span>
+<span class="s2">                     visitStartTime,</span>
+<span class="s2">                     date,</span>
+<span class="s2">                     totals,</span>
+<span class="s2">                     trafficSource,</span>
+<span class="s2">                     device,</span>
+<span class="s2">                     geoNetwork,</span>
+<span class="s2">                     customDimensions,</span>
+<span class="s2">                     hits,</span>
+<span class="s2">                     fullVisitorId,</span>
+<span class="s2">                     userId,</span>
+<span class="s2">                     channelGrouping,</span>
+<span class="s2">                     socialEngagementType</span>
+<span class="s2">              FROM `data-to-insights.ecommerce.web_analytics`</span>
+<span class="s2">              WHERE date BETWEEN &#39;</span><span class="si">{</span><span class="n">date_start_str</span><span class="si">}</span><span class="s2">&#39; AND &#39;</span><span class="si">{</span><span class="n">date_end_str</span><span class="si">}</span><span class="s2">&#39;</span>
+<span class="s2">              &quot;&quot;&quot;</span>
+<span class="c1"># extract and transform</span>
+<span class="n">df</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">th</span><span class="o">.</span><span class="n">extract_data</span><span class="p">(</span><span class="n">query_infer</span><span class="p">,</span> <span class="n">gcp_auth_dict</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">th</span><span class="o">.</span><span class="n">set_datatypes</span><span class="p">,</span> <span class="n">dtypes_dict_raw</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="c1"># load</span>
+<span class="n">curr_dtime_str</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="n">pytz</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s1">&#39;US/Eastern&#39;</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">_%H%M%S&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+    <span class="n">load</span><span class="p">,</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="n">raw_data_dir</span><span class="p">,</span>
+        <span class="s2">&quot;ga_data&quot;</span><span class="p">,</span>
+        <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;d2i_ecwa__</span><span class="si">{</span><span class="n">date_start_str</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">date_end_str</span><span class="si">}</span><span class="s2">__&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">curr_dtime_str</span><span class="si">}</span><span class="s2">.parquet.gzip&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="n">summarize_df</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">df</span>
 </pre></div>
 
      </div>
@@ -17031,356 +15689,18 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
 
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>resampling_approach</th>
-      <th>clf</th>
-      <th>param_clf__a</th>
-      <th>param_clf__b</th>
-      <th>param_preprocessor__cat__rarecats__fe__ignore_format</th>
-      <th>param_preprocessor__cat__rarecats__fe__n_categories</th>
-      <th>param_preprocessor__cat__rarecats__fe__replace_with</th>
-      <th>param_preprocessor__cat__rarecats__fe__tol</th>
-      <th>param_resampler__sampling_strategy</th>
-      <th>param_select__threshold</th>
-      <th>params</th>
-      <th>test_accuracy</th>
-      <th>test_balanced_accuracy</th>
-      <th>test_precision</th>
-      <th>test_recall</th>
-      <th>test_roc_auc</th>
-      <th>test_f1</th>
-      <th>test_fbeta05</th>
-      <th>test_fbeta2</th>
-      <th>test_pr_auc</th>
-      <th>test_avg_precision</th>
-      <th>fit_time</th>
-      <th>score_time</th>
-      <th>experiment_run_type</th>
-      <th>train_val_accuracy</th>
-      <th>train_val_balanced_accuracy</th>
-      <th>train_val_precision</th>
-      <th>train_val_recall</th>
-      <th>train_val_roc_auc</th>
-      <th>train_val_f1</th>
-      <th>train_val_fbeta05</th>
-      <th>train_val_fbeta2</th>
-      <th>train_val_pr_auc</th>
-      <th>train_val_avg_precision</th>
-      <th>train_start_date</th>
-      <th>test_end_date</th>
-      <th>num_observations</th>
-      <th>num_columns</th>
-      <th>column_names</th>
-      <th>experiment_id</th>
-      <th>run_id</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>30</th>
-      <td>os</td>
-      <td>BetaDistClassifier</td>
-      <td>0.3</td>
-      <td>2.4</td>
-      <td>True</td>
-      <td>1</td>
-      <td>other</td>
-      <td>0.1</td>
-      <td>0.1</td>
-      <td>0.7</td>
-      <td>{"clf__a": 0.3, "clf__b": 2.4, "preprocessor__...</td>
-      <td>0.936669</td>
-      <td>0.499338</td>
-      <td>0.022353</td>
-      <td>0.499338</td>
-      <td>0.499338</td>
-      <td>0.498082</td>
-      <td>0.498804</td>
-      <td>0.498315</td>
-      <td>0.023243</td>
-      <td>0.023032</td>
-      <td>&lt;NA&gt;</td>
-      <td>&lt;NA&gt;</td>
-      <td>parent</td>
-      <td>0.915096</td>
-      <td>0.49881</td>
-      <td>0.041504</td>
-      <td>0.49881</td>
-      <td>0.49881</td>
-      <td>0.498821</td>
-      <td>0.498832</td>
-      <td>0.498814</td>
-      <td>0.043402</td>
-      <td>0.043624</td>
-      <td>20160901</td>
-      <td>20170228</td>
-      <td>113728</td>
-      <td>29</td>
-      <td>["fullvisitorid", "visitId", "visitNumber", "v...</td>
-      <td>1</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div id="cell-id=128cb613-9084-4682-9cfd-dc8dd8144014" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Get-Parameters-Associated-With-Best-Experiment-Run">Get Parameters Associated With Best Experiment Run<a class="anchor-link" href="#Get-Parameters-Associated-With-Best-Experiment-Run">&#182;</a></h3>
-</div>
-</div>
-</div>
-</div>
-<div id="cell-id=2b976eb7-f725-44b9-b5fd-49c5ada6216b" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Get the metadata and metrics for all available data and experiment run ID for best performing run</p>
-<ol>
-<li>features<ul>
-<li>list of column names</li>
-</ul>
-</li>
-<li>metrics<ul>
-<li>primary metric score on the test split, during ML evaluation</li>
-</ul>
-</li>
-<li>run ID<ul>
-<li>MLFlow experiment run ID</li>
-</ul>
-</li>
-</ol>
-
-</div>
-</div>
-</div>
-</div><div id="cell-id=9758c117-91fd-44e4-a99d-e723de57c452" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
-<span class="n">cols_best_expt_run</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">df_best_expt_run</span><span class="p">[</span><span class="s2">&quot;column_names&quot;</span><span class="p">])</span>
-<span class="n">best_model_eval_score</span> <span class="o">=</span> <span class="n">df_best_expt_run</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;test_</span><span class="si">{</span><span class="n">primary_metric</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>
-<span class="n">best_run_id</span> <span class="o">=</span> <span class="n">df_best_expt_run</span><span class="p">[</span><span class="s2">&quot;run_id&quot;</span><span class="p">]</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div id="cell-id=43c12098-1b28-404f-a1d8-0829034d328a" class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| output: false</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">best_model_eval_score</span><span class="p">)</span>
-<span class="n">cols_best_expt_run</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>0.49831454715525647
+<pre>Query execution start time = 2023-06-11 20:15:08.123...done at 2023-06-11 20:16:31.160 (83.037 seconds).
+Query returned 8,352 rows
 </pre>
 </div>
 </div>
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[14]:</div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>[&#39;fullvisitorid&#39;,
- &#39;visitId&#39;,
- &#39;visitNumber&#39;,
- &#39;visitStartTime&#39;,
- &#39;quarter&#39;,
- &#39;month&#39;,
- &#39;day_of_month&#39;,
- &#39;day_of_week&#39;,
- &#39;hour&#39;,
- &#39;minute&#39;,
- &#39;second&#39;,
- &#39;source&#39;,
- &#39;medium&#39;,
- &#39;channelGrouping&#39;,
- &#39;hits&#39;,
- &#39;bounces&#39;,
- &#39;last_action&#39;,
- &#39;promos_displayed&#39;,
- &#39;promos_clicked&#39;,
- &#39;product_views&#39;,
- &#39;product_clicks&#39;,
- &#39;pageviews&#39;,
- &#39;time_on_site&#39;,
- &#39;browser&#39;,
- &#39;os&#39;,
- &#39;deviceCategory&#39;,
- &#39;added_to_cart&#39;,
- &#39;revenue&#39;,
- &#39;made_purchase_on_future_visit&#39;]</pre>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div id="cell-id=b9507510-f01a-485d-83f7-28ea6d32a462" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Get-Name-of-Logged-Model-Associated-with-Best-Experiment-Run">Get Name of Logged Model Associated with Best Experiment Run<a class="anchor-link" href="#Get-Name-of-Logged-Model-Associated-with-Best-Experiment-Run">&#182;</a></h3>
-</div>
-</div>
-</div>
-</div>
-<div id="cell-id=a76f2e2c-ef66-443e-8179-62e557ed5819" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Get name of model associated with best run</p>
-
-</div>
-</div>
-</div>
-</div><div id="cell-id=26c45072-384d-4b2a-8524-9495135dc00b" class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
-<span class="n">df_best_run_model</span> <span class="o">=</span> <span class="n">modh</span><span class="o">.</span><span class="n">get_single_registered_model</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;run_id == &#39;</span><span class="si">{</span><span class="n">best_run_id</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
-<span class="n">best_run_model_name</span> <span class="o">=</span> <span class="n">df_best_run_model</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>2023/07/10 18:58:20 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
-2023/07/10 18:58:20 INFO mlflow.store.db.utils: Updating database tables
-INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
-INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div><div id="cell-id=c717ee59-cbbb-411f-b5d2-511304f4240b" class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># output: false</span>
-<span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s2">&quot;display.max_colwidth&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
-    <span class="n">display</span><span class="p">(</span><span class="n">df_best_run_model</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">best_run_model_name</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-    
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
@@ -17404,23 +15724,101 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>name</th>
-      <th>run_id</th>
-      <th>description</th>
-      <th>source</th>
-      <th>version</th>
-      <th>status</th>
+      <th>column</th>
+      <th>dtype</th>
+      <th>missing</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>BetaDistClassifier_20160901_20170228_133892_feats__20230710_184102</td>
-      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
-      <td>Best BetaDistClassifier model with fbeta2 score of 0.4983145472</td>
-      <td>/home/jovyan/notebooks/mlruns/f805253a6ba64ee6a41bf14310ef16a4/artifacts/model</td>
-      <td>1</td>
-      <td>READY</td>
+      <td>visitorId</td>
+      <td>Int64</td>
+      <td>8352</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>visitNumber</td>
+      <td>Int64</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>visitId</td>
+      <td>Int64</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>visitStartTime</td>
+      <td>Int64</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>date</td>
+      <td>string[python]</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>totals</td>
+      <td>object</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>trafficSource</td>
+      <td>object</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>device</td>
+      <td>object</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>geoNetwork</td>
+      <td>object</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>customDimensions</td>
+      <td>object</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>hits</td>
+      <td>object</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>fullVisitorId</td>
+      <td>string[python]</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>userId</td>
+      <td>string[python]</td>
+      <td>8352</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>channelGrouping</td>
+      <td>string[python]</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>socialEngagementType</td>
+      <td>string[python]</td>
+      <td>0</td>
     </tr>
   </tbody>
 </table>
@@ -17428,181 +15826,251 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
 </div>
 
 </div>
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>BetaDistClassifier_20160901_20170228_133892_feats__20230710_184102
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div id="cell-id=2f4aad5b-2192-4e53-b012-4f3577e1bf2c" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Load-Best-Deployment-Candidate-Model-from-Model-Registry">Load Best Deployment Candidate Model from Model Registry<a class="anchor-link" href="#Load-Best-Deployment-Candidate-Model-from-Model-Registry">&#182;</a></h3>
-</div>
-</div>
-</div>
-</div><div id="cell-id=9f978432-ae2b-4f71-a517-4d8d44cf5dd6" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[17]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">best_model_uri</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;models:/</span><span class="si">{</span><span class="n">best_run_model_name</span><span class="si">}</span><span class="s2">/latest&quot;</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">mlflow</span><span class="o">.</span><span class="n">sklearn</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="n">model_uri</span><span class="o">=</span><span class="n">best_model_uri</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div id="cell-id=9f5ec707-ff09-4fb3-844a-e063fa2ccee8" class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[18]:</div>
+
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[12]:</div>
 
 
 
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
-                 ColumnTransformer(transformers=[(&#x27;num&#x27;,
-                                                  Pipeline(steps=[(&#x27;aboveavg&#x27;,
-                                                                   AboveAveragePagePromoEngager(cols=[&#x27;hits&#x27;,
-                                                                                                      &#x27;promos_displayed&#x27;,
-                                                                                                      &#x27;promos_clicked&#x27;,
-                                                                                                      &#x27;product_views&#x27;,
-                                                                                                      &#x27;product_clicks&#x27;,
-                                                                                                      &#x27;pageviews&#x27;,
-                                                                                                      &#x27;time_on_site&#x27;])),
-                                                                  (&#x27;scaler&#x27;,
-                                                                   MinMaxScaler())]),
-                                                  [&#x27;hits&#x27;, &#x27;promos_displayed&#x27;,
-                                                   &#x27;promos_clicked&#x27;,
-                                                   &#x27;product_views&#x27;,
-                                                   &#x27;product_clicks&#x27;,
-                                                   &#x27;page...
-                                                                  (&#x27;dummy&#x27;,
-                                                                   OneHotEncoder(drop=&#x27;first&#x27;,
-                                                                                 dtype=&lt;class &#x27;int&#x27;&gt;,
-                                                                                 handle_unknown=&#x27;ignore&#x27;))]),
-                                                  [&#x27;bounces&#x27;, &#x27;last_action&#x27;,
-                                                   &#x27;source&#x27;, &#x27;medium&#x27;,
-                                                   &#x27;channelGrouping&#x27;, &#x27;browser&#x27;,
-                                                   &#x27;os&#x27;, &#x27;deviceCategory&#x27;])])),
-                (&#x27;select&#x27;, DropCorrelatedFeatures(threshold=0.7)),
-                (&#x27;resampler&#x27;,
-                 RandomOverSampler(random_state=88, sampling_strategy=0.1)),
-                [&#x27;clf&#x27;, BetaDistClassifier(a=0.3, b=2.4, random_state=88)]])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
-                 ColumnTransformer(transformers=[(&#x27;num&#x27;,
-                                                  Pipeline(steps=[(&#x27;aboveavg&#x27;,
-                                                                   AboveAveragePagePromoEngager(cols=[&#x27;hits&#x27;,
-                                                                                                      &#x27;promos_displayed&#x27;,
-                                                                                                      &#x27;promos_clicked&#x27;,
-                                                                                                      &#x27;product_views&#x27;,
-                                                                                                      &#x27;product_clicks&#x27;,
-                                                                                                      &#x27;pageviews&#x27;,
-                                                                                                      &#x27;time_on_site&#x27;])),
-                                                                  (&#x27;scaler&#x27;,
-                                                                   MinMaxScaler())]),
-                                                  [&#x27;hits&#x27;, &#x27;promos_displayed&#x27;,
-                                                   &#x27;promos_clicked&#x27;,
-                                                   &#x27;product_views&#x27;,
-                                                   &#x27;product_clicks&#x27;,
-                                                   &#x27;page...
-                                                                  (&#x27;dummy&#x27;,
-                                                                   OneHotEncoder(drop=&#x27;first&#x27;,
-                                                                                 dtype=&lt;class &#x27;int&#x27;&gt;,
-                                                                                 handle_unknown=&#x27;ignore&#x27;))]),
-                                                  [&#x27;bounces&#x27;, &#x27;last_action&#x27;,
-                                                   &#x27;source&#x27;, &#x27;medium&#x27;,
-                                                   &#x27;channelGrouping&#x27;, &#x27;browser&#x27;,
-                                                   &#x27;os&#x27;, &#x27;deviceCategory&#x27;])])),
-                (&#x27;select&#x27;, DropCorrelatedFeatures(threshold=0.7)),
-                (&#x27;resampler&#x27;,
-                 RandomOverSampler(random_state=88, sampling_strategy=0.1)),
-                [&#x27;clf&#x27;, BetaDistClassifier(a=0.3, b=2.4, random_state=88)]])</pre></div></div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">preprocessor: ColumnTransformer</label><div class="sk-toggleable__content"><pre>ColumnTransformer(transformers=[(&#x27;num&#x27;,
-                                 Pipeline(steps=[(&#x27;aboveavg&#x27;,
-                                                  AboveAveragePagePromoEngager(cols=[&#x27;hits&#x27;,
-                                                                                     &#x27;promos_displayed&#x27;,
-                                                                                     &#x27;promos_clicked&#x27;,
-                                                                                     &#x27;product_views&#x27;,
-                                                                                     &#x27;product_clicks&#x27;,
-                                                                                     &#x27;pageviews&#x27;,
-                                                                                     &#x27;time_on_site&#x27;])),
-                                                 (&#x27;scaler&#x27;, MinMaxScaler())]),
-                                 [&#x27;hits&#x27;, &#x27;promos_displayed&#x27;, &#x27;promos_clicked&#x27;,
-                                  &#x27;product_views&#x27;, &#x27;product_clicks&#x27;,
-                                  &#x27;pageviews&#x27;, &#x27;time_on_site&#x27;]),
-                                (&#x27;cat&#x27;,
-                                 P...
-                                                                                                    n_categories=1,
-                                                                                                    replace_with=&#x27;other&#x27;,
-                                                                                                    tol=0.1,
-                                                                                                    variables=[&#x27;source&#x27;,
-                                                                                                               &#x27;browser&#x27;]),
-                                                                                   [&#x27;bounces&#x27;,
-                                                                                    &#x27;last_action&#x27;,
-                                                                                    &#x27;source&#x27;,
-                                                                                    &#x27;medium&#x27;,
-                                                                                    &#x27;channelGrouping&#x27;,
-                                                                                    &#x27;browser&#x27;,
-                                                                                    &#x27;os&#x27;,
-                                                                                    &#x27;deviceCategory&#x27;])])),
-                                                 (&#x27;dummy&#x27;,
-                                                  OneHotEncoder(drop=&#x27;first&#x27;,
-                                                                dtype=&lt;class &#x27;int&#x27;&gt;,
-                                                                handle_unknown=&#x27;ignore&#x27;))]),
-                                 [&#x27;bounces&#x27;, &#x27;last_action&#x27;, &#x27;source&#x27;, &#x27;medium&#x27;,
-                                  &#x27;channelGrouping&#x27;, &#x27;browser&#x27;, &#x27;os&#x27;,
-                                  &#x27;deviceCategory&#x27;])])</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label sk-toggleable__label-arrow">num</label><div class="sk-toggleable__content"><pre>[&#x27;hits&#x27;, &#x27;promos_displayed&#x27;, &#x27;promos_clicked&#x27;, &#x27;product_views&#x27;, &#x27;product_clicks&#x27;, &#x27;pageviews&#x27;, &#x27;time_on_site&#x27;]</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label sk-toggleable__label-arrow">AboveAveragePagePromoEngager</label><div class="sk-toggleable__content"><pre>AboveAveragePagePromoEngager(cols=[&#x27;hits&#x27;, &#x27;promos_displayed&#x27;, &#x27;promos_clicked&#x27;,
-                                   &#x27;product_views&#x27;, &#x27;product_clicks&#x27;,
-                                   &#x27;pageviews&#x27;, &#x27;time_on_site&#x27;])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" ><label for="sk-estimator-id-5" class="sk-toggleable__label sk-toggleable__label-arrow">MinMaxScaler</label><div class="sk-toggleable__content"><pre>MinMaxScaler()</pre></div></div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox" ><label for="sk-estimator-id-6" class="sk-toggleable__label sk-toggleable__label-arrow">cat</label><div class="sk-toggleable__content"><pre>[&#x27;bounces&#x27;, &#x27;last_action&#x27;, &#x27;source&#x27;, &#x27;medium&#x27;, &#x27;channelGrouping&#x27;, &#x27;browser&#x27;, &#x27;os&#x27;, &#x27;deviceCategory&#x27;]</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox" ><label for="sk-estimator-id-7" class="sk-toggleable__label sk-toggleable__label-arrow">rarecats: ColumnTransformer</label><div class="sk-toggleable__content"><pre>ColumnTransformer(remainder=&#x27;passthrough&#x27;,
-                  transformers=[(&#x27;fe&#x27;,
-                                 RareLabelEncoder(ignore_format=True,
-                                                  n_categories=1,
-                                                  replace_with=&#x27;other&#x27;, tol=0.1,
-                                                  variables=[&#x27;source&#x27;,
-                                                             &#x27;browser&#x27;]),
-                                 [&#x27;bounces&#x27;, &#x27;last_action&#x27;, &#x27;source&#x27;, &#x27;medium&#x27;,
-                                  &#x27;channelGrouping&#x27;, &#x27;browser&#x27;, &#x27;os&#x27;,
-                                  &#x27;deviceCategory&#x27;])])</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox" ><label for="sk-estimator-id-8" class="sk-toggleable__label sk-toggleable__label-arrow">fe</label><div class="sk-toggleable__content"><pre>[&#x27;bounces&#x27;, &#x27;last_action&#x27;, &#x27;source&#x27;, &#x27;medium&#x27;, &#x27;channelGrouping&#x27;, &#x27;browser&#x27;, &#x27;os&#x27;, &#x27;deviceCategory&#x27;]</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-9" type="checkbox" ><label for="sk-estimator-id-9" class="sk-toggleable__label sk-toggleable__label-arrow">RareLabelEncoder</label><div class="sk-toggleable__content"><pre>RareLabelEncoder(ignore_format=True, n_categories=1, replace_with=&#x27;other&#x27;,
-                 tol=0.1, variables=[&#x27;source&#x27;, &#x27;browser&#x27;])</pre></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-10" type="checkbox" ><label for="sk-estimator-id-10" class="sk-toggleable__label sk-toggleable__label-arrow">remainder</label><div class="sk-toggleable__content"><pre></pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-11" type="checkbox" ><label for="sk-estimator-id-11" class="sk-toggleable__label sk-toggleable__label-arrow">passthrough</label><div class="sk-toggleable__content"><pre>passthrough</pre></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-12" type="checkbox" ><label for="sk-estimator-id-12" class="sk-toggleable__label sk-toggleable__label-arrow">OneHotEncoder</label><div class="sk-toggleable__content"><pre>OneHotEncoder(drop=&#x27;first&#x27;, dtype=&lt;class &#x27;int&#x27;&gt;, handle_unknown=&#x27;ignore&#x27;)</pre></div></div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-13" type="checkbox" ><label for="sk-estimator-id-13" class="sk-toggleable__label sk-toggleable__label-arrow">DropCorrelatedFeatures</label><div class="sk-toggleable__content"><pre>DropCorrelatedFeatures(threshold=0.7)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-14" type="checkbox" ><label for="sk-estimator-id-14" class="sk-toggleable__label sk-toggleable__label-arrow">RandomOverSampler</label><div class="sk-toggleable__content"><pre>RandomOverSampler(random_state=88, sampling_strategy=0.1)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-15" type="checkbox" ><label for="sk-estimator-id-15" class="sk-toggleable__label sk-toggleable__label-arrow">BetaDistClassifier</label><div class="sk-toggleable__content"><pre>BetaDistClassifier(a=0.3, b=2.4, random_state=88)</pre></div></div></div></div></div></div></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>visitorId</th>
+      <th>visitNumber</th>
+      <th>visitId</th>
+      <th>visitStartTime</th>
+      <th>date</th>
+      <th>totals</th>
+      <th>trafficSource</th>
+      <th>device</th>
+      <th>geoNetwork</th>
+      <th>customDimensions</th>
+      <th>hits</th>
+      <th>fullVisitorId</th>
+      <th>userId</th>
+      <th>channelGrouping</th>
+      <th>socialEngagementType</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>&lt;NA&gt;</td>
+      <td>1</td>
+      <td>1472572720</td>
+      <td>1472572720</td>
+      <td>20160830</td>
+      <td>{'visits': 1, 'hits': 25, 'pageviews': 25, 'ti...</td>
+      <td>{'referralPath': None, 'campaign': '(not set)'...</td>
+      <td>{'browser': 'Chrome', 'browserVersion': 'not a...</td>
+      <td>{'continent': 'Europe', 'subContinent': 'Weste...</td>
+      <td>[{'index': 4, 'value': 'EMEA'}]</td>
+      <td>[{'hitNumber': 1, 'time': 0, 'hour': 8, 'minut...</td>
+      <td>6310074065412572387</td>
+      <td>&lt;NA&gt;</td>
+      <td>Organic Search</td>
+      <td>Not Socially Engaged</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>&lt;NA&gt;</td>
+      <td>1</td>
+      <td>1472660157</td>
+      <td>1472660157</td>
+      <td>20160831</td>
+      <td>{'visits': 1, 'hits': 11, 'pageviews': 4, 'tim...</td>
+      <td>{'referralPath': '/yt/about/it/', 'campaign': ...</td>
+      <td>{'browser': 'Internet Explorer', 'browserVersi...</td>
+      <td>{'continent': 'Europe', 'subContinent': 'South...</td>
+      <td>[{'index': 4, 'value': 'EMEA'}]</td>
+      <td>[{'hitNumber': 1, 'time': 0, 'hour': 9, 'minut...</td>
+      <td>6129951617144982312</td>
+      <td>&lt;NA&gt;</td>
+      <td>Social</td>
+      <td>Not Socially Engaged</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>&lt;NA&gt;</td>
+      <td>1</td>
+      <td>1472653657</td>
+      <td>1472653657</td>
+      <td>20160831</td>
+      <td>{'visits': 1, 'hits': 12, 'pageviews': 10, 'ti...</td>
+      <td>{'referralPath': None, 'campaign': '(not set)'...</td>
+      <td>{'browser': 'Chrome', 'browserVersion': 'not a...</td>
+      <td>{'continent': 'Americas', 'subContinent': 'Nor...</td>
+      <td>[{'index': 4, 'value': 'North America'}]</td>
+      <td>[{'hitNumber': 1, 'time': 0, 'hour': 7, 'minut...</td>
+      <td>9261426544476024839</td>
+      <td>&lt;NA&gt;</td>
+      <td>Organic Search</td>
+      <td>Not Socially Engaged</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>&lt;NA&gt;</td>
+      <td>1</td>
+      <td>1472709452</td>
+      <td>1472709452</td>
+      <td>20160831</td>
+      <td>{'visits': 1, 'hits': 24, 'pageviews': 12, 'ti...</td>
+      <td>{'referralPath': None, 'campaign': '(not set)'...</td>
+      <td>{'browser': 'Safari', 'browserVersion': 'not a...</td>
+      <td>{'continent': 'Americas', 'subContinent': 'Nor...</td>
+      <td>[{'index': 4, 'value': 'North America'}]</td>
+      <td>[{'hitNumber': 1, 'time': 0, 'hour': 22, 'minu...</td>
+      <td>1337579406798436153</td>
+      <td>&lt;NA&gt;</td>
+      <td>Organic Search</td>
+      <td>Not Socially Engaged</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>&lt;NA&gt;</td>
+      <td>1</td>
+      <td>1472649414</td>
+      <td>1472649414</td>
+      <td>20160831</td>
+      <td>{'visits': 1, 'hits': 4, 'pageviews': 4, 'time...</td>
+      <td>{'referralPath': None, 'campaign': '(not set)'...</td>
+      <td>{'browser': 'Chrome', 'browserVersion': 'not a...</td>
+      <td>{'continent': 'Americas', 'subContinent': 'Nor...</td>
+      <td>[{'index': 4, 'value': 'North America'}]</td>
+      <td>[{'hitNumber': 1, 'time': 0, 'hour': 6, 'minut...</td>
+      <td>6358417443945108456</td>
+      <td>&lt;NA&gt;</td>
+      <td>Organic Search</td>
+      <td>Not Socially Engaged</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>8347</th>
+      <td>&lt;NA&gt;</td>
+      <td>3</td>
+      <td>1472527033</td>
+      <td>1472527033</td>
+      <td>20160829</td>
+      <td>{'visits': 1, 'hits': 3, 'pageviews': 3, 'time...</td>
+      <td>{'referralPath': None, 'campaign': 'Data Share...</td>
+      <td>{'browser': 'Chrome', 'browserVersion': 'not a...</td>
+      <td>{'continent': 'Asia', 'subContinent': 'Souther...</td>
+      <td>[{'index': 4, 'value': 'APAC'}]</td>
+      <td>[{'hitNumber': 1, 'time': 0, 'hour': 20, 'minu...</td>
+      <td>2889769673011198680</td>
+      <td>&lt;NA&gt;</td>
+      <td>Affiliates</td>
+      <td>Not Socially Engaged</td>
+    </tr>
+    <tr>
+      <th>8348</th>
+      <td>&lt;NA&gt;</td>
+      <td>3</td>
+      <td>1472614523</td>
+      <td>1472614523</td>
+      <td>20160830</td>
+      <td>{'visits': 1, 'hits': 3, 'pageviews': 3, 'time...</td>
+      <td>{'referralPath': None, 'campaign': '(not set)'...</td>
+      <td>{'browser': 'Chrome', 'browserVersion': 'not a...</td>
+      <td>{'continent': 'Europe', 'subContinent': 'Easte...</td>
+      <td>[{'index': 4, 'value': 'EMEA'}]</td>
+      <td>[{'hitNumber': 1, 'time': 0, 'hour': 20, 'minu...</td>
+      <td>604891406081300754</td>
+      <td>&lt;NA&gt;</td>
+      <td>Organic Search</td>
+      <td>Not Socially Engaged</td>
+    </tr>
+    <tr>
+      <th>8349</th>
+      <td>&lt;NA&gt;</td>
+      <td>1</td>
+      <td>1472664315</td>
+      <td>1472664315</td>
+      <td>20160831</td>
+      <td>{'visits': 1, 'hits': 3, 'pageviews': 3, 'time...</td>
+      <td>{'referralPath': None, 'campaign': '(not set)'...</td>
+      <td>{'browser': 'Chrome', 'browserVersion': 'not a...</td>
+      <td>{'continent': 'Americas', 'subContinent': 'Nor...</td>
+      <td>[{'index': 4, 'value': 'North America'}]</td>
+      <td>[{'hitNumber': 1, 'time': 0, 'hour': 10, 'minu...</td>
+      <td>3581166819978524336</td>
+      <td>&lt;NA&gt;</td>
+      <td>Direct</td>
+      <td>Not Socially Engaged</td>
+    </tr>
+    <tr>
+      <th>8350</th>
+      <td>&lt;NA&gt;</td>
+      <td>2</td>
+      <td>1472579911</td>
+      <td>1472579911</td>
+      <td>20160830</td>
+      <td>{'visits': 1, 'hits': 3, 'pageviews': 3, 'time...</td>
+      <td>{'referralPath': None, 'campaign': '(not set)'...</td>
+      <td>{'browser': 'Chrome', 'browserVersion': 'not a...</td>
+      <td>{'continent': 'Americas', 'subContinent': 'Nor...</td>
+      <td>[{'index': 4, 'value': 'North America'}]</td>
+      <td>[{'hitNumber': 1, 'time': 0, 'hour': 10, 'minu...</td>
+      <td>4272722720089537695</td>
+      <td>&lt;NA&gt;</td>
+      <td>Direct</td>
+      <td>Not Socially Engaged</td>
+    </tr>
+    <tr>
+      <th>8351</th>
+      <td>&lt;NA&gt;</td>
+      <td>1</td>
+      <td>1472461242</td>
+      <td>1472461242</td>
+      <td>20160829</td>
+      <td>{'visits': 1, 'hits': 3, 'pageviews': 3, 'time...</td>
+      <td>{'referralPath': None, 'campaign': '(not set)'...</td>
+      <td>{'browser': 'Chrome', 'browserVersion': 'not a...</td>
+      <td>{'continent': 'Americas', 'subContinent': 'Nor...</td>
+      <td>[{'index': 4, 'value': 'North America'}]</td>
+      <td>[{'hitNumber': 1, 'time': 0, 'hour': 2, 'minut...</td>
+      <td>1698783722568959935</td>
+      <td>&lt;NA&gt;</td>
+      <td>Organic Search</td>
+      <td>Not Socially Engaged</td>
+    </tr>
+  </tbody>
+</table>
+<p>8352 rows × 15 columns</p>
+</div>
 </div>
 
 </div>
@@ -17611,80 +16079,6 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
 
 </div>
 
-</div>
-<div id="cell-id=e60b8c6f-3000-4053-83db-fedf252be3b0" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Add-MLFlow-Model-Associated-with-Best-Experiment-Run-to-Model-Registry">Add MLFlow Model Associated with Best Experiment Run to Model Registry<a class="anchor-link" href="#Add-MLFlow-Model-Associated-with-Best-Experiment-Run-to-Model-Registry">&#182;</a></h3>
-</div>
-</div>
-</div>
-</div>
-<div id="cell-id=e3ecffc6-5aa1-44f4-9bf6-25a132f8451b" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Create a new registered model, with a version</p>
-
-</div>
-</div>
-</div>
-</div><div id="cell-id=672f3f20-b539-461d-b3e2-142e12173a6a" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[19]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
-<span class="n">client</span> <span class="o">=</span> <span class="n">MlflowClient</span><span class="p">(</span><span class="n">tracking_uri</span><span class="o">=</span><span class="n">mlflow</span><span class="o">.</span><span class="n">get_tracking_uri</span><span class="p">())</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">create_model_version</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="n">best_run_model_name</span><span class="p">,</span>
-    <span class="n">await_creation_for</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;deployment-candidate&#39;</span><span class="p">:</span> <span class="s2">&quot;yes&quot;</span><span class="p">},</span>
-    <span class="n">description</span><span class="o">=</span><span class="p">(</span>
-        <span class="sa">f</span><span class="s2">&quot;Best Model based on </span><span class="si">{</span><span class="n">primary_metric</span><span class="si">}</span><span class="s2"> score of &quot;</span>
-        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">best_model_eval_score</span><span class="si">:</span><span class="s2">.10f</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="p">),</span>
-    <span class="n">source</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;mlruns/</span><span class="si">{</span><span class="n">best_run_id</span><span class="si">}</span><span class="s2">/artifacts/model&quot;</span><span class="p">,</span>
-    <span class="n">run_id</span><span class="o">=</span><span class="n">best_run_id</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div>
-<div id="cell-id=36eee367-fccb-4a12-a12f-0e1f5d2652e2" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Next-Step">Next Step<a class="anchor-link" href="#Next-Step">&#182;</a></h2>
-</div>
-</div>
-</div>
-</div>
-<div id="cell-id=e7e83b4a-bcb8-49cb-8715-6ccb7f038203" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>The registered model will be used during downstream steps such as inference to make predictions for first-time visitors to the store during the production period (following the end of the test data split).</p>
-
-</div>
-</div>
-</div>
 </div>
 </body>
 

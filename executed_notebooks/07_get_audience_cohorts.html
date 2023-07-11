@@ -15844,32 +15844,32 @@ Define a dictionary to specify datatypes of the transformed <em>inference</em> d
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">dtypes_dict</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;fullvisitorid&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
     <span class="s2">&quot;visitId&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
-    <span class="s2">&quot;visitNumber&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int8Dtype</span><span class="p">(),</span>
-    <span class="s2">&quot;quarter&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int8Dtype</span><span class="p">(),</span>
-    <span class="s2">&quot;month&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int8Dtype</span><span class="p">(),</span>
-    <span class="s2">&quot;day_of_month&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int8Dtype</span><span class="p">(),</span>
-    <span class="s2">&quot;day_of_week&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int8Dtype</span><span class="p">(),</span>
-    <span class="s2">&quot;hour&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int8Dtype</span><span class="p">(),</span>
-    <span class="s2">&quot;minute&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int8Dtype</span><span class="p">(),</span>
-    <span class="s2">&quot;second&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int8Dtype</span><span class="p">(),</span>
+    <span class="s2">&quot;visitNumber&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>  <span class="c1"># Int8Dtype</span>
+    <span class="s2">&quot;quarter&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>  <span class="c1"># Int8Dtype</span>
+    <span class="s2">&quot;month&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>  <span class="c1"># Int8Dtype</span>
+    <span class="s2">&quot;day_of_month&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>  <span class="c1"># Int8Dtype</span>
+    <span class="s2">&quot;day_of_week&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>  <span class="c1"># Int8Dtype</span>
+    <span class="s2">&quot;hour&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>  <span class="c1"># Int8Dtype</span>
+    <span class="s2">&quot;minute&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>  <span class="c1"># Int8Dtype</span>
+    <span class="s2">&quot;second&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>  <span class="c1"># Int8Dtype</span>
     <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">CategoricalDtype</span><span class="p">(),</span>
     <span class="s2">&quot;medium&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">CategoricalDtype</span><span class="p">(),</span>
     <span class="s2">&quot;channelGrouping&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">CategoricalDtype</span><span class="p">(),</span>
-    <span class="s2">&quot;hits&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int16Dtype</span><span class="p">(),</span>
+    <span class="s2">&quot;hits&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>  <span class="c1"># Int16Dtype</span>
     <span class="s2">&quot;bounces&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">CategoricalDtype</span><span class="p">(),</span>
     <span class="s2">&quot;last_action&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">CategoricalDtype</span><span class="p">(),</span>
-    <span class="s2">&quot;promos_displayed&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int16Dtype</span><span class="p">(),</span>
-    <span class="s2">&quot;promos_clicked&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int16Dtype</span><span class="p">(),</span>
-    <span class="s2">&quot;product_views&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int16Dtype</span><span class="p">(),</span>
-    <span class="s2">&quot;product_clicks&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int16Dtype</span><span class="p">(),</span>
-    <span class="s2">&quot;pageviews&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int16Dtype</span><span class="p">(),</span>
-    <span class="s2">&quot;time_on_site&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int16Dtype</span><span class="p">(),</span>
+    <span class="s2">&quot;promos_displayed&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>  <span class="c1"># Int16Dtype</span>
+    <span class="s2">&quot;promos_clicked&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>  <span class="c1"># Int16Dtype</span>
+    <span class="s2">&quot;product_views&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>  <span class="c1"># Int16Dtype</span>
+    <span class="s2">&quot;product_clicks&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>  <span class="c1"># Int16Dtype</span>
+    <span class="s2">&quot;pageviews&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>  <span class="c1"># Int16Dtype</span>
+    <span class="s2">&quot;time_on_site&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>  <span class="c1"># Int16Dtype</span>
     <span class="s2">&quot;browser&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">CategoricalDtype</span><span class="p">(),</span>
     <span class="s2">&quot;os&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">CategoricalDtype</span><span class="p">(),</span>
-    <span class="s2">&quot;added_to_cart&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int16Dtype</span><span class="p">(),</span>
+    <span class="s2">&quot;added_to_cart&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>  <span class="c1"># Int16Dtype</span>
     <span class="s2">&quot;deviceCategory&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">CategoricalDtype</span><span class="p">(),</span>
-    <span class="s2">&quot;revenue&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Float32Dtype</span><span class="p">(),</span>
-    <span class="s2">&quot;made_purchase_on_future_visit&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int8Dtype</span><span class="p">(),</span>
+    <span class="s2">&quot;revenue&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Float64Dtype</span><span class="p">(),</span>  <span class="c1"># Float32Dtype</span>
+    <span class="s2">&quot;made_purchase_on_future_visit&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>  <span class="c1"># Int8Dtype</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -15994,7 +15994,7 @@ Create a mapping between action type integer and label, in order to get meaningf
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Query execution start time = 2023-07-07 14:57:03.815...done at 2023-07-07 14:57:09.852 (6.037 seconds).
+<pre>Query execution start time = 2023-07-10 19:10:31.771...done at 2023-07-10 19:10:36.786 (5.016 seconds).
 Query returned 21,768 rows
 Got 21,752 rows and 28 columns after dropping duplicates
 Transformed data has 21,752 rows &amp; 28 columns
@@ -16104,14 +16104,14 @@ Transformed data has 21,752 rows &amp; 28 columns
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>2023/07/07 18:57:10 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
-2023/07/07 18:57:10 INFO mlflow.store.db.utils: Updating database tables
+<pre>2023/07/10 23:10:37 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
+2023/07/10 23:10:37 INFO mlflow.store.db.utils: Updating database tables
 INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
 INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
 INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
 INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
-2023/07/07 18:57:10 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
-2023/07/07 18:57:10 INFO mlflow.store.db.utils: Updating database tables
+2023/07/10 23:10:37 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
+2023/07/10 23:10:37 INFO mlflow.store.db.utils: Updating database tables
 INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
 INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
 </pre>
@@ -16153,12 +16153,12 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
   <tbody>
     <tr>
       <th>0</th>
-      <td>BetaDistClassifier_20160901_20170228_133892_feats__20230707_185443</td>
-      <td>Best Model based on fbeta2 score of 0.4962024987</td>
-      <td>d5407876ef45489192743e6899207ca5</td>
+      <td>BetaDistClassifier_20160901_20170228_133892_feats__20230710_184102</td>
+      <td>Best Model based on fbeta2 score of 0.4983145472</td>
+      <td>f805253a6ba64ee6a41bf14310ef16a4</td>
       <td>{'deployment-candidate': 'yes'}</td>
       <td>2</td>
-      <td>0.496202</td>
+      <td>0.498315</td>
     </tr>
   </tbody>
 </table>
@@ -16243,7 +16243,7 @@ Load best deployment candidate model object
                 (&#x27;select&#x27;, DropCorrelatedFeatures(threshold=0.7)),
                 (&#x27;resampler&#x27;,
                  RandomOverSampler(random_state=88, sampling_strategy=0.1)),
-                [&#x27;clf&#x27;, BetaDistClassifier(a=0.4, b=2.5, random_state=88)]])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
+                [&#x27;clf&#x27;, BetaDistClassifier(a=0.3, b=2.4, random_state=88)]])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
                  ColumnTransformer(transformers=[(&#x27;num&#x27;,
                                                   Pipeline(steps=[(&#x27;aboveavg&#x27;,
                                                                    AboveAveragePagePromoEngager(cols=[&#x27;hits&#x27;,
@@ -16271,7 +16271,7 @@ Load best deployment candidate model object
                 (&#x27;select&#x27;, DropCorrelatedFeatures(threshold=0.7)),
                 (&#x27;resampler&#x27;,
                  RandomOverSampler(random_state=88, sampling_strategy=0.1)),
-                [&#x27;clf&#x27;, BetaDistClassifier(a=0.4, b=2.5, random_state=88)]])</pre></div></div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">preprocessor: ColumnTransformer</label><div class="sk-toggleable__content"><pre>ColumnTransformer(transformers=[(&#x27;num&#x27;,
+                [&#x27;clf&#x27;, BetaDistClassifier(a=0.3, b=2.4, random_state=88)]])</pre></div></div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">preprocessor: ColumnTransformer</label><div class="sk-toggleable__content"><pre>ColumnTransformer(transformers=[(&#x27;num&#x27;,
                                  Pipeline(steps=[(&#x27;aboveavg&#x27;,
                                                   AboveAveragePagePromoEngager(cols=[&#x27;hits&#x27;,
                                                                                      &#x27;promos_displayed&#x27;,
@@ -16317,7 +16317,7 @@ Load best deployment candidate model object
                                  [&#x27;bounces&#x27;, &#x27;last_action&#x27;, &#x27;source&#x27;, &#x27;medium&#x27;,
                                   &#x27;channelGrouping&#x27;, &#x27;browser&#x27;, &#x27;os&#x27;,
                                   &#x27;deviceCategory&#x27;])])</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox" ><label for="sk-estimator-id-8" class="sk-toggleable__label sk-toggleable__label-arrow">fe</label><div class="sk-toggleable__content"><pre>[&#x27;bounces&#x27;, &#x27;last_action&#x27;, &#x27;source&#x27;, &#x27;medium&#x27;, &#x27;channelGrouping&#x27;, &#x27;browser&#x27;, &#x27;os&#x27;, &#x27;deviceCategory&#x27;]</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-9" type="checkbox" ><label for="sk-estimator-id-9" class="sk-toggleable__label sk-toggleable__label-arrow">RareLabelEncoder</label><div class="sk-toggleable__content"><pre>RareLabelEncoder(ignore_format=True, n_categories=1, replace_with=&#x27;other&#x27;,
-                 tol=0.1, variables=[&#x27;source&#x27;, &#x27;browser&#x27;])</pre></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-10" type="checkbox" ><label for="sk-estimator-id-10" class="sk-toggleable__label sk-toggleable__label-arrow">remainder</label><div class="sk-toggleable__content"><pre></pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-11" type="checkbox" ><label for="sk-estimator-id-11" class="sk-toggleable__label sk-toggleable__label-arrow">passthrough</label><div class="sk-toggleable__content"><pre>passthrough</pre></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-12" type="checkbox" ><label for="sk-estimator-id-12" class="sk-toggleable__label sk-toggleable__label-arrow">OneHotEncoder</label><div class="sk-toggleable__content"><pre>OneHotEncoder(drop=&#x27;first&#x27;, dtype=&lt;class &#x27;int&#x27;&gt;, handle_unknown=&#x27;ignore&#x27;)</pre></div></div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-13" type="checkbox" ><label for="sk-estimator-id-13" class="sk-toggleable__label sk-toggleable__label-arrow">DropCorrelatedFeatures</label><div class="sk-toggleable__content"><pre>DropCorrelatedFeatures(threshold=0.7)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-14" type="checkbox" ><label for="sk-estimator-id-14" class="sk-toggleable__label sk-toggleable__label-arrow">RandomOverSampler</label><div class="sk-toggleable__content"><pre>RandomOverSampler(random_state=88, sampling_strategy=0.1)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-15" type="checkbox" ><label for="sk-estimator-id-15" class="sk-toggleable__label sk-toggleable__label-arrow">BetaDistClassifier</label><div class="sk-toggleable__content"><pre>BetaDistClassifier(a=0.4, b=2.5, random_state=88)</pre></div></div></div></div></div></div></div>
+                 tol=0.1, variables=[&#x27;source&#x27;, &#x27;browser&#x27;])</pre></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-10" type="checkbox" ><label for="sk-estimator-id-10" class="sk-toggleable__label sk-toggleable__label-arrow">remainder</label><div class="sk-toggleable__content"><pre></pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-11" type="checkbox" ><label for="sk-estimator-id-11" class="sk-toggleable__label sk-toggleable__label-arrow">passthrough</label><div class="sk-toggleable__content"><pre>passthrough</pre></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-12" type="checkbox" ><label for="sk-estimator-id-12" class="sk-toggleable__label sk-toggleable__label-arrow">OneHotEncoder</label><div class="sk-toggleable__content"><pre>OneHotEncoder(drop=&#x27;first&#x27;, dtype=&lt;class &#x27;int&#x27;&gt;, handle_unknown=&#x27;ignore&#x27;)</pre></div></div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-13" type="checkbox" ><label for="sk-estimator-id-13" class="sk-toggleable__label sk-toggleable__label-arrow">DropCorrelatedFeatures</label><div class="sk-toggleable__content"><pre>DropCorrelatedFeatures(threshold=0.7)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-14" type="checkbox" ><label for="sk-estimator-id-14" class="sk-toggleable__label sk-toggleable__label-arrow">RandomOverSampler</label><div class="sk-toggleable__content"><pre>RandomOverSampler(random_state=88, sampling_strategy=0.1)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-15" type="checkbox" ><label for="sk-estimator-id-15" class="sk-toggleable__label sk-toggleable__label-arrow">BetaDistClassifier</label><div class="sk-toggleable__content"><pre>BetaDistClassifier(a=0.3, b=2.4, random_state=88)</pre></div></div></div></div></div></div></div>
 </div>
 
 </div>
@@ -16349,7 +16349,7 @@ Load best deployment candidate model object
 </div>
 </div>
 </div>
-</div><div id="cell-id=a562311d-41dd-44f9-a87a-c2f6f3a9b00d" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div id="cell-id=a562311d-41dd-44f9-a87a-c2f6f3a9b00d" class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -16358,12 +16358,242 @@ Load best deployment candidate model object
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
-<span class="n">df_all</span> <span class="o">=</span> <span class="n">modh</span><span class="o">.</span><span class="n">get_data_for_run_id</span><span class="p">(</span><span class="n">df_deployment_candidate_mlflow_models</span><span class="p">,</span> <span class="s1">&#39;processed_data&#39;</span><span class="p">)</span>
+<span class="n">df_all</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">modh</span><span class="o">.</span><span class="n">get_data_for_run_id</span><span class="p">(</span><span class="n">df_deployment_candidate_mlflow_models</span><span class="p">,</span> <span class="s1">&#39;processed_data&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">ash</span><span class="o">.</span><span class="n">set_datatypes</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;predicted_label&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">()})</span>
+<span class="p">)</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Set all specified datatypes.
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div id="cell-id=e3a86ca4-6b97-484c-b4bc-1a1751bf72b9" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>::: {.content-hidden} Show column datatypes for data used to train model during best experiment run :::</p>
+
+</div>
+</div>
+</div>
+</div><div id="cell-id=a6c9a32e-cd7f-4bc2-86f6-02cc44213506" class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[19]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_all</span><span class="o">.</span><span class="n">dtypes</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;dtype&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[19]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>dtype</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>fullvisitorid</th>
+      <td>string[python]</td>
+    </tr>
+    <tr>
+      <th>visitId</th>
+      <td>string[python]</td>
+    </tr>
+    <tr>
+      <th>visitNumber</th>
+      <td>Int64</td>
+    </tr>
+    <tr>
+      <th>visitStartTime</th>
+      <td>datetime64[ns]</td>
+    </tr>
+    <tr>
+      <th>quarter</th>
+      <td>Int64</td>
+    </tr>
+    <tr>
+      <th>month</th>
+      <td>Int64</td>
+    </tr>
+    <tr>
+      <th>day_of_month</th>
+      <td>Int64</td>
+    </tr>
+    <tr>
+      <th>day_of_week</th>
+      <td>Int64</td>
+    </tr>
+    <tr>
+      <th>hour</th>
+      <td>Int64</td>
+    </tr>
+    <tr>
+      <th>minute</th>
+      <td>Int64</td>
+    </tr>
+    <tr>
+      <th>second</th>
+      <td>Int64</td>
+    </tr>
+    <tr>
+      <th>source</th>
+      <td>category</td>
+    </tr>
+    <tr>
+      <th>medium</th>
+      <td>category</td>
+    </tr>
+    <tr>
+      <th>channelGrouping</th>
+      <td>category</td>
+    </tr>
+    <tr>
+      <th>hits</th>
+      <td>Int64</td>
+    </tr>
+    <tr>
+      <th>bounces</th>
+      <td>int64</td>
+    </tr>
+    <tr>
+      <th>last_action</th>
+      <td>category</td>
+    </tr>
+    <tr>
+      <th>promos_displayed</th>
+      <td>Int64</td>
+    </tr>
+    <tr>
+      <th>promos_clicked</th>
+      <td>Int64</td>
+    </tr>
+    <tr>
+      <th>product_views</th>
+      <td>Int64</td>
+    </tr>
+    <tr>
+      <th>product_clicks</th>
+      <td>Int64</td>
+    </tr>
+    <tr>
+      <th>pageviews</th>
+      <td>Int64</td>
+    </tr>
+    <tr>
+      <th>time_on_site</th>
+      <td>Int64</td>
+    </tr>
+    <tr>
+      <th>browser</th>
+      <td>category</td>
+    </tr>
+    <tr>
+      <th>os</th>
+      <td>category</td>
+    </tr>
+    <tr>
+      <th>deviceCategory</th>
+      <td>category</td>
+    </tr>
+    <tr>
+      <th>added_to_cart</th>
+      <td>Int64</td>
+    </tr>
+    <tr>
+      <th>revenue</th>
+      <td>Float64</td>
+    </tr>
+    <tr>
+      <th>made_purchase_on_future_visit</th>
+      <td>Int64</td>
+    </tr>
+    <tr>
+      <th>split_type</th>
+      <td>category</td>
+    </tr>
+    <tr>
+      <th>score</th>
+      <td>Float64</td>
+    </tr>
+    <tr>
+      <th>predicted_score_label</th>
+      <td>boolean</td>
+    </tr>
+    <tr>
+      <th>predicted_label</th>
+      <td>Int64</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -16385,7 +16615,7 @@ Perform sanity checks on features in inference data
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[19]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">modh</span><span class="o">.</span><span class="n">check_data_per_best_expt_run</span><span class="p">(</span>
@@ -16429,7 +16659,7 @@ Perform sanity checks on features in inference data
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
@@ -16450,7 +16680,7 @@ Perform sanity checks on features in inference data
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[22]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| output: false</span>
@@ -16531,69 +16761,69 @@ Perform sanity checks on features in inference data
   <tbody>
     <tr>
       <th>113728</th>
-      <td>3225758523107532105</td>
-      <td>1487872041</td>
+      <td>0092786413416632932</td>
+      <td>1487747471</td>
       <td>1</td>
-      <td>2017-02-23 09:47:21</td>
+      <td>2017-02-21 23:11:11</td>
       <td>1</td>
       <td>2</td>
-      <td>23</td>
-      <td>5</td>
-      <td>9</td>
-      <td>47</td>
       <td>21</td>
+      <td>3</td>
+      <td>23</td>
+      <td>11</td>
+      <td>11</td>
       <td>google</td>
       <td>organic</td>
       <td>Organic Search</td>
-      <td>6</td>
+      <td>4</td>
       <td>0</td>
       <td>Unknown</td>
       <td>9</td>
       <td>0</td>
-      <td>12</td>
+      <td>2</td>
       <td>0</td>
-      <td>3</td>
-      <td>74</td>
-      <td>Safari</td>
-      <td>iOS</td>
-      <td>mobile</td>
+      <td>4</td>
+      <td>29</td>
+      <td>Chrome</td>
+      <td>Macintosh</td>
+      <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.013569</td>
+      <td>0.070143</td>
       <td>True</td>
       <td>0</td>
     </tr>
     <tr>
       <th>113729</th>
-      <td>0753877334773522710</td>
-      <td>1488039933</td>
+      <td>9246024261954442050</td>
+      <td>1487316329</td>
       <td>1</td>
-      <td>2017-02-25 08:25:33</td>
+      <td>2017-02-16 23:25:29</td>
       <td>1</td>
       <td>2</td>
+      <td>16</td>
+      <td>5</td>
+      <td>23</td>
       <td>25</td>
-      <td>7</td>
-      <td>8</td>
-      <td>25</td>
-      <td>33</td>
-      <td>google</td>
-      <td>organic</td>
-      <td>Organic Search</td>
-      <td>6</td>
+      <td>29</td>
+      <td>siliconvalley.about.com</td>
+      <td>referral</td>
+      <td>Referral</td>
+      <td>4</td>
       <td>0</td>
-      <td>Product detail views</td>
+      <td>Unknown</td>
       <td>9</td>
       <td>0</td>
-      <td>12</td>
-      <td>1</td>
-      <td>5</td>
-      <td>638</td>
-      <td>Safari</td>
-      <td>iOS</td>
+      <td>3</td>
+      <td>0</td>
+      <td>4</td>
+      <td>29</td>
+      <td>Chrome</td>
+      <td>Android</td>
       <td>mobile</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.000021</td>
+      <td>0.006123</td>
       <td>True</td>
       <td>0</td>
     </tr>
@@ -16692,7 +16922,7 @@ Perform sanity checks on features in inference data
       <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.096793</td>
+      <td>0.158858</td>
       <td>True</td>
       <td>0</td>
     </tr>
@@ -16726,7 +16956,7 @@ Perform sanity checks on features in inference data
       <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.00032</td>
+      <td>0.005063</td>
       <td>True</td>
       <td>0</td>
     </tr>
@@ -16763,7 +16993,7 @@ Perform sanity checks on features in inference data
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[22]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[23]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
@@ -16840,11 +17070,11 @@ Perform sanity checks on features in inference data
       <td>hits</td>
       <td>104</td>
       <td>112</td>
-      <td>-2.771598</td>
-      <td>-15.667526</td>
-      <td>-0.171416</td>
-      <td>-1.517043</td>
-      <td>0.221298</td>
+      <td>-2.719244</td>
+      <td>-15.613408</td>
+      <td>-0.168233</td>
+      <td>-1.512405</td>
+      <td>0.218377</td>
       <td>1</td>
       <td>False</td>
       <td>Wasserstein</td>
@@ -16855,11 +17085,11 @@ Perform sanity checks on features in inference data
       <td>pageviews</td>
       <td>78</td>
       <td>94</td>
-      <td>-2.173298</td>
-      <td>-18.054321</td>
-      <td>-0.114753</td>
-      <td>-1.337115</td>
-      <td>0.159628</td>
+      <td>-2.129631</td>
+      <td>-18.01145</td>
+      <td>-0.112481</td>
+      <td>-1.334363</td>
+      <td>0.158976</td>
       <td>1</td>
       <td>False</td>
       <td>Wasserstein</td>
@@ -16870,11 +17100,11 @@ Perform sanity checks on features in inference data
       <td>promos_displayed</td>
       <td>21</td>
       <td>18</td>
-      <td>-9.68543</td>
-      <td>2.987956</td>
-      <td>-0.756611</td>
-      <td>0.31588</td>
-      <td>0.787988</td>
+      <td>-9.680134</td>
+      <td>2.989891</td>
+      <td>-0.756197</td>
+      <td>0.316096</td>
+      <td>0.787574</td>
       <td>1</td>
       <td>False</td>
       <td>Wasserstein</td>
@@ -16885,11 +17115,11 @@ Perform sanity checks on features in inference data
       <td>product_views</td>
       <td>273</td>
       <td>286</td>
-      <td>1.224816</td>
-      <td>-5.455951</td>
-      <td>0.287553</td>
-      <td>-1.950144</td>
-      <td>0.711919</td>
+      <td>1.279359</td>
+      <td>-5.401748</td>
+      <td>0.300529</td>
+      <td>-1.931742</td>
+      <td>0.717114</td>
       <td>1</td>
       <td>False</td>
       <td>Wasserstein</td>
@@ -16900,11 +17130,11 @@ Perform sanity checks on features in inference data
       <td>product_clicks</td>
       <td>30</td>
       <td>35</td>
-      <td>-6.898446</td>
-      <td>-13.712772</td>
-      <td>-0.043688</td>
-      <td>-0.249589</td>
-      <td>0.043688</td>
+      <td>-6.811965</td>
+      <td>-13.635198</td>
+      <td>-0.043161</td>
+      <td>-0.248311</td>
+      <td>0.043161</td>
       <td>1</td>
       <td>False</td>
       <td>Wasserstein</td>
@@ -16914,12 +17144,12 @@ Perform sanity checks on features in inference data
       <td>numerical</td>
       <td>time_on_site</td>
       <td>1583</td>
-      <td>1701</td>
-      <td>-7.356926</td>
-      <td>-6.516892</td>
-      <td>-13.154549</td>
-      <td>-25.681883</td>
-      <td>13.519271</td>
+      <td>1702</td>
+      <td>-7.31577</td>
+      <td>-6.511785</td>
+      <td>-13.085232</td>
+      <td>-25.663694</td>
+      <td>13.449954</td>
       <td>1</td>
       <td>True</td>
       <td>Wasserstein</td>
@@ -16930,11 +17160,11 @@ Perform sanity checks on features in inference data
       <td>revenue</td>
       <td>361</td>
       <td>414</td>
-      <td>-13.437476</td>
-      <td>-31.792927</td>
-      <td>-0.739384</td>
-      <td>-13.830475</td>
-      <td>0.748835</td>
+      <td>-13.610552</td>
+      <td>-31.823916</td>
+      <td>-0.750609</td>
+      <td>-13.854969</td>
+      <td>0.76026</td>
       <td>1</td>
       <td>False</td>
       <td>Wasserstein</td>
@@ -17028,7 +17258,7 @@ Perform sanity checks on features in inference data
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[23]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[24]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
@@ -17039,7 +17269,8 @@ Perform sanity checks on features in inference data
     <span class="n">numericals</span><span class="o">=</span><span class="n">numericals</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;revenue&#39;</span><span class="p">],</span>
     <span class="n">categoricals</span><span class="o">=</span><span class="n">categoricals</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">df_stability</span>
+<span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s1">&#39;display.max_colwidth&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">df_stability</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -17059,17 +17290,17 @@ Perform sanity checks on features in inference data
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Test suite start time = 2023-07-07 14:57:11.086...done at 2023-07-07 14:57:15.742 (4.657 seconds).
+<pre>Test suite start time = 2023-07-10 19:10:38.026...done at 2023-07-10 19:10:42.458 (4.432 seconds).
 </pre>
 </div>
 </div>
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputArea-child">
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[23]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -17108,7 +17339,7 @@ Perform sanity checks on features in inference data
       <td>0</td>
       <td>21752</td>
       <td>20164</td>
-      <td>["bounces", "source", "medium", "channelGroupi...</td>
+      <td>["bounces", "source", "medium", "channelGrouping", "last_action", "browser", "os", "deviceCategory", "hits", "pageviews", "promos_displayed", "product_views", "product_clicks", "time_on_site", "revenue"]</td>
       <td>15</td>
       <td>8</td>
     </tr>
@@ -17183,7 +17414,7 @@ Perform sanity checks on features in inference data
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[24]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[25]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
@@ -17214,6 +17445,42 @@ Perform sanity checks on features in inference data
 </pre>
 </div>
 </div>
+
+</div>
+
+</div>
+
+</div><div id="cell-id=a1679d41-2bc5-4ec5-aec9-ff2a802238ad" class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[26]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: false</span>
+<span class="c1">#| output: true</span>
+<span class="n">display</span><span class="p">(</span>
+    <span class="n">y_infer_pred</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;proportion&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+        <span class="n">y_infer_pred</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;number&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(),</span>
+        <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
     
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
@@ -17248,14 +17515,14 @@ Perform sanity checks on features in inference data
     <tr>
       <th>0</th>
       <td>0</td>
-      <td>0.944327</td>
-      <td>20541</td>
+      <td>0.955039</td>
+      <td>20774</td>
     </tr>
     <tr>
       <th>1</th>
       <td>1</td>
-      <td>0.055673</td>
-      <td>1211</td>
+      <td>0.044961</td>
+      <td>978</td>
     </tr>
   </tbody>
 </table>
@@ -17266,31 +17533,6 @@ Perform sanity checks on features in inference data
 
 </div>
 
-</div>
-
-</div><div id="cell-id=a1679d41-2bc5-4ec5-aec9-ff2a802238ad" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: false</span>
-<span class="c1">#| output: true</span>
-<span class="n">display</span><span class="p">(</span>
-    <span class="n">y_infer_pred</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;proportion&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
-        <span class="n">y_infer_pred</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;number&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(),</span>
-        <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-<span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
 </div>
 
 </div>
@@ -17344,7 +17586,7 @@ Perform sanity checks on features in inference data
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[25]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[27]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
@@ -17358,9 +17600,10 @@ Perform sanity checks on features in inference data
         <span class="p">{</span>
             <span class="s2">&quot;row_number&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int16Dtype</span><span class="p">(),</span>
             <span class="s2">&quot;fullvisitorid&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
-            <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Float32Dtype</span><span class="p">(),</span>
+            <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Float64Dtype</span><span class="p">(),</span>  <span class="c1"># Float32Dtype</span>
             <span class="s2">&quot;predicted_score_label&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">BooleanDtype</span><span class="p">(),</span>
             <span class="s2">&quot;maudience&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int8Dtype</span><span class="p">(),</span>
+            <span class="s2">&quot;row_number&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>
         <span class="p">},</span>
     <span class="p">)</span>
 <span class="p">)</span>
@@ -17450,176 +17693,176 @@ Perform sanity checks on features in inference data
   </thead>
   <tbody>
     <tr>
-      <th>16646</th>
-      <td>9725965720822289910</td>
-      <td>1490389872</td>
+      <th>6784</th>
+      <td>7701350257079842191</td>
+      <td>1488377334</td>
       <td>1</td>
-      <td>2017-03-24 14:11:12</td>
+      <td>2017-03-01 06:08:54</td>
       <td>1</td>
       <td>3</td>
-      <td>24</td>
-      <td>6</td>
-      <td>14</td>
-      <td>11</td>
-      <td>12</td>
-      <td>mall.googleplex.com</td>
-      <td>referral</td>
-      <td>Referral</td>
+      <td>1</td>
       <td>4</td>
-      <td>0</td>
-      <td>Unknown</td>
-      <td>18</td>
-      <td>0</td>
-      <td>12</td>
-      <td>0</td>
-      <td>4</td>
-      <td>66</td>
-      <td>Chrome</td>
-      <td>Linux</td>
-      <td>desktop</td>
-      <td>0</td>
-      <td>&lt;NA&gt;</td>
-      <td>0.960677</td>
-      <td>False</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>18188</th>
-      <td>8392249560404039006</td>
-      <td>1490821978</td>
-      <td>1</td>
-      <td>2017-03-29 14:12:58</td>
-      <td>1</td>
-      <td>3</td>
-      <td>29</td>
-      <td>4</td>
-      <td>14</td>
-      <td>12</td>
-      <td>58</td>
-      <td>google</td>
-      <td>organic</td>
-      <td>Organic Search</td>
-      <td>3</td>
-      <td>0</td>
-      <td>Unknown</td>
-      <td>9</td>
-      <td>0</td>
-      <td>9</td>
-      <td>0</td>
-      <td>3</td>
-      <td>23</td>
-      <td>Chrome</td>
-      <td>Macintosh</td>
-      <td>desktop</td>
-      <td>0</td>
-      <td>&lt;NA&gt;</td>
-      <td>0.951298</td>
-      <td>False</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>9795</th>
-      <td>313217151141291631</td>
-      <td>1489403662</td>
-      <td>1</td>
-      <td>2017-03-13 04:14:22</td>
-      <td>1</td>
-      <td>3</td>
-      <td>13</td>
-      <td>2</td>
-      <td>4</td>
-      <td>14</td>
-      <td>22</td>
-      <td>youtube.com</td>
-      <td>referral</td>
-      <td>Social</td>
-      <td>2</td>
-      <td>0</td>
-      <td>Unknown</td>
-      <td>18</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>2</td>
-      <td>162</td>
-      <td>Internet Explorer</td>
-      <td>Windows</td>
-      <td>desktop</td>
-      <td>0</td>
-      <td>&lt;NA&gt;</td>
-      <td>0.948568</td>
-      <td>False</td>
-      <td>2</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>4772</th>
-      <td>9450880163672825185</td>
-      <td>1488558390</td>
-      <td>1</td>
-      <td>2017-03-03 08:26:30</td>
-      <td>1</td>
-      <td>3</td>
-      <td>3</td>
       <td>6</td>
       <td>8</td>
-      <td>26</td>
-      <td>30</td>
-      <td>(direct)</td>
-      <td>(none)</td>
-      <td>Direct</td>
-      <td>2</td>
-      <td>0</td>
+      <td>54</td>
+      <td>learn.temple.edu</td>
+      <td>referral</td>
+      <td>Referral</td>
+      <td>1</td>
+      <td>1</td>
       <td>Unknown</td>
       <td>9</td>
       <td>0</td>
-      <td>12</td>
       <td>0</td>
-      <td>2</td>
-      <td>15</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
       <td>Chrome</td>
       <td>Macintosh</td>
       <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.940251</td>
-      <td>True</td>
-      <td>3</td>
+      <td>0.961501</td>
+      <td>False</td>
+      <td>0</td>
       <td>0</td>
     </tr>
     <tr>
-      <th>16109</th>
-      <td>7646742387349147197</td>
-      <td>1490898449</td>
+      <th>20268</th>
+      <td>2695658604851424923</td>
+      <td>1489171901</td>
       <td>1</td>
-      <td>2017-03-30 11:27:29</td>
+      <td>2017-03-10 10:51:41</td>
       <td>1</td>
       <td>3</td>
-      <td>30</td>
-      <td>5</td>
-      <td>11</td>
-      <td>27</td>
-      <td>29</td>
+      <td>10</td>
+      <td>6</td>
+      <td>10</td>
+      <td>51</td>
+      <td>41</td>
       <td>google</td>
       <td>organic</td>
       <td>Organic Search</td>
-      <td>3</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Unknown</td>
       <td>0</td>
-      <td>Product detail views</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>Chrome</td>
+      <td>Macintosh</td>
+      <td>desktop</td>
+      <td>0</td>
+      <td>&lt;NA&gt;</td>
+      <td>0.945025</td>
+      <td>False</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>16170</th>
+      <td>8971083254880506569</td>
+      <td>1489199324</td>
+      <td>1</td>
+      <td>2017-03-10 18:28:44</td>
+      <td>1</td>
+      <td>3</td>
+      <td>10</td>
+      <td>6</td>
+      <td>18</td>
+      <td>28</td>
+      <td>44</td>
+      <td>google</td>
+      <td>organic</td>
+      <td>Organic Search</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Unknown</td>
       <td>0</td>
       <td>0</td>
       <td>12</td>
+      <td>0</td>
       <td>1</td>
-      <td>2</td>
-      <td>69</td>
+      <td>0</td>
       <td>Chrome</td>
       <td>Android</td>
       <td>mobile</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.937846</td>
+      <td>0.940148</td>
+      <td>False</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>16629</th>
+      <td>4054255996057072564</td>
+      <td>1489603486</td>
+      <td>1</td>
+      <td>2017-03-15 11:44:46</td>
+      <td>1</td>
+      <td>3</td>
+      <td>15</td>
+      <td>4</td>
+      <td>11</td>
+      <td>44</td>
+      <td>46</td>
+      <td>google</td>
+      <td>organic</td>
+      <td>Organic Search</td>
+      <td>13</td>
+      <td>0</td>
+      <td>Add product(s) to cart</td>
+      <td>9</td>
+      <td>0</td>
+      <td>73</td>
+      <td>1</td>
+      <td>11</td>
+      <td>224</td>
+      <td>Chrome</td>
+      <td>Linux</td>
+      <td>desktop</td>
+      <td>1</td>
+      <td>&lt;NA&gt;</td>
+      <td>0.93972</td>
+      <td>False</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3120</th>
+      <td>0374263254549285298</td>
+      <td>1490817249</td>
+      <td>1</td>
+      <td>2017-03-29 12:54:09</td>
+      <td>1</td>
+      <td>3</td>
+      <td>29</td>
+      <td>4</td>
+      <td>12</td>
+      <td>54</td>
+      <td>9</td>
+      <td>google</td>
+      <td>organic</td>
+      <td>Organic Search</td>
+      <td>4</td>
+      <td>0</td>
+      <td>Unknown</td>
+      <td>9</td>
+      <td>0</td>
+      <td>12</td>
+      <td>0</td>
+      <td>4</td>
+      <td>90</td>
+      <td>Chrome</td>
+      <td>Android</td>
+      <td>mobile</td>
+      <td>0</td>
+      <td>&lt;NA&gt;</td>
+      <td>0.934395</td>
       <td>False</td>
       <td>4</td>
       <td>0</td>
@@ -17660,68 +17903,68 @@ Perform sanity checks on features in inference data
       <td>...</td>
     </tr>
     <tr>
-      <th>2902</th>
-      <td>8373850394906049133</td>
-      <td>1489794933</td>
+      <th>17358</th>
+      <td>5874575205881769874</td>
+      <td>1490761689</td>
       <td>1</td>
-      <td>2017-03-17 16:55:33</td>
+      <td>2017-03-28 21:28:09</td>
       <td>1</td>
       <td>3</td>
-      <td>17</td>
-      <td>6</td>
-      <td>16</td>
-      <td>55</td>
-      <td>33</td>
-      <td>google</td>
-      <td>organic</td>
-      <td>Organic Search</td>
-      <td>11</td>
+      <td>28</td>
+      <td>3</td>
+      <td>21</td>
+      <td>28</td>
+      <td>9</td>
+      <td>youtube.com</td>
+      <td>referral</td>
+      <td>Social</td>
+      <td>26</td>
       <td>0</td>
-      <td>Remove product(s) from cart</td>
+      <td>Product detail views</td>
       <td>9</td>
       <td>0</td>
-      <td>15</td>
-      <td>1</td>
-      <td>8</td>
-      <td>979</td>
-      <td>Chrome</td>
+      <td>64</td>
+      <td>9</td>
+      <td>17</td>
+      <td>817</td>
+      <td>Edge</td>
       <td>Windows</td>
       <td>desktop</td>
-      <td>1</td>
+      <td>0</td>
       <td>&lt;NA&gt;</td>
       <td>0.0</td>
-      <td>False</td>
+      <td>True</td>
       <td>21747</td>
       <td>2</td>
     </tr>
     <tr>
-      <th>2748</th>
-      <td>0175368039527423961</td>
-      <td>1489773964</td>
+      <th>10266</th>
+      <td>8012619550898035818</td>
+      <td>1490675313</td>
       <td>1</td>
-      <td>2017-03-17 11:06:04</td>
+      <td>2017-03-27 21:28:33</td>
       <td>1</td>
       <td>3</td>
-      <td>17</td>
-      <td>6</td>
-      <td>11</td>
-      <td>6</td>
-      <td>4</td>
+      <td>27</td>
+      <td>2</td>
+      <td>21</td>
+      <td>28</td>
+      <td>33</td>
       <td>google</td>
       <td>organic</td>
       <td>Organic Search</td>
-      <td>5</td>
+      <td>3</td>
       <td>0</td>
       <td>Unknown</td>
       <td>9</td>
       <td>0</td>
-      <td>36</td>
+      <td>18</td>
       <td>0</td>
-      <td>5</td>
-      <td>145</td>
-      <td>Chrome</td>
-      <td>Windows</td>
-      <td>desktop</td>
+      <td>3</td>
+      <td>48</td>
+      <td>Safari</td>
+      <td>iOS</td>
+      <td>mobile</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
       <td>0.0</td>
@@ -17730,33 +17973,33 @@ Perform sanity checks on features in inference data
       <td>2</td>
     </tr>
     <tr>
-      <th>14072</th>
-      <td>9113372584810915471</td>
-      <td>1489627383</td>
+      <th>8666</th>
+      <td>434532778812104332</td>
+      <td>1489575014</td>
       <td>1</td>
-      <td>2017-03-15 18:23:03</td>
+      <td>2017-03-15 03:50:14</td>
       <td>1</td>
       <td>3</td>
       <td>15</td>
       <td>4</td>
-      <td>18</td>
-      <td>23</td>
       <td>3</td>
-      <td>youtube.com</td>
-      <td>referral</td>
-      <td>Social</td>
+      <td>50</td>
+      <td>14</td>
+      <td>google</td>
+      <td>organic</td>
+      <td>Organic Search</td>
       <td>6</td>
       <td>0</td>
       <td>Unknown</td>
-      <td>36</td>
+      <td>18</td>
       <td>0</td>
-      <td>24</td>
+      <td>43</td>
       <td>0</td>
       <td>6</td>
-      <td>880</td>
+      <td>246</td>
       <td>Chrome</td>
-      <td>Android</td>
-      <td>mobile</td>
+      <td>iOS</td>
+      <td>tablet</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
       <td>0.0</td>
@@ -17765,72 +18008,72 @@ Perform sanity checks on features in inference data
       <td>2</td>
     </tr>
     <tr>
-      <th>18553</th>
-      <td>8899670647171745453</td>
-      <td>1488901570</td>
+      <th>8034</th>
+      <td>5010936918921461102</td>
+      <td>1490914132</td>
       <td>1</td>
-      <td>2017-03-07 07:46:10</td>
+      <td>2017-03-30 15:48:52</td>
       <td>1</td>
       <td>3</td>
-      <td>7</td>
-      <td>3</td>
-      <td>7</td>
-      <td>46</td>
-      <td>10</td>
-      <td>google</td>
-      <td>organic</td>
-      <td>Organic Search</td>
-      <td>1</td>
-      <td>1</td>
+      <td>30</td>
+      <td>5</td>
+      <td>15</td>
+      <td>48</td>
+      <td>52</td>
+      <td>(direct)</td>
+      <td>(none)</td>
+      <td>Direct</td>
+      <td>2</td>
+      <td>0</td>
       <td>Unknown</td>
       <td>0</td>
       <td>0</td>
-      <td>12</td>
+      <td>6</td>
       <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>Chrome</td>
-      <td>Windows</td>
-      <td>desktop</td>
+      <td>2</td>
+      <td>162</td>
+      <td>Safari</td>
+      <td>iOS</td>
+      <td>mobile</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
       <td>0.0</td>
-      <td>True</td>
+      <td>False</td>
       <td>21750</td>
       <td>2</td>
     </tr>
     <tr>
-      <th>17648</th>
-      <td>256240431480773031</td>
-      <td>1488545314</td>
+      <th>7394</th>
+      <td>6847844312870761783</td>
+      <td>1490498125</td>
       <td>1</td>
-      <td>2017-03-03 04:48:34</td>
+      <td>2017-03-25 20:15:25</td>
       <td>1</td>
       <td>3</td>
-      <td>3</td>
-      <td>6</td>
-      <td>4</td>
-      <td>48</td>
-      <td>34</td>
+      <td>25</td>
+      <td>7</td>
+      <td>20</td>
+      <td>15</td>
+      <td>25</td>
       <td>(direct)</td>
       <td>(none)</td>
       <td>Direct</td>
-      <td>1</td>
-      <td>1</td>
+      <td>2</td>
+      <td>0</td>
       <td>Unknown</td>
       <td>9</td>
       <td>0</td>
+      <td>12</td>
       <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
+      <td>2</td>
+      <td>43</td>
       <td>Chrome</td>
       <td>Android</td>
       <td>mobile</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
       <td>0.0</td>
-      <td>True</td>
+      <td>False</td>
       <td>21751</td>
       <td>2</td>
     </tr>
@@ -17881,7 +18124,7 @@ Show datatypes of columns in inference predictions data
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[26]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[28]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s2">&quot;display.max_columns&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">):</span>
@@ -17963,35 +18206,35 @@ Show datatypes of columns in inference predictions data
       <th>dtype</th>
       <td>string[python]</td>
       <td>string[python]</td>
-      <td>Int8</td>
+      <td>Int64</td>
       <td>datetime64[ns]</td>
-      <td>Int8</td>
-      <td>Int8</td>
-      <td>Int8</td>
-      <td>Int8</td>
-      <td>Int8</td>
-      <td>Int8</td>
-      <td>Int8</td>
+      <td>Int64</td>
+      <td>Int64</td>
+      <td>Int64</td>
+      <td>Int64</td>
+      <td>Int64</td>
+      <td>Int64</td>
+      <td>Int64</td>
       <td>category</td>
       <td>category</td>
       <td>category</td>
-      <td>Int16</td>
+      <td>Int64</td>
       <td>category</td>
       <td>category</td>
-      <td>Int16</td>
-      <td>Int16</td>
-      <td>Int16</td>
-      <td>Int16</td>
-      <td>Int16</td>
-      <td>Int16</td>
+      <td>Int64</td>
+      <td>Int64</td>
+      <td>Int64</td>
+      <td>Int64</td>
+      <td>Int64</td>
+      <td>Int64</td>
       <td>category</td>
       <td>category</td>
       <td>category</td>
-      <td>Int16</td>
-      <td>Float32</td>
-      <td>Float32</td>
+      <td>Int64</td>
+      <td>Float64</td>
+      <td>Float64</td>
       <td>boolean</td>
-      <td>Int16</td>
+      <td>Int64</td>
       <td>Int8</td>
     </tr>
   </tbody>
@@ -18030,7 +18273,7 @@ Show datatypes of columns in inference predictions data
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[27]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[29]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
@@ -18038,6 +18281,7 @@ Show datatypes of columns in inference predictions data
     <span class="n">ch</span><span class="o">.</span><span class="n">load_file_from_mlflow_artifact</span><span class="p">(</span>
         <span class="n">df_deployment_candidate_mlflow_models</span><span class="p">,</span> <span class="s2">&quot;audience_sample_sizes&quot;</span>
     <span class="p">)</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">ash</span><span class="o">.</span><span class="n">set_datatypes</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;audience_strategy&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int8Dtype</span><span class="p">()})</span>
     <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">ch</span><span class="o">.</span><span class="n">get_sample_sizes_by_strategy</span><span class="p">,</span> <span class="n">audience_strategy</span><span class="p">)</span>
     <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">ch</span><span class="o">.</span><span class="n">get_suitable_sample_sizes</span><span class="p">,</span> <span class="n">bin_size_infer_control</span><span class="p">)</span>
     <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">ch</span><span class="o">.</span><span class="n">get_sample_sizes_with_all_audience_groups</span><span class="p">,</span> <span class="n">num_bins</span><span class="p">)</span>
@@ -18080,9 +18324,10 @@ Show datatypes of columns in inference predictions data
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>audience=0: High, size=7,251,  excluded=3,081, wanted=2,085, control=2,085, test=2,085
-audience=1: Medium, size=7,250,  excluded=2,746, wanted=2,252, control=2,252, test=2,252
-audience=2: Low, size=7,251,  excluded=2,557, wanted=2,347, control=2,347, test=2,347
+<pre>Set all specified datatypes.
+audience=0: High, size=7,251,  excluded=2,621, wanted=2,315, control=2,315, test=2,315
+audience=1: Medium, size=7,250,  excluded=3,054, wanted=2,098, control=2,098, test=2,098
+audience=2: Low, size=7,251,  excluded=2,715, wanted=2,268, control=2,268, test=2,268
 Found suitable sample sizes and generated cohorts.
 Set all specified datatypes.
 </pre>
@@ -18151,35 +18396,35 @@ Set all specified datatypes.
   <tbody>
     <tr>
       <th>0</th>
-      <td>9725965720822289910</td>
-      <td>1490389872</td>
+      <td>7701350257079842191</td>
+      <td>1488377334</td>
       <td>1</td>
-      <td>2017-03-24 14:11:12</td>
+      <td>2017-03-01 06:08:54</td>
       <td>1</td>
       <td>3</td>
-      <td>24</td>
+      <td>1</td>
+      <td>4</td>
       <td>6</td>
-      <td>14</td>
-      <td>11</td>
-      <td>12</td>
-      <td>mall.googleplex.com</td>
+      <td>8</td>
+      <td>54</td>
+      <td>learn.temple.edu</td>
       <td>referral</td>
       <td>Referral</td>
-      <td>4</td>
-      <td>0</td>
+      <td>1</td>
+      <td>1</td>
       <td>Unknown</td>
-      <td>18</td>
+      <td>9</td>
       <td>0</td>
-      <td>12</td>
       <td>0</td>
-      <td>4</td>
-      <td>66</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
       <td>Chrome</td>
-      <td>Linux</td>
+      <td>Macintosh</td>
       <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.960677</td>
+      <td>0.961501</td>
       <td>False</td>
       <td>High</td>
       <td>Control</td>
@@ -18187,35 +18432,35 @@ Set all specified datatypes.
     </tr>
     <tr>
       <th>1</th>
-      <td>1262291561527945490</td>
-      <td>1490385910</td>
+      <td>1927404893298120774</td>
+      <td>1489438559</td>
       <td>1</td>
-      <td>2017-03-24 13:05:10</td>
+      <td>2017-03-13 13:55:59</td>
       <td>1</td>
       <td>3</td>
-      <td>24</td>
-      <td>6</td>
       <td>13</td>
-      <td>5</td>
-      <td>10</td>
-      <td>(direct)</td>
-      <td>(none)</td>
-      <td>Direct</td>
-      <td>5</td>
+      <td>2</td>
+      <td>13</td>
+      <td>55</td>
+      <td>59</td>
+      <td>google</td>
+      <td>organic</td>
+      <td>Organic Search</td>
+      <td>2</td>
       <td>0</td>
       <td>Unknown</td>
-      <td>18</td>
       <td>0</td>
-      <td>25</td>
       <td>0</td>
-      <td>5</td>
-      <td>99</td>
+      <td>12</td>
+      <td>0</td>
+      <td>2</td>
+      <td>14</td>
       <td>Chrome</td>
-      <td>iOS</td>
-      <td>mobile</td>
+      <td>Windows</td>
+      <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.879824</td>
+      <td>0.884723</td>
       <td>False</td>
       <td>High</td>
       <td>Control</td>
@@ -18223,35 +18468,35 @@ Set all specified datatypes.
     </tr>
     <tr>
       <th>2</th>
-      <td>9189040746503498111</td>
-      <td>1488898168</td>
+      <td>4081311830661383532</td>
+      <td>1489678740</td>
       <td>1</td>
-      <td>2017-03-07 06:49:28</td>
+      <td>2017-03-16 08:39:00</td>
       <td>1</td>
       <td>3</td>
-      <td>7</td>
-      <td>3</td>
-      <td>6</td>
-      <td>49</td>
-      <td>28</td>
-      <td>(direct)</td>
-      <td>(none)</td>
-      <td>Direct</td>
+      <td>16</td>
+      <td>5</td>
+      <td>8</td>
+      <td>39</td>
+      <td>0</td>
+      <td>google</td>
+      <td>organic</td>
+      <td>Organic Search</td>
       <td>1</td>
       <td>1</td>
       <td>Unknown</td>
       <td>0</td>
       <td>0</td>
-      <td>0</td>
+      <td>1</td>
       <td>0</td>
       <td>1</td>
       <td>0</td>
       <td>Chrome</td>
-      <td>Android</td>
-      <td>mobile</td>
+      <td>Chrome OS</td>
+      <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.867118</td>
+      <td>0.879829</td>
       <td>False</td>
       <td>High</td>
       <td>Control</td>
@@ -18259,71 +18504,71 @@ Set all specified datatypes.
     </tr>
     <tr>
       <th>3</th>
-      <td>1844223110946928452</td>
-      <td>1490399038</td>
+      <td>48980746408094895</td>
+      <td>1489003955</td>
       <td>1</td>
-      <td>2017-03-24 16:43:58</td>
+      <td>2017-03-08 12:12:35</td>
       <td>1</td>
       <td>3</td>
-      <td>24</td>
-      <td>6</td>
-      <td>16</td>
-      <td>43</td>
-      <td>58</td>
+      <td>8</td>
+      <td>4</td>
+      <td>12</td>
+      <td>12</td>
+      <td>35</td>
       <td>google</td>
       <td>organic</td>
       <td>Organic Search</td>
-      <td>20</td>
+      <td>27</td>
       <td>0</td>
-      <td>Add product(s) to cart</td>
-      <td>9</td>
+      <td>Product detail views</td>
       <td>0</td>
-      <td>90</td>
-      <td>3</td>
-      <td>15</td>
-      <td>414</td>
+      <td>0</td>
+      <td>166</td>
+      <td>4</td>
+      <td>23</td>
+      <td>928</td>
       <td>Chrome</td>
-      <td>Macintosh</td>
+      <td>Windows</td>
       <td>desktop</td>
-      <td>2</td>
+      <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.864372</td>
-      <td>True</td>
+      <td>0.866037</td>
+      <td>False</td>
       <td>High</td>
       <td>Control</td>
       <td>1</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>5443907013787165361</td>
-      <td>1490637573</td>
+      <td>0480615828723852227</td>
+      <td>1490621968</td>
       <td>1</td>
-      <td>2017-03-27 10:59:33</td>
+      <td>2017-03-27 06:39:28</td>
       <td>1</td>
       <td>3</td>
       <td>27</td>
       <td>2</td>
-      <td>10</td>
-      <td>59</td>
-      <td>33</td>
+      <td>6</td>
+      <td>39</td>
+      <td>28</td>
       <td>google</td>
       <td>organic</td>
       <td>Organic Search</td>
-      <td>7</td>
+      <td>2</td>
       <td>0</td>
       <td>Unknown</td>
       <td>9</td>
       <td>0</td>
-      <td>47</td>
       <td>0</td>
-      <td>7</td>
-      <td>41</td>
+      <td>0</td>
+      <td>2</td>
+      <td>8</td>
       <td>Chrome</td>
       <td>Macintosh</td>
       <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
-      <td>0.860614</td>
+      <td>0.864021</td>
       <td>False</td>
       <td>High</td>
       <td>Control</td>
@@ -18367,65 +18612,29 @@ Set all specified datatypes.
     </tr>
     <tr>
       <th>21747</th>
-      <td>5476993230782741357</td>
-      <td>1490986341</td>
+      <td>0301626924810909605</td>
+      <td>1490969834</td>
       <td>1</td>
-      <td>2017-03-31 11:52:21</td>
+      <td>2017-03-31 07:17:14</td>
       <td>1</td>
       <td>3</td>
       <td>31</td>
       <td>6</td>
-      <td>11</td>
-      <td>52</td>
-      <td>21</td>
+      <td>7</td>
+      <td>17</td>
+      <td>14</td>
       <td>(direct)</td>
       <td>(none)</td>
       <td>Direct</td>
-      <td>18</td>
+      <td>15</td>
       <td>0</td>
-      <td>Add product(s) to cart</td>
-      <td>0</td>
-      <td>0</td>
-      <td>107</td>
-      <td>3</td>
-      <td>14</td>
-      <td>551</td>
-      <td>Chrome</td>
-      <td>Linux</td>
-      <td>desktop</td>
-      <td>1</td>
-      <td>&lt;NA&gt;</td>
-      <td>0.0</td>
-      <td>False</td>
-      <td>Low</td>
-      <td>&lt;NA&gt;</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>21748</th>
-      <td>6629693276913663746</td>
-      <td>1488520182</td>
-      <td>1</td>
-      <td>2017-03-02 21:49:42</td>
-      <td>1</td>
-      <td>3</td>
-      <td>2</td>
-      <td>5</td>
-      <td>21</td>
-      <td>49</td>
-      <td>42</td>
-      <td>google</td>
-      <td>organic</td>
-      <td>Organic Search</td>
-      <td>3</td>
-      <td>0</td>
-      <td>Unknown</td>
+      <td>Product detail views</td>
       <td>9</td>
       <td>0</td>
-      <td>12</td>
-      <td>0</td>
-      <td>3</td>
-      <td>19</td>
+      <td>27</td>
+      <td>2</td>
+      <td>13</td>
+      <td>291</td>
       <td>Chrome</td>
       <td>Macintosh</td>
       <td>desktop</td>
@@ -18438,32 +18647,32 @@ Set all specified datatypes.
       <td>1</td>
     </tr>
     <tr>
-      <th>21749</th>
-      <td>7820592629354691307</td>
-      <td>1489762686</td>
+      <th>21748</th>
+      <td>0088053741107907630</td>
+      <td>1489626052</td>
       <td>1</td>
-      <td>2017-03-17 07:58:06</td>
+      <td>2017-03-15 18:00:52</td>
       <td>1</td>
       <td>3</td>
-      <td>17</td>
-      <td>6</td>
-      <td>7</td>
-      <td>58</td>
-      <td>6</td>
-      <td>google</td>
-      <td>organic</td>
-      <td>Organic Search</td>
-      <td>2</td>
+      <td>15</td>
+      <td>4</td>
+      <td>18</td>
+      <td>0</td>
+      <td>52</td>
+      <td>(direct)</td>
+      <td>(none)</td>
+      <td>Direct</td>
+      <td>3</td>
       <td>0</td>
       <td>Unknown</td>
       <td>9</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
-      <td>2</td>
-      <td>8</td>
-      <td>Chrome</td>
-      <td>Windows</td>
+      <td>3</td>
+      <td>28</td>
+      <td>Safari</td>
+      <td>Macintosh</td>
       <td>desktop</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
@@ -18474,32 +18683,68 @@ Set all specified datatypes.
       <td>1</td>
     </tr>
     <tr>
-      <th>21750</th>
-      <td>9113372584810915471</td>
-      <td>1489627383</td>
+      <th>21749</th>
+      <td>5874575205881769874</td>
+      <td>1490761689</td>
       <td>1</td>
-      <td>2017-03-15 18:23:03</td>
+      <td>2017-03-28 21:28:09</td>
       <td>1</td>
       <td>3</td>
-      <td>15</td>
-      <td>4</td>
-      <td>18</td>
-      <td>23</td>
+      <td>28</td>
       <td>3</td>
+      <td>21</td>
+      <td>28</td>
+      <td>9</td>
       <td>youtube.com</td>
       <td>referral</td>
       <td>Social</td>
-      <td>6</td>
+      <td>26</td>
+      <td>0</td>
+      <td>Product detail views</td>
+      <td>9</td>
+      <td>0</td>
+      <td>64</td>
+      <td>9</td>
+      <td>17</td>
+      <td>817</td>
+      <td>Edge</td>
+      <td>Windows</td>
+      <td>desktop</td>
+      <td>0</td>
+      <td>&lt;NA&gt;</td>
+      <td>0.0</td>
+      <td>True</td>
+      <td>Low</td>
+      <td>&lt;NA&gt;</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>21750</th>
+      <td>8012619550898035818</td>
+      <td>1490675313</td>
+      <td>1</td>
+      <td>2017-03-27 21:28:33</td>
+      <td>1</td>
+      <td>3</td>
+      <td>27</td>
+      <td>2</td>
+      <td>21</td>
+      <td>28</td>
+      <td>33</td>
+      <td>google</td>
+      <td>organic</td>
+      <td>Organic Search</td>
+      <td>3</td>
       <td>0</td>
       <td>Unknown</td>
-      <td>36</td>
+      <td>9</td>
       <td>0</td>
-      <td>24</td>
+      <td>18</td>
       <td>0</td>
-      <td>6</td>
-      <td>880</td>
-      <td>Chrome</td>
-      <td>Android</td>
+      <td>3</td>
+      <td>48</td>
+      <td>Safari</td>
+      <td>iOS</td>
       <td>mobile</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
@@ -18511,36 +18756,36 @@ Set all specified datatypes.
     </tr>
     <tr>
       <th>21751</th>
-      <td>8899670647171745453</td>
-      <td>1488901570</td>
+      <td>5010936918921461102</td>
+      <td>1490914132</td>
       <td>1</td>
-      <td>2017-03-07 07:46:10</td>
+      <td>2017-03-30 15:48:52</td>
       <td>1</td>
       <td>3</td>
-      <td>7</td>
-      <td>3</td>
-      <td>7</td>
-      <td>46</td>
-      <td>10</td>
-      <td>google</td>
-      <td>organic</td>
-      <td>Organic Search</td>
-      <td>1</td>
-      <td>1</td>
+      <td>30</td>
+      <td>5</td>
+      <td>15</td>
+      <td>48</td>
+      <td>52</td>
+      <td>(direct)</td>
+      <td>(none)</td>
+      <td>Direct</td>
+      <td>2</td>
+      <td>0</td>
       <td>Unknown</td>
       <td>0</td>
       <td>0</td>
-      <td>12</td>
+      <td>6</td>
       <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>Chrome</td>
-      <td>Windows</td>
-      <td>desktop</td>
+      <td>2</td>
+      <td>162</td>
+      <td>Safari</td>
+      <td>iOS</td>
+      <td>mobile</td>
       <td>0</td>
       <td>&lt;NA&gt;</td>
       <td>0.0</td>
-      <td>True</td>
+      <td>False</td>
       <td>Low</td>
       <td>&lt;NA&gt;</td>
       <td>1</td>
@@ -18590,7 +18835,7 @@ Set all specified datatypes.
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[28]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[30]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
@@ -18611,7 +18856,7 @@ Set all specified datatypes.
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[28]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[30]:</div>
 
 
 
@@ -18648,91 +18893,91 @@ Set all specified datatypes.
       <th>0</th>
       <td>High</td>
       <td>Control</td>
-      <td>2085</td>
-      <td>0.143627</td>
-      <td>0.33644</td>
-      <td>0.289434</td>
-      <td>0.960677</td>
+      <td>2315</td>
+      <td>0.098383</td>
+      <td>0.290206</td>
+      <td>0.235826</td>
+      <td>0.961501</td>
     </tr>
     <tr>
       <th>1</th>
       <td>High</td>
       <td>Test</td>
-      <td>2085</td>
-      <td>0.143641</td>
-      <td>0.339942</td>
-      <td>0.294693</td>
-      <td>0.93025</td>
+      <td>2315</td>
+      <td>0.098402</td>
+      <td>0.29217</td>
+      <td>0.235049</td>
+      <td>0.940148</td>
     </tr>
     <tr>
       <th>2</th>
       <td>High</td>
       <td>&lt;NA&gt;</td>
-      <td>3081</td>
-      <td>0.143653</td>
-      <td>0.337462</td>
-      <td>0.287273</td>
-      <td>0.951298</td>
+      <td>2621</td>
+      <td>0.098362</td>
+      <td>0.287721</td>
+      <td>0.233066</td>
+      <td>0.945025</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Low</td>
       <td>Control</td>
-      <td>2347</td>
+      <td>2268</td>
       <td>0.0</td>
-      <td>0.006123</td>
-      <td>0.003496</td>
-      <td>0.022739</td>
+      <td>0.001985</td>
+      <td>0.000808</td>
+      <td>0.008814</td>
     </tr>
     <tr>
       <th>4</th>
       <td>Low</td>
       <td>Test</td>
-      <td>2347</td>
+      <td>2268</td>
       <td>0.0</td>
-      <td>0.006452</td>
-      <td>0.003985</td>
-      <td>0.022735</td>
+      <td>0.00199</td>
+      <td>0.000807</td>
+      <td>0.008805</td>
     </tr>
     <tr>
       <th>5</th>
       <td>Low</td>
       <td>&lt;NA&gt;</td>
-      <td>2557</td>
+      <td>2715</td>
       <td>0.0</td>
-      <td>0.006335</td>
-      <td>0.003881</td>
-      <td>0.022698</td>
+      <td>0.001984</td>
+      <td>0.000835</td>
+      <td>0.008811</td>
     </tr>
     <tr>
       <th>6</th>
       <td>Medium</td>
       <td>Control</td>
-      <td>2252</td>
-      <td>0.022746</td>
-      <td>0.070208</td>
-      <td>0.063056</td>
-      <td>0.14358</td>
+      <td>2098</td>
+      <td>0.008823</td>
+      <td>0.041494</td>
+      <td>0.035349</td>
+      <td>0.098338</td>
     </tr>
     <tr>
       <th>7</th>
       <td>Medium</td>
       <td>Test</td>
-      <td>2252</td>
-      <td>0.0228</td>
-      <td>0.071192</td>
-      <td>0.064267</td>
-      <td>0.143521</td>
+      <td>2098</td>
+      <td>0.008815</td>
+      <td>0.041513</td>
+      <td>0.034737</td>
+      <td>0.098317</td>
     </tr>
     <tr>
       <th>8</th>
       <td>Medium</td>
       <td>&lt;NA&gt;</td>
-      <td>2746</td>
-      <td>0.022846</td>
-      <td>0.069557</td>
-      <td>0.062974</td>
-      <td>0.143544</td>
+      <td>3054</td>
+      <td>0.008829</td>
+      <td>0.040498</td>
+      <td>0.033774</td>
+      <td>0.098326</td>
     </tr>
   </tbody>
 </table>
@@ -18761,6 +19006,110 @@ Set all specified datatypes.
 </div>
 </div>
 </div>
+</div>
+<div id="cell-id=043a3979-4411-41cc-9ce3-a0ade1348704" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>::: {.content-hidden}
+Show column datatypes for cohort statistics
+:::</p>
+
+</div>
+</div>
+</div>
+</div><div id="cell-id=550e611e-25d0-4330-9359-d73279470688" class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[31]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_aud_stats</span><span class="o">.</span><span class="n">dtypes</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;dtype&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[31]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>dtype</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>maudience</th>
+      <td>string[python]</td>
+    </tr>
+    <tr>
+      <th>cohort</th>
+      <td>string[python]</td>
+    </tr>
+    <tr>
+      <th>score_count</th>
+      <td>Int64</td>
+    </tr>
+    <tr>
+      <th>score_min</th>
+      <td>Float64</td>
+    </tr>
+    <tr>
+      <th>score_mean</th>
+      <td>Float64</td>
+    </tr>
+    <tr>
+      <th>score_median</th>
+      <td>Float64</td>
+    </tr>
+    <tr>
+      <th>score_max</th>
+      <td>Float64</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </div>
 <div id="cell-id=e27edede-1947-49ac-9ec5-27a9b6100158" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
@@ -18831,42 +19180,29 @@ Set all specified datatypes.
 </div>
 </div>
 </div>
-</div><div id="cell-id=59ed5cf0-8373-4d47-bbb1-6f3831961606" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[29]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dtypes_profile</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
-    <span class="n">stat</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
-    <span class="n">stat_type</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
-    <span class="n">High</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
-    <span class="n">Low</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
-    <span class="n">Medium</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
-    <span class="n">feature</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
-    <span class="n">audience_strategy</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Int8Dtype</span><span class="p">(),</span>
-<span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
 </div><div id="cell-id=24fc4b69-f6d2-469a-af76-9b247de91276" class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[30]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[32]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
 <span class="n">df_profile</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">pa</span><span class="o">.</span><span class="n">get_audience_profile</span><span class="p">(</span><span class="n">df_infer_audience_groups</span><span class="p">,</span> <span class="n">audience_strategy</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">th</span><span class="o">.</span><span class="n">set_datatypes</span><span class="p">,</span> <span class="n">dtypes_profile</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="n">th</span><span class="o">.</span><span class="n">set_datatypes</span><span class="p">,</span>
+        <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">stat</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
+            <span class="n">stat_type</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
+            <span class="n">High</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
+            <span class="n">Low</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
+            <span class="n">Medium</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
+            <span class="n">feature</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
+            <span class="n">audience_strategy</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Int8Dtype</span><span class="p">(),</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
 <span class="p">)</span>
 <span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s2">&quot;display.max_columns&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">):</span>
     <span class="n">display</span><span class="p">(</span><span class="n">df_profile</span><span class="p">)</span>
@@ -18933,9 +19269,9 @@ Set all specified datatypes.
       <th>0</th>
       <td>hour__mean</td>
       <td>mean</td>
-      <td>13.043304371810784</td>
-      <td>13.025513722245208</td>
-      <td>12.969241379310345</td>
+      <td>12.988829127016963</td>
+      <td>13.004689008412633</td>
+      <td>13.03503448275862</td>
       <td>hour</td>
       <td>1</td>
     </tr>
@@ -18943,9 +19279,9 @@ Set all specified datatypes.
       <th>1</th>
       <td>day_of_week__mean</td>
       <td>mean</td>
-      <td>4.009240104813129</td>
-      <td>3.9921390153082332</td>
-      <td>4.009931034482759</td>
+      <td>4.027858226451524</td>
+      <td>3.991035719211143</td>
+      <td>3.993793103448276</td>
       <td>day_of_week</td>
       <td>1</td>
     </tr>
@@ -19023,9 +19359,9 @@ Set all specified datatypes.
       <th>9</th>
       <td>hits__mean</td>
       <td>mean</td>
-      <td>6.214315266859743</td>
-      <td>6.497586539787616</td>
-      <td>6.3565517241379315</td>
+      <td>6.4591090884016</td>
+      <td>6.408219555923321</td>
+      <td>6.197655172413793</td>
       <td>hits</td>
       <td>1</td>
     </tr>
@@ -19033,9 +19369,9 @@ Set all specified datatypes.
       <th>10</th>
       <td>hits__max</td>
       <td>max</td>
-      <td>216</td>
+      <td>226</td>
       <td>500</td>
-      <td>386</td>
+      <td>175</td>
       <td>hits</td>
       <td>1</td>
     </tr>
@@ -19043,9 +19379,9 @@ Set all specified datatypes.
       <th>11</th>
       <td>promos_displayed__mean</td>
       <td>mean</td>
-      <td>8.550682664460075</td>
-      <td>8.61274306992139</td>
-      <td>8.541931034482758</td>
+      <td>8.585436491518411</td>
+      <td>8.677285891601159</td>
+      <td>8.441379310344828</td>
       <td>promos_displayed</td>
       <td>1</td>
     </tr>
@@ -19054,8 +19390,8 @@ Set all specified datatypes.
       <td>promos_displayed__max</td>
       <td>max</td>
       <td>189</td>
-      <td>171</td>
       <td>189</td>
+      <td>126</td>
       <td>promos_displayed</td>
       <td>1</td>
     </tr>
@@ -19063,8 +19399,8 @@ Set all specified datatypes.
       <th>13</th>
       <td>promos_clicked__mean</td>
       <td>mean</td>
-      <td>0.0</td>
       <td>0.00013791201213625708</td>
+      <td>0.0</td>
       <td>0.0</td>
       <td>promos_clicked</td>
       <td>1</td>
@@ -19073,8 +19409,8 @@ Set all specified datatypes.
       <th>14</th>
       <td>promos_clicked__max</td>
       <td>max</td>
-      <td>0</td>
       <td>1</td>
+      <td>0</td>
       <td>0</td>
       <td>promos_clicked</td>
       <td>1</td>
@@ -19083,9 +19419,9 @@ Set all specified datatypes.
       <th>15</th>
       <td>product_views__mean</td>
       <td>mean</td>
-      <td>22.395255826782513</td>
-      <td>23.932423114053233</td>
-      <td>23.24137931034483</td>
+      <td>23.478140946076405</td>
+      <td>22.888153358157496</td>
+      <td>23.204</td>
       <td>product_views</td>
       <td>1</td>
     </tr>
@@ -19093,9 +19429,9 @@ Set all specified datatypes.
       <th>16</th>
       <td>product_views__max</td>
       <td>max</td>
-      <td>367</td>
+      <td>625</td>
       <td>987</td>
-      <td>573</td>
+      <td>480</td>
       <td>product_views</td>
       <td>1</td>
     </tr>
@@ -19103,9 +19439,9 @@ Set all specified datatypes.
       <th>17</th>
       <td>product_clicks__mean</td>
       <td>mean</td>
-      <td>0.6470831609433182</td>
-      <td>0.7044545579920011</td>
-      <td>0.679448275862069</td>
+      <td>0.7141083988415391</td>
+      <td>0.667356226727348</td>
+      <td>0.6488275862068965</td>
       <td>product_clicks</td>
       <td>1</td>
     </tr>
@@ -19113,9 +19449,9 @@ Set all specified datatypes.
       <th>18</th>
       <td>product_clicks__max</td>
       <td>max</td>
-      <td>27</td>
-      <td>48</td>
       <td>79</td>
+      <td>50</td>
+      <td>46</td>
       <td>product_clicks</td>
       <td>1</td>
     </tr>
@@ -19123,9 +19459,9 @@ Set all specified datatypes.
       <th>19</th>
       <td>pageviews__mean</td>
       <td>mean</td>
-      <td>5.287408633291959</td>
-      <td>5.492070059302165</td>
-      <td>5.405241379310345</td>
+      <td>5.459522824438008</td>
+      <td>5.439249758653979</td>
+      <td>5.283724137931035</td>
       <td>pageviews</td>
       <td>1</td>
     </tr>
@@ -19135,7 +19471,7 @@ Set all specified datatypes.
       <td>max</td>
       <td>176</td>
       <td>466</td>
-      <td>343</td>
+      <td>109</td>
       <td>pageviews</td>
       <td>1</td>
     </tr>
@@ -19143,9 +19479,9 @@ Set all specified datatypes.
       <th>21</th>
       <td>revenue__mean</td>
       <td>mean</td>
-      <td>179.2376251220703</td>
-      <td>193.4358367919922</td>
-      <td>178.18284606933594</td>
+      <td>165.1793893129771</td>
+      <td>209.0597609561753</td>
+      <td>175.87772925764193</td>
       <td>revenue</td>
       <td>1</td>
     </tr>
@@ -19153,9 +19489,9 @@ Set all specified datatypes.
       <th>22</th>
       <td>revenue__max</td>
       <td>max</td>
-      <td>1352.6300048828125</td>
-      <td>3027.10009765625</td>
-      <td>3829.800048828125</td>
+      <td>3027</td>
+      <td>3829</td>
+      <td>870</td>
       <td>revenue</td>
       <td>1</td>
     </tr>
@@ -19163,9 +19499,9 @@ Set all specified datatypes.
       <th>23</th>
       <td>added_to_cart__mean</td>
       <td>mean</td>
-      <td>0.19486967314853124</td>
-      <td>0.19418011308784996</td>
-      <td>0.20124137931034483</td>
+      <td>0.20576472210729554</td>
+      <td>0.1959729692456213</td>
+      <td>0.188</td>
       <td>added_to_cart</td>
       <td>1</td>
     </tr>
@@ -19173,9 +19509,9 @@ Set all specified datatypes.
       <th>24</th>
       <td>added_to_cart__max</td>
       <td>max</td>
-      <td>25</td>
-      <td>20</td>
+      <td>21</td>
       <td>23</td>
+      <td>25</td>
       <td>added_to_cart</td>
       <td>1</td>
     </tr>
@@ -19183,9 +19519,9 @@ Set all specified datatypes.
       <th>25</th>
       <td>last_action_added_to_cart</td>
       <td>behavior</td>
-      <td>5.254447662391394</td>
-      <td>5.019997241759757</td>
-      <td>5.0344827586206895</td>
+      <td>5.1579092538960145</td>
+      <td>4.909667632050752</td>
+      <td>5.227586206896552</td>
       <td>last_action</td>
       <td>1</td>
     </tr>
@@ -19193,9 +19529,9 @@ Set all specified datatypes.
       <th>26</th>
       <td>last_action_completed_purchase</td>
       <td>behavior</td>
-      <td>3.7374155288925666</td>
-      <td>3.2823058888429184</td>
-      <td>3.1862068965517243</td>
+      <td>3.6132947179699353</td>
+      <td>3.4615915046200523</td>
+      <td>3.1586206896551725</td>
       <td>last_action</td>
       <td>1</td>
     </tr>
@@ -19203,9 +19539,9 @@ Set all specified datatypes.
       <th>27</th>
       <td>last_action_check_out</td>
       <td>behavior</td>
-      <td>1.3239553165080677</td>
-      <td>1.310164115294442</td>
-      <td>1.4620689655172414</td>
+      <td>1.2963729140808165</td>
+      <td>1.3791201213625708</td>
+      <td>1.4068965517241379</td>
       <td>last_action</td>
       <td>1</td>
     </tr>
@@ -19213,9 +19549,9 @@ Set all specified datatypes.
       <th>28</th>
       <td>last_action_removed_products_from_cart</td>
       <td>behavior</td>
-      <td>0.7723072679630396</td>
-      <td>0.8826368776720452</td>
-      <td>0.7724137931034483</td>
+      <td>0.8550544752447938</td>
+      <td>0.8136808716039167</td>
+      <td>0.7586206896551724</td>
       <td>last_action</td>
       <td>1</td>
     </tr>
@@ -19224,8 +19560,8 @@ Set all specified datatypes.
       <td>last_action_clicked_through_product_lists</td>
       <td>behavior</td>
       <td>0.027582402427251414</td>
-      <td>0.06895600606812853</td>
-      <td>0.06896551724137931</td>
+      <td>0.08274720728175423</td>
+      <td>0.05517241379310345</td>
       <td>last_action</td>
       <td>1</td>
     </tr>
@@ -19233,9 +19569,9 @@ Set all specified datatypes.
       <th>30</th>
       <td>used_referral</td>
       <td>behavior</td>
-      <td>24.86553578816715</td>
-      <td>24.051854916563233</td>
-      <td>24.151724137931033</td>
+      <td>24.18976692869949</td>
+      <td>24.465590952972004</td>
+      <td>24.413793103448278</td>
       <td>medium</td>
       <td>1</td>
     </tr>
@@ -19243,9 +19579,9 @@ Set all specified datatypes.
       <th>31</th>
       <td>added_gt_1_to_cart</td>
       <td>behavior</td>
-      <td>3.7787891325334435</td>
-      <td>3.985657150737829</td>
-      <td>4.151724137931034</td>
+      <td>3.916701144669701</td>
+      <td>4.20631637015584</td>
+      <td>3.7655172413793103</td>
       <td>added_to_cart</td>
       <td>1</td>
     </tr>
@@ -19253,9 +19589,9 @@ Set all specified datatypes.
       <th>32</th>
       <td>weekend_visitors</td>
       <td>behavior</td>
-      <td>17.887187974072543</td>
-      <td>17.997517583781548</td>
-      <td>18.151724137931033</td>
+      <td>17.81823196800441</td>
+      <td>17.749275961936284</td>
+      <td>18.482758620689655</td>
       <td>day_of_week</td>
       <td>1</td>
     </tr>
@@ -19263,9 +19599,9 @@ Set all specified datatypes.
       <th>33</th>
       <td>bounce_rate</td>
       <td>behavior</td>
-      <td>33.01613570541994</td>
-      <td>32.97476210177906</td>
-      <td>34.08275862068965</td>
+      <td>33.40228933940146</td>
+      <td>32.98855330299269</td>
+      <td>33.682758620689654</td>
       <td>bounces</td>
       <td>1</td>
     </tr>
@@ -19310,6 +19646,110 @@ Set all specified datatypes.
 </div>
 </div>
 </div>
+<div id="cell-id=edea9e8b-83c8-483b-bda1-f60ef4dfaa25" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>::: {.content-hidden}
+Show column datatypes for audience profiles
+:::</p>
+
+</div>
+</div>
+</div>
+</div><div id="cell-id=96ae9f85-5f5c-437f-bb82-4ce419b71222" class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[33]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_profile</span><span class="o">.</span><span class="n">dtypes</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;dtype&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[33]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>dtype</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>stat</th>
+      <td>string[python]</td>
+    </tr>
+    <tr>
+      <th>stat_type</th>
+      <td>string[python]</td>
+    </tr>
+    <tr>
+      <th>High</th>
+      <td>string[python]</td>
+    </tr>
+    <tr>
+      <th>Low</th>
+      <td>string[python]</td>
+    </tr>
+    <tr>
+      <th>Medium</th>
+      <td>string[python]</td>
+    </tr>
+    <tr>
+      <th>feature</th>
+      <td>string[python]</td>
+    </tr>
+    <tr>
+      <th>audience_strategy</th>
+      <td>Int8</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
 <div id="cell-id=02018b17-582c-4db2-9bdf-a831e561d78c" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -19325,18 +19765,27 @@ Set all specified datatypes.
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[31]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[34]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># development (test split)</span>
 <span class="n">df_test_best_run_conv_rates</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">df_all</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">ash</span><span class="o">.</span><span class="n">set_datatypes</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;bounces&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">()})</span>
     <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;split_type == &#39;test&#39;&quot;</span><span class="p">)</span>
     <span class="c1"># get label using predicted probability</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mf">0.5</span><span class="p">)</span>
     <span class="c1"># create audience groups</span>
     <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">ash</span><span class="o">.</span><span class="n">sort_scores</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
     <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">ash</span><span class="o">.</span><span class="n">get_audience_groups_by_propensity</span><span class="p">,</span> <span class="n">audience_groups_strategy_1</span><span class="p">[</span><span class="s2">&quot;num_propens_groups&quot;</span><span class="p">])</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="n">ash</span><span class="o">.</span><span class="n">set_datatypes</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;bounces&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>
+            <span class="s1">&#39;row_number&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>
+            <span class="s1">&#39;group_number&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int8Dtype</span><span class="p">(),</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">audience_strategy</span><span class="o">=</span><span class="n">audience_strategy</span><span class="p">)</span>
     <span class="c1"># get audience group name</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span>
@@ -19348,6 +19797,15 @@ Set all specified datatypes.
                 <span class="p">)</span>
             <span class="p">)</span>
         <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="n">ash</span><span class="o">.</span><span class="n">set_datatypes</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;audience_strategy&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
+            <span class="s1">&#39;maudience&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
+            <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Float64Dtype</span><span class="p">(),</span>
+            <span class="n">label</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Float64Dtype</span><span class="p">(),</span>
+        <span class="p">},</span>
     <span class="p">)</span>
     <span class="c1"># get conversions, number of visitors and lowest prediced probability per audience group</span>
     <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;audience_strategy&#39;</span><span class="p">,</span> <span class="s1">&#39;maudience&#39;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -19363,12 +19821,17 @@ Set all specified datatypes.
     <span class="c1"># append metadata</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">data_type</span><span class="o">=</span><span class="s1">&#39;development&#39;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">data_size</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;total_visitors&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">ash</span><span class="o">.</span><span class="n">set_datatypes</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;total_visitors&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span> <span class="s2">&quot;data_size&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">()})</span>
     <span class="c1"># calculate true conversion rates per audience group and overall</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">true_conv_rate</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="mi">100</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;true_conversions&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;total_visitors&#39;</span><span class="p">])</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">overall_true_conv_rate</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="mi">100</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;true_conversions&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;data_size&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
     <span class="c1"># calculate predicted conversion rates per audience group and overall</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">pred_conv_rate</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="mi">100</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;pred_conversions&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;total_visitors&#39;</span><span class="p">])</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">overall_pred_conv_rate</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="mi">100</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;pred_conversions&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;data_size&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="n">ash</span><span class="o">.</span><span class="n">set_datatypes</span><span class="p">,</span>
+        <span class="p">{</span><span class="s2">&quot;overall_true_conv_rate&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Float64Dtype</span><span class="p">(),</span> <span class="s2">&quot;overall_pred_conv_rate&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Float64Dtype</span><span class="p">()}</span>
+    <span class="p">)</span>
 <span class="p">)</span>
 
 <span class="c1"># inference</span>
@@ -19376,6 +19839,7 @@ Set all specified datatypes.
     <span class="n">df_infer_audience_groups</span>
     <span class="c1"># get label using predicted probability</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">astype</span><span class="p">({</span><span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Float64Dtype</span><span class="p">()})</span>
     <span class="c1"># get conversions, number of visitors and lowest prediced probability per audience group</span>
     <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;audience_strategy&#39;</span><span class="p">,</span> <span class="s1">&#39;maudience&#39;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span> <span class="s2">&quot;fullvisitorid&quot;</span><span class="p">:</span> <span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="s2">&quot;min&quot;</span><span class="p">})</span>
@@ -19383,28 +19847,32 @@ Set all specified datatypes.
     <span class="c1"># append metadata</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">data_type</span><span class="o">=</span><span class="s1">&#39;inference&#39;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">data_size</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;total_visitors&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">ash</span><span class="o">.</span><span class="n">set_datatypes</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;total_visitors&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span> <span class="s2">&quot;data_size&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">()})</span>
     <span class="c1"># calculate predicted conversion rates per audience group and overall</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">pred_conv_rate</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="mi">100</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;pred_conversions&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;total_visitors&#39;</span><span class="p">])</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">overall_pred_conv_rate</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="mi">100</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;pred_conversions&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;data_size&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">ash</span><span class="o">.</span><span class="n">set_datatypes</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;overall_pred_conv_rate&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Float64Dtype</span><span class="p">()})</span>
 <span class="p">)</span>
 
 <span class="c1"># combined</span>
 <span class="n">df_conv_rates</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_test_best_run_conv_rates</span><span class="p">,</span> <span class="n">df_infer_conv_rates</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">astype</span><span class="p">(</span>
+    <span class="o">.</span><span class="n">astype</span><span class="p">({</span><span class="s2">&quot;audience_strategy&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">})</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="n">ash</span><span class="o">.</span><span class="n">set_datatypes</span><span class="p">,</span>
         <span class="p">{</span>
             <span class="s2">&quot;maudience&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
             <span class="s2">&quot;audience_strategy&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int8Dtype</span><span class="p">(),</span>
-            <span class="s2">&quot;pred_conversions&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int16Dtype</span><span class="p">(),</span>
-            <span class="s2">&quot;total_visitors&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int16Dtype</span><span class="p">(),</span>
-            <span class="s2">&quot;min_score&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Float32Dtype</span><span class="p">(),</span>
-            <span class="s2">&quot;true_conversions&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int16Dtype</span><span class="p">(),</span>
+            <span class="s2">&quot;pred_conversions&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>  <span class="c1"># Int16Dtype</span>
+            <span class="s2">&quot;total_visitors&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>  <span class="c1"># Int16Dtype</span>
+            <span class="s2">&quot;min_score&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Float64Dtype</span><span class="p">(),</span>  <span class="c1"># Float32Dtype</span>
+            <span class="s2">&quot;true_conversions&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>  <span class="c1"># Int16Dtype</span>
             <span class="s2">&quot;data_type&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
-            <span class="s2">&quot;data_size&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int16Dtype</span><span class="p">(),</span>
-            <span class="s2">&quot;true_conv_rate&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Float32Dtype</span><span class="p">(),</span>
-            <span class="s2">&quot;overall_true_conv_rate&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Float32Dtype</span><span class="p">(),</span>
-            <span class="s2">&quot;pred_conv_rate&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Float32Dtype</span><span class="p">(),</span>
-            <span class="s2">&quot;overall_pred_conv_rate&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Float32Dtype</span><span class="p">(),</span>
+            <span class="s2">&quot;data_size&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>  <span class="c1"># Int16Dtype</span>
+            <span class="s2">&quot;true_conv_rate&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Float64Dtype</span><span class="p">(),</span>  <span class="c1"># Float32Dtype</span>
+            <span class="s2">&quot;overall_true_conv_rate&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Float64Dtype</span><span class="p">(),</span>  <span class="c1"># Float32Dtype</span>
+            <span class="s2">&quot;pred_conv_rate&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Float64Dtype</span><span class="p">(),</span>  <span class="c1"># Float32Dtype</span>
+            <span class="s2">&quot;overall_pred_conv_rate&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Float64Dtype</span><span class="p">(),</span>  <span class="c1"># Float32Dtype</span>
         <span class="p">}</span>
     <span class="p">)</span>
 <span class="p">)</span>
@@ -19422,9 +19890,26 @@ Set all specified datatypes.
 
 
 <div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Set all specified datatypes.
+Set all specified datatypes.
+Set all specified datatypes.
+Set all specified datatypes.
+Set all specified datatypes.
+Set all specified datatypes.
+Set all specified datatypes.
+Set all specified datatypes.
+</pre>
+</div>
+</div>
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[31]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[34]:</div>
 
 
 
@@ -19466,16 +19951,16 @@ Set all specified datatypes.
       <th>0</th>
       <td>1</td>
       <td>High</td>
-      <td>1125</td>
+      <td>850</td>
       <td>6722</td>
-      <td>0.140977</td>
-      <td>165</td>
+      <td>0.095656</td>
+      <td>149</td>
       <td>development</td>
       <td>20164</td>
-      <td>2.454627</td>
+      <td>2.216602</td>
       <td>2.30609</td>
-      <td>16.73609</td>
-      <td>5.57925</td>
+      <td>12.645046</td>
+      <td>4.215433</td>
     </tr>
     <tr>
       <th>1</th>
@@ -19484,13 +19969,13 @@ Set all specified datatypes.
       <td>0</td>
       <td>6721</td>
       <td>0.0</td>
-      <td>147</td>
+      <td>152</td>
       <td>development</td>
       <td>20164</td>
-      <td>2.187175</td>
+      <td>2.261568</td>
       <td>2.30609</td>
       <td>0.0</td>
-      <td>5.57925</td>
+      <td>4.215433</td>
     </tr>
     <tr>
       <th>2</th>
@@ -19498,29 +19983,29 @@ Set all specified datatypes.
       <td>Medium</td>
       <td>0</td>
       <td>6721</td>
-      <td>0.022545</td>
-      <td>153</td>
+      <td>0.00911</td>
+      <td>164</td>
       <td>development</td>
       <td>20164</td>
-      <td>2.276447</td>
+      <td>2.440113</td>
       <td>2.30609</td>
       <td>0.0</td>
-      <td>5.57925</td>
+      <td>4.215433</td>
     </tr>
     <tr>
       <th>3</th>
       <td>1</td>
       <td>High</td>
-      <td>1243</td>
+      <td>975</td>
       <td>7251</td>
-      <td>0.143627</td>
+      <td>0.098362</td>
       <td>&lt;NA&gt;</td>
       <td>inference</td>
       <td>21752</td>
       <td>&lt;NA&gt;</td>
       <td>&lt;NA&gt;</td>
-      <td>17.142464</td>
-      <td>5.714417</td>
+      <td>13.446421</td>
+      <td>4.482346</td>
     </tr>
     <tr>
       <th>4</th>
@@ -19535,7 +20020,7 @@ Set all specified datatypes.
       <td>&lt;NA&gt;</td>
       <td>&lt;NA&gt;</td>
       <td>0.0</td>
-      <td>5.714417</td>
+      <td>4.482346</td>
     </tr>
     <tr>
       <th>5</th>
@@ -19543,14 +20028,14 @@ Set all specified datatypes.
       <td>Medium</td>
       <td>0</td>
       <td>7250</td>
-      <td>0.022746</td>
+      <td>0.008815</td>
       <td>&lt;NA&gt;</td>
       <td>inference</td>
       <td>21752</td>
       <td>&lt;NA&gt;</td>
       <td>&lt;NA&gt;</td>
       <td>0.0</td>
-      <td>5.714417</td>
+      <td>4.482346</td>
     </tr>
   </tbody>
 </table>
@@ -19606,7 +20091,7 @@ Set all specified datatypes.
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[32]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[35]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># development (test split)</span>
@@ -19629,6 +20114,7 @@ Set all specified datatypes.
         <span class="n">ch</span><span class="o">.</span><span class="n">load_file_from_mlflow_artifact</span><span class="p">(</span>
             <span class="n">df_deployment_candidate_mlflow_models</span><span class="p">,</span> <span class="s2">&quot;audience_sample_sizes&quot;</span>
         <span class="p">)</span>
+        <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">ash</span><span class="o">.</span><span class="n">set_datatypes</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;audience_strategy&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int8Dtype</span><span class="p">()})</span>
         <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">ch</span><span class="o">.</span><span class="n">get_sample_sizes_by_strategy</span><span class="p">,</span> <span class="n">audience_strategy</span><span class="p">)</span>
         <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">ch</span><span class="o">.</span><span class="n">get_suitable_sample_sizes</span><span class="p">,</span> <span class="n">bin_size_infer_control</span><span class="p">)</span>
         <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">ch</span><span class="o">.</span><span class="n">get_sample_sizes_with_all_audience_groups</span><span class="p">,</span> <span class="n">num_bins</span><span class="p">)</span>
@@ -19644,7 +20130,15 @@ Set all specified datatypes.
     <span class="c1"># append metadata</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">size_type</span><span class="o">=</span><span class="s1">&#39;required&#39;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">data_type</span><span class="o">=</span><span class="s1">&#39;development&#39;</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">data_size</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;data_type&#39;</span><span class="p">)[</span><span class="s1">&#39;group_size&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">&#39;sum&#39;</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Int16Dtype</span><span class="p">()))</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">data_size</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;data_type&#39;</span><span class="p">)[</span><span class="s1">&#39;group_size&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">&#39;sum&#39;</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="n">ash</span><span class="o">.</span><span class="n">set_datatypes</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;size_type&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
+            <span class="s2">&quot;data_type&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
+            <span class="s1">&#39;data_size&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
 <span class="p">)</span>
 
 <span class="c1"># inference</span>
@@ -19668,6 +20162,18 @@ Set all specified datatypes.
            <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">wanted_inputs</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
        <span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
     <span class="p">)</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="n">ash</span><span class="o">.</span><span class="n">set_datatypes</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;samp_to_aud_frac&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Float64Dtype</span><span class="p">(),</span>
+            <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>
+            <span class="s2">&quot;group_size&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>
+            <span class="s2">&quot;uplift_percentage&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int8Dtype</span><span class="p">(),</span>
+            <span class="s2">&quot;power_percentage&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int8Dtype</span><span class="p">(),</span>
+            <span class="s2">&quot;power_percentage&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int8Dtype</span><span class="p">(),</span>
+            <span class="s2">&quot;confidence_level_percentage&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int8Dtype</span><span class="p">(),</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
     <span class="c1"># # append required inputs that were used to estimate required sample size per</span>
     <span class="c1"># # audience group</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">uplift</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;uplift_percentage&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;ffill&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Int8Dtype</span><span class="p">()))</span>
@@ -19678,22 +20184,29 @@ Set all specified datatypes.
     <span class="c1"># append metadata</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">size_type</span><span class="o">=</span><span class="s1">&#39;randomly selected&#39;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">data_type</span><span class="o">=</span><span class="s1">&#39;inference&#39;</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">data_size</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;data_type&#39;</span><span class="p">)[</span><span class="s1">&#39;group_size&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">&#39;sum&#39;</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Int16Dtype</span><span class="p">()))</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">data_size</span><span class="o">=</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;data_type&#39;</span><span class="p">)[</span><span class="s1">&#39;group_size&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">&#39;sum&#39;</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="n">ash</span><span class="o">.</span><span class="n">set_datatypes</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;samp_to_aud_frac&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Float64Dtype</span><span class="p">(),</span>
+            <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>
+            <span class="s2">&quot;group_size&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>
+            <span class="s2">&quot;size_type&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
+            <span class="s2">&quot;data_type&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
+            <span class="s2">&quot;data_size&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
 <span class="p">)</span>
 
 <span class="c1"># combined</span>
 <span class="n">df_sa_frac</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_sa_frac_test</span><span class="p">,</span> <span class="n">df_sa_frac_infer</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">astype</span><span class="p">(</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+        <span class="n">ash</span><span class="o">.</span><span class="n">set_datatypes</span><span class="p">,</span>
         <span class="p">{</span>
             <span class="s2">&quot;maudience&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
             <span class="s2">&quot;cohort&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
-            <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int16Dtype</span><span class="p">(),</span>
-            <span class="s2">&quot;group_size&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int16Dtype</span><span class="p">(),</span>
-            <span class="s2">&quot;samp_to_aud_frac&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Float32Dtype</span><span class="p">(),</span>
-            <span class="s2">&quot;size_type&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
-            <span class="s2">&quot;data_type&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">(),</span>
-            <span class="s2">&quot;data_size&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int16Dtype</span><span class="p">(),</span>
+            <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">(),</span>  <span class="c1"># Int16Dtype</span>
         <span class="p">}</span>
     <span class="p">)</span>
 <span class="p">)</span>
@@ -19711,9 +20224,23 @@ Set all specified datatypes.
 
 
 <div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Set all specified datatypes.
+Set all specified datatypes.
+Set all specified datatypes.
+Set all specified datatypes.
+Set all specified datatypes.
+</pre>
+</div>
+</div>
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[32]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[35]:</div>
 
 
 
@@ -19754,12 +20281,12 @@ Set all specified datatypes.
       <th>0</th>
       <td>High</td>
       <td>Test</td>
-      <td>1933</td>
+      <td>2146</td>
       <td>6721</td>
       <td>10</td>
       <td>55</td>
       <td>55</td>
-      <td>28.760601</td>
+      <td>31.929772</td>
       <td>required</td>
       <td>development</td>
       <td>20164</td>
@@ -19768,12 +20295,12 @@ Set all specified datatypes.
       <th>1</th>
       <td>High</td>
       <td>Control</td>
-      <td>1933</td>
+      <td>2146</td>
       <td>6721</td>
       <td>10</td>
       <td>55</td>
       <td>55</td>
-      <td>28.760601</td>
+      <td>31.929772</td>
       <td>required</td>
       <td>development</td>
       <td>20164</td>
@@ -19782,12 +20309,12 @@ Set all specified datatypes.
       <th>2</th>
       <td>Medium</td>
       <td>Test</td>
-      <td>2088</td>
+      <td>1945</td>
       <td>6721</td>
       <td>10</td>
       <td>55</td>
       <td>55</td>
-      <td>31.066805</td>
+      <td>28.939146</td>
       <td>required</td>
       <td>development</td>
       <td>20164</td>
@@ -19796,12 +20323,12 @@ Set all specified datatypes.
       <th>3</th>
       <td>Medium</td>
       <td>Control</td>
-      <td>2088</td>
+      <td>1945</td>
       <td>6721</td>
       <td>10</td>
       <td>55</td>
       <td>55</td>
-      <td>31.066805</td>
+      <td>28.939146</td>
       <td>required</td>
       <td>development</td>
       <td>20164</td>
@@ -19810,12 +20337,12 @@ Set all specified datatypes.
       <th>4</th>
       <td>Low</td>
       <td>Test</td>
-      <td>2176</td>
+      <td>2103</td>
       <td>6722</td>
       <td>10</td>
       <td>55</td>
       <td>55</td>
-      <td>32.371319</td>
+      <td>31.285332</td>
       <td>required</td>
       <td>development</td>
       <td>20164</td>
@@ -19824,12 +20351,12 @@ Set all specified datatypes.
       <th>5</th>
       <td>Low</td>
       <td>Control</td>
-      <td>2176</td>
+      <td>2103</td>
       <td>6722</td>
       <td>10</td>
       <td>55</td>
       <td>55</td>
-      <td>32.371319</td>
+      <td>31.285332</td>
       <td>required</td>
       <td>development</td>
       <td>20164</td>
@@ -19838,12 +20365,12 @@ Set all specified datatypes.
       <th>6</th>
       <td>High</td>
       <td>Control</td>
-      <td>2085</td>
+      <td>2315</td>
       <td>7251</td>
       <td>10</td>
       <td>55</td>
       <td>55</td>
-      <td>28.754654</td>
+      <td>31.926631</td>
       <td>randomly selected</td>
       <td>inference</td>
       <td>21752</td>
@@ -19852,12 +20379,12 @@ Set all specified datatypes.
       <th>7</th>
       <td>High</td>
       <td>Test</td>
-      <td>2085</td>
+      <td>2315</td>
       <td>7251</td>
       <td>10</td>
       <td>55</td>
       <td>55</td>
-      <td>28.754654</td>
+      <td>31.926631</td>
       <td>randomly selected</td>
       <td>inference</td>
       <td>21752</td>
@@ -19866,12 +20393,12 @@ Set all specified datatypes.
       <th>8</th>
       <td>Low</td>
       <td>Control</td>
-      <td>2347</td>
+      <td>2268</td>
       <td>7251</td>
       <td>10</td>
       <td>55</td>
       <td>55</td>
-      <td>32.36795</td>
+      <td>31.278444</td>
       <td>randomly selected</td>
       <td>inference</td>
       <td>21752</td>
@@ -19880,12 +20407,12 @@ Set all specified datatypes.
       <th>9</th>
       <td>Low</td>
       <td>Test</td>
-      <td>2347</td>
+      <td>2268</td>
       <td>7251</td>
       <td>10</td>
       <td>55</td>
       <td>55</td>
-      <td>32.36795</td>
+      <td>31.278444</td>
       <td>randomly selected</td>
       <td>inference</td>
       <td>21752</td>
@@ -19894,12 +20421,12 @@ Set all specified datatypes.
       <th>10</th>
       <td>Medium</td>
       <td>Control</td>
-      <td>2252</td>
+      <td>2098</td>
       <td>7250</td>
       <td>10</td>
       <td>55</td>
       <td>55</td>
-      <td>31.062069</td>
+      <td>28.937931</td>
       <td>randomly selected</td>
       <td>inference</td>
       <td>21752</td>
@@ -19908,12 +20435,12 @@ Set all specified datatypes.
       <th>11</th>
       <td>Medium</td>
       <td>Test</td>
-      <td>2252</td>
+      <td>2098</td>
       <td>7250</td>
       <td>10</td>
       <td>55</td>
       <td>55</td>
-      <td>31.062069</td>
+      <td>28.937931</td>
       <td>randomly selected</td>
       <td>inference</td>
       <td>21752</td>
@@ -19973,7 +20500,7 @@ Set all specified datatypes.
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[33]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[36]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
@@ -20015,7 +20542,7 @@ Show summary of <code>DataFrame</code> with audience cohorts
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[34]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[37]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| output: false</span>
@@ -20079,7 +20606,7 @@ Show summary of <code>DataFrame</code> with audience cohorts
     <tr>
       <th>2</th>
       <td>visitNumber</td>
-      <td>Int8</td>
+      <td>Int64</td>
       <td>0</td>
     </tr>
     <tr>
@@ -20091,43 +20618,43 @@ Show summary of <code>DataFrame</code> with audience cohorts
     <tr>
       <th>4</th>
       <td>quarter</td>
-      <td>Int8</td>
+      <td>Int64</td>
       <td>0</td>
     </tr>
     <tr>
       <th>5</th>
       <td>month</td>
-      <td>Int8</td>
+      <td>Int64</td>
       <td>0</td>
     </tr>
     <tr>
       <th>6</th>
       <td>day_of_month</td>
-      <td>Int8</td>
+      <td>Int64</td>
       <td>0</td>
     </tr>
     <tr>
       <th>7</th>
       <td>day_of_week</td>
-      <td>Int8</td>
+      <td>Int64</td>
       <td>0</td>
     </tr>
     <tr>
       <th>8</th>
       <td>hour</td>
-      <td>Int8</td>
+      <td>Int64</td>
       <td>0</td>
     </tr>
     <tr>
       <th>9</th>
       <td>minute</td>
-      <td>Int8</td>
+      <td>Int64</td>
       <td>0</td>
     </tr>
     <tr>
       <th>10</th>
       <td>second</td>
-      <td>Int8</td>
+      <td>Int64</td>
       <td>0</td>
     </tr>
     <tr>
@@ -20151,7 +20678,7 @@ Show summary of <code>DataFrame</code> with audience cohorts
     <tr>
       <th>14</th>
       <td>hits</td>
-      <td>Int16</td>
+      <td>Int64</td>
       <td>0</td>
     </tr>
     <tr>
@@ -20169,37 +20696,37 @@ Show summary of <code>DataFrame</code> with audience cohorts
     <tr>
       <th>17</th>
       <td>promos_displayed</td>
-      <td>Int16</td>
+      <td>Int64</td>
       <td>0</td>
     </tr>
     <tr>
       <th>18</th>
       <td>promos_clicked</td>
-      <td>Int16</td>
+      <td>Int64</td>
       <td>0</td>
     </tr>
     <tr>
       <th>19</th>
       <td>product_views</td>
-      <td>Int16</td>
+      <td>Int64</td>
       <td>0</td>
     </tr>
     <tr>
       <th>20</th>
       <td>product_clicks</td>
-      <td>Int16</td>
+      <td>Int64</td>
       <td>0</td>
     </tr>
     <tr>
       <th>21</th>
       <td>pageviews</td>
-      <td>Int16</td>
+      <td>Int64</td>
       <td>0</td>
     </tr>
     <tr>
       <th>22</th>
       <td>time_on_site</td>
-      <td>Int16</td>
+      <td>Int64</td>
       <td>0</td>
     </tr>
     <tr>
@@ -20223,19 +20750,19 @@ Show summary of <code>DataFrame</code> with audience cohorts
     <tr>
       <th>26</th>
       <td>added_to_cart</td>
-      <td>Int16</td>
+      <td>Int64</td>
       <td>0</td>
     </tr>
     <tr>
       <th>27</th>
       <td>revenue</td>
-      <td>Float32</td>
-      <td>21012</td>
+      <td>Float64</td>
+      <td>21010</td>
     </tr>
     <tr>
       <th>28</th>
       <td>score</td>
-      <td>Float32</td>
+      <td>Float64</td>
       <td>0</td>
     </tr>
     <tr>
@@ -20254,7 +20781,7 @@ Show summary of <code>DataFrame</code> with audience cohorts
       <th>31</th>
       <td>cohort</td>
       <td>string[python]</td>
-      <td>8384</td>
+      <td>8390</td>
     </tr>
     <tr>
       <th>32</th>
@@ -20306,7 +20833,7 @@ Show summary of <code>DataFrame</code> with audience cohorts
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[35]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[38]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
@@ -20345,8 +20872,8 @@ Show summary of <code>DataFrame</code> with audience cohorts
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Exported inference audience cohorts for March to file audience_cohorts__run_d5407876ef45489192743e6899207ca5__infer_month_March__20230707_185716.parquet.gzip
-Logged inference audience cohorts for March as artifact in file audience_cohorts__run_d5407876ef45489192743e6899207ca5__infer_month_March__20230707_185716.parquet.gzip
+<pre>Exported inference audience cohorts for March to file audience_cohorts__run_f805253a6ba64ee6a41bf14310ef16a4__infer_month_March__20230710_231043.parquet.gzip
+Logged inference audience cohorts for March as artifact in file audience_cohorts__run_f805253a6ba64ee6a41bf14310ef16a4__infer_month_March__20230710_231043.parquet.gzip
 </pre>
 </div>
 </div>
@@ -20385,7 +20912,7 @@ Show summary <code>DataFrame</code> with audience profiles
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[36]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[39]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| output: false</span>
@@ -20520,7 +21047,7 @@ Show summary <code>DataFrame</code> with audience profiles
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[37]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[40]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
@@ -20559,8 +21086,8 @@ Show summary <code>DataFrame</code> with audience profiles
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Exported inference audience profiles for March to file audience_profiles__run_d5407876ef45489192743e6899207ca5__infer_month_March__20230707_185716.parquet.gzip
-Logged inference audience profiles for March as artifact in file audience_profiles__run_d5407876ef45489192743e6899207ca5__infer_month_March__20230707_185716.parquet.gzip
+<pre>Exported inference audience profiles for March to file audience_profiles__run_f805253a6ba64ee6a41bf14310ef16a4__infer_month_March__20230710_231043.parquet.gzip
+Logged inference audience profiles for March as artifact in file audience_profiles__run_f805253a6ba64ee6a41bf14310ef16a4__infer_month_March__20230710_231043.parquet.gzip
 </pre>
 </div>
 </div>
@@ -20599,7 +21126,7 @@ Show summary <code>DataFrame</code> with overall and per-audience conversion rat
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[38]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[41]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| output: false</span>
@@ -20663,25 +21190,25 @@ Show summary <code>DataFrame</code> with overall and per-audience conversion rat
     <tr>
       <th>2</th>
       <td>pred_conversions</td>
-      <td>Int16</td>
+      <td>Int64</td>
       <td>0</td>
     </tr>
     <tr>
       <th>3</th>
       <td>total_visitors</td>
-      <td>Int16</td>
+      <td>Int64</td>
       <td>0</td>
     </tr>
     <tr>
       <th>4</th>
       <td>min_score</td>
-      <td>Float32</td>
+      <td>Float64</td>
       <td>0</td>
     </tr>
     <tr>
       <th>5</th>
       <td>true_conversions</td>
-      <td>Int16</td>
+      <td>Int64</td>
       <td>3</td>
     </tr>
     <tr>
@@ -20693,31 +21220,31 @@ Show summary <code>DataFrame</code> with overall and per-audience conversion rat
     <tr>
       <th>7</th>
       <td>data_size</td>
-      <td>Int16</td>
+      <td>Int64</td>
       <td>0</td>
     </tr>
     <tr>
       <th>8</th>
       <td>true_conv_rate</td>
-      <td>Float32</td>
+      <td>Float64</td>
       <td>3</td>
     </tr>
     <tr>
       <th>9</th>
       <td>overall_true_conv_rate</td>
-      <td>Float32</td>
+      <td>Float64</td>
       <td>3</td>
     </tr>
     <tr>
       <th>10</th>
       <td>pred_conv_rate</td>
-      <td>Float32</td>
+      <td>Float64</td>
       <td>0</td>
     </tr>
     <tr>
       <th>11</th>
       <td>overall_pred_conv_rate</td>
-      <td>Float32</td>
+      <td>Float64</td>
       <td>0</td>
     </tr>
   </tbody>
@@ -20748,7 +21275,7 @@ Show summary <code>DataFrame</code> with overall and per-audience conversion rat
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[39]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[42]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
@@ -20787,8 +21314,8 @@ Show summary <code>DataFrame</code> with overall and per-audience conversion rat
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Exported inference and development conversion rates for March to file audience_development_inference_conversion_rates__run_d5407876ef45489192743e6899207ca5__infer_month_March__20230707_185717.parquet.gzip
-Logged inference and development conversion rates for March as artifact in file audience_development_inference_conversion_rates__run_d5407876ef45489192743e6899207ca5__infer_month_March__20230707_185717.parquet.gzip
+<pre>Exported inference and development conversion rates for March to file audience_development_inference_conversion_rates__run_f805253a6ba64ee6a41bf14310ef16a4__infer_month_March__20230710_231043.parquet.gzip
+Logged inference and development conversion rates for March as artifact in file audience_development_inference_conversion_rates__run_f805253a6ba64ee6a41bf14310ef16a4__infer_month_March__20230710_231043.parquet.gzip
 </pre>
 </div>
 </div>
@@ -20827,7 +21354,7 @@ Show summary <code>DataFrame</code> with cohort fractions
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[40]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[43]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| output: false</span>
@@ -20891,13 +21418,13 @@ Show summary <code>DataFrame</code> with cohort fractions
     <tr>
       <th>2</th>
       <td>size</td>
-      <td>Int16</td>
+      <td>Int64</td>
       <td>0</td>
     </tr>
     <tr>
       <th>3</th>
       <td>group_size</td>
-      <td>Int16</td>
+      <td>Int64</td>
       <td>0</td>
     </tr>
     <tr>
@@ -20921,7 +21448,7 @@ Show summary <code>DataFrame</code> with cohort fractions
     <tr>
       <th>7</th>
       <td>samp_to_aud_frac</td>
-      <td>Float32</td>
+      <td>Float64</td>
       <td>0</td>
     </tr>
     <tr>
@@ -20939,7 +21466,7 @@ Show summary <code>DataFrame</code> with cohort fractions
     <tr>
       <th>10</th>
       <td>data_size</td>
-      <td>Int16</td>
+      <td>Int64</td>
       <td>0</td>
     </tr>
   </tbody>
@@ -20970,7 +21497,7 @@ Show summary <code>DataFrame</code> with cohort fractions
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[41]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[44]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#| echo: true</span>
@@ -21009,8 +21536,8 @@ Show summary <code>DataFrame</code> with cohort fractions
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Exported inference and development cohort-to-audience fractions for March to file cohort_audience_fractions__run_d5407876ef45489192743e6899207ca5__infer_month_March__20230707_185717.parquet.gzip
-Logged inference and development cohort-to-audience fractions for March as artifact in file cohort_audience_fractions__run_d5407876ef45489192743e6899207ca5__infer_month_March__20230707_185717.parquet.gzip
+<pre>Exported inference and development cohort-to-audience fractions for March to file cohort_audience_fractions__run_f805253a6ba64ee6a41bf14310ef16a4__infer_month_March__20230710_231043.parquet.gzip
+Logged inference and development cohort-to-audience fractions for March as artifact in file cohort_audience_fractions__run_f805253a6ba64ee6a41bf14310ef16a4__infer_month_March__20230710_231043.parquet.gzip
 </pre>
 </div>
 </div>

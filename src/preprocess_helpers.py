@@ -73,8 +73,10 @@ def preprocess_data(
     processed_dtypes = dict(
         zip(
             feats_selected,
-            [pd.Float32Dtype() for _ in nums_selected]
-            + [pd.Int8Dtype() for _ in cats_selected],
+            # [pd.Float32Dtype() for _ in nums_selected]
+            # + [pd.Int8Dtype() for _ in cats_selected],
+            [pd.Float64Dtype() for _ in nums_selected]
+            + [pd.Int64Dtype() for _ in cats_selected],
         )
     )
 
@@ -142,8 +144,10 @@ def get_transformed_features(
     processed_dtypes = dict(
         zip(
             feats_selected,
-            [pd.Float32Dtype() for _ in nums_selected]
-            + [pd.Int8Dtype() for _ in cats_selected],
+            # [pd.Float32Dtype() for _ in nums_selected]
+            # + [pd.Int8Dtype() for _ in cats_selected],
+            [pd.Float64Dtype() for _ in nums_selected]
+            + [pd.Int64Dtype() for _ in cats_selected],
         )
     )
     return [feats_selected, processed_dtypes]

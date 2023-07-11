@@ -397,14 +397,14 @@ Notes
 <div class="cell" data-tags="[]" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_deployment_candidate_mlflow_models <span class="op">=</span> modh.get_all_deployment_candidate_models()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>2023/07/07 18:55:56 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
-2023/07/07 18:55:56 INFO mlflow.store.db.utils: Updating database tables
+<pre><code>2023/07/10 20:21:33 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
+2023/07/10 20:21:33 INFO mlflow.store.db.utils: Updating database tables
 INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
 INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
 INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
 INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
-2023/07/07 18:55:56 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
-2023/07/07 18:55:56 INFO mlflow.store.db.utils: Updating database tables
+2023/07/10 20:21:33 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
+2023/07/10 20:21:33 INFO mlflow.store.db.utils: Updating database tables
 INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
 INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre>
 </div>
@@ -437,12 +437,329 @@ Notes
 <div class="cell" data-tags="[]" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df_all <span class="op">=</span> modh.get_data_for_run_id(df_deployment_candidate_mlflow_models, <span class="st">'processed_data'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell" data-execution_count="14">
+<div class="cell-output cell-output-display" data-execution_count="14">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">dtype</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">fullvisitorid</td>
+<td>string[python]</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">visitId</td>
+<td>string[python]</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">visitNumber</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">visitStartTime</td>
+<td>datetime64[ns]</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">quarter</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">month</td>
+<td>Int64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">day_of_month</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">day_of_week</td>
+<td>Int64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">hour</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">minute</td>
+<td>Int64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">second</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">source</td>
+<td>category</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">medium</td>
+<td>category</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">channelGrouping</td>
+<td>category</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">hits</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">bounces</td>
+<td>int64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">last_action</td>
+<td>category</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">promos_displayed</td>
+<td>Int64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">promos_clicked</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">product_views</td>
+<td>Int64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">product_clicks</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">pageviews</td>
+<td>Int64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">time_on_site</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">browser</td>
+<td>category</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">os</td>
+<td>category</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">deviceCategory</td>
+<td>category</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">added_to_cart</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">revenue</td>
+<td>Float64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">made_purchase_on_future_visit</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">split_type</td>
+<td>category</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">score</td>
+<td>Float64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">predicted_score_label</td>
+<td>boolean</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">predicted_label</td>
+<td>int64</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
 <p>Separate features and label</p>
-<div class="cell" data-tags="[]" data-execution_count="14">
+<div class="cell" data-tags="[]" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> [df_all.drop(columns<span class="op">=</span>[label, <span class="st">'split_type'</span>]), df_all[label]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell" data-execution_count="16">
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">dtype</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">fullvisitorid</td>
+<td>string[python]</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">visitId</td>
+<td>string[python]</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">visitNumber</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">visitStartTime</td>
+<td>datetime64[ns]</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">quarter</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">month</td>
+<td>Int64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">day_of_month</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">day_of_week</td>
+<td>Int64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">hour</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">minute</td>
+<td>Int64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">second</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">source</td>
+<td>category</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">medium</td>
+<td>category</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">channelGrouping</td>
+<td>category</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">hits</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">bounces</td>
+<td>int64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">last_action</td>
+<td>category</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">promos_displayed</td>
+<td>Int64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">promos_clicked</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">product_views</td>
+<td>Int64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">product_clicks</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">pageviews</td>
+<td>Int64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">time_on_site</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">browser</td>
+<td>category</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">os</td>
+<td>category</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">deviceCategory</td>
+<td>category</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">added_to_cart</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">revenue</td>
+<td>Float64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">score</td>
+<td>Float64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">predicted_score_label</td>
+<td>boolean</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">predicted_label</td>
+<td>int64</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">column</th>
+<th data-quarto-table-cell-role="th">dtype</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>y</td>
+<td>Int64</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
 <p>Get test split from the data used during development of the best deployment candidate model</p>
-<div class="cell" data-tags="[]" data-execution_count="15">
+<div class="cell" data-tags="[]" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df_prediction_best_run <span class="op">=</span> (</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    df_all</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    .query(<span class="st">"split_type == 'test'"</span>)</span>
@@ -474,7 +791,7 @@ Notes
 </section>
 <section id="load-best-deployment-candidate-model-from-model-registry" class="level3">
 <h3 class="anchored" data-anchor-id="load-best-deployment-candidate-model-from-model-registry">Load Best Deployment Candidate Model from Model Registry</h3>
-<div class="cell" data-tags="[]" data-execution_count="17">
+<div class="cell" data-tags="[]" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>best_model_uri <span class="op">=</span> <span class="ss">f"models:/</span><span class="sc">{</span>best_run_model_name<span class="sc">}</span><span class="ss">/latest"</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> mlflow.sklearn.load_model(model_uri<span class="op">=</span>best_model_uri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -483,17 +800,162 @@ Notes
 <section id="explore-best-model-performance" class="level2">
 <h2 class="anchored" data-anchor-id="explore-best-model-performance">Explore Best Model Performance</h2>
 <p>Make predictions on same data that best model was trained on</p>
-<div class="cell" data-tags="[]" data-execution_count="19">
+<div class="cell" data-tags="[]" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>y_pred, y_pred_proba <span class="op">=</span> modh.make_inference(model, X, y.name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Get evaluation metrics on same data that best model was trained on</p>
-<div class="cell" data-tags="[]" data-execution_count="21">
+<div class="cell" data-tags="[]" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df_metrics_all <span class="op">=</span> mh.calculate_metrics(y, y_pred, y_pred_proba, <span class="va">None</span>, <span class="va">None</span>, <span class="va">None</span>, [<span class="st">"all"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="25">
+<div class="cell-output cell-output-display" data-execution_count="25">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">dtype</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">split</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">metric</td>
+<td>string[python]</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">all</td>
+<td>Float64</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <section id="optimal-discrimination-threshold-tuning" class="level3">
 <h3 class="anchored" data-anchor-id="optimal-discrimination-threshold-tuning">Optimal Discrimination Threshold Tuning</h3>
+<div class="cell" data-execution_count="27">
+<div class="cell-output cell-output-display" data-execution_count="27">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">dtype</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">t</td>
+<td>float64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">accuracy</td>
+<td>float64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">balanced_accuracy</td>
+<td>float64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">precision</td>
+<td>float64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">recall</td>
+<td>float64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">roc_auc</td>
+<td>float64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">f1</td>
+<td>float64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">fbeta05</td>
+<td>float64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">fbeta2</td>
+<td>float64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">avg_precision</td>
+<td>float64</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="29">
+<div class="cell-output cell-output-display" data-execution_count="29">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">dtype</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">metric</td>
+<td>string[python]</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">t=0.5</td>
+<td>Float64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>Float64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">std</td>
+<td>Float64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">min</td>
+<td>Float64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>Float64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>Float64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>Float64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">max</td>
+<td>Float64</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
 <p>Show a visualization of evaluation metrics relative to the discrimination threshold</p>
-<div class="cell" data-tags="[]" data-execution_count="25">
+<div class="cell" data-tags="[]" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>vh.plot_multi_line_threshold_chart(</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    df_thresholds_best_run.set_index(<span class="st">"t"</span>),</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    ptitle_str<span class="op">=</span><span class="st">"Threshold Plot"</span>,</span>
@@ -504,7 +966,7 @@ Notes
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>),</span>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="06_design_experiment_files/figure-html/cell-26-output-1.png" class="img-fluid"></p>
+<p><img src="06_design_experiment_files/figure-html/cell-31-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Observations">
@@ -547,41 +1009,48 @@ Observations
 <li>set datatypes for columns</li>
 <li>(optional) move column with meaningful names to second from front (for display purposes only)</li>
 </ol>
-<div class="cell" data-tags="[]" data-execution_count="26">
+<div class="cell" data-tags="[]" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df_sample_sizes_strategy_1 <span class="op">=</span> (</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    df_prediction_best_run.copy()</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.sort_scores, <span class="va">True</span>)</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.get_audience_groups_by_propensity, audience_groups_strategy_1[<span class="st">"num_propens_groups"</span>])</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.get_kpi_per_audience_group)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        ash.calculate_multi_group_sample_sizes,</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        uplift_ranges,</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        power_ranges,</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        ci_level_ranges,</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.invert_group_numbers, audience_groups_strategy_1[<span class="st">"num_propens_groups"</span>])</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.map_audience_group_number_to_name, mapper_dict_audience_strategy_1)</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>        ash.set_datatypes,</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_number"</span>: pd.Int8Dtype(),</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">"maudience"</span>: pd.StringDtype(),</span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_size"</span>: pd.Int16Dtype(),</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_min_propensity"</span>: pd.Float32Dtype(),</span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_conv_rate"</span>: pd.Float32Dtype(),</span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>            <span class="st">"uplift"</span>: pd.Int8Dtype(),</span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">"power"</span>: pd.Int8Dtype(),</span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ci_level"</span>: pd.Int8Dtype(),</span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">"required_sample_size"</span>: pd.Int32Dtype(),</span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>        },</span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.move_cols_to_front, [<span class="st">"group_number"</span>, <span class="st">"maudience"</span>])</span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>df_sample_sizes_strategy_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.set_datatypes, {<span class="st">"bounces"</span>: pd.Int64Dtype()})</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.get_kpi_per_audience_group)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.set_datatypes, {<span class="st">"conversion_rate"</span>: pd.Float64Dtype()})</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        ash.calculate_multi_group_sample_sizes,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        uplift_ranges,</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>        power_ranges,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>        ci_level_ranges,</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.invert_group_numbers, audience_groups_strategy_1[<span class="st">"num_propens_groups"</span>])</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.map_audience_group_number_to_name, mapper_dict_audience_strategy_1)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>        ash.set_datatypes,</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_number"</span>: pd.Int8Dtype(),</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>            <span class="st">"maudience"</span>: pd.StringDtype(),</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_size"</span>: pd.Int64Dtype(),  <span class="co"># Int16Dtype</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_min_propensity"</span>: pd.Float64Dtype(),  <span class="co"># Float32Dtype</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_conv_rate"</span>: pd.Float64Dtype(),  <span class="co"># Float32Dtype</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ctr"</span>: pd.Float64Dtype(),  <span class="co"># Float32Dtype</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">"revenue"</span>: pd.Float64Dtype(),  <span class="co"># Float32Dtype</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>            <span class="st">"bounce_rate"</span>: pd.Float64Dtype(),  <span class="co"># Float32Dtype</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">"uplift"</span>: pd.Int8Dtype(),</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>            <span class="st">"power"</span>: pd.Int8Dtype(),</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ci_level"</span>: pd.Int8Dtype(),</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>            <span class="st">"required_sample_size"</span>: pd.Int64Dtype(),  <span class="co"># Int32Dtype</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.move_cols_to_front, [<span class="st">"group_number"</span>, <span class="st">"maudience"</span>])</span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>df_sample_sizes_strategy_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Set all specified datatypes.</code></pre>
+<pre><code>Set all specified datatypes.
+Set all specified datatypes.
+Set all specified datatypes.</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="26">
+<div class="cell-output cell-output-display" data-execution_count="31">
 <div>
 
 
@@ -594,6 +1063,9 @@ Observations
 <th data-quarto-table-cell-role="th">group_size</th>
 <th data-quarto-table-cell-role="th">group_min_propensity</th>
 <th data-quarto-table-cell-role="th">group_conv_rate</th>
+<th data-quarto-table-cell-role="th">ctr</th>
+<th data-quarto-table-cell-role="th">revenue</th>
+<th data-quarto-table-cell-role="th">bounce_rate</th>
 <th data-quarto-table-cell-role="th">uplift</th>
 <th data-quarto-table-cell-role="th">power</th>
 <th data-quarto-table-cell-role="th">ci_level</th>
@@ -606,63 +1078,81 @@ Observations
 <td>0</td>
 <td>High</td>
 <td>6721</td>
-<td>0.141187</td>
-<td>2.454992</td>
+<td>0.096287</td>
+<td>2.216932</td>
+<td>2.653428</td>
+<td>37589.59</td>
+<td>35.396518</td>
 <td>15</td>
 <td>90</td>
 <td>95</td>
-<td>18556</td>
+<td>20598</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
 <td>0</td>
 <td>High</td>
 <td>6721</td>
-<td>0.141187</td>
-<td>2.454992</td>
+<td>0.096287</td>
+<td>2.216932</td>
+<td>2.653428</td>
+<td>37589.59</td>
+<td>35.396518</td>
 <td>10</td>
 <td>90</td>
 <td>66</td>
-<td>19788</td>
+<td>21966</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
 <td>0</td>
 <td>High</td>
 <td>6721</td>
-<td>0.141187</td>
-<td>2.454992</td>
+<td>0.096287</td>
+<td>2.216932</td>
+<td>2.653428</td>
+<td>37589.59</td>
+<td>35.396518</td>
 <td>10</td>
 <td>90</td>
 <td>67</td>
-<td>20153</td>
+<td>22372</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
 <td>0</td>
 <td>High</td>
 <td>6721</td>
-<td>0.141187</td>
-<td>2.454992</td>
+<td>0.096287</td>
+<td>2.216932</td>
+<td>2.653428</td>
+<td>37589.59</td>
+<td>35.396518</td>
 <td>10</td>
 <td>90</td>
 <td>68</td>
-<td>20527</td>
+<td>22787</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
 <td>0</td>
 <td>High</td>
 <td>6721</td>
-<td>0.141187</td>
-<td>2.454992</td>
+<td>0.096287</td>
+<td>2.216932</td>
+<td>2.653428</td>
+<td>37589.59</td>
+<td>35.396518</td>
 <td>10</td>
 <td>90</td>
 <td>69</td>
-<td>20912</td>
+<td>23214</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
 <td>...</td>
 <td>...</td>
 <td>...</td>
@@ -679,11 +1169,14 @@ Observations
 <td>Low</td>
 <td>6722</td>
 <td>0.0</td>
-<td>2.186849</td>
+<td>2.261232</td>
+<td>2.734552</td>
+<td>36949.55</td>
+<td>35.673907</td>
 <td>15</td>
 <td>55</td>
 <td>67</td>
-<td>2171</td>
+<td>2098</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1508</td>
@@ -691,11 +1184,14 @@ Observations
 <td>Low</td>
 <td>6722</td>
 <td>0.0</td>
-<td>2.186849</td>
+<td>2.261232</td>
+<td>2.734552</td>
+<td>36949.55</td>
+<td>35.673907</td>
 <td>15</td>
 <td>55</td>
 <td>68</td>
-<td>2281</td>
+<td>2205</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">1509</td>
@@ -703,11 +1199,14 @@ Observations
 <td>Low</td>
 <td>6722</td>
 <td>0.0</td>
-<td>2.186849</td>
+<td>2.261232</td>
+<td>2.734552</td>
+<td>36949.55</td>
+<td>35.673907</td>
 <td>15</td>
 <td>55</td>
 <td>69</td>
-<td>2394</td>
+<td>2313</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1510</td>
@@ -715,11 +1214,14 @@ Observations
 <td>Low</td>
 <td>6722</td>
 <td>0.0</td>
-<td>2.186849</td>
+<td>2.261232</td>
+<td>2.734552</td>
+<td>36949.55</td>
+<td>35.673907</td>
 <td>12</td>
 <td>90</td>
 <td>70</td>
-<td>16657</td>
+<td>16097</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">1511</td>
@@ -727,16 +1229,19 @@ Observations
 <td>Low</td>
 <td>6722</td>
 <td>0.0</td>
-<td>2.186849</td>
+<td>2.261232</td>
+<td>2.734552</td>
+<td>36949.55</td>
+<td>35.673907</td>
 <td>10</td>
 <td>55</td>
 <td>55</td>
-<td>2176</td>
+<td>2103</td>
 </tr>
 </tbody>
 </table>
 
-<p>1512 rows × 9 columns</p>
+<p>1512 rows × 12 columns</p>
 </div>
 </div>
 </div>
@@ -763,46 +1268,51 @@ Observations
 <li>set datatypes for columns</li>
 <li>(optional) move column with meaningful names to second from front (for display purposes only)</li>
 </ol>
-<div class="cell" data-tags="[]" data-execution_count="28">
+<div class="cell" data-tags="[]" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df_sample_sizes_strategy_2 <span class="op">=</span> (</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    df_prediction_best_run.copy()</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.sort_scores, <span class="va">False</span>)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        ash.calculate_single_group_sample_sizes,</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        audience_groups_strategy_2[<span class="st">"num_propens_groups"</span>],</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        ash.get_group_size(df_prediction_best_run, audience_groups_strategy_2[<span class="st">"num_propens_groups"</span>]),</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>        uplift_ranges,</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>        power_ranges,</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>        ci_level_ranges,</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.subtract_one_from_group_numbers, <span class="st">"group_number"</span>)</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>        ash.map_audience_group_number_to_name,</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>        mapper_dict_audience_strategy_2,</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">"group_number"</span>,</span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>        ash.set_datatypes,</span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_number"</span>: pd.Int8Dtype(),</span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>            <span class="st">"maudience"</span>: pd.StringDtype(),</span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_size"</span>: pd.Int16Dtype(),</span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_size_proportion"</span>: pd.Float32Dtype(),</span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_min_propensity"</span>: pd.Float32Dtype(),</span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_conv_rate"</span>: pd.Float32Dtype(),</span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">"uplift"</span>: pd.Int8Dtype(),</span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>            <span class="st">"power"</span>: pd.Int8Dtype(),</span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ci_level"</span>: pd.Int8Dtype(),</span>
-<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>            <span class="st">"required_sample_size"</span>: pd.Int32Dtype(),</span>
-<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>        },</span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.move_cols_to_front, [<span class="st">"group_number"</span>, <span class="st">"maudience"</span>])</span>
-<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>df_sample_sizes_strategy_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.set_datatypes, {<span class="st">"bounces"</span>: pd.Int64Dtype(), <span class="st">"predicted_label"</span>: pd.Int64Dtype()})</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        ash.calculate_single_group_sample_sizes,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        audience_groups_strategy_2[<span class="st">"num_propens_groups"</span>],</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>        ash.get_group_size(df_prediction_best_run, audience_groups_strategy_2[<span class="st">"num_propens_groups"</span>]),</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>        uplift_ranges,</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>        power_ranges,</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>        ci_level_ranges,</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.subtract_one_from_group_numbers, <span class="st">"group_number"</span>)</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>        ash.map_audience_group_number_to_name,</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>        mapper_dict_audience_strategy_2,</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">"group_number"</span>,</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>        ash.set_datatypes,</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_number"</span>: pd.Int8Dtype(),</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">"maudience"</span>: pd.StringDtype(),</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_size"</span>: pd.Int64Dtype(),  <span class="co"># Int16Dtype</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_size_proportion"</span>: pd.Float64Dtype(),  <span class="co"># Float32Dtype</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_min_propensity"</span>: pd.Float64Dtype(),  <span class="co"># Float32Dtype</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">"group_conv_rate"</span>: pd.Float64Dtype(),  <span class="co"># Float32Dtype</span></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ctr"</span>: pd.Float64Dtype(),  <span class="co"># Float32Dtype</span></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>            <span class="st">"revenue"</span>: pd.Float64Dtype(),  <span class="co"># Float32Dtype</span></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>            <span class="st">"bounce_rate"</span>: pd.Float64Dtype(),  <span class="co"># Float32Dtype</span></span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>            <span class="st">"uplift"</span>: pd.Int8Dtype(),</span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>            <span class="st">"power"</span>: pd.Int8Dtype(),</span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ci_level"</span>: pd.Int8Dtype(),</span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>            <span class="st">"required_sample_size"</span>: pd.Int64Dtype(),  <span class="co"># Float32Dtype</span></span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.move_cols_to_front, [<span class="st">"group_number"</span>, <span class="st">"maudience"</span>])</span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>df_sample_sizes_strategy_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Set all specified datatypes.</code></pre>
+<pre><code>Set all specified datatypes.
+Set all specified datatypes.</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="28">
+<div class="cell-output cell-output-display" data-execution_count="33">
 <div>
 
 
@@ -816,6 +1326,9 @@ Observations
 <th data-quarto-table-cell-role="th">group_size_proportion</th>
 <th data-quarto-table-cell-role="th">group_min_propensity</th>
 <th data-quarto-table-cell-role="th">group_conv_rate</th>
+<th data-quarto-table-cell-role="th">ctr</th>
+<th data-quarto-table-cell-role="th">revenue</th>
+<th data-quarto-table-cell-role="th">bounce_rate</th>
 <th data-quarto-table-cell-role="th">uplift</th>
 <th data-quarto-table-cell-role="th">power</th>
 <th data-quarto-table-cell-role="th">ci_level</th>
@@ -829,12 +1342,15 @@ Observations
 <td>High</td>
 <td>6721</td>
 <td>33.33168</td>
-<td>0.140989</td>
-<td>2.454992</td>
+<td>0.095669</td>
+<td>2.216932</td>
+<td>2.653428</td>
+<td>37589.59</td>
+<td>35.396518</td>
 <td>10</td>
 <td>55</td>
 <td>55</td>
-<td>1933</td>
+<td>2146</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
@@ -842,12 +1358,15 @@ Observations
 <td>High</td>
 <td>6721</td>
 <td>33.33168</td>
-<td>0.140989</td>
-<td>2.454992</td>
+<td>0.095669</td>
+<td>2.216932</td>
+<td>2.653428</td>
+<td>37589.59</td>
+<td>35.396518</td>
 <td>10</td>
 <td>55</td>
 <td>57</td>
-<td>2317</td>
+<td>2572</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
@@ -855,12 +1374,15 @@ Observations
 <td>High</td>
 <td>6721</td>
 <td>33.33168</td>
-<td>0.140989</td>
-<td>2.454992</td>
+<td>0.095669</td>
+<td>2.216932</td>
+<td>2.653428</td>
+<td>37589.59</td>
+<td>35.396518</td>
 <td>10</td>
 <td>55</td>
 <td>60</td>
-<td>2900</td>
+<td>3219</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
@@ -868,12 +1390,15 @@ Observations
 <td>High</td>
 <td>6721</td>
 <td>33.33168</td>
-<td>0.140989</td>
-<td>2.454992</td>
+<td>0.095669</td>
+<td>2.216932</td>
+<td>2.653428</td>
+<td>37589.59</td>
+<td>35.396518</td>
 <td>10</td>
 <td>55</td>
 <td>63</td>
-<td>3500</td>
+<td>3885</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
@@ -881,15 +1406,21 @@ Observations
 <td>High</td>
 <td>6721</td>
 <td>33.33168</td>
-<td>0.140989</td>
-<td>2.454992</td>
+<td>0.095669</td>
+<td>2.216932</td>
+<td>2.653428</td>
+<td>37589.59</td>
+<td>35.396518</td>
 <td>10</td>
 <td>55</td>
 <td>65</td>
-<td>3913</td>
+<td>4343</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
 <td>...</td>
 <td>...</td>
 <td>...</td>
@@ -909,6 +1440,9 @@ Observations
 <td>99.995041</td>
 <td>0.0</td>
 <td>2.306204</td>
+<td>2.69755</td>
+<td>111202.47</td>
+<td>35.232852</td>
 <td>15</td>
 <td>90</td>
 <td>70</td>
@@ -922,6 +1456,9 @@ Observations
 <td>99.995041</td>
 <td>0.0</td>
 <td>2.306204</td>
+<td>2.69755</td>
+<td>111202.47</td>
+<td>35.232852</td>
 <td>15</td>
 <td>90</td>
 <td>75</td>
@@ -935,6 +1472,9 @@ Observations
 <td>99.995041</td>
 <td>0.0</td>
 <td>2.306204</td>
+<td>2.69755</td>
+<td>111202.47</td>
+<td>35.232852</td>
 <td>15</td>
 <td>90</td>
 <td>85</td>
@@ -948,6 +1488,9 @@ Observations
 <td>99.995041</td>
 <td>0.0</td>
 <td>2.306204</td>
+<td>2.69755</td>
+<td>111202.47</td>
+<td>35.232852</td>
 <td>15</td>
 <td>90</td>
 <td>90</td>
@@ -961,6 +1504,9 @@ Observations
 <td>99.995041</td>
 <td>0.0</td>
 <td>2.306204</td>
+<td>2.69755</td>
+<td>111202.47</td>
+<td>35.232852</td>
 <td>15</td>
 <td>90</td>
 <td>95</td>
@@ -969,7 +1515,7 @@ Observations
 </tbody>
 </table>
 
-<p>1512 rows × 10 columns</p>
+<p>1512 rows × 13 columns</p>
 </div>
 </div>
 </div>
@@ -977,8 +1523,8 @@ Observations
 </section>
 <section id="export-audience-sample-sizes-to-disk" class="level2">
 <h2 class="anchored" data-anchor-id="export-audience-sample-sizes-to-disk">Export Audience Sample Sizes to Disk</h2>
-<div class="cell" data-execution_count="31">
-<div class="cell-output cell-output-display" data-execution_count="31">
+<div class="cell" data-execution_count="36">
+<div class="cell-output cell-output-display" data-execution_count="36">
 <div>
 
 
@@ -991,6 +1537,9 @@ Observations
 <th data-quarto-table-cell-role="th">group_size</th>
 <th data-quarto-table-cell-role="th">group_min_propensity</th>
 <th data-quarto-table-cell-role="th">group_conv_rate</th>
+<th data-quarto-table-cell-role="th">ctr</th>
+<th data-quarto-table-cell-role="th">revenue</th>
+<th data-quarto-table-cell-role="th">bounce_rate</th>
 <th data-quarto-table-cell-role="th">uplift</th>
 <th data-quarto-table-cell-role="th">power</th>
 <th data-quarto-table-cell-role="th">ci_level</th>
@@ -1003,24 +1552,30 @@ Observations
 <td>0</td>
 <td>High</td>
 <td>6721</td>
-<td>0.141187</td>
-<td>2.454992</td>
+<td>0.096287</td>
+<td>2.216932</td>
+<td>2.653428</td>
+<td>37589.59</td>
+<td>35.396518</td>
 <td>10</td>
 <td>55</td>
 <td>55</td>
-<td>1933</td>
+<td>2146</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">846</td>
 <td>1</td>
 <td>Medium</td>
 <td>6721</td>
-<td>0.023114</td>
-<td>2.276447</td>
+<td>0.009169</td>
+<td>2.440113</td>
+<td>2.705586</td>
+<td>36663.33</td>
+<td>34.622824</td>
 <td>10</td>
 <td>55</td>
 <td>55</td>
-<td>2088</td>
+<td>1945</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">1511</td>
@@ -1028,11 +1583,14 @@ Observations
 <td>Low</td>
 <td>6722</td>
 <td>0.0</td>
-<td>2.186849</td>
+<td>2.261232</td>
+<td>2.734552</td>
+<td>36949.55</td>
+<td>35.673907</td>
 <td>10</td>
 <td>55</td>
 <td>55</td>
-<td>2176</td>
+<td>2103</td>
 </tr>
 </tbody>
 </table>
@@ -1041,7 +1599,7 @@ Observations
 </div>
 </div>
 <p>Concatenate the two <code>DataFrame</code>s with the required sample sizes to acheive a KPI using different combinations of inputs (uplift, confidence level and power) and then export to disk</p>
-<div class="cell" data-tags="[]" data-execution_count="32">
+<div class="cell" data-tags="[]" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>(</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    df_combined_sample_sizes,</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    aud_sizes_fpath,</span>
@@ -1056,11 +1614,11 @@ Observations
 <section id="ml-experiment-tracking" class="level2">
 <h2 class="anchored" data-anchor-id="ml-experiment-tracking">ML Experiment Tracking</h2>
 <p>Get best run ID</p>
-<div class="cell" data-tags="[]" data-execution_count="34">
+<div class="cell" data-tags="[]" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>best_run_id <span class="op">=</span> df_deployment_candidate_mlflow_models.squeeze()[<span class="st">"run_id"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Log audience sample sizes file as MLFlow artifact</p>
-<div class="cell" data-tags="[]" data-execution_count="35">
+<div class="cell" data-tags="[]" data-execution_count="40">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> mlflow.start_run(run_id<span class="op">=</span>best_run_id) <span class="im">as</span> run:</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    mlflow.log_artifact(aud_sizes_fpath)</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>

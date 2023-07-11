@@ -161,10 +161,14 @@ def make_inference(
     model: Pipeline, X: pd.DataFrame, y_pred_name: str
 ) -> List[pd.Series]:
     """Make inference predictions using trained model."""
+    y_pred_arr = model.predict(X)
     y_pred = pd.Series(
-        model.predict(X), index=X.index, dtype=pd.Int8Dtype(), name=y_pred_name
+        y_pred_arr, index=X.index, dtype=pd.Int64Dtype(), name=y_pred_name
     )
     y_pred_proba = pd.Series(
-        model.predict_proba(X)[:, 1], index=X.index, name=y_pred_name
+        model.predict_proba(X)[:, 1],
+        index=X.index,
+        dtype=pd.Float64Dtype(),
+        name=y_pred_name,
     )
     return [y_pred, y_pred_proba]

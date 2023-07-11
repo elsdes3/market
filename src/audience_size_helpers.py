@@ -21,6 +21,9 @@ def calc_sample_size_multiple_audience_groups(
     group_size: int,
     min_proba: float,
     conv_rate_pct: float,
+    ctr_pct: float,
+    revenue: float,
+    bounce_rate: float,
     uplift: int,
     power: int,
     ci_level: int,
@@ -31,6 +34,9 @@ def calc_sample_size_multiple_audience_groups(
         "group_size": group_size,
         "group_min_propensity": min_proba,
         "group_conv_rate": conv_rate_pct,
+        "ctr": ctr_pct,
+        "revenue": revenue,
+        "bounce_rate": bounce_rate,
         "uplift": uplift,
         "power": power,
         "ci_level": ci_level,
@@ -47,6 +53,9 @@ def calc_sample_size_single_audience_group(
     group_size_prop: float,
     min_proba: float,
     conv_rate_pct: float,
+    ctr_pct: float,
+    revenue: float,
+    bounce_rate: float,
     uplift_pct: int,
     power_pct: int,
     confidence_level_pct: int,
@@ -58,6 +67,9 @@ def calc_sample_size_single_audience_group(
         "group_size_proportion": group_size_prop,
         "group_min_propensity": min_proba,
         "group_conv_rate": conv_rate_pct,
+        "ctr": ctr_pct,
+        "revenue": revenue,
+        "bounce_rate": bounce_rate,
         "uplift": uplift_pct,
         "power": power_pct,
         "ci_level": confidence_level_pct,
@@ -85,19 +97,9 @@ def get_audience_groups_by_propensity(
     df: pd.DataFrame, num_groups: int
 ) -> pd.DataFrame:
     """Divide samples into groups (quantiles) from predicted propensity."""
-    df = (
-        df.assign(row_number=lambda df: range(len(df)))
-        .assign(
-            group_number=lambda df: pd.qcut(
-                x=df["row_number"], q=num_groups, labels=False
-            )
-        )
-        .astype(
-            {
-                "fullvisitorid": pd.StringDtype(),
-                "score": pd.Float32Dtype(),
-                "predicted_score_label": pd.BooleanDtype(),
-            }
+    df = df.assign(row_number=lambda df: range(len(df))).assign(
+        group_number=lambda df: pd.qcut(
+            x=df["row_number"], q=num_groups, labels=False
         )
     )
     return df
@@ -106,20 +108,48 @@ def get_audience_groups_by_propensity(
 def get_kpi_per_audience_group(df: pd.DataFrame) -> pd.DataFrame:
     """Calculate KPI for each audience group."""
     col_renamer_dict = {"fullvisitorid": "conversions", "score": "min_score"}
-    kpi = "conversions"
-    tot_visitors = "total_visitors"
-    df = (
+    kpi, tot_visitors = ["conversions", "total_visitors"]
+    # get stats for group
+    df_group_stats = (
+        df.groupby("group_number", as_index=False)
+        .agg(
+            {
+                "fullvisitorid": "count",
+                # get first-visit bounces per group
+                "bounces": "sum",
+                # get first-visit revenue per group
+                "revenue": "sum",
+                # get first-visit clicks per group
+                "product_clicks": "sum",
+                # get first-visit views per group
+                "product_views": "sum",
+            }
+        )
+        .rename(
+            columns={
+                "fullvisitorid": tot_visitors,
+                "product_clicks": "clicks",
+                "product_views": "views",
+            }
+        )
+        .astype({tot_visitors: pd.Float64Dtype()})
+        # get first-visit CTR per group
+        .assign(ctr=lambda df: 100 * df["clicks"] / df["views"])
+        # get first-visit bounce rate per group
+        .assign(bounce_rate=lambda df: 100 * df["bounces"] / df[tot_visitors])
+    )
+    # get stats for conversions within group
+    df_group_stats_convs = (
         df.query("label == 1")
         .groupby("group_number", as_index=False)
         .agg({"fullvisitorid": "count", "score": "min"})
         .rename(columns=col_renamer_dict)
-        .merge(
-            df.groupby("group_number", as_index=False)["fullvisitorid"]
-            .count()
-            .rename(columns={"fullvisitorid": "total_visitors"}),
-            on="group_number",
-            how="left",
+    )
+    df = (
+        df_group_stats_convs.merge(
+            df_group_stats, on="group_number", how="left"
         )
+        # get conversion rate per group
         .assign(conversion_rate=lambda df: 100 * df[kpi] / df[tot_visitors])
     )
     return df
@@ -139,6 +169,9 @@ def calculate_multi_group_sample_sizes(
                 row["total_visitors"],
                 row["min_score"],
                 row["conversion_rate"],
+                row["ctr"],
+                row["revenue"],
+                row["bounce_rate"],
                 uplift,
                 power,
                 ci_level,
@@ -170,8 +203,20 @@ def calculate_single_group_sample_sizes(
         audience_group_visitors = df.head(current_bin_size)
 
         # calculate conversion rate (KPI) for bin with upper N% of samples
+        clicks, views, bnc = ["product_clicks", "product_views", "bounces"]
+        # get conversions within group
         df_kpi = audience_group_visitors.query("label == 1")
+        # get conversion rate per group
         binned_conversion_rate = 100 * len(df_kpi) / current_bin_size
+        # get first-visit CTR per group
+        group_clicks = audience_group_visitors[clicks].sum()
+        group_views = audience_group_visitors[views].sum()
+        binned_ctr = 100 * group_clicks / group_views
+        # get first-visit bounce rate per group
+        group_bounces = audience_group_visitors[bnc].sum()
+        binned_bounce_rate = 100 * (group_bounces / current_bin_size)
+        # get first-visit revenue per group
+        binned_revenue = audience_group_visitors["revenue"].sum()
 
         # get sample sizes
         for uplift in uplift_range:
@@ -183,6 +228,9 @@ def calculate_single_group_sample_sizes(
                         100 * current_bin_size / len(df),
                         audience_group_visitors["score"].min(),
                         binned_conversion_rate,
+                        binned_ctr,
+                        binned_revenue,
+                        binned_bounce_rate,
                         uplift,
                         power,
                         ci_level,
@@ -261,15 +309,6 @@ def combine_and_export_sample_size_estimates(
             df_single_group.assign(audience_strategy=2),
         ],
         ignore_index=True,
-    ).astype(
-        {
-            "group_size": pd.Int32Dtype(),
-            "uplift": pd.Int8Dtype(),
-            "power": pd.Int8Dtype(),
-            "ci_level": pd.Int8Dtype(),
-            "group_number": pd.Int8Dtype(),
-            "audience_strategy": pd.Int8Dtype(),
-        }
     )
     aud_sizes_fpath = os.path.join(
         aud_size_file_dir,

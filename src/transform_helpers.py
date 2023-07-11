@@ -139,25 +139,14 @@ def perform_custom_aggregation(
         )
 
     # add metadata
+    clicks, views, vis = ["product_clicks", "product_views", "visitors"]
     df_agg = (
         df_agg
         # add rates
-        .assign(bounce_rate=lambda df: 100 * df["bounces"] / df["visitors"])
+        .assign(bounce_rate=lambda df: 100 * df["bounces"] / df[vis])
         .assign(time_on_site=lambda df: df["time_on_site"] / 60)
-        .assign(
-            product_clicks_rate=lambda df: 100
-            * df["product_clicks"].astype(pd.Int32Dtype())
-            / df["product_views"].astype(pd.Int32Dtype())
-        )
-        .assign(
-            add_to_cart_rate=lambda df: (
-                100
-                * (
-                    df["add_to_cart"].astype(pd.Int16Dtype())
-                    / df["visitors"].astype(pd.Int16Dtype())
-                )
-            )
-        )
+        .assign(product_clicks_rate=lambda df: 100 * df[clicks] / df[views])
+        .assign(add_to_cart_rate=lambda df: 100 * df["add_to_cart"] / df[vis])
     )
     # add indicator of the type of visitor
     # - return purchasers during ML development & all visitors in inference
@@ -173,9 +162,7 @@ def perform_custom_aggregation(
         and "made_purchase_on_future_visit" in list(agg_dict)
     ):
         df_agg = df_agg.assign(
-            conversion_rate=lambda df: 100
-            * df["return_purchasers"]
-            / df["visitors"]
+            conversion_rate=lambda df: 100 * df["return_purchasers"] / df[vis]
         )
 
     # (optional) replace zeros with NaNs for inference data
@@ -230,8 +217,10 @@ def agg_kpis(df: pd.DataFrame, f: str) -> pd.DataFrame:
         df.astype(
             {
                 f: pd.StringDtype(),
-                "product_clicks": pd.Int32Dtype(),
-                "product_views": pd.Int32Dtype(),
+                "revenue": pd.Float64Dtype(),
+                "made_purchase_on_future_visit": pd.Int64Dtype(),
+                "product_clicks": pd.Int64Dtype(),  # Int32Dtype
+                "product_views": pd.Int64Dtype(),  # Int32Dtype
             }
         )
         .groupby(f)
@@ -253,9 +242,9 @@ def agg_kpis(df: pd.DataFrame, f: str) -> pd.DataFrame:
         )
         .astype(
             {
-                "conversions": pd.Int32Dtype(),
-                "visitors": pd.Int32Dtype(),
-                "revenue": pd.Float32Dtype(),
+                "conversions": pd.Int64Dtype(),  # Int32Dtype
+                "visitors": pd.Int64Dtype(),  # Int32Dtype
+                "revenue": pd.Float64Dtype(),  # Float32Dtype
             }
         )
         .merge(

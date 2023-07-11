@@ -41,11 +41,11 @@ def detect_features_drift(
         else:
             jsd = spatial.distance.jensenshannon(
                 curr_data[c]
-                .astype("int16")
+                .astype("int64")  # int16
                 .head(len_smaller_dataset)
                 .to_numpy(),
                 refer_data[c]
-                .astype("int16")
+                .astype("int64")  # int16
                 .head(len_smaller_dataset)
                 .to_numpy(),
             )

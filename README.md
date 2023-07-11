@@ -47,7 +47,7 @@ See `index.qmd` for project details.
    - `GCP_PROJECT_ID`
    - `SERVICE_ACCOUNT_NAME`
      - during development, set this to the name of the service account created for use during development
-     - during deployment, change this to the name of the service account created for deploying a containerized version of the dashboard to GCP Cloud Run
+     - during deployment, set this to the name of the service account created for deploying a containerized version of the dashboard to GCP Cloud Run
 
 ## [Project Organization](#project-organization)
 

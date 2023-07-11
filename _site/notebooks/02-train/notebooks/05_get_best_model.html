@@ -277,8 +277,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df_expt_runs <span class="op">=</span> modh.get_all_experiment_runs()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>2023/07/07 18:55:21 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
-2023/07/07 18:55:21 INFO mlflow.store.db.utils: Updating database tables
+<pre><code>2023/07/10 18:58:19 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
+2023/07/10 18:58:19 INFO mlflow.store.db.utils: Updating database tables
 INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
 INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
 INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
@@ -324,8 +324,8 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df_best_run_model <span class="op">=</span> modh.get_single_registered_model(<span class="ss">f"run_id == '</span><span class="sc">{</span>best_run_id<span class="sc">}</span><span class="ss">'"</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>best_run_model_name <span class="op">=</span> df_best_run_model.squeeze()[<span class="st">"name"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>2023/07/07 18:55:22 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
-2023/07/07 18:55:22 INFO mlflow.store.db.utils: Updating database tables
+<pre><code>2023/07/10 18:58:20 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
+2023/07/10 18:58:20 INFO mlflow.store.db.utils: Updating database tables
 INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
 INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre>
 </div>
@@ -350,10 +350,10 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>BetaDistClassifier_20160901_20170228_133892_feats__20230707_185443</td>
-<td>d5407876ef45489192743e6899207ca5</td>
-<td>Best BetaDistClassifier model with fbeta2 score of 0.4962024994</td>
-<td>/home/jovyan/notebooks/mlruns/d5407876ef45489192743e6899207ca5/artifacts/model</td>
+<td>BetaDistClassifier_20160901_20170228_133892_feats__20230710_184102</td>
+<td>f805253a6ba64ee6a41bf14310ef16a4</td>
+<td>Best BetaDistClassifier model with fbeta2 score of 0.4983145472</td>
+<td>/home/jovyan/notebooks/mlruns/f805253a6ba64ee6a41bf14310ef16a4/artifacts/model</td>
 <td>1</td>
 <td>READY</td>
 </tr>
@@ -363,7 +363,7 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>BetaDistClassifier_20160901_20170228_133892_feats__20230707_185443</code></pre>
+<pre><code>BetaDistClassifier_20160901_20170228_133892_feats__20230710_184102</code></pre>
 </div>
 </div>
 </section>
@@ -399,7 +399,7 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
                 ('select', DropCorrelatedFeatures(threshold=0.7)),
                 ('resampler',
                  RandomOverSampler(random_state=88, sampling_strategy=0.1)),
-                ['clf', BetaDistClassifier(a=0.4, b=2.5, random_state=88)]])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox"><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[('preprocessor',
+                ['clf', BetaDistClassifier(a=0.3, b=2.4, random_state=88)]])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox"><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[('preprocessor',
                  ColumnTransformer(transformers=[('num',
                                                   Pipeline(steps=[('aboveavg',
                                                                    AboveAveragePagePromoEngager(cols=['hits',
@@ -427,7 +427,7 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
                 ('select', DropCorrelatedFeatures(threshold=0.7)),
                 ('resampler',
                  RandomOverSampler(random_state=88, sampling_strategy=0.1)),
-                ['clf', BetaDistClassifier(a=0.4, b=2.5, random_state=88)]])</pre></div></div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox"><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">preprocessor: ColumnTransformer</label><div class="sk-toggleable__content"><pre>ColumnTransformer(transformers=[('num',
+                ['clf', BetaDistClassifier(a=0.3, b=2.4, random_state=88)]])</pre></div></div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox"><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">preprocessor: ColumnTransformer</label><div class="sk-toggleable__content"><pre>ColumnTransformer(transformers=[('num',
                                  Pipeline(steps=[('aboveavg',
                                                   AboveAveragePagePromoEngager(cols=['hits',
                                                                                      'promos_displayed',
@@ -473,7 +473,7 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
                                  ['bounces', 'last_action', 'source', 'medium',
                                   'channelGrouping', 'browser', 'os',
                                   'deviceCategory'])])</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox"><label for="sk-estimator-id-8" class="sk-toggleable__label sk-toggleable__label-arrow">fe</label><div class="sk-toggleable__content"><pre>['bounces', 'last_action', 'source', 'medium', 'channelGrouping', 'browser', 'os', 'deviceCategory']</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-9" type="checkbox"><label for="sk-estimator-id-9" class="sk-toggleable__label sk-toggleable__label-arrow">RareLabelEncoder</label><div class="sk-toggleable__content"><pre>RareLabelEncoder(ignore_format=True, n_categories=1, replace_with='other',
-                 tol=0.1, variables=['source', 'browser'])</pre></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-10" type="checkbox"><label for="sk-estimator-id-10" class="sk-toggleable__label sk-toggleable__label-arrow">remainder</label><div class="sk-toggleable__content"><pre></pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-11" type="checkbox"><label for="sk-estimator-id-11" class="sk-toggleable__label sk-toggleable__label-arrow">passthrough</label><div class="sk-toggleable__content"><pre>passthrough</pre></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-12" type="checkbox"><label for="sk-estimator-id-12" class="sk-toggleable__label sk-toggleable__label-arrow">OneHotEncoder</label><div class="sk-toggleable__content"><pre>OneHotEncoder(drop='first', dtype=&lt;class 'int'&gt;, handle_unknown='ignore')</pre></div></div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-13" type="checkbox"><label for="sk-estimator-id-13" class="sk-toggleable__label sk-toggleable__label-arrow">DropCorrelatedFeatures</label><div class="sk-toggleable__content"><pre>DropCorrelatedFeatures(threshold=0.7)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-14" type="checkbox"><label for="sk-estimator-id-14" class="sk-toggleable__label sk-toggleable__label-arrow">RandomOverSampler</label><div class="sk-toggleable__content"><pre>RandomOverSampler(random_state=88, sampling_strategy=0.1)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-15" type="checkbox"><label for="sk-estimator-id-15" class="sk-toggleable__label sk-toggleable__label-arrow">BetaDistClassifier</label><div class="sk-toggleable__content"><pre>BetaDistClassifier(a=0.4, b=2.5, random_state=88)</pre></div></div></div></div></div></div></div>
+                 tol=0.1, variables=['source', 'browser'])</pre></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-10" type="checkbox"><label for="sk-estimator-id-10" class="sk-toggleable__label sk-toggleable__label-arrow">remainder</label><div class="sk-toggleable__content"><pre></pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-11" type="checkbox"><label for="sk-estimator-id-11" class="sk-toggleable__label sk-toggleable__label-arrow">passthrough</label><div class="sk-toggleable__content"><pre>passthrough</pre></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-12" type="checkbox"><label for="sk-estimator-id-12" class="sk-toggleable__label sk-toggleable__label-arrow">OneHotEncoder</label><div class="sk-toggleable__content"><pre>OneHotEncoder(drop='first', dtype=&lt;class 'int'&gt;, handle_unknown='ignore')</pre></div></div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-13" type="checkbox"><label for="sk-estimator-id-13" class="sk-toggleable__label sk-toggleable__label-arrow">DropCorrelatedFeatures</label><div class="sk-toggleable__content"><pre>DropCorrelatedFeatures(threshold=0.7)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-14" type="checkbox"><label for="sk-estimator-id-14" class="sk-toggleable__label sk-toggleable__label-arrow">RandomOverSampler</label><div class="sk-toggleable__content"><pre>RandomOverSampler(random_state=88, sampling_strategy=0.1)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-15" type="checkbox"><label for="sk-estimator-id-15" class="sk-toggleable__label sk-toggleable__label-arrow">BetaDistClassifier</label><div class="sk-toggleable__content"><pre>BetaDistClassifier(a=0.3, b=2.4, random_state=88)</pre></div></div></div></div></div></div></div>
 </div>
 </div>
 </section>

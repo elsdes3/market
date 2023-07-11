@@ -17,6 +17,15 @@ import audience_size_helpers as ash
 
 def get_profile_proportions(df: pd.DataFrame) -> pd.DataFrame:
     """Get visitor fraction for subset of features per audience group."""
+    df = df.astype(
+        {
+            "last_action": pd.StringDtype(),
+            "medium": pd.StringDtype(),
+            "added_to_cart": pd.Int64Dtype(),
+            "day_of_week": pd.Int8Dtype(),
+            "bounces": pd.Int64Dtype(),
+        }
+    )
     features, queries, conditions = [
         [
             "last_action",
@@ -78,26 +87,41 @@ def get_profile_proportions(df: pd.DataFrame) -> pd.DataFrame:
 
 def get_descriptive_stats(df: pd.DataFrame) -> pd.DataFrame:
     """Get descriptive stats for subset of features per audience group."""
-    df_profile_stats = df.groupby("maudience", as_index=False).agg(
-        {
-            "hour": ["mean"],
-            "day_of_week": ["mean"],
-            "source": [pd.Series.mode],
-            "medium": [pd.Series.mode],
-            "channelGrouping": [pd.Series.mode],
-            "last_action": [pd.Series.mode],
-            "browser": [pd.Series.mode],
-            "os": [pd.Series.mode],
-            "deviceCategory": [pd.Series.mode],
-            "hits": ["mean", "max"],  #
-            "promos_displayed": ["mean", "max"],
-            "promos_clicked": ["mean", "max"],
-            "product_views": ["mean", "max"],
-            "product_clicks": ["mean", "max"],  #
-            "pageviews": ["mean", "max"],  #
-            "revenue": ["mean", "max"],
-            "added_to_cart": ["mean", "max"],
-        }
+    df_profile_stats = (
+        df.astype(
+            {
+                "hits": pd.Int64Dtype(),
+                "promos_displayed": pd.Int64Dtype(),
+                "promos_clicked": pd.Int64Dtype(),
+                "product_views": pd.Int64Dtype(),
+                "product_clicks": pd.Int64Dtype(),
+                "pageviews": pd.Int64Dtype(),
+                "revenue": pd.Int64Dtype(),
+                "added_to_cart": pd.Int64Dtype(),
+            }
+        )
+        .groupby("maudience", as_index=False)
+        .agg(
+            {
+                "hour": ["mean"],
+                "day_of_week": ["mean"],
+                "source": [pd.Series.mode],
+                "medium": [pd.Series.mode],
+                "channelGrouping": [pd.Series.mode],
+                "last_action": [pd.Series.mode],
+                "browser": [pd.Series.mode],
+                "os": [pd.Series.mode],
+                "deviceCategory": [pd.Series.mode],
+                "hits": ["mean", "max"],  #
+                "promos_displayed": ["mean", "max"],
+                "promos_clicked": ["mean", "max"],
+                "product_views": ["mean", "max"],
+                "product_clicks": ["mean", "max"],  #
+                "pageviews": ["mean", "max"],  #
+                "revenue": ["mean", "max"],
+                "added_to_cart": ["mean", "max"],
+            }
+        )
     )
     df_profile_stats.columns = [
         "__".join(column).rstrip("__")

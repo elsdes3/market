@@ -174,8 +174,8 @@ tooltip = [
 ytitle_cats_kpis = {
     "os": {
         "ptitle": (
-            "Linux and Mac operating systems give the best combination of "
-            "KPIs"
+            "Linux, Mac and ChromeOS operating systems give best combination "
+            "of KPIs"
         ),
         "expanded": "Operating Systems",
     },
@@ -196,7 +196,7 @@ ytitle_cats_kpis = {
     },
     "channelGrouping": {
         "ptitle": (
-            "Referral, direct or display channel shows the best combination "
+            "Referral, direct or display channels show the best combination "
             "of KPIs"
         ),
         "expanded": "Channel",
@@ -273,30 +273,31 @@ high = st.expander(":green[High Propensity Visitor Profile]")
 with high:
     st.markdown(
         """
-        1. reached the store site using a paid search
-        2. used an uncommonly used browser
+        1. reached the store site using a paid search or undetermined medium
+        2. used a Windows based operating system
         3. used one of the following operating systems
            - FreeBSD
            - Nokia-based OS
+           - Samsung-based OS
         3. interacted with content on the store site
 
-        with an :blue[emphasis] on visitors who accessed the site from an
-        uncommonly used browser.
+        with an :blue[emphasis] on visitors who accessed the site
+        - from a Windows-based operating system
+        - using a paid search
         """
     )
 medium = st.expander("Medium Propensity Visitor Profile")
 with medium:
     st.markdown(
         """
-        1. interacted with content on the store site
+        1. used an affiliate or undetermined medium to access the store site
+        2. reached the store site using a Google search as the traffic source
         2. used one of the following frequently used operating systems
            - Macintosh
            - Chrome OS
         3. used one of the following infrequently used operating systems
            - Nintendo WII
            - Firefox OS
-        4. used an undetermined medium to access the store site
-        5. reached store site using a google search
 
         with an :blue[emphasis] on
         - visitors who used a Mac-based operating system to access the store
@@ -308,29 +309,25 @@ low = st.expander(":violet[Low Propensity Visitor Profile]")
 with low:
     st.markdown(
         """
-        1. reached the store site by
-           - sources other than google search
-           - directly entering URL into web browser
-        2. used one of the following OSes to access the store site
-           - SunOS
-           - Macintosh OS
-        3. used an affiliate or undetermined medium to access the store site
-        4. did not bounce from the store site
+        1. used one of the following infrequently used operating systems
+           - Nokia OS
+           - Sun OS
+        2. used an undetermined medium to access the store site
+        3. ended their first visit by removing a product(s) from their
+        shopping cart
+        4. bounced from the store site
 
         with an :blue[emphasis] on
-        - visitors who reached the site during their first visit by
-           - sources other than google search
-           - directly entering URL into web browser
-        - visitors who used a Mac-based operating system to access the store
-        site
-        - did not bounce from the site
+        - visitors who removed a product(s) from their shopping cart at the
+        end of their first visit
+        - bounced from the site
         """
     )
 ut.print_custom_text("Notes")
 st.markdown(
     """
     The recommended :blue[emphasis] is based on factors that produced a good
-    combination of KPIs (CTR and conversion rate) among first-time visitors
+    combination of KPIs (CTR and/or conversion rate) among first-time visitors
     in the closest available month of historical data.
     """
 )

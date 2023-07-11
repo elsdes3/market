@@ -171,16 +171,21 @@ def create_cohorts(
 
 def get_cohort_stats(df: pd.DataFrame) -> pd.DataFrame:
     """Get descriptive statistics for audience cohorts."""
-    df_aud_stats = df.groupby(
-        ["maudience", "cohort"], dropna=False, as_index=False
-    ).agg({"score": ["count", "min", "mean", "median", "max"]})
+    df_aud_stats = (
+        df.astype({"score": pd.Float64Dtype()})
+        .groupby(["maudience", "cohort"], dropna=False, as_index=False)
+        .agg({"score": ["count", "min", "mean", "median", "max"]})
+    )
     df_aud_stats.columns = [
         "_".join(c).rstrip("_") for c in df_aud_stats.columns.to_flat_index()
     ]
-    df_aud_stats = df_aud_stats.astype(
-        {
-            f"score_{stat}": pd.Float32Dtype()
-            for stat in ["min", "mean", "median", "max"]
-        }
-    ).sort_values(by=["maudience"])
+    dtypes_dict = {
+        # f"score_{stat}": pd.Float32Dtype()
+        f"score_{stat}": pd.Float64Dtype()
+        for stat in ["min", "mean", "median", "max"]
+    }
+    dtypes_dict.update({"score_count": pd.Int64Dtype()})
+    df_aud_stats = df_aud_stats.astype(dtypes_dict).sort_values(
+        by=["maudience"]
+    )
     return df_aud_stats

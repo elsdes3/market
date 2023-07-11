@@ -39,7 +39,9 @@ def cast_categoricals_as_ints(
                 )
             )
             df[cat_col] = (
-                df[cat_col].map(cat_mapper_dict).astype(pd.Int8Dtype())
+                df[cat_col].map(cat_mapper_dict)
+                # .astype(pd.Int8Dtype())
+                .astype(pd.Int64Dtype())
             )
             cat_mapper_dicts.append({cat_col: cat_mapper_dict})
     return [df, cat_mapper_dicts]
