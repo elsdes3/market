@@ -498,7 +498,7 @@ which are then logged as separate MLFlow artifacts</li>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>X_infer <span class="op">=</span> X_infer.pipe(th.shuffle_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Query execution start time = 2023-07-07 14:57:03.815...done at 2023-07-07 14:57:09.852 (6.037 seconds).
+<pre><code>Query execution start time = 2023-07-10 19:10:31.771...done at 2023-07-10 19:10:36.786 (5.016 seconds).
 Query returned 21,768 rows
 Got 21,752 rows and 28 columns after dropping duplicates
 Transformed data has 21,752 rows &amp; 28 columns</code></pre>
@@ -523,14 +523,14 @@ Transformed data has 21,752 rows &amp; 28 columns</code></pre>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pd.option_context(<span class="st">"display.max_colwidth"</span>, <span class="va">None</span>):</span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    display(df_deployment_candidate_mlflow_models)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>2023/07/07 18:57:10 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
-2023/07/07 18:57:10 INFO mlflow.store.db.utils: Updating database tables
+<pre><code>2023/07/10 23:10:37 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
+2023/07/10 23:10:37 INFO mlflow.store.db.utils: Updating database tables
 INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
 INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
 INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
 INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
-2023/07/07 18:57:10 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
-2023/07/07 18:57:10 INFO mlflow.store.db.utils: Updating database tables
+2023/07/10 23:10:37 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
+2023/07/10 23:10:37 INFO mlflow.store.db.utils: Updating database tables
 INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
 INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre>
 </div>
@@ -553,12 +553,12 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>BetaDistClassifier_20160901_20170228_133892_feats__20230707_185443</td>
-<td>Best Model based on fbeta2 score of 0.4962024987</td>
-<td>d5407876ef45489192743e6899207ca5</td>
+<td>BetaDistClassifier_20160901_20170228_133892_feats__20230710_184102</td>
+<td>Best Model based on fbeta2 score of 0.4983145472</td>
+<td>f805253a6ba64ee6a41bf14310ef16a4</td>
 <td>{'deployment-candidate': 'yes'}</td>
 <td>2</td>
-<td>0.496202</td>
+<td>0.498315</td>
 </tr>
 </tbody>
 </table>
@@ -596,7 +596,7 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
                 ('select', DropCorrelatedFeatures(threshold=0.7)),
                 ('resampler',
                  RandomOverSampler(random_state=88, sampling_strategy=0.1)),
-                ['clf', BetaDistClassifier(a=0.4, b=2.5, random_state=88)]])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox"><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[('preprocessor',
+                ['clf', BetaDistClassifier(a=0.3, b=2.4, random_state=88)]])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox"><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[('preprocessor',
                  ColumnTransformer(transformers=[('num',
                                                   Pipeline(steps=[('aboveavg',
                                                                    AboveAveragePagePromoEngager(cols=['hits',
@@ -624,7 +624,7 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
                 ('select', DropCorrelatedFeatures(threshold=0.7)),
                 ('resampler',
                  RandomOverSampler(random_state=88, sampling_strategy=0.1)),
-                ['clf', BetaDistClassifier(a=0.4, b=2.5, random_state=88)]])</pre></div></div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox"><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">preprocessor: ColumnTransformer</label><div class="sk-toggleable__content"><pre>ColumnTransformer(transformers=[('num',
+                ['clf', BetaDistClassifier(a=0.3, b=2.4, random_state=88)]])</pre></div></div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox"><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">preprocessor: ColumnTransformer</label><div class="sk-toggleable__content"><pre>ColumnTransformer(transformers=[('num',
                                  Pipeline(steps=[('aboveavg',
                                                   AboveAveragePagePromoEngager(cols=['hits',
                                                                                      'promos_displayed',
@@ -670,7 +670,7 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
                                  ['bounces', 'last_action', 'source', 'medium',
                                   'channelGrouping', 'browser', 'os',
                                   'deviceCategory'])])</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox"><label for="sk-estimator-id-8" class="sk-toggleable__label sk-toggleable__label-arrow">fe</label><div class="sk-toggleable__content"><pre>['bounces', 'last_action', 'source', 'medium', 'channelGrouping', 'browser', 'os', 'deviceCategory']</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-9" type="checkbox"><label for="sk-estimator-id-9" class="sk-toggleable__label sk-toggleable__label-arrow">RareLabelEncoder</label><div class="sk-toggleable__content"><pre>RareLabelEncoder(ignore_format=True, n_categories=1, replace_with='other',
-                 tol=0.1, variables=['source', 'browser'])</pre></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-10" type="checkbox"><label for="sk-estimator-id-10" class="sk-toggleable__label sk-toggleable__label-arrow">remainder</label><div class="sk-toggleable__content"><pre></pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-11" type="checkbox"><label for="sk-estimator-id-11" class="sk-toggleable__label sk-toggleable__label-arrow">passthrough</label><div class="sk-toggleable__content"><pre>passthrough</pre></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-12" type="checkbox"><label for="sk-estimator-id-12" class="sk-toggleable__label sk-toggleable__label-arrow">OneHotEncoder</label><div class="sk-toggleable__content"><pre>OneHotEncoder(drop='first', dtype=&lt;class 'int'&gt;, handle_unknown='ignore')</pre></div></div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-13" type="checkbox"><label for="sk-estimator-id-13" class="sk-toggleable__label sk-toggleable__label-arrow">DropCorrelatedFeatures</label><div class="sk-toggleable__content"><pre>DropCorrelatedFeatures(threshold=0.7)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-14" type="checkbox"><label for="sk-estimator-id-14" class="sk-toggleable__label sk-toggleable__label-arrow">RandomOverSampler</label><div class="sk-toggleable__content"><pre>RandomOverSampler(random_state=88, sampling_strategy=0.1)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-15" type="checkbox"><label for="sk-estimator-id-15" class="sk-toggleable__label sk-toggleable__label-arrow">BetaDistClassifier</label><div class="sk-toggleable__content"><pre>BetaDistClassifier(a=0.4, b=2.5, random_state=88)</pre></div></div></div></div></div></div></div>
+                 tol=0.1, variables=['source', 'browser'])</pre></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-10" type="checkbox"><label for="sk-estimator-id-10" class="sk-toggleable__label sk-toggleable__label-arrow">remainder</label><div class="sk-toggleable__content"><pre></pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-11" type="checkbox"><label for="sk-estimator-id-11" class="sk-toggleable__label sk-toggleable__label-arrow">passthrough</label><div class="sk-toggleable__content"><pre>passthrough</pre></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-12" type="checkbox"><label for="sk-estimator-id-12" class="sk-toggleable__label sk-toggleable__label-arrow">OneHotEncoder</label><div class="sk-toggleable__content"><pre>OneHotEncoder(drop='first', dtype=&lt;class 'int'&gt;, handle_unknown='ignore')</pre></div></div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-13" type="checkbox"><label for="sk-estimator-id-13" class="sk-toggleable__label sk-toggleable__label-arrow">DropCorrelatedFeatures</label><div class="sk-toggleable__content"><pre>DropCorrelatedFeatures(threshold=0.7)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-14" type="checkbox"><label for="sk-estimator-id-14" class="sk-toggleable__label sk-toggleable__label-arrow">RandomOverSampler</label><div class="sk-toggleable__content"><pre>RandomOverSampler(random_state=88, sampling_strategy=0.1)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-15" type="checkbox"><label for="sk-estimator-id-15" class="sk-toggleable__label sk-toggleable__label-arrow">BetaDistClassifier</label><div class="sk-toggleable__content"><pre>BetaDistClassifier(a=0.3, b=2.4, random_state=88)</pre></div></div></div></div></div></div></div>
 </div>
 </div>
 </section>
@@ -678,18 +678,176 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
 <h3 class="anchored" data-anchor-id="get-data-used-to-develop-best-deployment-candidate-model">Get Data Used to Develop Best Deployment Candidate Model</h3>
 <p>Get all available data used during model development of the best deployment candidate model</p>
 <div class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df_all <span class="op">=</span> modh.get_data_for_run_id(df_deployment_candidate_mlflow_models, <span class="st">'processed_data'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df_all <span class="op">=</span> (</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    modh.get_data_for_run_id(df_deployment_candidate_mlflow_models, <span class="st">'processed_data'</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.set_datatypes, {<span class="st">"predicted_label"</span>: pd.Int64Dtype()})</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Set all specified datatypes.</code></pre>
+</div>
+</div>
+<p>::: {.content-hidden} Show column datatypes for data used to train model during best experiment run :::</p>
+<div class="cell" data-execution_count="19">
+<div class="cell-output cell-output-display" data-execution_count="19">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">dtype</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">fullvisitorid</td>
+<td>string[python]</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">visitId</td>
+<td>string[python]</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">visitNumber</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">visitStartTime</td>
+<td>datetime64[ns]</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">quarter</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">month</td>
+<td>Int64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">day_of_month</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">day_of_week</td>
+<td>Int64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">hour</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">minute</td>
+<td>Int64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">second</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">source</td>
+<td>category</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">medium</td>
+<td>category</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">channelGrouping</td>
+<td>category</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">hits</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">bounces</td>
+<td>int64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">last_action</td>
+<td>category</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">promos_displayed</td>
+<td>Int64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">promos_clicked</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">product_views</td>
+<td>Int64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">product_clicks</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">pageviews</td>
+<td>Int64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">time_on_site</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">browser</td>
+<td>category</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">os</td>
+<td>category</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">deviceCategory</td>
+<td>category</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">added_to_cart</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">revenue</td>
+<td>Float64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">made_purchase_on_future_visit</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">split_type</td>
+<td>category</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">score</td>
+<td>Float64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">predicted_score_label</td>
+<td>boolean</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">predicted_label</td>
+<td>Int64</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 </section>
 <section id="check-data-drift-and-stability" class="level3">
 <h3 class="anchored" data-anchor-id="check-data-drift-and-stability">Check Data Drift and Stability</h3>
 <p>Get test split from the data used during development of the best deployment candidate model. This was the last month of data used during ML model development and it will be considered as the reference data.</p>
-<div class="cell" data-tags="[]" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>X_test_best_run <span class="op">=</span> (</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    df_all</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    .query(<span class="st">"split_type == 'test'"</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    .drop(columns<span class="op">=</span>[<span class="st">'split_type'</span>, label])</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>X_test_best_run <span class="op">=</span> (</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    df_all</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    .query(<span class="st">"split_type == 'test'"</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    .drop(columns<span class="op">=</span>[<span class="st">'split_type'</span>, label])</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Check numerical features for drift between</p>
 <ol type="1">
@@ -697,21 +855,21 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
 <li>unseen data (inference)</li>
 </ol>
 <p>using the Wasserstein test</p>
-<div class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df_num_drift, _ <span class="op">=</span> dch.detect_features_drift(</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    X_infer.assign(revenue<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">'revenue'</span>].fillna(<span class="dv">0</span>)),</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    X_test_best_run.assign(revenue<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">'revenue'</span>].fillna(<span class="dv">0</span>)),</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    numericals<span class="op">=</span>numericals<span class="op">+</span>[<span class="st">'revenue'</span>],</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    categoricals<span class="op">=</span>[],</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    kst_threshold<span class="op">=</span><span class="fl">0.05</span>,</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    kst_params<span class="op">=</span><span class="bu">dict</span>(</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        method<span class="op">=</span><span class="st">'exact'</span>,</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        N<span class="op">=</span><span class="bu">max</span>(<span class="bu">len</span>(X_test_best_run), <span class="bu">len</span>(X_infer)),</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        alternative<span class="op">=</span><span class="st">'two-sided'</span>,</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    wsd_threshold<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>display(df_num_drift)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df_num_drift, _ <span class="op">=</span> dch.detect_features_drift(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    X_infer.assign(revenue<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">'revenue'</span>].fillna(<span class="dv">0</span>)),</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    X_test_best_run.assign(revenue<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">'revenue'</span>].fillna(<span class="dv">0</span>)),</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    numericals<span class="op">=</span>numericals<span class="op">+</span>[<span class="st">'revenue'</span>],</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    categoricals<span class="op">=</span>[],</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    kst_threshold<span class="op">=</span><span class="fl">0.05</span>,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    kst_params<span class="op">=</span><span class="bu">dict</span>(</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        method<span class="op">=</span><span class="st">'exact'</span>,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        N<span class="op">=</span><span class="bu">max</span>(<span class="bu">len</span>(X_test_best_run), <span class="bu">len</span>(X_infer)),</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        alternative<span class="op">=</span><span class="st">'two-sided'</span>,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    wsd_threshold<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>display(df_num_drift)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 
@@ -741,11 +899,11 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
 <td>hits</td>
 <td>104</td>
 <td>112</td>
-<td>-2.771598</td>
-<td>-15.667526</td>
-<td>-0.171416</td>
-<td>-1.517043</td>
-<td>0.221298</td>
+<td>-2.719244</td>
+<td>-15.613408</td>
+<td>-0.168233</td>
+<td>-1.512405</td>
+<td>0.218377</td>
 <td>1</td>
 <td>False</td>
 <td>Wasserstein</td>
@@ -756,11 +914,11 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
 <td>pageviews</td>
 <td>78</td>
 <td>94</td>
-<td>-2.173298</td>
-<td>-18.054321</td>
-<td>-0.114753</td>
-<td>-1.337115</td>
-<td>0.159628</td>
+<td>-2.129631</td>
+<td>-18.01145</td>
+<td>-0.112481</td>
+<td>-1.334363</td>
+<td>0.158976</td>
 <td>1</td>
 <td>False</td>
 <td>Wasserstein</td>
@@ -771,11 +929,11 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
 <td>promos_displayed</td>
 <td>21</td>
 <td>18</td>
-<td>-9.68543</td>
-<td>2.987956</td>
-<td>-0.756611</td>
-<td>0.31588</td>
-<td>0.787988</td>
+<td>-9.680134</td>
+<td>2.989891</td>
+<td>-0.756197</td>
+<td>0.316096</td>
+<td>0.787574</td>
 <td>1</td>
 <td>False</td>
 <td>Wasserstein</td>
@@ -786,11 +944,11 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
 <td>product_views</td>
 <td>273</td>
 <td>286</td>
-<td>1.224816</td>
-<td>-5.455951</td>
-<td>0.287553</td>
-<td>-1.950144</td>
-<td>0.711919</td>
+<td>1.279359</td>
+<td>-5.401748</td>
+<td>0.300529</td>
+<td>-1.931742</td>
+<td>0.717114</td>
 <td>1</td>
 <td>False</td>
 <td>Wasserstein</td>
@@ -801,11 +959,11 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
 <td>product_clicks</td>
 <td>30</td>
 <td>35</td>
-<td>-6.898446</td>
-<td>-13.712772</td>
-<td>-0.043688</td>
-<td>-0.249589</td>
-<td>0.043688</td>
+<td>-6.811965</td>
+<td>-13.635198</td>
+<td>-0.043161</td>
+<td>-0.248311</td>
+<td>0.043161</td>
 <td>1</td>
 <td>False</td>
 <td>Wasserstein</td>
@@ -815,12 +973,12 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
 <td>numerical</td>
 <td>time_on_site</td>
 <td>1583</td>
-<td>1701</td>
-<td>-7.356926</td>
-<td>-6.516892</td>
-<td>-13.154549</td>
-<td>-25.681883</td>
-<td>13.519271</td>
+<td>1702</td>
+<td>-7.31577</td>
+<td>-6.511785</td>
+<td>-13.085232</td>
+<td>-25.663694</td>
+<td>13.449954</td>
 <td>1</td>
 <td>True</td>
 <td>Wasserstein</td>
@@ -831,11 +989,11 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.</code></pre
 <td>revenue</td>
 <td>361</td>
 <td>414</td>
-<td>-13.437476</td>
-<td>-31.792927</td>
-<td>-0.739384</td>
-<td>-13.830475</td>
-<td>0.748835</td>
+<td>-13.610552</td>
+<td>-31.823916</td>
+<td>-0.750609</td>
+<td>-13.854969</td>
+<td>0.76026</td>
 <td>1</td>
 <td>False</td>
 <td>Wasserstein</td>
@@ -901,19 +1059,20 @@ Observations
 <li>ML development data (test split)</li>
 <li>unseen data (inference)</li>
 </ol>
-<div class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dtypes_eai <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(categoricals, [<span class="st">'str'</span>]<span class="op">*</span><span class="bu">len</span>(categoricals)))</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>df_stability <span class="op">=</span> dch.check_data_stability(</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    X_infer.astype(dtypes_eai),</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    X_test_best_run.astype(dtypes_eai),</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    numericals<span class="op">=</span>numericals<span class="op">+</span>[<span class="st">'revenue'</span>],</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    categoricals<span class="op">=</span>categoricals,</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>df_stability</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>dtypes_eai <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(categoricals, [<span class="st">'str'</span>]<span class="op">*</span><span class="bu">len</span>(categoricals)))</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>df_stability <span class="op">=</span> dch.check_data_stability(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    X_infer.astype(dtypes_eai),</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    X_test_best_run.astype(dtypes_eai),</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    numericals<span class="op">=</span>numericals<span class="op">+</span>[<span class="st">'revenue'</span>],</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    categoricals<span class="op">=</span>categoricals,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pd.option_context(<span class="st">'display.max_colwidth'</span>, <span class="va">None</span>):</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    display(df_stability)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test suite start time = 2023-07-07 14:57:11.086...done at 2023-07-07 14:57:15.742 (4.657 seconds).</code></pre>
+<pre><code>Test suite start time = 2023-07-10 19:10:38.026...done at 2023-07-10 19:10:42.458 (4.432 seconds).</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="23">
+<div class="cell-output cell-output-display">
 <div>
 
 
@@ -941,7 +1100,7 @@ Observations
 <td>0</td>
 <td>21752</td>
 <td>20164</td>
-<td>["bounces", "source", "medium", "channelGroupi...</td>
+<td>["bounces", "source", "medium", "channelGrouping", "last_action", "browser", "os", "deviceCategory", "hits", "pageviews", "promos_displayed", "product_views", "product_clicks", "time_on_site", "revenue"]</td>
 <td>15</td>
 <td>8</td>
 </tr>
@@ -986,14 +1145,16 @@ Observations
 <section id="make-inference-predictions" class="level2">
 <h2 class="anchored" data-anchor-id="make-inference-predictions">Make Inference Predictions</h2>
 <p>Make inference predictions with best deployment candidate model, using features extracted from the inference data</p>
-<div class="cell" data-tags="[]" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>y_infer_pred, y_infer_pred_proba <span class="op">=</span> modh.make_inference(model, X_infer, label)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>y_infer_pred, y_infer_pred_proba <span class="op">=</span> modh.make_inference(model, X_infer, label)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>/opt/conda/envs/train/lib/python3.11/site-packages/sklearn/preprocessing/_encoders.py:202: UserWarning: Found unknown categories in columns [6] during transform. These unknown categories will be encoded as all zeros
   warnings.warn(
 /opt/conda/envs/train/lib/python3.11/site-packages/sklearn/preprocessing/_encoders.py:202: UserWarning: Found unknown categories in columns [6] during transform. These unknown categories will be encoded as all zeros
   warnings.warn(</code></pre>
 </div>
+</div>
+<div class="cell" data-execution_count="26">
 <div class="cell-output cell-output-display">
 <div>
 
@@ -1011,14 +1172,14 @@ Observations
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
 <td>0</td>
-<td>0.944327</td>
-<td>20541</td>
+<td>0.955039</td>
+<td>20774</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
 <td>1</td>
-<td>0.055673</td>
-<td>1211</td>
+<td>0.044961</td>
+<td>978</td>
 </tr>
 </tbody>
 </table>
@@ -1052,25 +1213,26 @@ Notes
 <li>rename <code>bin_number</code> column (for use in downstream step)</li>
 <li>set datatypes for columns</li>
 </ol>
-<div class="cell" data-tags="[]" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df_infer_pred <span class="op">=</span> (</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    ch.combine_infer_data(X_infer, y_infer_pred, y_infer_pred_proba)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.sort_scores, <span class="va">False</span>)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.get_audience_groups_by_propensity, num_bins)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    .pipe(ch.rename_columns, {<span class="st">"group_number"</span>: <span class="st">"maudience"</span>})</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>        ash.set_datatypes,</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>            <span class="st">"row_number"</span>: pd.Int16Dtype(),</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>            <span class="st">"fullvisitorid"</span>: pd.StringDtype(),</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>            <span class="st">"score"</span>: pd.Float32Dtype(),</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>            <span class="st">"predicted_score_label"</span>: pd.BooleanDtype(),</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>            <span class="st">"maudience"</span>: pd.Int8Dtype(),</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>        },</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pd.option_context(<span class="st">"display.max_columns"</span>, <span class="dv">1000</span>):</span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>    display(df_infer_pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df_infer_pred <span class="op">=</span> (</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    ch.combine_infer_data(X_infer, y_infer_pred, y_infer_pred_proba)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.sort_scores, <span class="va">False</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.get_audience_groups_by_propensity, num_bins)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    .pipe(ch.rename_columns, {<span class="st">"group_number"</span>: <span class="st">"maudience"</span>})</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>        ash.set_datatypes,</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>            <span class="st">"row_number"</span>: pd.Int16Dtype(),</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>            <span class="st">"fullvisitorid"</span>: pd.StringDtype(),</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>            <span class="st">"score"</span>: pd.Float64Dtype(),  <span class="co"># Float32Dtype</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>            <span class="st">"predicted_score_label"</span>: pd.BooleanDtype(),</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>            <span class="st">"maudience"</span>: pd.Int8Dtype(),</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>            <span class="st">"row_number"</span>: pd.Int64Dtype(),</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pd.option_context(<span class="st">"display.max_columns"</span>, <span class="dv">1000</span>):</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    display(df_infer_pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Set all specified datatypes.</code></pre>
 </div>
@@ -1118,176 +1280,176 @@ Notes
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">16646</td>
-<td>9725965720822289910</td>
-<td>1490389872</td>
+<td data-quarto-table-cell-role="th">6784</td>
+<td>7701350257079842191</td>
+<td>1488377334</td>
 <td>1</td>
-<td>2017-03-24 14:11:12</td>
+<td>2017-03-01 06:08:54</td>
 <td>1</td>
 <td>3</td>
-<td>24</td>
-<td>6</td>
-<td>14</td>
-<td>11</td>
-<td>12</td>
-<td>mall.googleplex.com</td>
-<td>referral</td>
-<td>Referral</td>
+<td>1</td>
 <td>4</td>
-<td>0</td>
-<td>Unknown</td>
-<td>18</td>
-<td>0</td>
-<td>12</td>
-<td>0</td>
-<td>4</td>
-<td>66</td>
-<td>Chrome</td>
-<td>Linux</td>
-<td>desktop</td>
-<td>0</td>
-<td>&lt;NA&gt;</td>
-<td>0.960677</td>
-<td>False</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">18188</td>
-<td>8392249560404039006</td>
-<td>1490821978</td>
-<td>1</td>
-<td>2017-03-29 14:12:58</td>
-<td>1</td>
-<td>3</td>
-<td>29</td>
-<td>4</td>
-<td>14</td>
-<td>12</td>
-<td>58</td>
-<td>google</td>
-<td>organic</td>
-<td>Organic Search</td>
-<td>3</td>
-<td>0</td>
-<td>Unknown</td>
-<td>9</td>
-<td>0</td>
-<td>9</td>
-<td>0</td>
-<td>3</td>
-<td>23</td>
-<td>Chrome</td>
-<td>Macintosh</td>
-<td>desktop</td>
-<td>0</td>
-<td>&lt;NA&gt;</td>
-<td>0.951298</td>
-<td>False</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">9795</td>
-<td>313217151141291631</td>
-<td>1489403662</td>
-<td>1</td>
-<td>2017-03-13 04:14:22</td>
-<td>1</td>
-<td>3</td>
-<td>13</td>
-<td>2</td>
-<td>4</td>
-<td>14</td>
-<td>22</td>
-<td>youtube.com</td>
-<td>referral</td>
-<td>Social</td>
-<td>2</td>
-<td>0</td>
-<td>Unknown</td>
-<td>18</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>2</td>
-<td>162</td>
-<td>Internet Explorer</td>
-<td>Windows</td>
-<td>desktop</td>
-<td>0</td>
-<td>&lt;NA&gt;</td>
-<td>0.948568</td>
-<td>False</td>
-<td>2</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">4772</td>
-<td>9450880163672825185</td>
-<td>1488558390</td>
-<td>1</td>
-<td>2017-03-03 08:26:30</td>
-<td>1</td>
-<td>3</td>
-<td>3</td>
 <td>6</td>
 <td>8</td>
-<td>26</td>
-<td>30</td>
-<td>(direct)</td>
-<td>(none)</td>
-<td>Direct</td>
-<td>2</td>
-<td>0</td>
+<td>54</td>
+<td>learn.temple.edu</td>
+<td>referral</td>
+<td>Referral</td>
+<td>1</td>
+<td>1</td>
 <td>Unknown</td>
 <td>9</td>
 <td>0</td>
-<td>12</td>
 <td>0</td>
-<td>2</td>
-<td>15</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
 <td>Chrome</td>
 <td>Macintosh</td>
 <td>desktop</td>
 <td>0</td>
 <td>&lt;NA&gt;</td>
-<td>0.940251</td>
-<td>True</td>
-<td>3</td>
+<td>0.961501</td>
+<td>False</td>
+<td>0</td>
 <td>0</td>
 </tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">16109</td>
-<td>7646742387349147197</td>
-<td>1490898449</td>
+<tr class="even">
+<td data-quarto-table-cell-role="th">20268</td>
+<td>2695658604851424923</td>
+<td>1489171901</td>
 <td>1</td>
-<td>2017-03-30 11:27:29</td>
+<td>2017-03-10 10:51:41</td>
 <td>1</td>
 <td>3</td>
-<td>30</td>
-<td>5</td>
-<td>11</td>
-<td>27</td>
-<td>29</td>
+<td>10</td>
+<td>6</td>
+<td>10</td>
+<td>51</td>
+<td>41</td>
 <td>google</td>
 <td>organic</td>
 <td>Organic Search</td>
-<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>Unknown</td>
 <td>0</td>
-<td>Product detail views</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>Chrome</td>
+<td>Macintosh</td>
+<td>desktop</td>
+<td>0</td>
+<td>&lt;NA&gt;</td>
+<td>0.945025</td>
+<td>False</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16170</td>
+<td>8971083254880506569</td>
+<td>1489199324</td>
+<td>1</td>
+<td>2017-03-10 18:28:44</td>
+<td>1</td>
+<td>3</td>
+<td>10</td>
+<td>6</td>
+<td>18</td>
+<td>28</td>
+<td>44</td>
+<td>google</td>
+<td>organic</td>
+<td>Organic Search</td>
+<td>1</td>
+<td>1</td>
+<td>Unknown</td>
 <td>0</td>
 <td>0</td>
 <td>12</td>
+<td>0</td>
 <td>1</td>
-<td>2</td>
-<td>69</td>
+<td>0</td>
 <td>Chrome</td>
 <td>Android</td>
 <td>mobile</td>
 <td>0</td>
 <td>&lt;NA&gt;</td>
-<td>0.937846</td>
+<td>0.940148</td>
+<td>False</td>
+<td>2</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">16629</td>
+<td>4054255996057072564</td>
+<td>1489603486</td>
+<td>1</td>
+<td>2017-03-15 11:44:46</td>
+<td>1</td>
+<td>3</td>
+<td>15</td>
+<td>4</td>
+<td>11</td>
+<td>44</td>
+<td>46</td>
+<td>google</td>
+<td>organic</td>
+<td>Organic Search</td>
+<td>13</td>
+<td>0</td>
+<td>Add product(s) to cart</td>
+<td>9</td>
+<td>0</td>
+<td>73</td>
+<td>1</td>
+<td>11</td>
+<td>224</td>
+<td>Chrome</td>
+<td>Linux</td>
+<td>desktop</td>
+<td>1</td>
+<td>&lt;NA&gt;</td>
+<td>0.93972</td>
+<td>False</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3120</td>
+<td>0374263254549285298</td>
+<td>1490817249</td>
+<td>1</td>
+<td>2017-03-29 12:54:09</td>
+<td>1</td>
+<td>3</td>
+<td>29</td>
+<td>4</td>
+<td>12</td>
+<td>54</td>
+<td>9</td>
+<td>google</td>
+<td>organic</td>
+<td>Organic Search</td>
+<td>4</td>
+<td>0</td>
+<td>Unknown</td>
+<td>9</td>
+<td>0</td>
+<td>12</td>
+<td>0</td>
+<td>4</td>
+<td>90</td>
+<td>Chrome</td>
+<td>Android</td>
+<td>mobile</td>
+<td>0</td>
+<td>&lt;NA&gt;</td>
+<td>0.934395</td>
 <td>False</td>
 <td>4</td>
 <td>0</td>
@@ -1328,68 +1490,68 @@ Notes
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2902</td>
-<td>8373850394906049133</td>
-<td>1489794933</td>
+<td data-quarto-table-cell-role="th">17358</td>
+<td>5874575205881769874</td>
+<td>1490761689</td>
 <td>1</td>
-<td>2017-03-17 16:55:33</td>
+<td>2017-03-28 21:28:09</td>
 <td>1</td>
 <td>3</td>
-<td>17</td>
-<td>6</td>
-<td>16</td>
-<td>55</td>
-<td>33</td>
-<td>google</td>
-<td>organic</td>
-<td>Organic Search</td>
-<td>11</td>
+<td>28</td>
+<td>3</td>
+<td>21</td>
+<td>28</td>
+<td>9</td>
+<td>youtube.com</td>
+<td>referral</td>
+<td>Social</td>
+<td>26</td>
 <td>0</td>
-<td>Remove product(s) from cart</td>
+<td>Product detail views</td>
 <td>9</td>
 <td>0</td>
-<td>15</td>
-<td>1</td>
-<td>8</td>
-<td>979</td>
-<td>Chrome</td>
+<td>64</td>
+<td>9</td>
+<td>17</td>
+<td>817</td>
+<td>Edge</td>
 <td>Windows</td>
 <td>desktop</td>
-<td>1</td>
+<td>0</td>
 <td>&lt;NA&gt;</td>
 <td>0.0</td>
-<td>False</td>
+<td>True</td>
 <td>21747</td>
 <td>2</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">2748</td>
-<td>0175368039527423961</td>
-<td>1489773964</td>
+<td data-quarto-table-cell-role="th">10266</td>
+<td>8012619550898035818</td>
+<td>1490675313</td>
 <td>1</td>
-<td>2017-03-17 11:06:04</td>
+<td>2017-03-27 21:28:33</td>
 <td>1</td>
 <td>3</td>
-<td>17</td>
-<td>6</td>
-<td>11</td>
-<td>6</td>
-<td>4</td>
+<td>27</td>
+<td>2</td>
+<td>21</td>
+<td>28</td>
+<td>33</td>
 <td>google</td>
 <td>organic</td>
 <td>Organic Search</td>
-<td>5</td>
+<td>3</td>
 <td>0</td>
 <td>Unknown</td>
 <td>9</td>
 <td>0</td>
-<td>36</td>
+<td>18</td>
 <td>0</td>
-<td>5</td>
-<td>145</td>
-<td>Chrome</td>
-<td>Windows</td>
-<td>desktop</td>
+<td>3</td>
+<td>48</td>
+<td>Safari</td>
+<td>iOS</td>
+<td>mobile</td>
 <td>0</td>
 <td>&lt;NA&gt;</td>
 <td>0.0</td>
@@ -1398,33 +1560,33 @@ Notes
 <td>2</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">14072</td>
-<td>9113372584810915471</td>
-<td>1489627383</td>
+<td data-quarto-table-cell-role="th">8666</td>
+<td>434532778812104332</td>
+<td>1489575014</td>
 <td>1</td>
-<td>2017-03-15 18:23:03</td>
+<td>2017-03-15 03:50:14</td>
 <td>1</td>
 <td>3</td>
 <td>15</td>
 <td>4</td>
-<td>18</td>
-<td>23</td>
 <td>3</td>
-<td>youtube.com</td>
-<td>referral</td>
-<td>Social</td>
+<td>50</td>
+<td>14</td>
+<td>google</td>
+<td>organic</td>
+<td>Organic Search</td>
 <td>6</td>
 <td>0</td>
 <td>Unknown</td>
-<td>36</td>
+<td>18</td>
 <td>0</td>
-<td>24</td>
+<td>43</td>
 <td>0</td>
 <td>6</td>
-<td>880</td>
+<td>246</td>
 <td>Chrome</td>
-<td>Android</td>
-<td>mobile</td>
+<td>iOS</td>
+<td>tablet</td>
 <td>0</td>
 <td>&lt;NA&gt;</td>
 <td>0.0</td>
@@ -1433,72 +1595,72 @@ Notes
 <td>2</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">18553</td>
-<td>8899670647171745453</td>
-<td>1488901570</td>
+<td data-quarto-table-cell-role="th">8034</td>
+<td>5010936918921461102</td>
+<td>1490914132</td>
 <td>1</td>
-<td>2017-03-07 07:46:10</td>
+<td>2017-03-30 15:48:52</td>
 <td>1</td>
 <td>3</td>
-<td>7</td>
-<td>3</td>
-<td>7</td>
-<td>46</td>
-<td>10</td>
-<td>google</td>
-<td>organic</td>
-<td>Organic Search</td>
-<td>1</td>
-<td>1</td>
+<td>30</td>
+<td>5</td>
+<td>15</td>
+<td>48</td>
+<td>52</td>
+<td>(direct)</td>
+<td>(none)</td>
+<td>Direct</td>
+<td>2</td>
+<td>0</td>
 <td>Unknown</td>
 <td>0</td>
 <td>0</td>
-<td>12</td>
+<td>6</td>
 <td>0</td>
-<td>1</td>
-<td>0</td>
-<td>Chrome</td>
-<td>Windows</td>
-<td>desktop</td>
+<td>2</td>
+<td>162</td>
+<td>Safari</td>
+<td>iOS</td>
+<td>mobile</td>
 <td>0</td>
 <td>&lt;NA&gt;</td>
 <td>0.0</td>
-<td>True</td>
+<td>False</td>
 <td>21750</td>
 <td>2</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">17648</td>
-<td>256240431480773031</td>
-<td>1488545314</td>
+<td data-quarto-table-cell-role="th">7394</td>
+<td>6847844312870761783</td>
+<td>1490498125</td>
 <td>1</td>
-<td>2017-03-03 04:48:34</td>
+<td>2017-03-25 20:15:25</td>
 <td>1</td>
 <td>3</td>
-<td>3</td>
-<td>6</td>
-<td>4</td>
-<td>48</td>
-<td>34</td>
+<td>25</td>
+<td>7</td>
+<td>20</td>
+<td>15</td>
+<td>25</td>
 <td>(direct)</td>
 <td>(none)</td>
 <td>Direct</td>
-<td>1</td>
-<td>1</td>
+<td>2</td>
+<td>0</td>
 <td>Unknown</td>
 <td>9</td>
 <td>0</td>
+<td>12</td>
 <td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
+<td>2</td>
+<td>43</td>
 <td>Chrome</td>
 <td>Android</td>
 <td>mobile</td>
 <td>0</td>
 <td>&lt;NA&gt;</td>
 <td>0.0</td>
-<td>True</td>
+<td>False</td>
 <td>21751</td>
 <td>2</td>
 </tr>
@@ -1524,7 +1686,7 @@ Notes
 </ol>
 </div>
 </div>
-<div class="cell" data-execution_count="26">
+<div class="cell" data-execution_count="28">
 <div class="cell-output cell-output-display">
 <div>
 
@@ -1572,35 +1734,35 @@ Notes
 <td data-quarto-table-cell-role="th">dtype</td>
 <td>string[python]</td>
 <td>string[python]</td>
-<td>Int8</td>
+<td>Int64</td>
 <td>datetime64[ns]</td>
-<td>Int8</td>
-<td>Int8</td>
-<td>Int8</td>
-<td>Int8</td>
-<td>Int8</td>
-<td>Int8</td>
-<td>Int8</td>
+<td>Int64</td>
+<td>Int64</td>
+<td>Int64</td>
+<td>Int64</td>
+<td>Int64</td>
+<td>Int64</td>
+<td>Int64</td>
 <td>category</td>
 <td>category</td>
 <td>category</td>
-<td>Int16</td>
+<td>Int64</td>
 <td>category</td>
 <td>category</td>
-<td>Int16</td>
-<td>Int16</td>
-<td>Int16</td>
-<td>Int16</td>
-<td>Int16</td>
-<td>Int16</td>
+<td>Int64</td>
+<td>Int64</td>
+<td>Int64</td>
+<td>Int64</td>
+<td>Int64</td>
+<td>Int64</td>
 <td>category</td>
 <td>category</td>
 <td>category</td>
-<td>Int16</td>
-<td>Float32</td>
-<td>Float32</td>
+<td>Int64</td>
+<td>Float64</td>
+<td>Float64</td>
 <td>boolean</td>
-<td>Int16</td>
+<td>Int64</td>
 <td>Int8</td>
 </tr>
 </tbody>
@@ -1618,38 +1780,40 @@ Notes
 <li>get required sample sizes that capture required effect sizes</li>
 <li>get random test and control cohorts</li>
 </ol>
-<div class="cell" data-tags="[]" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df_infer_audience_groups <span class="op">=</span> (</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    ch.load_file_from_mlflow_artifact(</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>        df_deployment_candidate_mlflow_models, <span class="st">"audience_sample_sizes"</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    .pipe(ch.get_sample_sizes_by_strategy, audience_strategy)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    .pipe(ch.get_suitable_sample_sizes, bin_size_infer_control)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    .pipe(ch.get_sample_sizes_with_all_audience_groups, num_bins)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    .pipe(ch.get_required_inputs, query_inputs)</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>        ch.create_cohorts,</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>        df_infer_pred,</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>        mapper_dict_audience_strategy_1</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> audience_strategy <span class="op">==</span> <span class="dv">1</span></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> mapper_dict_audience_strategy_2,</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>        audience_strategy,</span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>        ash.set_datatypes,</span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>            <span class="st">"maudience"</span>: pd.StringDtype(),</span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">"cohort"</span>: pd.StringDtype(),</span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>            <span class="st">"audience_strategy"</span>: pd.Int8Dtype(),</span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>        },</span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pd.option_context(<span class="st">"display.max_columns"</span>, <span class="dv">1000</span>):</span>
-<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>    display(df_infer_audience_groups)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>df_infer_audience_groups <span class="op">=</span> (</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    ch.load_file_from_mlflow_artifact(</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>        df_deployment_candidate_mlflow_models, <span class="st">"audience_sample_sizes"</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    .pipe(ash.set_datatypes, {<span class="st">"audience_strategy"</span>: pd.Int8Dtype()})</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    .pipe(ch.get_sample_sizes_by_strategy, audience_strategy)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    .pipe(ch.get_suitable_sample_sizes, bin_size_infer_control)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    .pipe(ch.get_sample_sizes_with_all_audience_groups, num_bins)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    .pipe(ch.get_required_inputs, query_inputs)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>        ch.create_cohorts,</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>        df_infer_pred,</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>        mapper_dict_audience_strategy_1</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> audience_strategy <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> mapper_dict_audience_strategy_2,</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>        audience_strategy,</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>        ash.set_datatypes,</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">"maudience"</span>: pd.StringDtype(),</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>            <span class="st">"cohort"</span>: pd.StringDtype(),</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">"audience_strategy"</span>: pd.Int8Dtype(),</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pd.option_context(<span class="st">"display.max_columns"</span>, <span class="dv">1000</span>):</span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>    display(df_infer_audience_groups)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>audience=0: High, size=7,251,  excluded=3,081, wanted=2,085, control=2,085, test=2,085
-audience=1: Medium, size=7,250,  excluded=2,746, wanted=2,252, control=2,252, test=2,252
-audience=2: Low, size=7,251,  excluded=2,557, wanted=2,347, control=2,347, test=2,347
+<pre><code>Set all specified datatypes.
+audience=0: High, size=7,251,  excluded=2,621, wanted=2,315, control=2,315, test=2,315
+audience=1: Medium, size=7,250,  excluded=3,054, wanted=2,098, control=2,098, test=2,098
+audience=2: Low, size=7,251,  excluded=2,715, wanted=2,268, control=2,268, test=2,268
 Found suitable sample sizes and generated cohorts.
 Set all specified datatypes.</code></pre>
 </div>
@@ -1699,35 +1863,35 @@ Set all specified datatypes.</code></pre>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>9725965720822289910</td>
-<td>1490389872</td>
+<td>7701350257079842191</td>
+<td>1488377334</td>
 <td>1</td>
-<td>2017-03-24 14:11:12</td>
+<td>2017-03-01 06:08:54</td>
 <td>1</td>
 <td>3</td>
-<td>24</td>
+<td>1</td>
+<td>4</td>
 <td>6</td>
-<td>14</td>
-<td>11</td>
-<td>12</td>
-<td>mall.googleplex.com</td>
+<td>8</td>
+<td>54</td>
+<td>learn.temple.edu</td>
 <td>referral</td>
 <td>Referral</td>
-<td>4</td>
-<td>0</td>
+<td>1</td>
+<td>1</td>
 <td>Unknown</td>
-<td>18</td>
+<td>9</td>
 <td>0</td>
-<td>12</td>
 <td>0</td>
-<td>4</td>
-<td>66</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
 <td>Chrome</td>
-<td>Linux</td>
+<td>Macintosh</td>
 <td>desktop</td>
 <td>0</td>
 <td>&lt;NA&gt;</td>
-<td>0.960677</td>
+<td>0.961501</td>
 <td>False</td>
 <td>High</td>
 <td>Control</td>
@@ -1735,35 +1899,35 @@ Set all specified datatypes.</code></pre>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>1262291561527945490</td>
-<td>1490385910</td>
+<td>1927404893298120774</td>
+<td>1489438559</td>
 <td>1</td>
-<td>2017-03-24 13:05:10</td>
+<td>2017-03-13 13:55:59</td>
 <td>1</td>
 <td>3</td>
-<td>24</td>
-<td>6</td>
 <td>13</td>
-<td>5</td>
-<td>10</td>
-<td>(direct)</td>
-<td>(none)</td>
-<td>Direct</td>
-<td>5</td>
+<td>2</td>
+<td>13</td>
+<td>55</td>
+<td>59</td>
+<td>google</td>
+<td>organic</td>
+<td>Organic Search</td>
+<td>2</td>
 <td>0</td>
 <td>Unknown</td>
-<td>18</td>
 <td>0</td>
-<td>25</td>
 <td>0</td>
-<td>5</td>
-<td>99</td>
+<td>12</td>
+<td>0</td>
+<td>2</td>
+<td>14</td>
 <td>Chrome</td>
-<td>iOS</td>
-<td>mobile</td>
+<td>Windows</td>
+<td>desktop</td>
 <td>0</td>
 <td>&lt;NA&gt;</td>
-<td>0.879824</td>
+<td>0.884723</td>
 <td>False</td>
 <td>High</td>
 <td>Control</td>
@@ -1771,35 +1935,35 @@ Set all specified datatypes.</code></pre>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>9189040746503498111</td>
-<td>1488898168</td>
+<td>4081311830661383532</td>
+<td>1489678740</td>
 <td>1</td>
-<td>2017-03-07 06:49:28</td>
+<td>2017-03-16 08:39:00</td>
 <td>1</td>
 <td>3</td>
-<td>7</td>
-<td>3</td>
-<td>6</td>
-<td>49</td>
-<td>28</td>
-<td>(direct)</td>
-<td>(none)</td>
-<td>Direct</td>
+<td>16</td>
+<td>5</td>
+<td>8</td>
+<td>39</td>
+<td>0</td>
+<td>google</td>
+<td>organic</td>
+<td>Organic Search</td>
 <td>1</td>
 <td>1</td>
 <td>Unknown</td>
 <td>0</td>
 <td>0</td>
-<td>0</td>
+<td>1</td>
 <td>0</td>
 <td>1</td>
 <td>0</td>
 <td>Chrome</td>
-<td>Android</td>
-<td>mobile</td>
+<td>Chrome OS</td>
+<td>desktop</td>
 <td>0</td>
 <td>&lt;NA&gt;</td>
-<td>0.867118</td>
+<td>0.879829</td>
 <td>False</td>
 <td>High</td>
 <td>Control</td>
@@ -1807,71 +1971,71 @@ Set all specified datatypes.</code></pre>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>1844223110946928452</td>
-<td>1490399038</td>
+<td>48980746408094895</td>
+<td>1489003955</td>
 <td>1</td>
-<td>2017-03-24 16:43:58</td>
+<td>2017-03-08 12:12:35</td>
 <td>1</td>
 <td>3</td>
-<td>24</td>
-<td>6</td>
-<td>16</td>
-<td>43</td>
-<td>58</td>
+<td>8</td>
+<td>4</td>
+<td>12</td>
+<td>12</td>
+<td>35</td>
 <td>google</td>
 <td>organic</td>
 <td>Organic Search</td>
-<td>20</td>
+<td>27</td>
 <td>0</td>
-<td>Add product(s) to cart</td>
-<td>9</td>
+<td>Product detail views</td>
 <td>0</td>
-<td>90</td>
-<td>3</td>
-<td>15</td>
-<td>414</td>
+<td>0</td>
+<td>166</td>
+<td>4</td>
+<td>23</td>
+<td>928</td>
 <td>Chrome</td>
-<td>Macintosh</td>
+<td>Windows</td>
 <td>desktop</td>
-<td>2</td>
+<td>0</td>
 <td>&lt;NA&gt;</td>
-<td>0.864372</td>
-<td>True</td>
+<td>0.866037</td>
+<td>False</td>
 <td>High</td>
 <td>Control</td>
 <td>1</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>5443907013787165361</td>
-<td>1490637573</td>
+<td>0480615828723852227</td>
+<td>1490621968</td>
 <td>1</td>
-<td>2017-03-27 10:59:33</td>
+<td>2017-03-27 06:39:28</td>
 <td>1</td>
 <td>3</td>
 <td>27</td>
 <td>2</td>
-<td>10</td>
-<td>59</td>
-<td>33</td>
+<td>6</td>
+<td>39</td>
+<td>28</td>
 <td>google</td>
 <td>organic</td>
 <td>Organic Search</td>
-<td>7</td>
+<td>2</td>
 <td>0</td>
 <td>Unknown</td>
 <td>9</td>
 <td>0</td>
-<td>47</td>
 <td>0</td>
-<td>7</td>
-<td>41</td>
+<td>0</td>
+<td>2</td>
+<td>8</td>
 <td>Chrome</td>
 <td>Macintosh</td>
 <td>desktop</td>
 <td>0</td>
 <td>&lt;NA&gt;</td>
-<td>0.860614</td>
+<td>0.864021</td>
 <td>False</td>
 <td>High</td>
 <td>Control</td>
@@ -1915,33 +2079,33 @@ Set all specified datatypes.</code></pre>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">21747</td>
-<td>5476993230782741357</td>
-<td>1490986341</td>
+<td>0301626924810909605</td>
+<td>1490969834</td>
 <td>1</td>
-<td>2017-03-31 11:52:21</td>
+<td>2017-03-31 07:17:14</td>
 <td>1</td>
 <td>3</td>
 <td>31</td>
 <td>6</td>
-<td>11</td>
-<td>52</td>
-<td>21</td>
+<td>7</td>
+<td>17</td>
+<td>14</td>
 <td>(direct)</td>
 <td>(none)</td>
 <td>Direct</td>
-<td>18</td>
+<td>15</td>
 <td>0</td>
-<td>Add product(s) to cart</td>
+<td>Product detail views</td>
+<td>9</td>
 <td>0</td>
-<td>0</td>
-<td>107</td>
-<td>3</td>
-<td>14</td>
-<td>551</td>
+<td>27</td>
+<td>2</td>
+<td>13</td>
+<td>291</td>
 <td>Chrome</td>
-<td>Linux</td>
+<td>Macintosh</td>
 <td>desktop</td>
-<td>1</td>
+<td>0</td>
 <td>&lt;NA&gt;</td>
 <td>0.0</td>
 <td>False</td>
@@ -1951,30 +2115,30 @@ Set all specified datatypes.</code></pre>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">21748</td>
-<td>6629693276913663746</td>
-<td>1488520182</td>
+<td>0088053741107907630</td>
+<td>1489626052</td>
 <td>1</td>
-<td>2017-03-02 21:49:42</td>
+<td>2017-03-15 18:00:52</td>
 <td>1</td>
 <td>3</td>
-<td>2</td>
-<td>5</td>
-<td>21</td>
-<td>49</td>
-<td>42</td>
-<td>google</td>
-<td>organic</td>
-<td>Organic Search</td>
+<td>15</td>
+<td>4</td>
+<td>18</td>
+<td>0</td>
+<td>52</td>
+<td>(direct)</td>
+<td>(none)</td>
+<td>Direct</td>
 <td>3</td>
 <td>0</td>
 <td>Unknown</td>
 <td>9</td>
 <td>0</td>
-<td>12</td>
+<td>0</td>
 <td>0</td>
 <td>3</td>
-<td>19</td>
-<td>Chrome</td>
+<td>28</td>
+<td>Safari</td>
 <td>Macintosh</td>
 <td>desktop</td>
 <td>0</td>
@@ -1987,67 +2151,67 @@ Set all specified datatypes.</code></pre>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">21749</td>
-<td>7820592629354691307</td>
-<td>1489762686</td>
+<td>5874575205881769874</td>
+<td>1490761689</td>
 <td>1</td>
-<td>2017-03-17 07:58:06</td>
+<td>2017-03-28 21:28:09</td>
 <td>1</td>
 <td>3</td>
-<td>17</td>
-<td>6</td>
-<td>7</td>
-<td>58</td>
-<td>6</td>
-<td>google</td>
-<td>organic</td>
-<td>Organic Search</td>
-<td>2</td>
+<td>28</td>
+<td>3</td>
+<td>21</td>
+<td>28</td>
+<td>9</td>
+<td>youtube.com</td>
+<td>referral</td>
+<td>Social</td>
+<td>26</td>
 <td>0</td>
-<td>Unknown</td>
+<td>Product detail views</td>
 <td>9</td>
 <td>0</td>
-<td>0</td>
-<td>0</td>
-<td>2</td>
-<td>8</td>
-<td>Chrome</td>
+<td>64</td>
+<td>9</td>
+<td>17</td>
+<td>817</td>
+<td>Edge</td>
 <td>Windows</td>
 <td>desktop</td>
 <td>0</td>
 <td>&lt;NA&gt;</td>
 <td>0.0</td>
-<td>False</td>
+<td>True</td>
 <td>Low</td>
 <td>&lt;NA&gt;</td>
 <td>1</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">21750</td>
-<td>9113372584810915471</td>
-<td>1489627383</td>
+<td>8012619550898035818</td>
+<td>1490675313</td>
 <td>1</td>
-<td>2017-03-15 18:23:03</td>
+<td>2017-03-27 21:28:33</td>
 <td>1</td>
 <td>3</td>
-<td>15</td>
-<td>4</td>
-<td>18</td>
-<td>23</td>
+<td>27</td>
+<td>2</td>
+<td>21</td>
+<td>28</td>
+<td>33</td>
+<td>google</td>
+<td>organic</td>
+<td>Organic Search</td>
 <td>3</td>
-<td>youtube.com</td>
-<td>referral</td>
-<td>Social</td>
-<td>6</td>
 <td>0</td>
 <td>Unknown</td>
-<td>36</td>
+<td>9</td>
 <td>0</td>
-<td>24</td>
+<td>18</td>
 <td>0</td>
-<td>6</td>
-<td>880</td>
-<td>Chrome</td>
-<td>Android</td>
+<td>3</td>
+<td>48</td>
+<td>Safari</td>
+<td>iOS</td>
 <td>mobile</td>
 <td>0</td>
 <td>&lt;NA&gt;</td>
@@ -2059,36 +2223,36 @@ Set all specified datatypes.</code></pre>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">21751</td>
-<td>8899670647171745453</td>
-<td>1488901570</td>
+<td>5010936918921461102</td>
+<td>1490914132</td>
 <td>1</td>
-<td>2017-03-07 07:46:10</td>
+<td>2017-03-30 15:48:52</td>
 <td>1</td>
 <td>3</td>
-<td>7</td>
-<td>3</td>
-<td>7</td>
-<td>46</td>
-<td>10</td>
-<td>google</td>
-<td>organic</td>
-<td>Organic Search</td>
-<td>1</td>
-<td>1</td>
+<td>30</td>
+<td>5</td>
+<td>15</td>
+<td>48</td>
+<td>52</td>
+<td>(direct)</td>
+<td>(none)</td>
+<td>Direct</td>
+<td>2</td>
+<td>0</td>
 <td>Unknown</td>
 <td>0</td>
 <td>0</td>
-<td>12</td>
+<td>6</td>
 <td>0</td>
-<td>1</td>
-<td>0</td>
-<td>Chrome</td>
-<td>Windows</td>
-<td>desktop</td>
+<td>2</td>
+<td>162</td>
+<td>Safari</td>
+<td>iOS</td>
+<td>mobile</td>
 <td>0</td>
 <td>&lt;NA&gt;</td>
 <td>0.0</td>
-<td>True</td>
+<td>False</td>
 <td>Low</td>
 <td>&lt;NA&gt;</td>
 <td>1</td>
@@ -2116,10 +2280,10 @@ Notes
 </div>
 </div>
 <p>The treatment (or test) and control groups should be similar to each other for the property to be tested. This is a <a href="https://www.mobileapps.com/blog/test-group#Similarities_Between_Test_and_Control_Groups">fundamental requirement of test and control groups</a>. In this case, the probability (score column) is the property of interest. With this in mind, we now show selected descriptive statistics, for the score column, for both the test (treatment) and control cohorts within each desired audience group (low, medium and high propensity)</p>
-<div class="cell" data-tags="[]" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df_aud_stats <span class="op">=</span> ch.get_cohort_stats(df_infer_audience_groups)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>df_aud_stats</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="28">
+<div class="cell" data-tags="[]" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>df_aud_stats <span class="op">=</span> ch.get_cohort_stats(df_infer_audience_groups)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>df_aud_stats</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="30">
 <div>
 
 
@@ -2141,91 +2305,91 @@ Notes
 <td data-quarto-table-cell-role="th">0</td>
 <td>High</td>
 <td>Control</td>
-<td>2085</td>
-<td>0.143627</td>
-<td>0.33644</td>
-<td>0.289434</td>
-<td>0.960677</td>
+<td>2315</td>
+<td>0.098383</td>
+<td>0.290206</td>
+<td>0.235826</td>
+<td>0.961501</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
 <td>High</td>
 <td>Test</td>
-<td>2085</td>
-<td>0.143641</td>
-<td>0.339942</td>
-<td>0.294693</td>
-<td>0.93025</td>
+<td>2315</td>
+<td>0.098402</td>
+<td>0.29217</td>
+<td>0.235049</td>
+<td>0.940148</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
 <td>High</td>
 <td>&lt;NA&gt;</td>
-<td>3081</td>
-<td>0.143653</td>
-<td>0.337462</td>
-<td>0.287273</td>
-<td>0.951298</td>
+<td>2621</td>
+<td>0.098362</td>
+<td>0.287721</td>
+<td>0.233066</td>
+<td>0.945025</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
 <td>Low</td>
 <td>Control</td>
-<td>2347</td>
+<td>2268</td>
 <td>0.0</td>
-<td>0.006123</td>
-<td>0.003496</td>
-<td>0.022739</td>
+<td>0.001985</td>
+<td>0.000808</td>
+<td>0.008814</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
 <td>Low</td>
 <td>Test</td>
-<td>2347</td>
+<td>2268</td>
 <td>0.0</td>
-<td>0.006452</td>
-<td>0.003985</td>
-<td>0.022735</td>
+<td>0.00199</td>
+<td>0.000807</td>
+<td>0.008805</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">5</td>
 <td>Low</td>
 <td>&lt;NA&gt;</td>
-<td>2557</td>
+<td>2715</td>
 <td>0.0</td>
-<td>0.006335</td>
-<td>0.003881</td>
-<td>0.022698</td>
+<td>0.001984</td>
+<td>0.000835</td>
+<td>0.008811</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">6</td>
 <td>Medium</td>
 <td>Control</td>
-<td>2252</td>
-<td>0.022746</td>
-<td>0.070208</td>
-<td>0.063056</td>
-<td>0.14358</td>
+<td>2098</td>
+<td>0.008823</td>
+<td>0.041494</td>
+<td>0.035349</td>
+<td>0.098338</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">7</td>
 <td>Medium</td>
 <td>Test</td>
-<td>2252</td>
-<td>0.0228</td>
-<td>0.071192</td>
-<td>0.064267</td>
-<td>0.143521</td>
+<td>2098</td>
+<td>0.008815</td>
+<td>0.041513</td>
+<td>0.034737</td>
+<td>0.098317</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">8</td>
 <td>Medium</td>
 <td>&lt;NA&gt;</td>
-<td>2746</td>
-<td>0.022846</td>
-<td>0.069557</td>
-<td>0.062974</td>
-<td>0.143544</td>
+<td>3054</td>
+<td>0.008829</td>
+<td>0.040498</td>
+<td>0.033774</td>
+<td>0.098326</td>
 </tr>
 </tbody>
 </table>
@@ -2246,6 +2410,53 @@ Observations
 <ol type="1">
 <li>It is reassuring that there is agreement in the statistics for the probabilities per Test-Control cohort within the same audience group.</li>
 </ol>
+</div>
+</div>
+<div class="cell" data-execution_count="31">
+<div class="cell-output cell-output-display" data-execution_count="31">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">dtype</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">maudience</td>
+<td>string[python]</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">cohort</td>
+<td>string[python]</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">score_count</td>
+<td>Int64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">score_min</td>
+<td>Float64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">score_mean</td>
+<td>Float64</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">score_median</td>
+<td>Float64</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">score_max</td>
+<td>Float64</td>
+</tr>
+</tbody>
+</table>
+
+</div>
 </div>
 </div>
 </section>
@@ -2290,13 +2501,24 @@ Observations
 </ul></li>
 </ul></li>
 </ol>
-<div class="cell" data-tags="[]" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>df_profile <span class="op">=</span> (</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    pa.get_audience_profile(df_infer_audience_groups, audience_strategy)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    .pipe(th.set_datatypes, dtypes_profile)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pd.option_context(<span class="st">"display.max_columns"</span>, <span class="dv">1000</span>):</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    display(df_profile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df_profile <span class="op">=</span> (</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    pa.get_audience_profile(df_infer_audience_groups, audience_strategy)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    .pipe(</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        th.set_datatypes,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">dict</span>(</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>            stat<span class="op">=</span>pd.StringDtype(),</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>            stat_type<span class="op">=</span>pd.StringDtype(),</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>            High<span class="op">=</span>pd.StringDtype(),</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>            Low<span class="op">=</span>pd.StringDtype(),</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>            Medium<span class="op">=</span>pd.StringDtype(),</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>            feature<span class="op">=</span>pd.StringDtype(),</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>            audience_strategy<span class="op">=</span>pd.Int8Dtype(),</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pd.option_context(<span class="st">"display.max_columns"</span>, <span class="dv">1000</span>):</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>    display(df_profile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Set all specified datatypes.
 Set all specified datatypes.</code></pre>
@@ -2323,9 +2545,9 @@ Set all specified datatypes.</code></pre>
 <td data-quarto-table-cell-role="th">0</td>
 <td>hour__mean</td>
 <td>mean</td>
-<td>13.043304371810784</td>
-<td>13.025513722245208</td>
-<td>12.969241379310345</td>
+<td>12.988829127016963</td>
+<td>13.004689008412633</td>
+<td>13.03503448275862</td>
 <td>hour</td>
 <td>1</td>
 </tr>
@@ -2333,9 +2555,9 @@ Set all specified datatypes.</code></pre>
 <td data-quarto-table-cell-role="th">1</td>
 <td>day_of_week__mean</td>
 <td>mean</td>
-<td>4.009240104813129</td>
-<td>3.9921390153082332</td>
-<td>4.009931034482759</td>
+<td>4.027858226451524</td>
+<td>3.991035719211143</td>
+<td>3.993793103448276</td>
 <td>day_of_week</td>
 <td>1</td>
 </tr>
@@ -2413,9 +2635,9 @@ Set all specified datatypes.</code></pre>
 <td data-quarto-table-cell-role="th">9</td>
 <td>hits__mean</td>
 <td>mean</td>
-<td>6.214315266859743</td>
-<td>6.497586539787616</td>
-<td>6.3565517241379315</td>
+<td>6.4591090884016</td>
+<td>6.408219555923321</td>
+<td>6.197655172413793</td>
 <td>hits</td>
 <td>1</td>
 </tr>
@@ -2423,9 +2645,9 @@ Set all specified datatypes.</code></pre>
 <td data-quarto-table-cell-role="th">10</td>
 <td>hits__max</td>
 <td>max</td>
-<td>216</td>
+<td>226</td>
 <td>500</td>
-<td>386</td>
+<td>175</td>
 <td>hits</td>
 <td>1</td>
 </tr>
@@ -2433,9 +2655,9 @@ Set all specified datatypes.</code></pre>
 <td data-quarto-table-cell-role="th">11</td>
 <td>promos_displayed__mean</td>
 <td>mean</td>
-<td>8.550682664460075</td>
-<td>8.61274306992139</td>
-<td>8.541931034482758</td>
+<td>8.585436491518411</td>
+<td>8.677285891601159</td>
+<td>8.441379310344828</td>
 <td>promos_displayed</td>
 <td>1</td>
 </tr>
@@ -2444,8 +2666,8 @@ Set all specified datatypes.</code></pre>
 <td>promos_displayed__max</td>
 <td>max</td>
 <td>189</td>
-<td>171</td>
 <td>189</td>
+<td>126</td>
 <td>promos_displayed</td>
 <td>1</td>
 </tr>
@@ -2453,8 +2675,8 @@ Set all specified datatypes.</code></pre>
 <td data-quarto-table-cell-role="th">13</td>
 <td>promos_clicked__mean</td>
 <td>mean</td>
-<td>0.0</td>
 <td>0.00013791201213625708</td>
+<td>0.0</td>
 <td>0.0</td>
 <td>promos_clicked</td>
 <td>1</td>
@@ -2463,8 +2685,8 @@ Set all specified datatypes.</code></pre>
 <td data-quarto-table-cell-role="th">14</td>
 <td>promos_clicked__max</td>
 <td>max</td>
-<td>0</td>
 <td>1</td>
+<td>0</td>
 <td>0</td>
 <td>promos_clicked</td>
 <td>1</td>
@@ -2473,9 +2695,9 @@ Set all specified datatypes.</code></pre>
 <td data-quarto-table-cell-role="th">15</td>
 <td>product_views__mean</td>
 <td>mean</td>
-<td>22.395255826782513</td>
-<td>23.932423114053233</td>
-<td>23.24137931034483</td>
+<td>23.478140946076405</td>
+<td>22.888153358157496</td>
+<td>23.204</td>
 <td>product_views</td>
 <td>1</td>
 </tr>
@@ -2483,9 +2705,9 @@ Set all specified datatypes.</code></pre>
 <td data-quarto-table-cell-role="th">16</td>
 <td>product_views__max</td>
 <td>max</td>
-<td>367</td>
+<td>625</td>
 <td>987</td>
-<td>573</td>
+<td>480</td>
 <td>product_views</td>
 <td>1</td>
 </tr>
@@ -2493,9 +2715,9 @@ Set all specified datatypes.</code></pre>
 <td data-quarto-table-cell-role="th">17</td>
 <td>product_clicks__mean</td>
 <td>mean</td>
-<td>0.6470831609433182</td>
-<td>0.7044545579920011</td>
-<td>0.679448275862069</td>
+<td>0.7141083988415391</td>
+<td>0.667356226727348</td>
+<td>0.6488275862068965</td>
 <td>product_clicks</td>
 <td>1</td>
 </tr>
@@ -2503,9 +2725,9 @@ Set all specified datatypes.</code></pre>
 <td data-quarto-table-cell-role="th">18</td>
 <td>product_clicks__max</td>
 <td>max</td>
-<td>27</td>
-<td>48</td>
 <td>79</td>
+<td>50</td>
+<td>46</td>
 <td>product_clicks</td>
 <td>1</td>
 </tr>
@@ -2513,9 +2735,9 @@ Set all specified datatypes.</code></pre>
 <td data-quarto-table-cell-role="th">19</td>
 <td>pageviews__mean</td>
 <td>mean</td>
-<td>5.287408633291959</td>
-<td>5.492070059302165</td>
-<td>5.405241379310345</td>
+<td>5.459522824438008</td>
+<td>5.439249758653979</td>
+<td>5.283724137931035</td>
 <td>pageviews</td>
 <td>1</td>
 </tr>
@@ -2525,7 +2747,7 @@ Set all specified datatypes.</code></pre>
 <td>max</td>
 <td>176</td>
 <td>466</td>
-<td>343</td>
+<td>109</td>
 <td>pageviews</td>
 <td>1</td>
 </tr>
@@ -2533,9 +2755,9 @@ Set all specified datatypes.</code></pre>
 <td data-quarto-table-cell-role="th">21</td>
 <td>revenue__mean</td>
 <td>mean</td>
-<td>179.2376251220703</td>
-<td>193.4358367919922</td>
-<td>178.18284606933594</td>
+<td>165.1793893129771</td>
+<td>209.0597609561753</td>
+<td>175.87772925764193</td>
 <td>revenue</td>
 <td>1</td>
 </tr>
@@ -2543,9 +2765,9 @@ Set all specified datatypes.</code></pre>
 <td data-quarto-table-cell-role="th">22</td>
 <td>revenue__max</td>
 <td>max</td>
-<td>1352.6300048828125</td>
-<td>3027.10009765625</td>
-<td>3829.800048828125</td>
+<td>3027</td>
+<td>3829</td>
+<td>870</td>
 <td>revenue</td>
 <td>1</td>
 </tr>
@@ -2553,9 +2775,9 @@ Set all specified datatypes.</code></pre>
 <td data-quarto-table-cell-role="th">23</td>
 <td>added_to_cart__mean</td>
 <td>mean</td>
-<td>0.19486967314853124</td>
-<td>0.19418011308784996</td>
-<td>0.20124137931034483</td>
+<td>0.20576472210729554</td>
+<td>0.1959729692456213</td>
+<td>0.188</td>
 <td>added_to_cart</td>
 <td>1</td>
 </tr>
@@ -2563,9 +2785,9 @@ Set all specified datatypes.</code></pre>
 <td data-quarto-table-cell-role="th">24</td>
 <td>added_to_cart__max</td>
 <td>max</td>
-<td>25</td>
-<td>20</td>
+<td>21</td>
 <td>23</td>
+<td>25</td>
 <td>added_to_cart</td>
 <td>1</td>
 </tr>
@@ -2573,9 +2795,9 @@ Set all specified datatypes.</code></pre>
 <td data-quarto-table-cell-role="th">25</td>
 <td>last_action_added_to_cart</td>
 <td>behavior</td>
-<td>5.254447662391394</td>
-<td>5.019997241759757</td>
-<td>5.0344827586206895</td>
+<td>5.1579092538960145</td>
+<td>4.909667632050752</td>
+<td>5.227586206896552</td>
 <td>last_action</td>
 <td>1</td>
 </tr>
@@ -2583,9 +2805,9 @@ Set all specified datatypes.</code></pre>
 <td data-quarto-table-cell-role="th">26</td>
 <td>last_action_completed_purchase</td>
 <td>behavior</td>
-<td>3.7374155288925666</td>
-<td>3.2823058888429184</td>
-<td>3.1862068965517243</td>
+<td>3.6132947179699353</td>
+<td>3.4615915046200523</td>
+<td>3.1586206896551725</td>
 <td>last_action</td>
 <td>1</td>
 </tr>
@@ -2593,9 +2815,9 @@ Set all specified datatypes.</code></pre>
 <td data-quarto-table-cell-role="th">27</td>
 <td>last_action_check_out</td>
 <td>behavior</td>
-<td>1.3239553165080677</td>
-<td>1.310164115294442</td>
-<td>1.4620689655172414</td>
+<td>1.2963729140808165</td>
+<td>1.3791201213625708</td>
+<td>1.4068965517241379</td>
 <td>last_action</td>
 <td>1</td>
 </tr>
@@ -2603,9 +2825,9 @@ Set all specified datatypes.</code></pre>
 <td data-quarto-table-cell-role="th">28</td>
 <td>last_action_removed_products_from_cart</td>
 <td>behavior</td>
-<td>0.7723072679630396</td>
-<td>0.8826368776720452</td>
-<td>0.7724137931034483</td>
+<td>0.8550544752447938</td>
+<td>0.8136808716039167</td>
+<td>0.7586206896551724</td>
 <td>last_action</td>
 <td>1</td>
 </tr>
@@ -2614,8 +2836,8 @@ Set all specified datatypes.</code></pre>
 <td>last_action_clicked_through_product_lists</td>
 <td>behavior</td>
 <td>0.027582402427251414</td>
-<td>0.06895600606812853</td>
-<td>0.06896551724137931</td>
+<td>0.08274720728175423</td>
+<td>0.05517241379310345</td>
 <td>last_action</td>
 <td>1</td>
 </tr>
@@ -2623,9 +2845,9 @@ Set all specified datatypes.</code></pre>
 <td data-quarto-table-cell-role="th">30</td>
 <td>used_referral</td>
 <td>behavior</td>
-<td>24.86553578816715</td>
-<td>24.051854916563233</td>
-<td>24.151724137931033</td>
+<td>24.18976692869949</td>
+<td>24.465590952972004</td>
+<td>24.413793103448278</td>
 <td>medium</td>
 <td>1</td>
 </tr>
@@ -2633,9 +2855,9 @@ Set all specified datatypes.</code></pre>
 <td data-quarto-table-cell-role="th">31</td>
 <td>added_gt_1_to_cart</td>
 <td>behavior</td>
-<td>3.7787891325334435</td>
-<td>3.985657150737829</td>
-<td>4.151724137931034</td>
+<td>3.916701144669701</td>
+<td>4.20631637015584</td>
+<td>3.7655172413793103</td>
 <td>added_to_cart</td>
 <td>1</td>
 </tr>
@@ -2643,9 +2865,9 @@ Set all specified datatypes.</code></pre>
 <td data-quarto-table-cell-role="th">32</td>
 <td>weekend_visitors</td>
 <td>behavior</td>
-<td>17.887187974072543</td>
-<td>17.997517583781548</td>
-<td>18.151724137931033</td>
+<td>17.81823196800441</td>
+<td>17.749275961936284</td>
+<td>18.482758620689655</td>
 <td>day_of_week</td>
 <td>1</td>
 </tr>
@@ -2653,9 +2875,9 @@ Set all specified datatypes.</code></pre>
 <td data-quarto-table-cell-role="th">33</td>
 <td>bounce_rate</td>
 <td>behavior</td>
-<td>33.01613570541994</td>
-<td>32.97476210177906</td>
-<td>34.08275862068965</td>
+<td>33.40228933940146</td>
+<td>32.98855330299269</td>
+<td>33.682758620689654</td>
 <td>bounces</td>
 <td>1</td>
 </tr>
@@ -2693,11 +2915,68 @@ Notes
 </ol>
 </div>
 </div>
+<div class="cell" data-execution_count="33">
+<div class="cell-output cell-output-display" data-execution_count="33">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">dtype</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">stat</td>
+<td>string[python]</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">stat_type</td>
+<td>string[python]</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">High</td>
+<td>string[python]</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Low</td>
+<td>string[python]</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Medium</td>
+<td>string[python]</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">feature</td>
+<td>string[python]</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">audience_strategy</td>
+<td>Int8</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
 </section>
 <section id="conversion-rates-per-audience-group-and-overall" class="level3">
 <h3 class="anchored" data-anchor-id="conversion-rates-per-audience-group-and-overall">Conversion Rates per Audience Group and Overall</h3>
-<div class="cell" data-execution_count="31">
-<div class="cell-output cell-output-display" data-execution_count="31">
+<div class="cell" data-execution_count="34">
+<div class="cell-output cell-output-stdout">
+<pre><code>Set all specified datatypes.
+Set all specified datatypes.
+Set all specified datatypes.
+Set all specified datatypes.
+Set all specified datatypes.
+Set all specified datatypes.
+Set all specified datatypes.
+Set all specified datatypes.</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="34">
 <div>
 
 
@@ -2724,16 +3003,16 @@ Notes
 <td data-quarto-table-cell-role="th">0</td>
 <td>1</td>
 <td>High</td>
-<td>1125</td>
+<td>850</td>
 <td>6722</td>
-<td>0.140977</td>
-<td>165</td>
+<td>0.095656</td>
+<td>149</td>
 <td>development</td>
 <td>20164</td>
-<td>2.454627</td>
+<td>2.216602</td>
 <td>2.30609</td>
-<td>16.73609</td>
-<td>5.57925</td>
+<td>12.645046</td>
+<td>4.215433</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
@@ -2742,13 +3021,13 @@ Notes
 <td>0</td>
 <td>6721</td>
 <td>0.0</td>
-<td>147</td>
+<td>152</td>
 <td>development</td>
 <td>20164</td>
-<td>2.187175</td>
+<td>2.261568</td>
 <td>2.30609</td>
 <td>0.0</td>
-<td>5.57925</td>
+<td>4.215433</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
@@ -2756,29 +3035,29 @@ Notes
 <td>Medium</td>
 <td>0</td>
 <td>6721</td>
-<td>0.022545</td>
-<td>153</td>
+<td>0.00911</td>
+<td>164</td>
 <td>development</td>
 <td>20164</td>
-<td>2.276447</td>
+<td>2.440113</td>
 <td>2.30609</td>
 <td>0.0</td>
-<td>5.57925</td>
+<td>4.215433</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
 <td>1</td>
 <td>High</td>
-<td>1243</td>
+<td>975</td>
 <td>7251</td>
-<td>0.143627</td>
+<td>0.098362</td>
 <td>&lt;NA&gt;</td>
 <td>inference</td>
 <td>21752</td>
 <td>&lt;NA&gt;</td>
 <td>&lt;NA&gt;</td>
-<td>17.142464</td>
-<td>5.714417</td>
+<td>13.446421</td>
+<td>4.482346</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
@@ -2793,7 +3072,7 @@ Notes
 <td>&lt;NA&gt;</td>
 <td>&lt;NA&gt;</td>
 <td>0.0</td>
-<td>5.714417</td>
+<td>4.482346</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">5</td>
@@ -2801,14 +3080,14 @@ Notes
 <td>Medium</td>
 <td>0</td>
 <td>7250</td>
-<td>0.022746</td>
+<td>0.008815</td>
 <td>&lt;NA&gt;</td>
 <td>inference</td>
 <td>21752</td>
 <td>&lt;NA&gt;</td>
 <td>&lt;NA&gt;</td>
 <td>0.0</td>
-<td>5.714417</td>
+<td>4.482346</td>
 </tr>
 </tbody>
 </table>
@@ -2842,8 +3121,15 @@ are in good agreement with eachother.</li>
 </section>
 <section id="fraction-of-audience-estimated-and-actually-assigned-to-random-cohorts" class="level3">
 <h3 class="anchored" data-anchor-id="fraction-of-audience-estimated-and-actually-assigned-to-random-cohorts">Fraction of Audience Estimated and Actually Assigned to Random Cohorts</h3>
-<div class="cell" data-execution_count="32">
-<div class="cell-output cell-output-display" data-execution_count="32">
+<div class="cell" data-execution_count="35">
+<div class="cell-output cell-output-stdout">
+<pre><code>Set all specified datatypes.
+Set all specified datatypes.
+Set all specified datatypes.
+Set all specified datatypes.
+Set all specified datatypes.</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="35">
 <div>
 
 
@@ -2869,12 +3155,12 @@ are in good agreement with eachother.</li>
 <td data-quarto-table-cell-role="th">0</td>
 <td>High</td>
 <td>Test</td>
-<td>1933</td>
+<td>2146</td>
 <td>6721</td>
 <td>10</td>
 <td>55</td>
 <td>55</td>
-<td>28.760601</td>
+<td>31.929772</td>
 <td>required</td>
 <td>development</td>
 <td>20164</td>
@@ -2883,12 +3169,12 @@ are in good agreement with eachother.</li>
 <td data-quarto-table-cell-role="th">1</td>
 <td>High</td>
 <td>Control</td>
-<td>1933</td>
+<td>2146</td>
 <td>6721</td>
 <td>10</td>
 <td>55</td>
 <td>55</td>
-<td>28.760601</td>
+<td>31.929772</td>
 <td>required</td>
 <td>development</td>
 <td>20164</td>
@@ -2897,12 +3183,12 @@ are in good agreement with eachother.</li>
 <td data-quarto-table-cell-role="th">2</td>
 <td>Medium</td>
 <td>Test</td>
-<td>2088</td>
+<td>1945</td>
 <td>6721</td>
 <td>10</td>
 <td>55</td>
 <td>55</td>
-<td>31.066805</td>
+<td>28.939146</td>
 <td>required</td>
 <td>development</td>
 <td>20164</td>
@@ -2911,12 +3197,12 @@ are in good agreement with eachother.</li>
 <td data-quarto-table-cell-role="th">3</td>
 <td>Medium</td>
 <td>Control</td>
-<td>2088</td>
+<td>1945</td>
 <td>6721</td>
 <td>10</td>
 <td>55</td>
 <td>55</td>
-<td>31.066805</td>
+<td>28.939146</td>
 <td>required</td>
 <td>development</td>
 <td>20164</td>
@@ -2925,12 +3211,12 @@ are in good agreement with eachother.</li>
 <td data-quarto-table-cell-role="th">4</td>
 <td>Low</td>
 <td>Test</td>
-<td>2176</td>
+<td>2103</td>
 <td>6722</td>
 <td>10</td>
 <td>55</td>
 <td>55</td>
-<td>32.371319</td>
+<td>31.285332</td>
 <td>required</td>
 <td>development</td>
 <td>20164</td>
@@ -2939,12 +3225,12 @@ are in good agreement with eachother.</li>
 <td data-quarto-table-cell-role="th">5</td>
 <td>Low</td>
 <td>Control</td>
-<td>2176</td>
+<td>2103</td>
 <td>6722</td>
 <td>10</td>
 <td>55</td>
 <td>55</td>
-<td>32.371319</td>
+<td>31.285332</td>
 <td>required</td>
 <td>development</td>
 <td>20164</td>
@@ -2953,12 +3239,12 @@ are in good agreement with eachother.</li>
 <td data-quarto-table-cell-role="th">6</td>
 <td>High</td>
 <td>Control</td>
-<td>2085</td>
+<td>2315</td>
 <td>7251</td>
 <td>10</td>
 <td>55</td>
 <td>55</td>
-<td>28.754654</td>
+<td>31.926631</td>
 <td>randomly selected</td>
 <td>inference</td>
 <td>21752</td>
@@ -2967,12 +3253,12 @@ are in good agreement with eachother.</li>
 <td data-quarto-table-cell-role="th">7</td>
 <td>High</td>
 <td>Test</td>
-<td>2085</td>
+<td>2315</td>
 <td>7251</td>
 <td>10</td>
 <td>55</td>
 <td>55</td>
-<td>28.754654</td>
+<td>31.926631</td>
 <td>randomly selected</td>
 <td>inference</td>
 <td>21752</td>
@@ -2981,12 +3267,12 @@ are in good agreement with eachother.</li>
 <td data-quarto-table-cell-role="th">8</td>
 <td>Low</td>
 <td>Control</td>
-<td>2347</td>
+<td>2268</td>
 <td>7251</td>
 <td>10</td>
 <td>55</td>
 <td>55</td>
-<td>32.36795</td>
+<td>31.278444</td>
 <td>randomly selected</td>
 <td>inference</td>
 <td>21752</td>
@@ -2995,12 +3281,12 @@ are in good agreement with eachother.</li>
 <td data-quarto-table-cell-role="th">9</td>
 <td>Low</td>
 <td>Test</td>
-<td>2347</td>
+<td>2268</td>
 <td>7251</td>
 <td>10</td>
 <td>55</td>
 <td>55</td>
-<td>32.36795</td>
+<td>31.278444</td>
 <td>randomly selected</td>
 <td>inference</td>
 <td>21752</td>
@@ -3009,12 +3295,12 @@ are in good agreement with eachother.</li>
 <td data-quarto-table-cell-role="th">10</td>
 <td>Medium</td>
 <td>Control</td>
-<td>2252</td>
+<td>2098</td>
 <td>7250</td>
 <td>10</td>
 <td>55</td>
 <td>55</td>
-<td>31.062069</td>
+<td>28.937931</td>
 <td>randomly selected</td>
 <td>inference</td>
 <td>21752</td>
@@ -3023,12 +3309,12 @@ are in good agreement with eachother.</li>
 <td data-quarto-table-cell-role="th">11</td>
 <td>Medium</td>
 <td>Test</td>
-<td>2252</td>
+<td>2098</td>
 <td>7250</td>
 <td>10</td>
 <td>55</td>
 <td>55</td>
-<td>31.062069</td>
+<td>28.937931</td>
 <td>randomly selected</td>
 <td>inference</td>
 <td>21752</td>
@@ -3059,8 +3345,8 @@ Observations
 <section id="export-to-disk-and-ml-experiment-tracking" class="level2">
 <h2 class="anchored" data-anchor-id="export-to-disk-and-ml-experiment-tracking">Export to Disk and ML Experiment Tracking</h2>
 <p>Get the best MLFlow run ID</p>
-<div class="cell" data-tags="[]" data-execution_count="33">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>best_run_id <span class="op">=</span> df_deployment_candidate_mlflow_models.squeeze()[<span class="st">"run_id"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>best_run_id <span class="op">=</span> df_deployment_candidate_mlflow_models.squeeze()[<span class="st">"run_id"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="audience-cohorts" class="level3">
 <h3 class="anchored" data-anchor-id="audience-cohorts">Audience Cohorts</h3>
@@ -3080,22 +3366,22 @@ Notes
 </div>
 </div>
 <p>Export to disk and log exported file as MLFlow artifact</p>
-<div class="cell" data-tags="[]" data-execution_count="35">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ut.export_and_track(</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    os.path.join(</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>        processed_data_dir,</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"audience_cohorts__run_"</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>best_run_id<span class="sc">}</span><span class="ss">__"</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"infer_month_</span><span class="sc">{</span>month_name[<span class="dv">1</span>:][X_infer[<span class="st">'month'</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">1</span>]<span class="sc">}</span><span class="ss">__"</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>datetime<span class="sc">.</span>now()<span class="sc">.</span>strftime(<span class="st">'%Y%m</span><span class="sc">%d</span><span class="st">_%H%M%S'</span>)<span class="sc">}</span><span class="ss">.parquet.gzip"</span>,</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    df_infer_audience_groups,</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    (</span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"inference audience cohorts for "</span></span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>month_name[<span class="dv">1</span>:][X_infer[<span class="st">'month'</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    best_run_id,</span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>ut.export_and_track(</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    os.path.join(</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>        processed_data_dir,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"audience_cohorts__run_"</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>best_run_id<span class="sc">}</span><span class="ss">__"</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"infer_month_</span><span class="sc">{</span>month_name[<span class="dv">1</span>:][X_infer[<span class="st">'month'</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">1</span>]<span class="sc">}</span><span class="ss">__"</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>datetime<span class="sc">.</span>now()<span class="sc">.</span>strftime(<span class="st">'%Y%m</span><span class="sc">%d</span><span class="st">_%H%M%S'</span>)<span class="sc">}</span><span class="ss">.parquet.gzip"</span>,</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    df_infer_audience_groups,</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    (</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"inference audience cohorts for "</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>month_name[<span class="dv">1</span>:][X_infer[<span class="st">'month'</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    best_run_id,</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="audience-profiles-1" class="level3">
@@ -3116,64 +3402,64 @@ Notes
 </div>
 </div>
 <p>Export to disk and log exported file as MLFlow artifact</p>
-<div class="cell" data-tags="[]" data-execution_count="37">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>ut.export_and_track(</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    os.path.join(</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>        processed_data_dir,</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"audience_profiles__run_"</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>best_run_id<span class="sc">}</span><span class="ss">__"</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"infer_month_</span><span class="sc">{</span>month_name[<span class="dv">1</span>:][X_infer[<span class="st">'month'</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">1</span>]<span class="sc">}</span><span class="ss">__"</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>datetime<span class="sc">.</span>now()<span class="sc">.</span>strftime(<span class="st">'%Y%m</span><span class="sc">%d</span><span class="st">_%H%M%S'</span>)<span class="sc">}</span><span class="ss">.parquet.gzip"</span>,</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    df_profile,</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    (</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"inference audience profiles for "</span></span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>month_name[<span class="dv">1</span>:][X_infer[<span class="st">'month'</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>    best_run_id,</span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>ut.export_and_track(</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    os.path.join(</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>        processed_data_dir,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"audience_profiles__run_"</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>best_run_id<span class="sc">}</span><span class="ss">__"</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"infer_month_</span><span class="sc">{</span>month_name[<span class="dv">1</span>:][X_infer[<span class="st">'month'</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">1</span>]<span class="sc">}</span><span class="ss">__"</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>datetime<span class="sc">.</span>now()<span class="sc">.</span>strftime(<span class="st">'%Y%m</span><span class="sc">%d</span><span class="st">_%H%M%S'</span>)<span class="sc">}</span><span class="ss">.parquet.gzip"</span>,</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    df_profile,</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    (</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"inference audience profiles for "</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>month_name[<span class="dv">1</span>:][X_infer[<span class="st">'month'</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    best_run_id,</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="conversion-rates-per-audience-group-and-overall-1" class="level3">
 <h3 class="anchored" data-anchor-id="conversion-rates-per-audience-group-and-overall-1">Conversion Rates per Audience Group and Overall</h3>
 <p>Export to disk and log exported file as MLFlow artifact</p>
-<div class="cell" data-tags="[]" data-execution_count="39">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>ut.export_and_track(</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    os.path.join(</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>        processed_data_dir,</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"audience_development_inference_conversion_rates__run_"</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>best_run_id<span class="sc">}</span><span class="ss">__"</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"infer_month_</span><span class="sc">{</span>month_name[<span class="dv">1</span>:][X_infer[<span class="st">'month'</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">1</span>]<span class="sc">}</span><span class="ss">__"</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>datetime<span class="sc">.</span>now()<span class="sc">.</span>strftime(<span class="st">'%Y%m</span><span class="sc">%d</span><span class="st">_%H%M%S'</span>)<span class="sc">}</span><span class="ss">.parquet.gzip"</span>,</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    df_conv_rates,</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    (</span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"inference and development conversion rates for "</span></span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>month_name[<span class="dv">1</span>:][X_infer[<span class="st">'month'</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>    best_run_id,</span>
-<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>ut.export_and_track(</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    os.path.join(</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>        processed_data_dir,</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"audience_development_inference_conversion_rates__run_"</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>best_run_id<span class="sc">}</span><span class="ss">__"</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"infer_month_</span><span class="sc">{</span>month_name[<span class="dv">1</span>:][X_infer[<span class="st">'month'</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">1</span>]<span class="sc">}</span><span class="ss">__"</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>datetime<span class="sc">.</span>now()<span class="sc">.</span>strftime(<span class="st">'%Y%m</span><span class="sc">%d</span><span class="st">_%H%M%S'</span>)<span class="sc">}</span><span class="ss">.parquet.gzip"</span>,</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    df_conv_rates,</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    (</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"inference and development conversion rates for "</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>month_name[<span class="dv">1</span>:][X_infer[<span class="st">'month'</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>    best_run_id,</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="estimated-and-true-fractions-of-audience-assigned-to-random-cohorts" class="level3">
 <h3 class="anchored" data-anchor-id="estimated-and-true-fractions-of-audience-assigned-to-random-cohorts">Estimated and True Fractions of Audience Assigned to Random Cohorts</h3>
 <p>Export to disk and log exported file as MLFlow artifact</p>
-<div class="cell" data-tags="[]" data-execution_count="41">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>ut.export_and_track(</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    os.path.join(</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>        processed_data_dir,</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"cohort_audience_fractions__run_"</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>best_run_id<span class="sc">}</span><span class="ss">__"</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"infer_month_</span><span class="sc">{</span>month_name[<span class="dv">1</span>:][X_infer[<span class="st">'month'</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">1</span>]<span class="sc">}</span><span class="ss">__"</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>datetime<span class="sc">.</span>now()<span class="sc">.</span>strftime(<span class="st">'%Y%m</span><span class="sc">%d</span><span class="st">_%H%M%S'</span>)<span class="sc">}</span><span class="ss">.parquet.gzip"</span>,</span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    df_sa_frac,</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    (</span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"inference and development cohort-to-audience fractions for "</span></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>month_name[<span class="dv">1</span>:][X_infer[<span class="st">'month'</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    best_run_id,</span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>ut.export_and_track(</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    os.path.join(</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>        processed_data_dir,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"cohort_audience_fractions__run_"</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>best_run_id<span class="sc">}</span><span class="ss">__"</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"infer_month_</span><span class="sc">{</span>month_name[<span class="dv">1</span>:][X_infer[<span class="st">'month'</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">1</span>]<span class="sc">}</span><span class="ss">__"</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>datetime<span class="sc">.</span>now()<span class="sc">.</span>strftime(<span class="st">'%Y%m</span><span class="sc">%d</span><span class="st">_%H%M%S'</span>)<span class="sc">}</span><span class="ss">.parquet.gzip"</span>,</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    df_sa_frac,</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    (</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"inference and development cohort-to-audience fractions for "</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>month_name[<span class="dv">1</span>:][X_infer[<span class="st">'month'</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> <span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    best_run_id,</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
