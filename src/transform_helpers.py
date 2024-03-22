@@ -25,9 +25,10 @@ def set_datatypes(df: pd.DataFrame, dtypes: Dict) -> pd.DataFrame:
 def drop_duplicates(df: pd.DataFrame, subset: List[str]) -> pd.DataFrame:
     """Drop duplicates."""
     df = df.drop_duplicates(subset=subset, keep="first")
+    duplicates_str = ", ".join(subset)
     print(
         f"Got {len(df):,} rows and {df.shape[1]:,} columns "
-        "after dropping duplicates"
+        f"after dropping duplicates by {duplicates_str}"
     )
     return df
 

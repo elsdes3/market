@@ -9,15 +9,16 @@ services:
     restart: 'no'
     ports:
       - 8888:8888
-    env_file: ${HOME}/Downloads/.env
+    # env_file: ${HOME}/Downloads/.env
     environment:
       NB_UID: 1000
       NB_GID: 1000
+      GCP_PROJECT_ID: ${GCP_PROJECT_ID}
     volumes:
       - ./notebooks/01-get-data/notebooks:/home/jovyan/notebooks
       - ./src:/home/jovyan/src
       - ./data:/home/jovyan/data
-      - ${HOME}/gcp_keys/${SERVICE_ACCOUNT_NAME}:/home/jovyan/gcp_keys/${SERVICE_ACCOUNT_NAME}
+      - ${HOME}/gcp_keys/${SERVICE_ACCOUNT_NAME_BQ}:/home/jovyan/gcp_keys/${SERVICE_ACCOUNT_NAME_BQ}
 
   train:
     container_name: train
@@ -27,16 +28,17 @@ services:
     restart: 'no'
     ports:
       - 8889:8888
-    env_file: ${HOME}/Downloads/.env
+    # env_file: ${HOME}/Downloads/.env
     environment:
       NB_UID: 1000
       NB_GID: 1000
+      GCP_PROJECT_ID: ${GCP_PROJECT_ID}
     volumes:
       - ./notebooks/02-train/notebooks:/home/jovyan/notebooks
       - ./src:/home/jovyan/src
       - ./data:/home/jovyan/data
       - ./models:/home/jovyan/models
-      - ${HOME}/gcp_keys/${SERVICE_ACCOUNT_NAME}:/home/jovyan/gcp_keys/${SERVICE_ACCOUNT_NAME}
+      - ${HOME}/gcp_keys/${SERVICE_ACCOUNT_NAME_BQ}:/home/jovyan/gcp_keys/${SERVICE_ACCOUNT_NAME_BQ}
 
   explore:
     container_name: explore
@@ -46,10 +48,11 @@ services:
     restart: 'no'
     ports:
       - 8890:8888
-    env_file: ${HOME}/Downloads/.env
+    # env_file: ${HOME}/Downloads/.env
     environment:
       NB_UID: 1000
       NB_GID: 1000
+      GCP_PROJECT_ID: ${GCP_PROJECT_ID}
     volumes:
       - ./notebooks/03-explore/notebooks:/home/jovyan/notebooks
       - ./src:/home/jovyan/src
@@ -64,15 +67,16 @@ services:
     restart: 'no'
     ports:
       - 8891:8888
-    env_file: ${HOME}/Downloads/.env
+    # env_file: ${HOME}/Downloads/.env
     environment:
       NB_UID: 1000
       NB_GID: 1000
+      GCP_PROJECT_ID: ${GCP_PROJECT_ID}
     volumes:
       - ./notebooks/04-upload/notebooks:/home/jovyan/notebooks
       - ./src:/home/jovyan/src
       - ./data:/home/jovyan/data
-      - ${HOME}/gcp_keys/${SERVICE_ACCOUNT_NAME}:/home/jovyan/gcp_keys/${SERVICE_ACCOUNT_NAME}
+      - ${HOME}/gcp_keys/${SERVICE_ACCOUNT_NAME_BQ}:/home/jovyan/gcp_keys/${SERVICE_ACCOUNT_NAME_BQ}
 
   dash:
     container_name: dash
@@ -82,15 +86,16 @@ services:
     restart: 'no'
     ports:
       - 8892:8888
-    env_file: ${HOME}/Downloads/.env
+    # env_file: ${HOME}/Downloads/.env
     environment:
       NB_UID: 1000
       NB_GID: 1000
+      GCP_PROJECT_ID: ${GCP_PROJECT_ID}
     volumes:
       - ./notebooks/05-dash/notebooks:/home/jovyan/notebooks
       - ./src:/home/jovyan/src
       - ./data:/home/jovyan/data
-      - ${HOME}/gcp_keys/${SERVICE_ACCOUNT_NAME}:/home/jovyan/gcp_keys/${SERVICE_ACCOUNT_NAME}
+      - ${HOME}/gcp_keys/${SERVICE_ACCOUNT_NAME_BQ}:/home/jovyan/gcp_keys/${SERVICE_ACCOUNT_NAME_BQ}
 
   app:
     container_name: app
@@ -104,7 +109,7 @@ services:
       PORT: 8501
       GCP_PROJECT_ID: ${GCP_PROJECT_ID}
     volumes:
-      - ${HOME}/gcp_keys/${SERVICE_ACCOUNT_NAME}:/app/gcp_keys/${SERVICE_ACCOUNT_NAME}
+      - ${HOME}/gcp_keys/${SERVICE_ACCOUNT_NAME_CR}:/app/gcp_keys/${SERVICE_ACCOUNT_NAME_CR}
 
   cleanup:
     container_name: cleanup
@@ -114,13 +119,14 @@ services:
     restart: 'no'
     ports:
       - 8893:8888
-    env_file: ${HOME}/Downloads/.env
+    # env_file: ${HOME}/Downloads/.env
     environment:
       NB_UID: 1000
       NB_GID: 1000
+      GCP_PROJECT_ID: ${GCP_PROJECT_ID}
     volumes:
       - ./notebooks/07-cleanup/notebooks:/home/jovyan/notebooks
       - ./src:/home/jovyan/src
       - ./data:/home/jovyan/data
       - ./models:/home/jovyan/models
-      - ${HOME}/gcp_keys/${SERVICE_ACCOUNT_NAME}:/home/jovyan/gcp_keys/${SERVICE_ACCOUNT_NAME}
+      - ${HOME}/gcp_keys/${SERVICE_ACCOUNT_NAME_BQ}:/home/jovyan/gcp_keys/${SERVICE_ACCOUNT_NAME_BQ}

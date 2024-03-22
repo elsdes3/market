@@ -19,16 +19,18 @@ See `index.qmd` for project details.
 1. Create a Google Cloud project
 2. From the BigQuery console
    - select the newly created project and create two GCP Service Accounts with the following permissions
-     - used during development (analysis and dashboard)
+     - used during development (raw data retrieval, analysis and dashboard)
        - *Cloud Storage Admin*
        - *BigQuery Job User*
        - *BigQuery Data Viewer*
        - *BigQuery Data Editor*
+       - this is used for all notebooks (folders `01-get-data`, `02-train`, `03-explore`, `04-upload`, `05-dash`, `07-cleanup`)
      - deploying containerized dashboard to GCP Cloud Run
        - *Editor*
        - *BigQuery Data Viewer*
        - *Cloud Run Admin*
        - *Service Account User*
+       - this is used for the containerized dashboard (`06-app`)
    - create access keys for both service accounts and download the keys as JSON files into the home directory (`/home/<user-name>`)
    - add the following datasets
      - publicly available GA360 dataset
@@ -45,9 +47,11 @@ See `index.qmd` for project details.
 ### [Local](#local)
 1. Export the following environment variables into the local shell
    - `GCP_PROJECT_ID`
-   - `SERVICE_ACCOUNT_NAME`
-     - during development, set this to the name of the service account created for use during development
-     - during deployment, set this to the name of the service account created for deploying a containerized version of the dashboard to GCP Cloud Run
+     - GCP project ID
+   - `SERVICE_ACCOUNT_NAME_BQ`
+     - during development, set this to the name of the service account created for use in notebooks during development
+   - `SERVICE_ACCOUNT_NAME_CR`
+     - during deployment, set this to the name of the service account created for for manipulating Google Cloud Run resources, when deploying the containerized dashboard to Cloud Run
 
 ## [Project Organization](#project-organization)
 

@@ -126,7 +126,7 @@ def detect_features_drift(
                     < df["metric_threshold"]
                 )
                 .assign(drift_detected=lambda df: df["reject_null"])
-                .assign(test_type="Kolmogorov–Smirnov")
+                .assign(test_type="Kolmogorov-Smirnov")
             )
             for k, v in kst_params.items():
                 df_num_stats[k] = v

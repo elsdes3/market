@@ -16,6 +16,103 @@ import seaborn as sns
 from matplotlib import ticker
 
 
+def customize_splines(ax: plt.axis, color: str = "dimgrey") -> plt.axis:
+    """Customize axes in matplotlib plots."""
+    ax.spines["left"].set_edgecolor(color)
+    ax.spines["left"].set_linewidth(1)
+    ax.spines["bottom"].set_edgecolor(color)
+    ax.spines["bottom"].set_linewidth(1)
+    ax.spines["top"].set_linewidth(0)
+    ax.spines["right"].set_linewidth(0)
+    return ax
+
+
+def customize_axis(
+    ax: plt.axis,
+    show_grid: bool = False,
+    color: str = "dimgrey",
+    top_right_color: str = "whitesmoke",
+    linewidth: float = 1.5,
+    grid_thickness: float = 0.75,
+    grid_opacity: float = 0.5,
+    grid_axis: str = "both",
+    line_color: str = "dimgrey",
+    show_top_right: bool = False,
+) -> None:
+    """Customize matplotlib axis properties."""
+    ax.spines["left"].set_edgecolor(color)
+    ax.spines["left"].set_linewidth(linewidth)
+    ax.spines["bottom"].set_edgecolor(color)
+    ax.spines["bottom"].set_linewidth(linewidth)
+    if show_top_right:
+        ax.spines["top"].set_edgecolor(top_right_color)
+        ax.spines["top"].set_linewidth(linewidth)
+        ax.spines["right"].set_edgecolor(top_right_color)
+        ax.spines["right"].set_linewidth(linewidth)
+    else:
+        ax.spines["top"].set_linewidth(0)
+        ax.spines["right"].set_linewidth(0)
+    if show_grid:
+        # ax.grid(which="both", axis="both", color="gainsboro", zorder=3)
+        ax.grid(
+            which="major",
+            axis=grid_axis,
+            linewidth=grid_thickness,
+            color=line_color,
+            alpha=grid_opacity,
+            zorder=3,
+        )
+
+
+def customize_plot(
+    ax: plt.axis,
+    legend_params: Dict[str, Any],
+    ptitle: str,
+    x_tick_angle: float = 37.5,
+    axis_tick_label_fontsize: int = 12,
+    grid_thickness: float = 0.75,
+    grid_opacity: float = 0.5,
+    line_color: str = "dimgrey",
+    show_grid: bool = True,
+    show_legend: bool = True,
+) -> None:
+    """Customize matplotlib plot."""
+    ax.yaxis.set_tick_params(labelsize=axis_tick_label_fontsize)
+    ax.xaxis.set_tick_params(
+        labelsize=axis_tick_label_fontsize, rotation=x_tick_angle
+    )
+    for tick in ax.xaxis.get_majorticklabels():
+        tick.set_horizontalalignment("right")
+    ax.set_xlabel(None)
+    ax.set_ylabel(None)
+    ax.tick_params(
+        axis="both",
+        which="both",
+        length=0,
+        bottom=False,
+        top=False,
+        left=False,
+        colors=line_color,
+    )
+    ax.set_title(ptitle, fontweight="bold", loc="left")
+    ax = customize_splines(ax, color=line_color)
+    if show_grid:
+        ax.grid(
+            which="major",
+            axis="y",
+            linewidth=grid_thickness,
+            color=line_color,
+            alpha=grid_opacity,
+            zorder=0,
+        )
+    if show_legend:
+        leg = ax.legend(**legend_params)
+        for text in leg.get_texts():
+            plt.setp(text, color=line_color)
+    else:
+        ax.legend([], frameon=False)
+
+
 def increase_ticklabel_fontsize(
     ax,
     fontsize: int = 12,
@@ -53,20 +150,6 @@ def customize_tick_props(
         color=color,
     )
     return ax
-
-
-def customize_axis(ax, show_grid: bool = False) -> None:
-    """Customize matplotlib axis properties."""
-    ax.spines["left"].set_edgecolor("grey")
-    ax.spines["left"].set_linewidth(1.5)
-    ax.spines["bottom"].set_edgecolor("grey")
-    ax.spines["bottom"].set_linewidth(1.5)
-    ax.spines["top"].set_edgecolor("whitesmoke")
-    ax.spines["top"].set_linewidth(1.5)
-    ax.spines["right"].set_edgecolor("whitesmoke")
-    ax.spines["right"].set_linewidth(1.5)
-    if show_grid:
-        ax.grid(which="both", axis="both", color="gainsboro", zorder=3)
 
 
 def plot_multi_line_threshold_chart(
@@ -118,7 +201,7 @@ def plot_histogram(
 ) -> None:
     """Plot histogram using seaborn."""
     if not ax:
-        fig, ax = plt.subplots(figsize=fig_size)
+        _, ax = plt.subplots(figsize=fig_size)
     ax = sns.histplot(
         data=data,
         x=xvar,
@@ -173,7 +256,7 @@ def plot_boxplot(
 ) -> None:
     """Plot a boxplot with seaborn."""
     if not ax:
-        fig, ax = plt.subplots(figsize=fig_size)
+        _, ax = plt.subplots(figsize=fig_size)
     ax = sns.boxplot(
         data=data,
         y=xvar,
@@ -242,7 +325,7 @@ def plot_grouped_barchart(
 ) -> None:
     """."""
     if not ax:
-        fig, ax = plt.subplots(figsize=fig_size)
+        _, ax = plt.subplots(figsize=fig_size)
     ax = sns.barplot(
         data=data,
         y=yvar,
